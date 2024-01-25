@@ -1,0 +1,23 @@
+# Virtual environment
+/venv/
+
+# Compiled Python files
+*.pyc
+rasaenv/
+# Logs
+/logs/
+
+# Rasa model files
+/models/
+
+# Rasa training data
+/data/
+
+# Rasa action server logs
+/actions/logs/
+
+# Rasa test results
+/results/
+
+# Rasa lock file
+.lock
