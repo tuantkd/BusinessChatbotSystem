@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chatbot</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{% static 'icons/chatbot.png' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/bootstrap-5.3.2.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styles.css' %}"
+    />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <section class="msger">
+      <header class="msger-header">
+        <div class="msger-header-title">
+            <div class="icon"><i class="fa fa-comment-o"></i></div>
+            <div class="text">Enterprises Chatbot</div>
+        </div>
+        <div class="msger-header-options"></div>
+      </header>
+
+      <main class="msger-chat" style="background-image: url('static/images/background.jpg');">
+        <!--<div class="msg left-msg">
+          <div
+            class="msg-img"
+            style="
+              background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg);
+            "
+          ></div>
+          <div class="msg-bubble">
+            <div class="msg-info">
+              <div class="msg-info-name">BOT</div>
+              <div class="msg-info-time">12:45</div>
+            </div>
+
+            <div class="msg-text">
+              Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
+            </div>
+          </div>
+        </div>-->
+
+        <!--<div class="msg right-msg">
+          <div
+            class="msg-img"
+            style="
+              background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg);
+            "
+          ></div>
+          <div class="msg-bubble">
+            <div class="msg-info">
+              <div class="msg-info-name">Sajad</div>
+              <div class="msg-info-time">12:46</div>
+            </div>
+
+            <div class="msg-text">You can change your name in JS section!</div>
+          </div>
+        </div>-->
+
+      </main>
+
+      <form class="msger-inputarea">
+        <input
+          type="text"
+          class="msger-input"
+          placeholder="Nhập tin nhắn..."
+        />
+        <button type="submit" class="msger-send-btn"><i class="fa fa-paper-plane"></i></button>
+      </form>
+    </section>
+
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+  </body>
+</html>
