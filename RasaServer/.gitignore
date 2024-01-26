@@ -10,9 +10,6 @@ rasaenv/
 # Rasa model files
 /models/
 
-# Rasa training data
-/data/
-
 # Rasa action server logs
 /actions/logs/
 
