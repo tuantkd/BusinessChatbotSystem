@@ -10,13 +10,17 @@ def chatbot(request):
 
 class ChatbotView(APIView):
     def post(self, request, format=None):
-        message = request.data.get('message')
-        sender_id = request.data.get('sender_id')
+        try:
+            user_message = request.data.get('message')
+            session_id = request.data.get('session_id')
+            sender = request.data.get('sender')
 
-        # Send message and sender_id to Rasa
-        rasa_endpoint = 'http://localhost:5005/webhooks/rest/webhook'  # Replace with your Rasa endpoint
-        data = {"message": message, "sender": sender_id}
-        response = requests.post(rasa_endpoint, json=data)
+            # Send message and sender_id to Rasa
+            rasa_endpoint = 'http://localhost:5055/webhooks/rest/webhook'  # Replace with your Rasa endpoint
+            data = {"message": user_message, "session_id": session_id, "sender": sender}
+            response = requests.post(rasa_endpoint, json=data)
 
-        # Return Rasa's response
-        return Response(response.json())
+            # Return Rasa's response
+            return Response(response.json(), status=200)
+        except Exception as e:
+            return Response({'error': str(e)}, status=500)
