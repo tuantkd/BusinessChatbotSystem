@@ -1,6 +1,6 @@
 # Virtual environment
 /venv/
-
+cache/
 # Compiled Python files
 *.pyc
 rasaenv/
