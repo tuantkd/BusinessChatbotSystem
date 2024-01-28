@@ -36,6 +36,21 @@ msgerForm.addEventListener("submit", event => {
     //botResponse();
 });
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Check if this cookie string begins with the name we want
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 
 function callApiChatbot(message) {
     data = {
@@ -46,12 +61,16 @@ function callApiChatbot(message) {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "/chatbot",
+        url: "/chat/chatbot",
         data: JSON.stringify(data),
         dataType: "json",
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
         success: function(res) {
             console.log(res);
-            botResponse(res.data);
+            botResponse(res[0].text);
         },
         error: function(result) {
             console.log(result);
