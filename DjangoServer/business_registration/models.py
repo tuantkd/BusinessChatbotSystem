@@ -48,6 +48,19 @@ class Business(models.Model):
     business_type = models.ForeignKey('BusinessType', on_delete=models.CASCADE) # Loại hình doanh nghiệp
     main_industry = models.ForeignKey('Industry', on_delete=models.CASCADE, related_name='+')  # Ngành nghề kinh doanh chính
 
+class BusinessStatusChange(models.Model):
+    business = models.ForeignKey(Business, on_delete=models.CASCADE)  # Khóa ngoại đến model Business
+    old_status = models.CharField(
+        max_length=2,
+        choices=BusinessStatus.choices,
+    )  # Trạng thái cũ của doanh nghiệp
+    new_status = models.CharField(
+        max_length=2,
+        choices=BusinessStatus.choices,
+    )  # Trạng thái mới của doanh nghiệp
+    change_date = models.DateField(auto_now_add=True)  # Ngày thay đổi trạng thái
+    # changed_by = models.ForeignKey('auth.User', on_delete=models.CASCADE)  # Người thực hiện thay đổi trạng thái
+
 class LegalRepresentative(models.Model):
     name = models.CharField(max_length=255)  # Tên của người đại diện pháp luật
     position = models.CharField(max_length=255)  # Chức vụ của người đại diện pháp luật
@@ -61,6 +74,19 @@ class BusinessOwner(models.Model):
 
 class BusinessType(models.Model):
     type_description = models.CharField(max_length=255) # Mô tả về loại hình doanh nghiệp
+
+class BusinessTypeStatus(models.Model):
+    business_type = models.ForeignKey(BusinessType, on_delete=models.CASCADE)  # Khóa ngoại đến model BusinessType
+    status = models.CharField(
+        max_length=2,
+        choices=BusinessStatus.choices,
+    )  # Trạng thái doanh nghiệp
+
+class BusinessProcessStep(models.Model):
+    business_type_status = models.ForeignKey(BusinessTypeStatus, on_delete=models.CASCADE)  # Khóa ngoại đến model BusinessTypeStatus
+    step_name = models.CharField(max_length=255)  # Tên của bước trong quy trình
+    step_order = models.IntegerField()  # Thứ tự của bước trong quy trình
+    step_description = models.TextField()  # Mô tả nội dung cho mỗi bước
 
 class Industry(models.Model):
     activity_code = models.IntegerField()  # Mã của ngành nghề kinh doanh
