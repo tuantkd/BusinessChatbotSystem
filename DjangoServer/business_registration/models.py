@@ -85,6 +85,7 @@ class Business(models.Model):
     business_type = models.ForeignKey('BusinessType', on_delete=models.CASCADE) # Loại hình doanh nghiệp
     main_industry = models.ForeignKey('Industry', on_delete=models.CASCADE, related_name='+')  # Ngành nghề kinh doanh chính
     headquarters_address = models.ForeignKey('Address', on_delete=models.CASCADE, related_name='+')  # Địa chỉ trụ sở chính
+    issue_date = models.DateField(null=True, blank=True)
     
 class BusinessStatusChange(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE)  # Khóa ngoại đến model Business
