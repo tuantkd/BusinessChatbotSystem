@@ -3,14 +3,14 @@ import random
 from django.db import models
 from django.contrib import admin
 
-from .models import Addresses, Contacts
+from .models import Contacts
 
-class AddressInline(admin.TabularInline):
-    model = Addresses
-    extra = 1  # how many rows to show
+# class AddressInline(admin.TabularInline):
+#     model = Addresses
+#     extra = 1  # how many rows to show
 
-    class Media:
-        js = ('js/address.js',)  # path to your JavaScript file
+#     class Media:
+#         js = ('js/address.js',)  # path to your JavaScript file
         
 class ContactInline(admin.TabularInline):
     model = Contacts
@@ -25,7 +25,7 @@ class BusinessAdmin(admin.ModelAdmin):
     search_fields = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
     list_per_page = 25
     readonly_fields = ('business_code',)
-    inlines = (AddressInline, ContactInline)
+    # inlines = (AddressInline, ContactInline)
     
 class LegalRepresentativeAdmin(admin.ModelAdmin):
     list_display = ('name', 'position')
