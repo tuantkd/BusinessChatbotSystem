@@ -136,3 +136,18 @@ class WardAdmin(admin.ModelAdmin):
     readonly_fields = ('administrative_unit','district')
 
 
+class BusinessTypeStatusAdmin(admin.ModelAdmin):
+    list_display = ('status', 'business_type')
+    list_display_links = ('status', 'business_type')
+    list_filter = ('status', 'business_type')
+    search_fields = ('status', 'business_type')
+    list_per_page = 25
+    
+
+class BusinessProcessStepAdmin(admin.ModelAdmin):
+    list_display = ('business_type_status', 'step_name', 'step_order', 'step_description')
+    list_display_links = ('business_type_status', 'step_name', 'step_order', 'step_description')
+    list_filter = ('business_type_status', 'step_name', 'step_order', 'step_description')
+    search_fields = ('business_type_status', 'step_name', 'step_order', 'step_description')
+    list_per_page = 25
+

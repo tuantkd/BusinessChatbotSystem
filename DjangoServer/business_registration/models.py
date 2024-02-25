@@ -331,7 +331,7 @@ class Ward(models.Model):
     class Meta:
         verbose_name = _("Ward")
         verbose_name_plural = _("Wards")
-        
+
     code = models.BigIntegerField(primary_key=True)
     name = models.CharField(_("Name"), max_length=255)
     name_en = models.CharField(_("Name (English)"), max_length=255, blank=True)
