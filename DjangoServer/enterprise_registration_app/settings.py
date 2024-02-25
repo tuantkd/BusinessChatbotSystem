@@ -9,17 +9,34 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import os
 from decouple import config
 from pathlib import Path
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+from django.utils.translation import gettext_lazy as _
 
+USE_I18N = True
+USE_L10N = True
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-+*gvgstj7^8l$($*m$1os6k5(hihb-%5)l%zd2t4^1b7*9lnq_'
+# Language settings
+LANGUAGE_CODE = 'vi'
+
+LANGUAGES = [
+    ('en', _('English')),
+    ('vi', _('Vietnamese')),
+    # Add more languages here if needed
+]
+
+
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -50,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 CSRF_COOKIE_SECURE = True
