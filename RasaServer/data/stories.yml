@@ -2,29 +2,25 @@ version: "3.1"
 
 stories:
 
-- story: happy path
+- story: Information about the business registration process
   steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_great
-  - action: utter_happy
-
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_greet
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_goodbye
+  - intent: inquire_business_registration
+  - action: utter_inquire_business_registration
+  - intent: business_types
+  - action: action_business_types
+  - intent: registration_requirements
+  - action: utter_registration_requirements
+  - intent: business_name_selection
+  - action: utter_business_name_selection
+  - intent: registration_agencies
+  - action: utter_registration_agencies
+  - intent: registration_fees
+  - action: utter_registration_fees
+  - intent: business_registration_timeframe
+  - action: utter_business_registration_timeframe
+  - intent: post_registration_steps
+  - action: utter_post_registration_steps
+  - intent: disclosure_requirements
+  - action: utter_disclosure_requirements
+  - intent: legal_assistance
+  - action: utter_legal_assistance

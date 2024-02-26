@@ -3,6 +3,16 @@ version: "3.1"
 intents:
   - greet
   - goodbye
+  - inquire_business_registration
+  - business_types
+  - registration_requirements
+  - business_name_selection
+  - registration_agencies
+  - registration_fees
+  - business_registration_timeframe
+  - post_registration_steps
+  - disclosure_requirements
+  - legal_assistance
 
 responses:
   utter_greet:
@@ -18,16 +28,76 @@ responses:
   - text: "Chào bạn! Bạn có câu hỏi hoặc yêu cầu gì đến dịch vụ của chúng tôi không?"
 
   utter_goodbye:
-  - text: "Tạm biệt! Nếu có bất kỳ câu hỏi nào khác, hãy đặt ra. Chúc bạn một ngày tốt lành!"
-  - text: "Chào tạm biệt! Nếu có thêm thắc mắc, hãy liên hệ. Chúc bạn mọi điều tốt lành!"
-  - text: "Hẹn gặp lại! Nếu cần sự giúp đỡ, đừng ngần ngại liên hệ. Chúc bạn một ngày tốt lành!"
-  - text: "Mình sẽ quay lại sau. Hãy giữ liên lạc! Chúc bạn mọi điều tốt lành!"
-  - text: "Tôi sẽ đi đây. Nếu cần thêm thông tin, đừng ngần ngại liên hệ. Chúc bạn mọi điều tốt lành!"
-  - text: "Hẹn gặp lại bạn sau nhé. Nếu có thắc mắc gì, hãy liên hệ. Chúc bạn một ngày tốt lành!"
-  - text: "Tôi sẽ quay lại. Nếu có câu hỏi nào, hãy đặt ra. Chúc bạn mọi điều tốt lành!"
-  - text: "Tạm biệt và chúc bạn một ngày tốt lành! Nếu cần giúp đỡ, đừng ngần ngại liên hệ."
-  - text: "Chúc bạn một ngày tốt lành và tạm biệt! Nếu có thêm câu hỏi, đừng ngần ngại hỏi."
-  - text: "Tôi phải đi, hẹn gặp lại sau. Nếu có vấn đề gì, hãy liên hệ. Chúc bạn mọi điều tốt lành!"
+  - text: "Nếu có bất kỳ câu hỏi nào khác, hãy đặt ra. Chúc bạn một ngày tốt lành!"
+  - text: "Nếu có thêm thắc mắc, hãy liên hệ. Chúc bạn mọi điều tốt lành!"
+  - text: "Nếu cần sự giúp đỡ, đừng ngần ngại liên hệ. Chúc bạn một ngày tốt lành!"
+  - text: "Hãy giữ liên lạc! Chúc bạn mọi điều tốt lành!"
+  - text: "Nếu cần thêm thông tin, đừng ngần ngại liên hệ. Chúc bạn mọi điều tốt lành!"
+  - text: "Nếu có thắc mắc gì, hãy liên hệ. Chúc bạn một ngày tốt lành!"
+  - text: "Nếu có câu hỏi nào, hãy đặt ra. Chúc bạn mọi điều tốt lành!"
+  - text: "Nếu cần giúp đỡ, đừng ngần ngại liên hệ."
+  - text: "Nếu có thêm câu hỏi, đừng ngần ngại hỏi."
+  - text: "Nếu có vấn đề gì, hãy liên hệ. Chúc bạn mọi điều tốt lành!"
+
+  utter_inquire_business_registration:
+  - text: "Quy trình đăng ký doanh nghiệp thường bao gồm: Xác định loại hình doanh nghiệp, Chọn tên doanh nghiệp, Lập hồ sơ đăng ký, Nộp hồ sơ, Thanh toán phí và nhận giấy chứng nhận."
+  - text: "Quy trình đăng ký doanh nghiệp gồm:\n
+          1. Chuẩn bị hồ sơ:\n 
+          - Tờ khai đăng ký doanh nghiệp: Sử dụng mẫu theo quy định của Bộ Kế hoạch và Đầu tư.\n
+          - Dự thảo Điều lệ công ty: Bao gồm thông tin về công ty, thành viên/cổ đông, vốn điều lệ, quyền và nghĩa vụ của thành viên/cổ đông ...\n
+          - Giấy đề nghị công bố thông tin đăng ký doanh nghiệp: Sử dụng mẫu theo quy định.\n
+          - Giấy ủy quyền: Nếu nộp hồ sơ qua người đại diện.\n
+          - Tài liệu chứng thực cá nhân: Căn cước công dân/hộ chiếu của chủ sở hữu, thành viên/cổ đông, người đại diện.\n
+          - Vốn điều lệ: Giấy xác nhận số dư tài khoản tại ngân hàng (nếu góp vốn bằng tiền) hoặc Giấy tờ chứng thực giá trị tài sản góp vốn
+          2. Nộp hồ sơ: \n
+          - Nộp trực tiếp: Tại Phòng Đăng ký kinh doanh thuộc Sở Kế hoạch và Đầu tư tỉnh/thành phố nơi doanh nghiệp đặt trụ sở chính.\n
+          - Nộp trực tuyến: Qua Cổng thông tin quốc gia về đăng ký doanh nghiệp.\n
+          3. Xét duyệt hồ sơ:\n
+          - Thời gian: Trong vòng 03 ngày làm việc kể từ ngày nhận đủ hồ sơ hợp lệ.\n
+          - Kết quả: Cấp Giấy chứng nhận đăng ký doanh nghiệp hoặc thông báo về việc từ chối đăng ký doanh nghiệp.\n
+          4. Công bố thông tin đăng ký doanh nghiệp:\n
+          - Doanh nghiệp có trách nhiệm công bố thông tin đăng ký doanh nghiệp trên Cổng thông tin quốc gia về đăng ký doanh nghiệp trong vòng 10 ngày làm việc kể từ ngày nhận được Giấy chứng nhận đăng ký doanh nghiệp."
+  
+  utter_business_types:
+  - text: "Có nhiều loại hình doanh nghiệp khác nhau như: {entity_business_type} mà bạn có thể đăng ký."
+  
+  utter_registration_requirements:
+  - text: "Đối với quy trình đăng ký doanh nghiệp, bạn cần chuẩn bị các giấy tờ như đăng ký kinh doanh, giấy phép thành lập, và thông tin về cổ đông."
+  
+  utter_business_name_selection:
+  - text: "Để chọn tên cho doanh nghiệp, bạn nên chọn một tên phù hợp và không trùng lặp với các doanh nghiệp khác đã đăng ký."
+  
+  utter_registration_agencies:
+  - text: "Cơ quan quản lý đăng ký doanh nghiệp có thể là Cơ quan Thuế, Sở Kế hoạch và Đầu tư, hoặc cơ quan tương tự tại địa phương của bạn."
+  
+  utter_registration_fees:
+  - text: "Chi phí đăng ký doanh nghiệp có thể bao gồm phí đăng ký, phí xác nhận và các khoản phí khác. Chi phí cụ thể sẽ phụ thuộc vào loại hình doanh nghiệp và quy định địa phương."
+  
+  utter_business_registration_timeframe:
+  - text: "Thời gian để hoàn thành quy trình đăng ký doanh nghiệp thường phụ thuộc vào quy định địa phương, nhưng thường mất từ vài tuần đến một vài tháng."
+  
+  utter_post_registration_steps:
+  - text: "Sau khi đăng ký, bạn có thể cần thực hiện các bước như mở tài khoản ngân hàng doanh nghiệp, đăng ký mã số thuế, và tuỳ thuộc vào yêu cầu cụ thể của quốc gia."
+  
+  utter_disclosure_requirements:
+  - text: "Có thể có yêu cầu về công bố thông tin sau khi đăng ký doanh nghiệp, nên bạn cần kiểm tra và tuân thủ các quy định liên quan."
+  
+  utter_legal_assistance:
+  - text: "Nếu cần, bạn có thể tìm kiếm sự hỗ trợ từ chuyên gia pháp lý để đảm bảo quá trình đăng ký doanh nghiệp diễn ra thuận lợi."
+
+entities:
+  - entity_business_type
+
+actions:
+  - action_business_types
+
+slots:
+  business_type:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: entity_business_type
 
 session_config:
   session_expiration_time: 60

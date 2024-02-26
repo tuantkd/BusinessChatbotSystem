@@ -35,7 +35,34 @@
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/RasaServer",
-            "python": "${workspaceFolder}/RaasServer/venv/Scripts/python.exe"
+            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
+        },
+        {
+            "name": "Rasa Action Server",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "rasa",
+            "args": [
+                "run",
+                "actions",
+                "--port",
+                "5005",
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/RasaServer",
+            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
+        },
+        {
+            "name": "Rasa Server Train",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "rasa",
+            "args": [
+                "train"
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/RasaServer",
+            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
         },
     ]
 }

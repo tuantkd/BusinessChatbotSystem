@@ -151,3 +151,4 @@ project_content.txt
 tree.py
 
 changes.log
+RasaServer/.rasa/cache/cache.db
