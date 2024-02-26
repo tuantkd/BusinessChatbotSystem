@@ -1,18 +1,27 @@
 version: "3.1"
 
 nlu:
+- synonym: loại hình doanh nghiệp
+  examples: |
+    - dạng công ty
+    - loại hình
+    - loại hình kinh doanh
+    - hình thức kinh doanh
+    - hình thức doanh nghiệp
+    - hình thức
+
 - intent: greet
   examples: |
-    - Chào bạn! 
-    - Xin chào!
-    - Hi!
-    - Hello!
-    - Hey!
-    - Xin chào các bạn!
-    - Gì mới?
-    - Chào buổi sáng!
-    - Chào buổi chiều!
-    - Xin chào, bạn khỏe không?
+    - Chào bạn
+    - Xin chào
+    - Hi
+    - Hello
+    - Hey
+    - Xin chào bạn
+    - Gì mới
+    - Chào buổi sáng
+    - Chào buổi chiều
+    - Xin chào, bạn khỏe không
 
 - intent: goodbye
   examples: |
@@ -26,3 +35,66 @@ nlu:
     - Tạm biệt và chúc bạn một ngày tốt lành
     - Chúc bạn một ngày tốt lành và tạm biệt
     - Tôi phải đi, hẹn gặp lại sau
+
+- intent: inquire_business_registration
+  examples: |
+    - Quy trình xác nhận đăng ký doanh nghiệp như thế nào?
+    - Làm thế nào để đăng ký một doanh nghiệp?
+    - Quy trình đăng ký doanh nghiệp như thế nào?
+    - Bước nào cần thiết để thành lập một công ty?
+    - Các bước đăng ký doanh nghiệp là gì?
+
+- intent: business_types
+  examples: |
+    - Có những [loại hình doanh nghiệp](entity_business_type) nào có thể đăng ký?
+    - Các [dạng công ty](entity_business_type) nào có sẵn để lựa chọn?
+    - [Loại hình doanh nghiệp](entity_business_type) phổ biến là gì?
+    - Các [loại hình doanh nghiệp](entity_business_type) nào có khả năng đăng ký?
+    - Đăng ký doanh nghiệp có thể áp dụng cho những [loại hình](entity_business_type) nào?
+    - [Hình thức kinh doanh](entity_business_type) nào có thể được đăng ký tại địa phương?
+    - Có những [loại hình](entity_business_type) nào khi quyết định đăng ký doanh nghiệp?
+    - Đăng ký doanh nghiệp áp dụng cho những [loại hình kinh doanh](entity_business_type) gì?
+    - [Hình thức doanh nghiệp](entity_business_type) nào là hợp lý để đăng ký tại thị trường hiện nay?
+    - Có những [loại hình doanh nghiệp](entity_business_type) nào có thể được chấp nhận đăng ký bởi cơ quan quản lý?
+    - Đăng ký doanh nghiệp áp dụng cho [loại hình kinh doanh](entity_business_type) nào ở cấp quốc tế?
+    - Khi muốn mở doanh nghiệp, những [hình thức](entity_business_type) nào có thể được xem xét để đăng ký?
+
+- intent: registration_requirements
+  examples: |
+    - Những giấy tờ gì cần thiết để đăng ký doanh nghiệp?
+    - Tôi cần chuẩn bị những thông tin gì cho quy trình đăng ký?
+
+- intent: business_name_selection
+  examples: |
+    - Làm thế nào để chọn tên cho doanh nghiệp của mình?
+    - Quy tắc gì khi đặt tên cho công ty?
+
+- intent: registration_agencies
+  examples: |
+    - Ai là cơ quan quản lý đăng ký doanh nghiệp ở địa phương của tôi?
+    - Nơi nào tôi có thể nộp hồ sơ đăng ký doanh nghiệp?
+
+- intent: registration_fees
+  examples: |
+    - Phải thanh toán những khoản phí nào khi đăng ký doanh nghiệp?
+    - Chi phí đăng ký doanh nghiệp là bao nhiêu?
+
+- intent: business_registration_timeframe
+  examples: |
+    - Quy trình đăng ký doanh nghiệp mất bao lâu?
+    - Thời gian cần thiết để có giấy chứng nhận đăng ký là bao lâu?
+
+- intent: post_registration_steps
+  examples: |
+    - Sau khi đăng ký, tôi cần thực hiện những bước gì tiếp theo?
+    - Các bước cần làm sau khi thành lập doanh nghiệp là gì?
+
+- intent: disclosure_requirements
+  examples: |
+    - Có yêu cầu nào về công bố thông tin sau khi đăng ký doanh nghiệp không?
+    - Tôi cần công bố thông tin gì sau khi thành lập doanh nghiệp?
+
+- intent: legal_assistance
+  examples: |
+    - Tôi có cần sự hỗ trợ pháp lý khi đăng ký doanh nghiệp không?
+    - Làm thế nào để có sự giúp đỡ pháp lý trong quá trình đăng ký doanh nghiệp?

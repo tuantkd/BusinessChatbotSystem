@@ -1,11 +1,8 @@
 import requests
 from .db_config import cursor, connection
 
-def get_categories(categories):
-    formatted_categories = ', '.join(f"'{category}'" for category in categories)
-    if formatted_categories == "":
-        return []
-    query = f"SELECT * FROM category WHERE category_name IN ({formatted_categories})"
+def get_business_types():
+    query = f"SELECT * FROM business_registration_businesstype"
     cursor.execute(query)
     result = cursor.fetchall()
     return result
