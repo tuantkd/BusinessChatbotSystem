@@ -63,27 +63,87 @@ responses:
   
   utter_registration_requirements:
   - text: "Đối với quy trình đăng ký doanh nghiệp, bạn cần chuẩn bị các giấy tờ như đăng ký kinh doanh, giấy phép thành lập, và thông tin về cổ đông."
+  - text: " Để đăng ký doanh nghiệp tại Việt Nam, bạn cần chuẩn bị những giấy tờ sau:\n
+            1. Giấy đề nghị đăng ký doanh nghiệp: Mẫu số ĐK01/ĐKKD do Bộ Kế hoạch và Đầu tư ban hành.\n
+            2. Điều lệ công ty: Do các thành viên/cổ đông sáng lập lập và thống nhất nội dung.\n
+            3. Danh sách thành viên/cổ đông sáng lập: Mẫu số ĐK02/ĐKKD do Bộ Kế hoạch và Đầu tư ban hành.\n
+            4. Bản sao hợp lệ các giấy tờ pháp lý của chủ sở hữu:\n
+            - Cá nhân: Chứng minh nhân dân/Căn cước công dân; Hộ chiếu (nếu có).\n
+            - Tổ chức: Giấy phép đăng ký kinh doanh; Giấy chứng nhận đăng ký đầu tư (nếu có).\n
+            5. Giấy ủy quyền (nếu có): Mẫu số ĐK03/ĐKKD do Bộ Kế hoạch và Đầu tư ban hành.\n
+            6. Các giấy tờ khác:\n
+            - Giấy chứng nhận đủ điều kiện kinh doanh: Do cơ quan nhà nước có thẩm quyền cấp (nếu ngành nghề kinh doanh yêu cầu).\n
+            - Giấy phép hoạt động: Do cơ quan nhà nước có thẩm quyền cấp (nếu ngành nghề kinh doanh yêu cầu).\n
+            - Văn bản cam kết: Của chủ sở hữu về việc thực hiện các quy định của pháp luật về doanh nghiệp.\n
+            Ngoài ra, bạn cũng cần chuẩn bị bản sao hợp lệ của tất cả các giấy tờ trên."
   
   utter_business_name_selection:
   - text: "Để chọn tên cho doanh nghiệp, bạn nên chọn một tên phù hợp và không trùng lặp với các doanh nghiệp khác đã đăng ký."
+  - text: "Có nhiều cách để chọn tên cho doanh nghiệp của bạn.\n
+          Bạn có thể đặt tên theo ngành nghề kinh doanh, theo tên riêng của chủ doanh nghiệp, theo địa danh, hoặc theo phong thủy.\n
+          Dưới đây là một số mẹo để chọn tên hay cho doanh nghiệp:\n
+          - Tên nên ngắn gọn, dễ nhớ và dễ phát âm.\n
+          - Tên nên có ý nghĩa liên quan đến ngành nghề kinh doanh của bạn.\n
+          - Tên nên độc đáo và không trùng với tên của các doanh nghiệp khác.\n
+          - Tên nên dễ dàng đăng ký tên miền và thương hiệu."
   
   utter_registration_agencies:
   - text: "Cơ quan quản lý đăng ký doanh nghiệp có thể là Cơ quan Thuế, Sở Kế hoạch và Đầu tư, hoặc cơ quan tương tự tại địa phương của bạn."
-  
+  - text: "Bạn có thể đến Văn phòng Đăng ký kinh doanh trong khu vực của bạn để nộp hồ sơ đăng ký doanh nghiệp. Địa chỉ cụ thể có thể được tìm thấy trên trang web của cơ quan đăng ký kinh doanh địa phương hoặc thông qua các dịch vụ tư vấn doanh nghiệp."
+
   utter_registration_fees:
-  - text: "Chi phí đăng ký doanh nghiệp có thể bao gồm phí đăng ký, phí xác nhận và các khoản phí khác. Chi phí cụ thể sẽ phụ thuộc vào loại hình doanh nghiệp và quy định địa phương."
+  - text: "Chi phí thành lập doanh nghiệp gồm:\n
+          1. Lệ phí đăng ký thành lập doanh nghiệp:\n
+          - Theo Thông tư 47/2019/TT-BTC ngày 05 tháng 08 năm 2019 của Bộ trưởng Bộ Tài Chính quy định lệ phí đăng ký doanh nghiệp là 50.000 đồng/lần, bao gồm: Cấp mới, cấp lại, thay đổi nội dung Giấy chứng nhận đăng ký doanh nghiệp và Giấy chứng nhận đăng ký hoạt động chi nhánh, văn phòng đại diện, địa điểm kinh doanh của doanh nghiệp.\n
+          2. Phí công bố nội dung đăng ký doanh:\n
+          - Mức phí công bố nội dung đăng ký doanh nghiệp là 100.000 đồng/lần, theo Thông tư 47/2019/TT-BTC ngày 05 tháng 08 năm 2019 của Bộ trưởng Bộ Tài Chính.\n
+          3. Chi phí khắc con dấu doanh nghiệp:\n
+          - Trên thị trường chi phí khắc con dấu tròn công ty dao động từ 200.000 đồng đến 500.000 đồng, tùy thuộc vào đơn vị cung cấp dịch vụ và loại con dấu của bên yêu cầu. Đối với khắc con dấu chức danh, mức giá sẽ giao động từ 80.000 đồng đến 150.000 đồngn
+          4. Chi phí mua chữ ký số khai thuế:\n
+          - Chi phí mua chữ ký số khai thuế khi thành lập công ty thời hạn 1 năm dao động tầm khoảng 1.600.000 đồng và thời hạn 3 năm là 2.700.000 đồng.\n
+          5. Chi phí mở tài khoản ngân hàng:\n
+          - Chi phí mở tài khoản ngân hàng được miễn phí. Tuy nhiên ngân hàng thường bắt buộc ký quỹ duy trì tài khoản: 1.000.000 đồng. Sau này nếu doanh nghiệp đóng tài khoản thì ngân hàng sẽ hoàn trả lại chi phí ký quỹ.\n
+          6. Chi phí mua hóa đơn điện tử và phát hành hóa đơn:\n
+          - Chi phí mua hóa đơn điện tử và phát hành hóa đơn khi thành lập công ty dao động khoảng 935.000 đồng đến 2.000.000 đồng tùy thuộc vào số lượng hóa đơn đăng ký. Theo Nghị định 123/2020/NĐ-CP, từ ngày 01 tháng 07 năm 2022, doanh nghiệp bắt buộc phải sử dụng hóa đơn điện tử khi xuất hóa đơn cho khách hàng.\n
+          7. Lệ phí môn bài cần đóng hết:\n
+          - Vốn điều lệ trên 10 tỷ đồng thì mức lệ phí môn bài là 3.000.000 đồng/năm.\n
+          - Vốn điều lệ từ dưới 10 tỷ thì mức lệ phí môn bài là 2.000.000 đồng/năm."
   
   utter_business_registration_timeframe:
   - text: "Thời gian để hoàn thành quy trình đăng ký doanh nghiệp thường phụ thuộc vào quy định địa phương, nhưng thường mất từ vài tuần đến một vài tháng."
+  - text: "Thời gian xử lý hồ sơ đăng ký thường mất khoảng 2-4 tuần. Tuy nhiên, có thể có biến động tùy thuộc vào quy trình và yêu cầu cụ thể của bạn. Hãy kiên nhẫn và theo dõi thông báo."
+  - text: "Thời gian cần thiết để xử lý hồ sơ đăng ký thường là khoảng 3 tuần. Bạn sẽ nhận được thông báo khi quá trình hoàn tất."
+  - text: "Quá trình xử lý đăng ký mất khoảng 2-4 tuần. Bạn có thể theo dõi tiến trình qua trang website hệ thống doanh nghiệp hoặc liên hệ trực tiếp."
+  - text: "Xử lý hồ sơ đăng ký một cách nhanh chóng nhất. Thời gian chính xác có thể thay đổi, nhưng thường là khoảng 3 tuần. Xin lưu ý rằng có thể có yếu tố bên ngoài ảnh hưởng đến thời gian này."
+  - text: "Thời gian xử lý hồ sơ đăng ký thường là 2-3 tuần. Hãy chắc chắn rằng tất cả thông tin cần thiết đã được cung cấp chính xác để đảm bảo quá trình diễn ra thuận lợi."
   
   utter_post_registration_steps:
-  - text: "Sau khi đăng ký, bạn có thể cần thực hiện các bước như mở tài khoản ngân hàng doanh nghiệp, đăng ký mã số thuế, và tuỳ thuộc vào yêu cầu cụ thể của quốc gia."
+  - text: "Các bước cần thực hiện sau khi thành lập doanh nghiệp có thể bao gồm:\n
+          1. Xây dựng kế hoạch kinh doanh chi tiết.\n
+          2. Đăng ký thuế và các vấn đề liên quan.\n
+          3. Tìm kiếm và xây dựng đội ngũ nhân sự.\n
+          4. Xây dựng chiến lược tiếp thị và quảng cáo.\n
+          5. Quản lý tài chính và kế toán.\n
+          6. Nghiên cứu thị trường và cạnh tranh.\n
+          7. Phát triển sản phẩm hoặc dịch vụ.\n
+          8. Xây dựng mối quan hệ với khách hàng và đối tác.\n
+          9. Theo dõi và đánh giá hiệu suất kinh doanh.\n
+          10. Điều chỉnh kế hoạch kinh doanh theo thời gian."
   
   utter_disclosure_requirements:
-  - text: "Có thể có yêu cầu về công bố thông tin sau khi đăng ký doanh nghiệp, nên bạn cần kiểm tra và tuân thủ các quy định liên quan."
-  
+  - text: "Sau khi bạn đã thành lập doanh nghiệp, bạn cần công bố các thông tin như tên công ty, địa chỉ đăng ký kinh doanh, mã số thuế, ngành nghề kinh doanh, vốn điều lệ, và các thông tin liên quan đến cơ cấu tổ chức, thành viên trong công ty."
+
   utter_legal_assistance:
-  - text: "Nếu cần, bạn có thể tìm kiếm sự hỗ trợ từ chuyên gia pháp lý để đảm bảo quá trình đăng ký doanh nghiệp diễn ra thuận lợi."
+  - text: "Để có sự giúp đỡ pháp lý trong quá trình đăng ký doanh nghiệp, bạn có thể tham khảo các nguồn thông tin từ Bộ Tư pháp, các trung tâm hỗ trợ doanh nghiệp, hoặc tìm kiếm sự hỗ trợ từ luật sư và chuyên gia pháp lý."
+  - text: "Có nhiều cách để nhận sự giúp đỡ pháp lý khi đăng ký doanh nghiệp, bạn có thể tham khảo tại các cơ quan quản lý, trung tâm hỗ trợ kinh doanh, hoặc tìm kiếm tư vấn từ luật sư chuyên nghiệp."
+  - text: "Hãy tham khảo nguồn thông tin từ Bộ Tư pháp và các trung tâm hỗ trợ doanh nghiệp để có sự hỗ trợ pháp lý chính xác khi bạn đăng ký doanh nghiệp."
+  - text: "Bạn có thể tìm kiếm sự hỗ trợ pháp lý thông qua các cơ quan chính phủ, trung tâm hỗ trợ kinh doanh địa phương hoặc liên hệ với luật sư có chuyên môn về doanh nghiệp để được tư vấn."
+  - text: "Hãy xem xét các nguồn thông tin từ Bộ Tư pháp, trung tâm hỗ trợ doanh nghiệp và các tổ chức chuyên nghiệp để có sự giúp đỡ pháp lý khi bạn bắt đầu quá trình đăng ký doanh nghiệp."
+  - text: "Các hướng dẫn chi tiết về quá trình pháp lý đăng ký doanh nghiệp thường có sẵn trên các trang web của cơ quan quản lý và Bộ Tư pháp, hãy tham khảo những nguồn này để hiểu rõ hơn về các quy trình."
+  - text: "Để tìm kiếm luật sư hoặc chuyên gia pháp lý, bạn có thể tham khảo tại các hội đồng luật sư, tổ chức chuyên nghiệp hoặc sử dụng dịch vụ tư vấn pháp lý trực tuyến."
+  - text: "Nếu bạn đang cần sự hỗ trợ pháp lý, hãy liên hệ với các tổ chức như Trung tâm Hỗ trợ Doanh nghiệp, các cơ quan quản lý địa phương hoặc tìm kiếm tư vấn từ luật sư kinh nghiệm."
+  - text: "Các cơ quan chính phủ và trung tâm hỗ trợ doanh nghiệp thường cung cấp thông tin và tư vấn pháp lý miễn phí cho doanh nghiệp, hãy kiểm tra những nguồn này để có sự giúp đỡ pháp lý."
+  - text: "Tìm kiếm thông tin từ cơ quan quản lý, Bộ Tư pháp, và các trung tâm hỗ trợ kinh doanh sẽ giúp bạn hiểu rõ về quy trình pháp lý khi đăng ký doanh nghiệp."
 
 entities:
   - entity_business_type
