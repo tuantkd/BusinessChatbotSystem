@@ -1,26 +1,52 @@
 version: "3.1"
 
 stories:
-
-- story: Information about the business registration process
+- story: Consulting on the registration process
   steps:
   - intent: inquire_business_registration
   - action: utter_inquire_business_registration
+
+- story: Determine the needs of the type of business
+  steps:
   - intent: business_types
   - action: action_business_types
+
+- story: Ask for business registration documents
+  steps:
   - intent: registration_requirements
   - action: utter_registration_requirements
+
+- story: Choose business name
+  steps:
   - intent: business_name_selection
   - action: utter_business_name_selection
+
+- story: Ask business registration location
+  steps:
   - intent: registration_agencies
   - action: utter_registration_agencies
+
+- story: Ask registration cost
+  steps:
   - intent: registration_fees
   - action: utter_registration_fees
+
+- story: Ask registration duration time frame
+  steps:
   - intent: business_registration_timeframe
   - action: utter_business_registration_timeframe
+
+- story: Steps after business establishment
+  steps:
   - intent: post_registration_steps
   - action: utter_post_registration_steps
+
+- story: Information publication
+  steps:
   - intent: disclosure_requirements
   - action: utter_disclosure_requirements
+
+- story: Legal support registration
+  steps:
   - intent: legal_assistance
   - action: utter_legal_assistance
