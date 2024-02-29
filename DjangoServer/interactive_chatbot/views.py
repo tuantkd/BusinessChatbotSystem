@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import requests
+from .constant import RASA_ENDPOINT
 
 # Create your views here.
 
@@ -16,9 +17,8 @@ class ChatbotView(APIView):
             sender = request.data.get('sender')
 
             # Send message and sender_id to Rasa
-            rasa_endpoint = 'http://localhost:5055/webhooks/rest/webhook'  # Replace with your Rasa endpoint
             data = {"message": user_message, "session_id": session_id, "sender": sender}
-            response = requests.post(rasa_endpoint, json=data)
+            response = requests.post(RASA_ENDPOINT, json=data)
 
             # Return Rasa's response
             return Response(response.json(), status=200)
