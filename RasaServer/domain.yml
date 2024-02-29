@@ -13,6 +13,9 @@ intents:
   - post_registration_steps
   - disclosure_requirements
   - legal_assistance
+  - register_business_procedure
+  - register_business_type_name
+  - register_type_of_business
 
 responses:
   utter_greet:
@@ -145,11 +148,24 @@ responses:
   - text: "Các cơ quan chính phủ và trung tâm hỗ trợ doanh nghiệp thường cung cấp thông tin và tư vấn pháp lý miễn phí cho doanh nghiệp, hãy kiểm tra những nguồn này để có sự giúp đỡ pháp lý."
   - text: "Tìm kiếm thông tin từ cơ quan quản lý, Bộ Tư pháp, và các trung tâm hỗ trợ kinh doanh sẽ giúp bạn hiểu rõ về quy trình pháp lý khi đăng ký doanh nghiệp."
 
+  utter_register_business_procedure:
+  - text: "Thủ tục đăng ký doanh nghiệp: Bước đầu tiên bạn chọn Loại hình doanh nghiệp mà bạn muốn đăng ký. Đây có nhiều loại hình doanh nghiệp: business_types={business_types}"
+  
+  utter_register_business_type_name:
+  - text: "Chọn loại đăng ký doanh nghiệp: type_of_business={type_of_business}"
+
+  utter_register_type_of_business:
+  - text: "Thông tin chi tiết: {contents}"
+
 entities:
-  - entity_business_type
+  - business_type_name
+  - type_of_business_name
 
 actions:
   - action_business_types
+  - action_register_business_procedure
+  - action_register_business_type_name
+  - action_register_type_of_business
 
 slots:
   business_type:
@@ -157,7 +173,13 @@ slots:
     influence_conversation: true
     mappings:
       - type: from_entity
-        entity: entity_business_type
+        entity: business_type_name
+  type_of_business:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: type_of_business_name
 
 session_config:
   session_expiration_time: 60

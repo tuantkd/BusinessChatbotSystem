@@ -46,18 +46,18 @@ nlu:
 
 - intent: business_types
   examples: |
-    - Có những [loại hình doanh nghiệp](entity_business_type) nào có thể đăng ký?
-    - Các [dạng công ty](entity_business_type) nào có sẵn để lựa chọn?
-    - [Loại hình doanh nghiệp](entity_business_type) phổ biến là gì?
-    - Các [loại hình doanh nghiệp](entity_business_type) nào có khả năng đăng ký?
-    - Đăng ký doanh nghiệp có thể áp dụng cho những [loại hình](entity_business_type) nào?
-    - [Hình thức kinh doanh](entity_business_type) nào có thể được đăng ký tại địa phương?
-    - Có những [loại hình](entity_business_type) nào khi quyết định đăng ký doanh nghiệp?
-    - Đăng ký doanh nghiệp áp dụng cho những [loại hình kinh doanh](entity_business_type) gì?
-    - [Hình thức doanh nghiệp](entity_business_type) nào là hợp lý để đăng ký tại thị trường hiện nay?
-    - Có những [loại hình doanh nghiệp](entity_business_type) nào có thể được chấp nhận đăng ký bởi cơ quan quản lý?
-    - Đăng ký doanh nghiệp áp dụng cho [loại hình kinh doanh](entity_business_type) nào ở cấp quốc tế?
-    - Khi muốn mở doanh nghiệp, những [hình thức](entity_business_type) nào có thể được xem xét để đăng ký?
+    - Có những loại hình doanh nghiệp nào có thể đăng ký?
+    - Các dạng công ty nào có sẵn để lựa chọn?
+    - Loại hình doanh nghiệp phổ biến là gì?
+    - Các loại hình doanh nghiệp nào có khả năng đăng ký?
+    - Đăng ký doanh nghiệp có thể áp dụng cho những loại hình nào?
+    - Hình thức kinh doanh nào có thể được đăng ký tại địa phương?
+    - Có những loại hình nào khi quyết định đăng ký doanh nghiệp?
+    - Đăng ký doanh nghiệp áp dụng cho những loại hình kinh doanh gì?
+    - Hình thức doanh nghiệp nào là hợp lý để đăng ký tại thị trường hiện nay?
+    - Có những loại hình doanh nghiệp nào có thể được chấp nhận đăng ký bởi cơ quan quản lý?
+    - Đăng ký doanh nghiệp áp dụng cho loại hình kinh doanh nào ở cấp quốc tế?
+    - Khi muốn mở doanh nghiệp, những hình thức nào có thể được xem xét để đăng ký?
 
 - intent: registration_requirements
   examples: |
@@ -154,3 +154,39 @@ nlu:
     - Tôi có thể làm gì để đảm bảo tôi được hỗ trợ pháp lý đầy đủ khi mở doanh nghiệp?
     - Có những dịch vụ nào cung cấp hỗ trợ pháp lý cho doanh nghiệp mới?
     - Làm thế nào để tìm kiếm nguồn hỗ trợ pháp lý chất lượng khi đăng ký doanh nghiệp?
+
+- intent: register_business_procedure
+  examples: |
+    - Thủ tục đăng ký doanh nghiệp như thế nào?
+    - Bước phải thực hiện khi muốn đăng ký kinh doanh là gì?
+    - Có thể giúp tôi thủ tục đăng ký doanh nghiệp?
+    - Hướng dẫn thủ tục đăng ký kinh doanh cho người mới bắt đầu?
+    - Hướng dẫn thủ tục đăng ký doanh nghiệp
+
+- intent: register_business_type_name
+  examples: |
+    - [Công ty trách nhiệm hữu hạn hai thành viên trở lên](business_type_name)
+    - [Doanh nghiệp tư nhân](business_type_name)
+    - [Công ty hợp danh](business_type_name)
+    - [Công ty cổ phần](business_type_name)
+    - [Công ty trách nhiệm hữu hạn một thành viên](business_type_name)
+    - [Chi nhánh văn phòng đại diện](business_type_name)
+    - [Địa điểm kinh doanh](business_type_name)
+    - [Tổ chức lại doanh nghiệp](business_type_name)
+    - [Hộ kinh doanh](business_type_name)
+
+- intent: register_type_of_business
+  examples: |
+    - [Thành lập mới](type_of_business_name)
+    - [Đăng ký thay đổi](type_of_business_name)
+    - [Thông báo thay đổi](type_of_business_name)
+    - [Tạm ngừng](type_of_business_name)
+    - [Giải thể](type_of_business_name)
+    - [Chấm dứt hợp đồng](type_of_business_name)
+    - [Tạm ngừng kinh doanh - tiếp tục kinh doanh trước thời hạn](type_of_business_name)
+    - [Tổ chức lại doanh nghiệp](type_of_business_name)
+    - [Chia doanh nghiệp](type_of_business_name)
+    - [Tách doanh nghiệp](type_of_business_name)
+    - [Hợp nhất doanh nghiệp](type_of_business_name)
+    - [Chuyển đôi loại hình doanh nghiệp](type_of_business_name)
+    - [Địa điểm kinh doanh](type_of_business_name)

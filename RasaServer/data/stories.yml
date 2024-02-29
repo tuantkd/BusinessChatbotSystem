@@ -50,3 +50,13 @@ stories:
   steps:
   - intent: legal_assistance
   - action: utter_legal_assistance
+
+# ==========================================
+- story: Business registration procedures
+  steps:
+  - intent: register_business_procedure
+  - action: action_register_business_procedure
+  - intent: register_business_type_name
+  - action: action_register_business_type_name
+  - intent: register_type_of_business
+  - action: action_register_type_of_business

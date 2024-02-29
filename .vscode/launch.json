@@ -53,7 +53,7 @@
             "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
         },
         {
-            "name": "Rasa Server Train",
+            "name": "Rasa Train",
             "type": "debugpy",
             "request": "launch",
             "module": "rasa",

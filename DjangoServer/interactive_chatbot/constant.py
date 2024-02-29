@@ -1,0 +1,1 @@
+RASA_ENDPOINT = 'http://localhost:5055/webhooks/rest/webhook'
