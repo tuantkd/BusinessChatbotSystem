@@ -1,20 +1,20 @@
 const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
 const msgerChat = get(".msger-chat");
-
-const BOT_MSGS = [];
-
-const BOT_IMG = "static/icons/chat.png";
-const PERSON_IMG = "static/icons/user.png";
+const BOT_IMG = "http://127.0.0.1:8000/static/icons/chat.png";
+const PERSON_IMG = "http://127.0.0.1:8000/static/icons/user.png";
 const BOT_NAME = "BOT";
 const PERSON_NAME = "User";
+const BOT_MSGS = [];
 
 let senderId = localStorage.getItem('senderId');
 
+let countInputTypeBtn = 0;
+
 // If not, create a new one and save it to localStorage
 if (!senderId) {
-  senderId = 'user-' + Date.now();
-  localStorage.setItem('senderId', senderId);
+    senderId = 'user-' + Date.now();
+    localStorage.setItem('senderId', senderId);
 }
 
 msgerForm.addEventListener("submit", event => {
@@ -26,14 +26,12 @@ msgerForm.addEventListener("submit", event => {
     const message = {
         text: msgText,
         senderId: senderId
-      };
-    
+    };
+
     callApiChatbot(message);
-    
+
     appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
     msgerInput.value = "";
-
-    //botResponse();
 });
 
 function getCookie(name) {
@@ -68,44 +66,57 @@ function callApiChatbot(message) {
             'Content-Type': 'application/json',
             'X-CSRFToken': getCookie('csrftoken')
         },
-        success: function(res) {
+        success: function (res) {
             console.log(res);
             botResponse(res[0].text);
+            var buttons = document.querySelectorAll('input[type="button"]');
+            getEventCallApi(buttons);
         },
-        error: function(result) {
+        error: function (result) {
             console.log(result);
-            botResponse("Sorry, I don't understand");
+            botResponse("Xin lỗi! Tôi chưa hiểu ý của bạn");
         }
     });
 }
 
 function appendMessage(name, img, side, text) {
     const msgHTML = `
-    <div class="msg ${side}-msg">
-      <div class="msg-img" style="background-image: url(${img})"></div>
-
-      <div class="msg-bubble">
-        <div class="msg-info">
-          <div class="msg-info-name">${name}</div>
-          <div class="msg-info-time">${formatDate(new Date())}</div>
+        <div class="msg ${side}-msg">
+        <div class="msg-img" style="background-image: url(${img})"></div>
+        <div class="msg-bubble">
+            <div class="msg-info">
+                <div class="msg-info-name">${name}</div>
+                <div class="msg-info-time">${formatDate(new Date())}</div>
+            </div>
+            <div class="msg-text">${text}</div>
         </div>
-        <div class="msg-text">${text}</div>
-      </div>
-    </div>
-  `;
+        </div>
+    `;
 
     msgerChat.insertAdjacentHTML("beforeend", msgHTML);
     msgerChat.scrollTop += 500;
 }
 
 function botResponse(msgText) {
-    //const r = random(0, BOT_MSGS.length - 1);
-    //const msgText = BOT_MSGS[r];
-    //const delay = msgText.split(" ").length * 100;
-
-    setTimeout(() => {
+    const isBusinessTypes = msgText.indexOf("business_types=");
+    if (isBusinessTypes !== -1) {
+        handleBusinessTypes(msgText);
+    } else {
         appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
-    }, 100);
+    }
+}
+
+function handleBusinessTypes(textResponse) {
+    textFull = textResponse.split('business_types=');
+    btnList = textFull[0];
+    textSingles = textFull[1].split(',');
+    let key = 0;
+    for (const textMes of textSingles) {
+        btnList += '<input type="button" id="button_' + (key++) + '" value="' + textMes + '">';
+    }
+    btnList += "<br>Vui lòng chọn để biết thêm thông tin";
+    appendMessage(BOT_NAME, BOT_IMG, "left", btnList);
+    countInputTypeBtn = textSingles.length;
 }
 
 function get(selector, root = document) {
@@ -121,4 +132,29 @@ function formatDate(date) {
 
 function random(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
+}
+
+function getEventCallApi(buttons) {
+    for (var i = 0; i < buttons.length; i++) {
+        if (buttons[i].type === 'button') {
+            buttons[i].addEventListener('click', function() {
+                console.log(this.value);
+                const message = {
+                    text: this.value,
+                    senderId: senderId
+                };
+                callApiChatbot(message);
+                appendMessage(PERSON_NAME, PERSON_IMG, "right", this.value);
+                disableAllInputButtons(buttons);
+            });
+        }
+    }
+}
+
+function disableAllInputButtons(buttons) {
+    for (var i = 0; i < buttons.length; i++) {
+        if (buttons[i].type === 'button') {
+            buttons[i].disabled = true;
+        }
+    }
 }
