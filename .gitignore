@@ -152,3 +152,5 @@ tree.py
 
 changes.log
 RasaServer/.rasa/cache/cache.db
+*.json
+.vscode/settings.json
