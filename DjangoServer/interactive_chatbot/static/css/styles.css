@@ -188,14 +188,29 @@ body {
     font-size: 1.5em;
 }
 
-input[type=button] {
-    background-color: #00c441;
-    border: none;
-    color: white;
-    padding: 8px 10px;
+.click-btn {
+    margin: 5px;
+    padding: 2px 12px;
+    line-height: 35px;
+    border: 1px solid;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 16px;
     text-decoration: none;
-    margin: 4px 2px;
-    border-radius: 16px;
+    transition: all 0.35s;
+    box-sizing: border-box;
+    position: relative;
+    background-color: #fff;
+    border-color: rgb(0, 196, 65);
+    color: rgb(0, 196, 65);
+    overflow: hidden;
+}
+
+.click-btn:hover {
+    transform: translateY(-0.25em);
+    box-shadow: 0 0 0.5em 0em #5e5e5e;
+    color: #fff;
+    background-color: rgb(0, 196, 65);
 }
 
 input[disabled] {

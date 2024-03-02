@@ -150,12 +150,6 @@ responses:
 
   utter_register_business_procedure:
   - text: "Thủ tục đăng ký doanh nghiệp: Bước đầu tiên bạn chọn Loại hình doanh nghiệp mà bạn muốn đăng ký. Đây có nhiều loại hình doanh nghiệp: business_types={business_types}"
-  
-  utter_register_business_type_name:
-  - text: "Chọn loại đăng ký doanh nghiệp: type_of_business={type_of_business}"
-
-  utter_register_type_of_business:
-  - text: "Thông tin chi tiết: {contents}"
 
 entities:
   - business_type_name
