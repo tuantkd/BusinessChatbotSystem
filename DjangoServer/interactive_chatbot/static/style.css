@@ -256,3 +256,24 @@ body {
 .title-chatbot-home{
     color: white;
 }
+
+.sidebar {
+    min-height: 100vh; /* Chiều cao tối thiểu bằng với chiều cao viewport */
+    background-color: #f8f9fa; /* Màu nền */
+    padding: 20px;
+    width: 200px !important;;
+}
+
+.sidebar-nav {
+    width: 100%; /* Cho sidebar-nav chiếm toàn bộ độ rộng của sidebar */
+}
+
+/* Đảm bảo rằng main content có padding đủ để không bị che bởi sidebar khi thu nhỏ màn hình */
+@media (min-width: 992px) { /* Bootstrap breakpoint cho large devices */
+    main[role="main"] {
+        padding-left: 20px; /* Hoặc giá trị tùy chỉnh phù hợp với design của bạn */
+    }
+}
+
+
+
