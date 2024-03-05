@@ -21,6 +21,14 @@ def get_business_type_status_names(status_codes_db, business_type_status_enum):
             status_names.append(business_type_status)
     return status_names
 
+
+def find_business_type_status(status_code, business_type_status_enum):
+    for business_type_status in business_type_status_enum:
+        if business_type_status != None and business_type_status['code'].strip().lower() == status_code.strip().lower():
+            return business_type_status
+    return None
+
+
 def find_business_type_status_by_code(status_code, business_type_status_enum):
     for business_type_status in business_type_status_enum:
         if business_type_status['code'] == status_code:
@@ -29,6 +37,12 @@ def find_business_type_status_by_code(status_code, business_type_status_enum):
 
 def find_business_type_status_by_code_and_business_type_id(status_code, business_type_id):
     query = f"SELECT * FROM business_registration_businesstypestatus WHERE business_type_id = {business_type_id} AND status = '{status_code}'"
+    cursor.execute(query)
+    result = cursor.fetchall()
+    return result
+
+def get_business_registration_businessprocessstep(business_type_status_id):
+    query = f"SELECT * FROM business_registration_businessprocessstep WHERE business_type_status_id = {business_type_status_id}"
     cursor.execute(query)
     result = cursor.fetchall()
     return result

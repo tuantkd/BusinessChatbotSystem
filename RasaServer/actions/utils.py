@@ -11,10 +11,10 @@ def filter_duplicate_in_array(array):
 
 
 def get_number_in_string(str_text):
-    if str_text:
-        numbers = re.findall(r'\d+', str_text)
-        return numbers[0]
-    return str_text
+  if str_text:
+      numbers = re.findall(r'\d+', str_text)
+      return numbers[0]
+  return str_text
 
 
 def compare_array_source_array_dest(array_source, array_dest):
@@ -32,12 +32,20 @@ def normalize_text(text):
 
 
 def read_json_file(file_path):
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except FileNotFoundError as e:
-        print(f"Error: File not found: {e}")
-        return None
-    except json.JSONDecodeError as e:
-        print(f"Error: Invalid JSON data: {e}")
-        return None
+  try:
+      with open(file_path, 'r', encoding='utf-8') as f:
+          return json.load(f)
+  except FileNotFoundError as e:
+      print(f"Error: File not found: {e}")
+      return None
+  except json.JSONDecodeError as e:
+      print(f"Error: Invalid JSON data: {e}")
+      return None
+
+
+def convert_to_snake_case(text):
+  normalized_text = unicodedata.normalize("NFD", text)
+  table = str.maketrans(" ", "_")
+  processed_text = normalized_text.translate(table)
+
+  return processed_text

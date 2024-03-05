@@ -6,8 +6,10 @@
 
 
 from typing import Any, Text, Dict, List
+
+from .utils import convert_to_snake_case
 from .enum import DATA_BUSINESS
-from .db_operations import check_business_type_status_name, find_business_type_status_by_code_and_business_type_id, get_business_type_id, get_business_type_status, get_business_type_status_names, get_business_types
+from .db_operations import check_business_type_status_name, find_business_type_status, find_business_type_status_by_code_and_business_type_id, get_business_registration_businessprocessstep, get_business_type_id, get_business_type_status, get_business_type_status_names, get_business_types
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
@@ -93,6 +95,19 @@ class ActionRegisterTypeOfBusiness(Action):
         business_type_status_single_enum = check_business_type_status_name(type_of_business_name, status_names)
         business_type_status = find_business_type_status_by_code_and_business_type_id(business_type_status_single_enum['code'], business_type_id)
         
-        message_text = f"Đang lấy thông tin"
-        dispatcher.utter_message(text=message_text)
+        business_process_step = get_business_registration_businessprocessstep(business_type_status[0][0])
+        business_type_status_name = find_business_type_status(business_type_status[0][1], DATA_BUSINESS.BUSINESS_TYPE_STATUS.value)
+        
+        step_name = []
+        for process_step in business_process_step:
+            step_name.append(f'<a href="#{convert_to_snake_case(process_step[1])}"><h5>{process_step[1]}</h5></a>')
+        
+        process_step = f'Gồm {len(business_process_step)} trường hợp loại trạng thái <b>{business_type_status_name["name"]}</b>: {"".join(f"{step}" for step in step_name)}'
+        contents = f'<hr><div>'
+        for content in business_process_step:
+            contents += f'<h5 id="{convert_to_snake_case(content[1])}">{content[1]}</h5>'
+            contents += f'<p>{content[3]}</p>'
+        contents += f'</div>'
+        
+        dispatcher.utter_message(text=process_step + contents)
         return []
