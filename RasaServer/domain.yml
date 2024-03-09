@@ -16,6 +16,10 @@ intents:
   - register_business_procedure
   - register_business_type_name
   - register_type_of_business
+  - regarding_reorganization_dissolution_bankruptcy
+  - registration_dossier
+  - business_registration_fees_charges
+  - about_information_services
 
 responses:
   utter_greet:
@@ -150,6 +154,327 @@ responses:
 
   utter_register_business_procedure:
   - text: "Thủ tục đăng ký doanh nghiệp: Bước đầu tiên bạn chọn Loại hình doanh nghiệp mà bạn muốn đăng ký. Đây có nhiều loại hình doanh nghiệp: business_types={business_types}"
+  
+  utter_regarding_reorganization_dissolution_bankruptcy:
+  - text: '<div id="noidung_1409" style="" class="hoidap_traloi"><p style="text-align: justify;">Khoản 2 Điều 202 Luật Doanh nghiệp năm 2020 quy định công ty trách nhiệm hữu hạn có thể chuyển đổi thành công ty cổ phần theo phương thức sau đây:<br>
+          - Chuyển đổi thành công ty cổ phần mà không huy động thêm tổ chức, cá nhân khác cùng góp vốn, không bán phần vốn góp cho tổ chức, cá nhân khác;<br>
+          - Chuyển đổi thành công ty cổ phần bằng cách huy động thêm tổ chức, cá nhân khác góp vốn;<br>
+          - Chuyển đổi thành công ty cổ phần bằng cách bán toàn bộ hoặc một phần phần vốn góp cho một hoặc một số tổ chức, cá nhân khác;<br>
+          - Kết hợp phương thức quy định tại các điểm a, b và c khoản này và các phương thức khác.<br>
+          Theo quy định tại điểm b khoản 1 Điều 111 Luật Doanh nghiệp năm 2020 thì số lượng cổ đông tối thiểu của công ty cổ phần là 03 cổ đông.&nbsp;<br>
+          Do vậy, trường hợp không thể huy động thêm tổ chức, cá nhân khác cùng góp vốn vào công ty, công ty trách nhiệm hữu hạn một thành viên có thể chuyển đổi thành công ty cổ phần bằng cách bán toàn bộ hoặc một phần phần vốn góp cho một hoặc một số tổ chức, cá nhân khác và công ty cổ phần được thành lập trên cơ sở chuyển đổi loại hình doanh nghiệp phải đảm bảo số lượng cổ đông tối thiểu theo quy định tại điểm b khoản 1 Điều 111 Luật Doanh nghiệp năm 2020 nêu trên.<br>
+          &nbsp;</p></div>'
+  - text: '<div id="noidung_1410" style="" class="hoidap_traloi"><p style="text-align: justify;">Theo quy định tại khoản 2 Điều 66 Nghị định số 01/2021/NĐ-CP ngày 04/01/2021 của Chính phủ về đăng ký doanh nghiệp thì hồ sơ đăng ký doanh nghiệp trong trường hợp doanh nghiệp tạm ngừng kinh doanh bao gồm:<br>
+          - Thông báo về việc tạm ngừng kinh doanh của doanh nghiệp quy định tại Phụ lục II-19 ban hành kèm theo Thông tư số 01/2021/TT-BKHĐT ngày 16/3/2021 của Bộ trưởng Bộ Kế hoạch và Đầu tư hướng dẫn về đăng ký doanh nghiệp;<br>
+          - Nghị quyết, quyết định và bản sao biên bản họp của Hội đồng thành viên đối với công ty trách nhiệm hữu hạn hai thành viên trở lên, công ty hợp danh, của Hội đồng quản trị đối với công ty cổ phần; nghị quyết, quyết định của chủ sở hữu công ty đối với công ty trách nhiệm hữu hạn một thành viên về việc tạm ngừng kinh doanh.<br>
+          Tuy nhiên, công ty cần lưu ý về thời hạn tạm ngừng kinh doanh của mỗi lần thông báo không được quá một năm theo quy định tại khoản 1 Điều 66 Nghị định số 01/2021/NĐ-CP.<br>
+          &nbsp;</p></div>'
+  - text: "Khoản 7 Điều 70 Nghị định số 01/2021/NĐ-CP ngày 04/01/2021 của Chính phủ về đăng ký doanh nghiệp quy định: “Trong thời hạn 180 ngày kể từ ngày nhận được thông báo kèm theo nghị quyết, quyết định giải thể quy định tại Điều 208 Luật Doanh nghiệp và Phòng Đăng ký kinh doanh chưa chuyển tình trạng pháp lý của doanh nghiệp sang tình trạng đã giải thể trong Cơ sở dữ liệu quốc gia về đăng ký doanh nghiệp, nếu doanh nghiệp không tiếp tục thực hiện giải thể, doanh nghiệp gửi thông báo về việc hủy bỏ nghị quyết, quyết định giải thể đến Phòng Đăng ký kinh doanh nơi doanh nghiệp đặt trụ sở chính. Kèm theo thông báo phải có nghị quyết, quyết định của chủ sở hữu công ty đối với công ty trách nhiệm hữu hạn một thành viên, của Hội đồng thành viên đối với công ty trách nhiệm hữu hạn hai thành viên trở lên, công ty hợp danh, của Đại hội đồng cổ đông đối với công ty cổ phần về việc hủy bỏ nghị quyết, quyết định giải thể. Trong thời hạn 03 ngày làm việc kể từ ngày nhận được thông báo về việc hủy bỏ nghị quyết, quyết định giải thể doanh nghiệp, Phòng Đăng ký kinh doanh phải đăng tải thông báo và nghị quyết, quyết định về việc hủy bỏ nghị quyết, quyết định giải thể doanh nghiệp trên Cổng thông tin quốc gia về đăng ký doanh nghiệp, khôi phục tình trạng pháp lý của doanh nghiệp trên Hệ thống thông tin quốc gia về đăng ký doanh nghiệp và gửi thông tin huỷ bỏ nghị quyết, quyết định giải thể của doanh nghiệp cho Cơ quan thuế”.
+            Căn cứ quy định nêu trên, đề nghị hủy bỏ quyết định giải thể của công ty là không có cơ sở thực hiện do đã quá thời hạn 180 ngày."
+  - text: "Điểm b khoản 1 và điểm b khoản 2 Điều 65 Nghị định số 01/2021/NĐ-CP ngày 04/01/2021 của Chính phủ về đăng ký doanh nghiệp quy định một trong các trường hợp doanh nghiệp không được đăng ký, thông báo thay đổi nội dung đăng ký doanh nghiệp là doanh nghiệp đang trong quá trình giải thể theo quyết định giải thể của doanh nghiệp.  Tuy nhiên, doanh nghiệp được tiếp tục đăng ký, thông báo thay đổi nội dung đăng ký doanh nghiệp trong trường hợp doanh nghiệp phải đăng ký thay đổi một số nội dung đăng ký doanh nghiệp để phục vụ quá trình giải thể và hoàn tất bộ hồ sơ giải thể theo quy định. Trong trường hợp này, hồ sơ đăng ký thay đổi phải kèm theo văn bản giải trình của doanh nghiệp về lý do đăng ký thay đổi. 
+            Theo nội dung mẫu Thông báo về việc giải thể doanh nghiệp quy định tại Phụ lục II-2 ban hành kèm theo Thông tư số 01/2021/TT-BKHĐT ngày 16/3/2021 của Bộ trưởng Bộ Kế hoạch và Đầu tư hướng dẫn về đăng ký doanh nghiệp thì người đại diện theo pháp luật của doanh nghiệp phải ký trực tiếp tại Thông báo này.
+            Căn cứ các quy định nêu trên, doanh nghiệp có thể đăng ký thay đổi người đại diện theo pháp luật để phục vụ quá trình giải thể."
+  - text: "Khoản 4 Điều 72 Nghị định số 01/2021/NĐ-CP ngày 04/01/2021 của Chính phủ về đăng ký doanh nghiệp quy định việc chấm dứt hoạt động chi nhánh, văn phòng đại diện của doanh nghiệp ở nước ngoài thực hiện theo quy định của pháp luật nước đó. Trong thời hạn 30 ngày kể từ ngày chính thức chấm dứt hoạt động chi nhánh, văn phòng đại diện ở nước ngoài, doanh nghiệp gửi thông báo bằng văn bản về việc chấm dứt hoạt động chi nhánh, văn phòng đại diện của doanh nghiệp ở nước ngoài đến Phòng Đăng ký kinh doanh nơi doanh nghiệp đặt trụ sở chính. Phòng Đăng ký kinh doanh cập nhật thông tin của doanh nghiệp trong Cơ sở dữ liệu quốc gia về đăng ký doanh nghiệp trong thời hạn 03 ngày làm việc kể từ ngày nhận được thông báo. 
+            Như vậy, trong thời hạn 30 ngày kể từ ngày chính thức chấm dứt hoạt động văn phòng đại diện ở nước ngoài, doanh nghiệp phải gửi thông báo bằng văn bản về việc chấm dứt hoạt động văn phòng đại diện ở nước ngoài đến Phòng Đăng ký kinh doanh thuộc Sở Kế hoạch và Đầu tư thành phố Hà Nội để được xem xét, giải quyết theo quy định."
+  - text: "Khoản 2 Điều 72 Nghị định số 01/2021/NĐ-CP ngày 04/01/2021 của Chính phủ về đăng ký doanh nghiệp quy định trong thời hạn 10 ngày kể từ ngày quyết định chấm dứt hoạt động chi nhánh, văn phòng đại diện, địa điểm kinh doanh, doanh nghiệp gửi Thông báo về việc chấm dứt hoạt động chi nhánh, văn phòng đại diện, địa điểm kinh doanh đến Phòng Đăng ký kinh doanh nơi đặt chi nhánh, văn phòng đại diện, địa điểm kinh doanh. Trường hợp chấm dứt hoạt động chi nhánh, văn phòng đại diện, kèm theo thông báo phải có nghị quyết, quyết định và bản sao biên bản họp của Hội đồng thành viên đối với công ty trách nhiệm hữu hạn hai thành viên trở lên, công ty hợp danh, của Hội đồng quản trị đối với công ty cổ phần; nghị quyết, quyết định của chủ sở hữu công ty đối với công ty trách nhiệm hữu hạn một thành viên về việc chấm dứt hoạt động chi nhánh, văn phòng đại diện.
+            Theo quy định tại điểm b khoản 1 và khoản 2 Điều 54 Nghị định số 122/2021/NĐ-CP ngày 28/12/2021 của Chính phủ quy định về xử phạt vi phạm hành chính trong lĩnh vực kế hoạch và đầu tư thì phạt tiền từ 20.000.000 đồng đến 30.000.000 đồng đối với hành vi chấm dứt hoạt động của chi nhánh, văn phòng đại diện, địa điểm kinh doanh nhưng không thông báo cho Cơ quan đăng ký kinh doanh. Biện pháp khắc phục hậu quả là buộc thông báo cho Cơ quan đăng ký kinh doanh đối với hành vi vi phạm.
+            Như vậy, trong thời hạn 10 ngày kể từ ngày quyết định chấm dứt hoạt động địa điểm kinh doanh, doanh nghiệp gửi Thông báo về việc chấm dứt hoạt động địa điểm kinh doanh đến Phòng Đăng ký kinh doanh nơi đặt địa điểm kinh doanh."
+
+  utter_registration_dossier:
+  - text: '<div id="noidung_1096"><p>&nbsp;Theo quy định tại Khoản 1, 5 Điều 14 Nghị định số 78/2015/NĐ-CP ngày 14/9/2015 của Chính phủ về đăng ký doanh nghiệp&nbsp;thì một trong những nhiệm vụ, quyền hạn, trách nhiệm của Phòng Đăng ký kinh doanh cấp tỉnh là Trực tiếp nhận hồ sơ đăng ký doanh nghiệp; xem xét tính hợp lệ của hồ sơ đăng ký doanh nghiệp và cấp hoặc từ chối cấp Giấy chứng nhận đăng ký doanh nghiệp.</p>
+          <p>Trực tiếp kiểm tra hoặc đề nghị cơ quan nhà nước có thẩm quyền kiểm tra doanh nghiệp theo nội dung trong hồ sơ đăng ký doanh nghiệp; hướng dẫn cơ quan đăng ký kinh doanh cấp huyện về hồ sơ, trình tự, thủ tục đăng ký hộ kinh doanh; hướng dẫn doanh nghiệp và người thành lập doanh nghiệp về hồ sơ, trình tự, thủ tục đăng ký doanh nghiệp.</p>
+          </div>'
+  - text: '<div id="noidung_1102"><p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="color:black">Theo quy định tại Điều 43 Nghị định số 78/2015/NĐ-CP thì hồ sơ đăng ký thay đổi người đại diện theo pháp luật của công ty TNHH 2 thành viên trở lên bao gồm các giấy tờ sau:</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">a) Thông báo thay đổi người đại diện theo pháp luật;</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">b) Bản sao hợp lệ một trong các giấy tờ chứng thực cá nhân của người bổ sung, thay thế làm đại diện theo pháp luật của công ty;</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">c) Quyết định và bản sao hợp lệ biên bản họp của Hội đồng thành viên đối với công ty trách nhiệm hữu hạn hai thành viên trở lên về việc thay đổi người đại diện theo pháp luật;</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">Quyết định, biên bản họp phải ghi rõ những nội dung được sửa đổi trong Điều lệ công ty.</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">2. Nội dung Thông báo thay đổi người đại diện theo pháp luật gồm:</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">a) Tên, mã số doanh nghiệp, mã số thuế hoặc số Giấy chứng nhận đăng ký kinh doanh (trường hợp doanh nghiệp chưa có mã số doanh nghiệp, mã số thuế);</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">b) Họ, tên, số Chứng minh nhân dân hoặc Hộ chiếu hoặc chứng thực cá nhân hợp pháp khác quy định tại Điều 10 Nghị định này, chức danh, địa chỉ thường trú của người đang là đại diện theo pháp luật của công ty và của người bổ sung, thay thế làm đại diện theo pháp luật của công ty;</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">c) Họ, tên và chữ ký của một trong những cá nhân sau:</span></span></span></span></span></p
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">Chủ sở hữu công ty đối với công ty trách nhiệm hữu hạn một thành viên có chủ sở hữu là cá nhân.</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">Chủ tịch Hội đồng thành viên đối với công ty trách nhiệm hữu hạn hai thành viên trở lên. Trường hợp Chủ tịch Hội đồng thành viên là người đại diện theo pháp luật thi người ký thông báo là Chủ tịch Hội đồng thành viên mới được Hội đồng thành viên bầu.</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">Trường hợp Chủ tịch Hội đồng thành viên của công ty bỏ trốn khỏi nơi cư trú, bị tạm giam, bị bệnh tâm thần hoặc các bệnh khác mà không thể nhận thức, làm chủ được bản thân hoặc từ chối ký tên vào thông báo của công ty thì phải có họ, tên và chữ ký của các thành viên Hội đồng thành viên đã tham dự và biểu quyết nhất trí về việc thay đổi người đại diện theo pháp luật của công ty.</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">Khi nhận Thông báo thay đổi người đại diện theo pháp luật, Phòng Đăng ký kinh doanh trao Giấy biên nhận, kiểm tra tính hợp lệ của hồ sơ và cấp Giấy chứng nhận đăng ký doanh nghiệp cho doanh nghiệp.</span></span></span></span></span></p>
+          </div>'
+  - text: '<div id="noidung_1137"><p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">Theo quy định tại Điểm b Khoản 2 Điều 195 Luật Doanh nghiệp thì trường hợp sáp nhập doanh nghiệp, các thành viên, chủ sở hữu công ty hoặc các cổ đông của các công ty liên quan thông qua hợp đồng sáp nhập, Điều lệ công ty nhận sáp nhập và tiến hành đăng ký doanh nghiệp công ty nhận sáp nhập theo quy định của Luật này. Hợp đồng sáp nhập phải được gửi đến tất cả các chủ nợ và thông báo cho người lao động biết trong thời hạn 15 ngày, kể từ ngày thông qua.</span></span></span></span></span></p>
+          <p><span style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:12pt"><span style="background-color:white"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="color:black">Hồ sơ đăng ký thay đổi nội dung đăng ký doanh nghiệp do nhận sáp nhập được quy định tại Khoản 4 Điều 24 Nghị định số 78/2015/NĐ-CP. Theo đó, trường hợp sáp nhập một hoặc một số công ty vào một công ty khác, ngoài giấy tờ quy định tại Chương VI Nghị định này, hồ sơ đăng ký doanh nghiệp của công ty nhận sáp nhập phải có thêm các giấy tờ quy định tại Điều 195 Luật Doanh nghiệp và bản sao hợp lệ Giấy chứng nhận đăng ký doanh nghiệp hoặc giấy tờ tương đương khác của công ty nhận sáp nhập và các công ty bị sáp nhập.</span></span></span></span></span></p>
+          </div>'
+  - text: '<p style="text-align: justify;">Hồ sơ đăng ký doanh nghiệp gồm những giấy tờ sau:</p>
+          <ol>
+            <li>Giấy đề nghị đăng ký doanh nghiệp;</li>
+            <li>Điều lệ thành lập doanh nghiệp.</li>
+            <li>Danh sách thành viên công ty / Danh sách cổ đông công ty.</li>
+            <li>Bản sao CMTND, hộ chiếu của người thành lập doanh nghiệp.</li>
+            <li>Danh sách người đại diện theo ủy quyền (Nếu có).</li>
+            <li>Giấy ủy quyền của Giám đốc cho người đi nộp hồ sơ.</li>
+          </ol>'
+  - text: '<div id="noidung_1237"><ul>
+            <li style="text-align:justify"><span style="font-size:11pt"><span style="color:black"><span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:#0d0d0d">(01) bộ hồ sơ đăng ký doanh nghiệp bằng bản giấy (tương ứng với bản điện tử đã nộp qua mạng điện tử)</span></span></span></span></span></span></li>
+            <li style="text-align:justify"><span style="font-size:11pt"><span style="color:black"><span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:#0d0d0d">&nbsp;Giấy biên nhận hồ sơ&nbsp;đăng ký&nbsp;doanh nghiệp qua mạng điện tử</span></span></span></span></span></span></li>
+            <li style="text-align:justify"><span style="font-size:11pt"><span style="color:black"><span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:#0d0d0d">&nbsp;Thông báo hồ sơ đăng ký doanh nghiệp qua mạng điện tử hợp lệ</span></span></span></span></span></span></li>
+          </ul></div>'
+  - text: '<div id="noidung_1236"><ul>
+            <li style="text-align:justify"><span style="font-size:11pt"><span style="color:black"><span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:#0d0d0d">Doanh nghiệp nộp hồ sơ bản giấy đến Phòng ĐKKD trong vòng 30 ngày kể từ ngày Phòng ĐKKD gửi Thông báo hồ sơ hợp lệ</span></span></span></span></span></span></li>
+            <li style="text-align:justify"><span style="font-size:11pt"><span style="color:black"><span style="font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:#0d0d0d">Trường hợp doanh nghiệp đăng ký tạm ngừng hoạt động/hoạt động trở lại trước thời hạn: Doanh nghiệp phải nộp hồ sơ bằng bản giấy đến Phòng Đăng ký kinh doanh chậm nhất 15 ngày trước ngày đăng ký bắt đầu tạm ngừng hoạt động/quay trở lại hoạt động</span></span></span></span></span></span></li>
+          </ul></div>'
+  
+  utter_business_registration_fees_charges:
+  - text: '<div class="Around_News_Content">
+            <div>
+                <div id="divArticleDescription3">
+                  <h1 class="News_Detail_Title_GT">
+                      Phí, lệ phí đăng ký doanh nghiệp
+                  </h1>
+                </div>
+                <div class="detailnews_time">
+                  <span class="News_Detail_Time" style="display:none;">
+                  Thứ bảy,&nbsp;29/11/2014 17:15&nbsp;GMT+7</span>
+                </div>
+            </div>
+            <div id="ctl00_SPWebPartManager1_g_571f03fa_6454_4f2e_b90d_0912bc2a26a3_ctl00_pnSapo">
+                <div class="sapo_tin" style="display:none;">
+                  <div id="divArticleDescription1">
+                  </div>
+                </div>
+            </div>
+            <div class="iTem_NewsDetail">
+                <div id="divArticleDescription_GT">
+                  <div>Phí và Lệ phí đăng ký doanh nghiệp hiện nay được điều chỉnh bởi Thông tư số 47/2019/TT-BTC của Bộ Tài chính.</div>
+                  <div>Để biết thêm chi tiết, mời xem Biểu phí, lệ phí đăng ký doanh nghiệp dưới đây:</div>
+                  <div>&nbsp;</div>
+                  <div>&nbsp;</div>
+                  <div style="text-align: center;">
+                      <p align="center" style="margin-bottom:6.0pt; text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><b>BIỂU PHÍ, LỆ PHÍ ĐĂNG KÝ DOANH NGHIỆP</b></span></span></p>
+                      <p align="center" style="margin-bottom:6.0pt; text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><i><span lang="VI" style="color:black">(Ban hành kèm theo Thông tư số 47/2019/TT-BTC ngày 05 tháng 8 năm 2019 của Bộ trưởng Bộ Tài chính)</span></i></span></span></p>
+                  </div>
+                  <div style="text-align: center;">&nbsp;</div>
+                  <div style="text-align: center;">
+                      <table class="Table" style="width:100.0%; border-collapse:collapse; border:solid windowtext 1.0pt" width="100%">
+                        <tbody>
+                            <tr>
+                              <td style="border:solid windowtext 1.0pt; width:27.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="36">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><b><span lang="NL" style="color:black">Stt</span></b></span></span></p>
+                              </td>
+                              <td style="border:solid windowtext 1.0pt; width:4.5in; border-left:none; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="432">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><b><span lang="NL" style="color:black">Nội dung</span></b></span></span></p>
+                              </td>
+                              <td style="border:solid windowtext 1.0pt; width:63.0pt; border-left:none; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="84">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><b><span lang="NL" style="color:black">Đơn vị tính</span></b></span></span></p>
+                              </td>
+                              <td style="border:solid windowtext 1.0pt; width:.75in; border-left:none; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="72">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><b><span lang="NL" style="color:black">Mức thu</span></b></span></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="border:solid windowtext 1.0pt; width:27.0pt; border-top:none; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="36">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><b>1</b></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:4.5in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="432">
+                                  <p style="margin: 0in 0in 0.0001pt; text-align: left;"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><b>Lệ phí đăng ký doanh nghiệp</b> (bao gồm: Cấp mới, cấp lại, thay đổi nội dung Giấy chứng nhận đăng ký doanh nghiệp và Giấy chứng nhận đăng ký hoạt động chi nhánh, văn phòng đại diện, địa điểm kinh doanh của doanh nghiệp)</span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:63.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="84">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"="">Đồng/lần</span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:.75in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="72">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">50.000</span></span></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="border:solid windowtext 1.0pt; width:27.0pt; border-top:none; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="36">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><b><span lang="NL" style="color:black">2</span></b></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:4.5in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="432">
+                                  <p style="margin: 0in 0in 0.0001pt; text-align: left;"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><b><span lang="NL" style="color:black">Phí cung cấp thông tin doanh nghiệp</span></b></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:63.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="84">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"="">&nbsp;</span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:.75in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="72">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"="">&nbsp;</span></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="border:solid windowtext 1.0pt; width:27.0pt; border-top:none; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="36">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">a</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:4.5in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="432">
+                                  <p style="margin: 0in 0in 0.0001pt; text-align: left;"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">Cung cấp thông tin Giấy chứng nhận đăng ký doanh nghiệp; Giấy chứng nhận hoạt động chi nhánh, văn phòng đại diện, địa điểm kinh doanh</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:63.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="84">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">Đồng/bản</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:.75in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="72">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">20.000</span></span></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="border:solid windowtext 1.0pt; width:27.0pt; border-top:none; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="36">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">b</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:4.5in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="432">
+                                  <p style="margin: 0in 0in 0.0001pt; text-align: left;"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">Cung cấp thông tin trong hồ sơ đăng ký doanh nghiệp; Cung cấp báo cáo tài chính các loại doanh nghiệp</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:63.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="84">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">Đồng/bản</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:.75in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="72">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">40.000</span></span></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="border:solid windowtext 1.0pt; width:27.0pt; border-top:none; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="36">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">c</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:4.5in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="432">
+                                  <p style="margin: 0in 0in 0.0001pt; text-align: left;"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">Cung cấp báo cáo tổng hợp về doanh nghiệp</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:63.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="84">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">Đồng/báo cáo</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:.75in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="72">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">150.000</span></span></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="border:solid windowtext 1.0pt; width:27.0pt; border-top:none; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="36">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">d</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:4.5in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="432">
+                                  <p style="margin: 0in 0in 0.0001pt; text-align: left;"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">Công bố nội dung đăng ký doanh nghiệp</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:63.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="84">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">Đồng/lần</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:.75in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="72">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">100.000</span></span></span></p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td style="border:solid windowtext 1.0pt; width:27.0pt; border-top:none; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="36">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">đ</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:4.5in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="432">
+                                  <p style="margin: 0in 0in 0.0001pt; text-align: left;"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">Cung cấp thông tin doanh nghiệp theo tài khoản từ 125 bản/tháng trở lên</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:63.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="84">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">Đồng/tháng</span></span></span></p>
+                              </td>
+                              <td style="border-bottom:solid windowtext 1.0pt; width:.75in; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:1.4pt 5.4pt 1.4pt 5.4pt" width="72">
+                                  <p align="center" style="text-align:center; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><span lang="NL" style="color:black">4.500.000</span></span></span></p>
+                              </td>
+                            </tr>
+                        </tbody>
+                      </table>
+                  </div>
+                  <p style="margin-bottom:6.0pt; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"=""><b>* <u>Ghi chú</u>:</b></span></span></p>
+                  <p style="margin-bottom:6.0pt; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"="">- Phí cung cấp thông tin doanh nghiệp quy định tại mục 2 Biểu phí, lệ phí đăng ký doanh nghiệp ban hành kèm theo Thông tư số 47/2019/TT-BTC ngày 05 tháng 8 năm 2019 của Bộ trưởng Bộ Tài chính, chỉ áp dụng đối với trường hợp yêu cầu cơ quan đăng ký kinh doanh cung cấp thông tin doanh nghiệp. </span></span></p>
+                  <p style="margin-bottom:6.0pt; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"="">- Cung cấp báo cáo tổng hợp về đăng ký doanh nghiệp bao gồm: Báo cáo tổng hợp về người thành lập, quản lý doanh nghiệp trong 03 năm; Báo cáo tổng hợp về lịch sử doanh nghiệp trong 03 năm; Báo cáo tổng hợp về thông tin đăng ký doanh nghiệp mới nhất; Báo cáo thống kê về danh sách doanh nghiệp; Báo cáo tổng hợp về tình hình tài chính của doanh nghiệp trong 03 năm; Danh sách 100 doanh nghiệp theo yêu cầu; Các sản phẩm thông tin khác được xây dựng trên cơ sở chiết xuất, tổng hợp dữ liệu từ Cơ sở dữ liệu quốc gia về đăng ký doanh nghiệp.</span></span></p>
+                  <p style="margin-bottom:6.0pt; margin:0in 0in 0.0001pt"><span style="font-size:12pt"><span style="font-family:" times="" new="" roman",serif"="">- Cung cấp thông tin doanh nghiệp theo tài khoản: Là việc cung cấp thông tin doanh nghiệp cho một tài khoản được đăng ký trước tại Trung tâm Hỗ trợ nghiệp vụ đăng ký kinh doanh thuộc Cục Quản lý đăng ký kinh doanh nhằm đáp ứng nhu cầu tìm hiểu, khai thác và tổng hợp thông tin đăng ký doanh nghiệp với số lượng lớn, trong một thời gian dài./.</span></span></p>
+                </div>
+            </div>
+          </div>'
+  
+  utter_about_information_services:
+  - text: '<div id="noidung_1119" style="" class="hoidap_traloi"><p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:11pt"><span style="background-color:white"><span style="font-family:Arial,sans-serif"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">Về cơ bản, các sản phẩm dịch vụ thông tin đều mất phí. Tuy nhiên, có hai sản phẩm dịch vụ thông tin được cung cấp cho người dùng miễn phí. Hai sản phẩm đó là:</span></span></span></span></span></span></p>
+          <p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:11pt"><span style="background-color:white"><span style="font-family:Arial,sans-serif"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">-&nbsp; Trạng thái hồ sơ: cung cấp thông tin về trạng thái xử lý của hồ sơ đăng ký doanh nghiệp</span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">, trạng thái </span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">xử lý của hồ sơ đăng ký </span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">liên thông đăng k</span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">ý</span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black"> kinh doanh và đăng k</span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">ý</span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black"> đầu tư</span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">.</span></span></span></span></span></span></p>
+          <p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:11pt"><span style="background-color:white"><span style="font-family:Arial,sans-serif"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">-&nbsp; Thông tin cơ bản: cung cấp thông tin </span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">các </span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">cơ bản về một doanh nghiệp cụ thể bao gồm Tên doanh nghiệp, Mã số doanh nghiệp, Địa chỉ trụ sở chính, Người đại diện theo pháp luật, </span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">Tì</span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">nh trạng hoạt động</span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">, Ngày bắt đầu hoạt động, Ngành nghề kinh doanh, Mẫu dấu..</span></span></span><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">.</span></span></span></span></span></span></p>
+          </div>'
+  - text: 'Mức phí của các sản phẩm dịch vụ thông tin trên Cổng được quy định tại Thông tư số 215/2016/TT-BTC ngày 10/11/2016 của Bộ Tài chính quy định mức thu, chế độ thu, nộp, quản lý và sử dụng phí cung cấp thông tin đăng ký doanh nghiệp, lệ phí đăng ký doanh nghiệp và 130/2017/TT-BTC ngày 04/12/2017 sửa đổi, bổ sung một số điều của Thông tư số 215/2016/TT-BTC.'
+  - text: '<div id="noidung_1121" style="" class="hoidap_traloi"><p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:11pt"><span style="background-color:white"><span style="font-family:Arial,sans-serif"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">Quy trình đặt hàng sản phẩm dịch vụ thông tin bao gồm các bước cơ bản như sau:</span></span></span></span></span></span></p>
+          <p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:11pt"><span style="background-color:white"><span style="font-family:Arial,sans-serif"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">+ Chọn sản phẩm vào đơn hàng;</span></span></span></span></span></span></p>
+          <p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:11pt"><span style="background-color:white"><span style="font-family:Arial,sans-serif"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">+ Kiểm tra đơn hàng;</span></span></span></span></span></span></p>
+          <p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:11pt"><span style="background-color:white"><span style="font-family:Arial,sans-serif"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">+ Nhập thông tin người mua;</span></span></span></span></span></span></p>
+          <p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:11pt"><span style="background-color:white"><span style="font-family:Arial,sans-serif"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">+ Nhập thông tin giao hàng;</span></span></span></span></span></span></p>
+          <p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:11pt"><span style="background-color:white"><span style="font-family:Arial,sans-serif"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">+ Xác nhận và thanh toán đơn hàng;</span></span></span></span></span></span></p>
+          <p style="margin-left:0cm; margin-right:0cm; text-align:justify"><span style="font-size:11pt"><span style="background-color:white"><span style="font-family:Arial,sans-serif"><span style="font-size:14.0pt"><span style="font-family:&quot;Times New Roman&quot;,&quot;serif&quot;"><span style="color:black">Tại bước “kiểm tra đơn hàng”, người dùng có thể loại bỏ sản phẩm ra khỏi đơn hàng, tại các bước “nhập thông tin người mua”, “nhập thông tin giao hàng”, “xác nhận và thanh toán đơn hàng” người dùng có thể quay lại bước “kiểm tra đơn hàng” để loại bỏ sản phẩm ra khỏi đơn hàng. Sau khi xác nhận và thanh toán đơn hàng, người dùng không thể loại bỏ sản phẩm ra khỏi đơn hàng.</span></span></span></span></span></span></p>
+          <p>&nbsp;</p><p style="margin-left:0cm; margin-right:0cm; text-align:justify">&nbsp;</p></div>'
+  - text: '<div id="noidung_1416" style="" class="hoidap_traloi">
+            <p style="text-align: justify;">Khoản 1 và khoản 2 Điều 33 Luật Doanh nghiệp năm 2020 quy định như sau:</p>
+            <p style="text-align: justify;">- Tổ chức, cá nhân có quyền đề nghị Cơ quan quản lý nhà nước về đăng ký kinh doanh và Cơ quan đăng ký kinh doanh cung cấp thông tin được lưu giữ trên Hệ thống thông tin quốc gia về đăng ký doanh nghiệp và phải nộp phí theo quy định của pháp luật.</p>
+            <p style="text-align: justify;">- Cơ quan quản lý nhà nước về đăng ký kinh doanh và Cơ quan đăng ký kinh doanh có nghĩa vụ cung cấp đầy đủ và kịp thời thông tin theo quy định tại khoản 1 Điều 33 Luật Doanh nghiệp năm 2020.</p>
+            <p style="text-align: justify;">Phí cung cấp thông tin doanh nghiệp quy định tại Mục 2 Biểu phí, lệ phí đăng ký doanh nghiệp ban hành kèm theo Thông tư số 47/2019/TT-BTC ngày 05/8/2019 của Bộ trưởng Bộ Tài chính quy định mức thu, chế độ thu, nộp, quản lý và sử dụng phí cung cấp thông tin doanh nghiệp, lệ phí đăng ký doanh nghiệp, cụ thể như sau:</p>
+            <table class="Table" style="border-collapse:collapse; border:solid windowtext 1.0pt">
+                <tbody>
+                  <tr>
+                      <td style="border:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt" valign="top">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><b><span style="font-size:14.0pt">STT</span></b></span></span></span></p>
+                      </td>
+                      <td style="border:solid windowtext 1.0pt; border-left:none; padding:0cm 5.4pt 0cm 5.4pt" valign="top">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><b><span style="font-size:14.0pt">Nội dung</span></b></span></span></span></p>
+                      </td>
+                      <td style="border:solid windowtext 1.0pt; border-left:none; padding:0cm 5.4pt 0cm 5.4pt" valign="top">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><b><span style="font-size:14.0pt">Đơn vị tính</span></b></span></span></span></p>
+                      </td>
+                      <td style="border:solid windowtext 1.0pt; border-left:none; padding:0cm 5.4pt 0cm 5.4pt" valign="top">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><b><span style="font-size:14.0pt">Mức thu</span></b></span></span></span></p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td style="border:solid windowtext 1.0pt; border-top:none; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="font-size:14.0pt">1</span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p style="margin:0cm 0cm 6pt; text-align:justify"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">Cung cấp thông tin Giấy chứng nhận đăng ký doanh nghiệp; Giấy chứng nhận hoạt động chi nhánh, văn phòng đại diện, địa điểm kinh doanh</span></span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">Đồng/bản</span></span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">20.000</span></span></span></span></span></p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td style="border:solid windowtext 1.0pt; border-top:none; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="font-size:14.0pt">2</span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p style="margin:0cm 0cm 6pt; text-align:justify"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">Cung cấp thông tin trong hồ sơ đăng ký doanh nghiệp; Cung cấp báo cáo tài chính các loại doanh nghiệp</span></span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">Đồng/bản</span></span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">40.000</span></span></span></span></span></p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td style="border:solid windowtext 1.0pt; border-top:none; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="font-size:14.0pt">3</span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p style="margin:0cm 0cm 6pt; text-align:justify"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">Cung cấp báo cáo tổng hợp về doanh nghiệp</span></span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">Đồng/báo cáo</span></span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">150.000</span></span></span></span></span></p>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td style="border:solid windowtext 1.0pt; border-top:none; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span style="font-size:14.0pt">4</span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p style="margin:0cm 0cm 6pt; text-align:justify"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">Cung cấp thông tin doanh nghiệp theo tài khoản từ 125 bản/tháng trở lên</span></span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">Đồng/tháng</span></span></span></span></span></p>
+                      </td>
+                      <td style="border-bottom:solid windowtext 1.0pt; border-top:none; border-left:none; border-right:solid windowtext 1.0pt; padding:0cm 5.4pt 0cm 5.4pt">
+                        <p align="center" style="text-align:center; margin:0cm 0cm 6pt"><span style="font-size:13pt"><span style="line-height:17pt"><span style="font-family:&quot;Times New Roman&quot;,serif"><span lang="NL" style="font-size:14.0pt"><span style="color:black">4.500.000</span></span></span></span></span></p>
+                      </td>
+                  </tr>
+                </tbody>
+            </table>
+            <p style="text-align: justify;">Theo đó,</p>
+            <p style="text-align: justify;">- Phí cung cấp thông tin doanh nghiệp nêu trên chỉ áp dụng đối với trường hợp yêu cầu cơ quan đăng ký kinh doanh cung cấp thông tin doanh nghiệp.</p>
+            <p style="text-align: justify;">- Cung cấp báo cáo tổng hợp về đăng ký doanh nghiệp bao gồm: Báo cáo tổng hợp về người thành lập, quản lý doanh nghiệp trong 03 năm; Báo cáo tổng hợp về lịch sử doanh nghiệp trong 03 năm; Báo cáo tổng hợp về thông tin đăng ký doanh nghiệp mới nhất; Báo cáo thống kê về danh sách doanh nghiệp; Báo cáo tổng hợp về tình hình tài chính của doanh nghiệp trong 03 năm; Danh sách 100 doanh nghiệp theo yêu cầu; Các sản phẩm thông tin khác được xây dựng trên cơ sở chiết xuất, tổng hợp dữ liệu từ Cơ sở dữ liệu quốc gia về đăng ký doanh nghiệp.</p>
+            <p style="text-align: justify;">- Cung cấp thông tin doanh nghiệp theo tài khoản: Là việc cung cấp thông tin doanh nghiệp cho một tài khoản được đăng ký trước tại&nbsp;Trung tâm Hỗ trợ nghiệp vụ đăng ký kinh doanh thuộc Cục Quản lý đăng ký kinh doanh nhằm đáp ứng nhu&nbsp;cầu tìm hiểu, khai thác và tổng hợp thông tin đăng ký doanh nghiệp với số lượng lớn, trong một thời gian dài.</p>
+            <p style="text-align: justify;">Theo quy định tại khoản 4, khoản 5 Thông tư số 47/2019/TT-BTC thì cơ quan nhà nước đề nghị cung cấp thông tin phục vụ quản lý nhà nước được miễn phí cung cấp thông tin doanh nghiệp; doanh nghiệp nhỏ và vừa chuyển đổi từ hộ kinh doanh được miễn phí cung cấp thông tin doanh nghiệp lần đầu.</p>
+          </div>'
 
 entities:
   - business_type_name

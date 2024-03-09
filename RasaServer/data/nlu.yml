@@ -190,3 +190,39 @@ nlu:
     - [Hợp nhất doanh nghiệp](type_of_business_name)
     - [Chuyển đôi loại hình doanh nghiệp](type_of_business_name)
     - [Địa điểm kinh doanh](type_of_business_name)
+
+- intent: regarding_reorganization_dissolution_bankruptcy
+  examples: |
+    - Chuyển đổi loại hình doanh nghiệp
+    - Về việc tạm ngừng kinh doanh
+    - Về việc hủy bỏ nghị quyết, quyết định giải thể doanh nghiệp
+    - Thay đổi người đại diện theo pháp luật
+    - Chấm dứt hoạt động văn phòng đại diện tại nước ngoài
+
+- intent: registration_dossier
+  examples: |
+    - Cơ quan nào có thẩm quyền xem xét tính hợp lệ của hồ sơ đăng ký doanh nghiệp? Việc hướng dẫn sửa đổi, bổ sung hồ sơ đăng ký doanh nghiệp được quy định như thế nào?
+    - Về đăng ký thay đổi nội dung đăng ký doanh nghiệp
+    - Công ty chúng tôi đã thực hiện nhận sáp nhập Công ty TNHH B. Sau khi hoàn tất thủ tục sáp nhập, công ty chúng tôi có phải thực hiện đăng ký với cơ quan đăng ký kinh doanh không? Hồ sơ đăng ký như thế nào?
+    - Hồ sơ đăng ký doanh nghiệp gồm những giấy tờ gì ?
+    - Nhận kết quả - Các giấy tờ cần nộp khi nộp hồ sơ bản giấy đến Phòng ĐKKD
+    - Nhận kết quả - Thời hạn nộp hồ sơ bản giấy đến Phòng ĐKKD
+
+- intent: business_registration_fees_charges
+  examples: |
+    - Lệ phí đăng ký doanh nghiệp là bao nhiêu?
+    - Cho biết mức lệ phí đăng ký doanh nghiệp.
+    - Cần phải trả bao nhiêu tiền để đăng ký doanh nghiệp?
+    - Giá đăng ký doanh nghiệp là bao nhiêu vậy?
+    - Lệ phí đăng ký doanh nghiệp hiện nay là bao nhiêu?
+    - Bạn có thông tin về mức phí đăng ký doanh nghiệp không?
+    - Cho tôi biết về chi phí đăng ký doanh nghiệp được không?
+    - Cần phải chuẩn bị bao nhiêu tiền cho việc đăng ký doanh nghiệp?
+    - Xin thông tin về lệ phí đăng ký doanh nghiệp mới nhất.
+
+- intent: about_information_services
+  examples: |
+    - Có phải tất cả các sản phẩm dịch vụ thông tin đều mất phí hay không?
+    - Mức phí của các sản phẩm dịch vụ thông tin trên Cổng thông tin đăng ký doanh nghiệp quốc gia được quy định ở đâu?
+    - Sau khi Tôi đã chọn các sản phẩm cho vào đơn hàng, nếu tôi nhận thấy không cần mua một số sản phẩm đã chọn, tôi có khả năng loại bỏ những sản phẩm này ra khỏi đơn hàng hay không?
+    - Cung cấp thông tin đăng ký doanh nghiệp

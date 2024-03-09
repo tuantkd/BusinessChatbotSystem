@@ -51,6 +51,26 @@ stories:
   - intent: legal_assistance
   - action: utter_legal_assistance
 
+- story: Regarding reorganization dissolution
+  steps:
+  - intent: regarding_reorganization_dissolution_bankruptcy
+  - action: utter_regarding_reorganization_dissolution_bankruptcy
+
+- story: Business registration documents
+  steps:
+  - intent: registration_dossier
+  - action: utter_registration_dossier
+
+- story: Registration fees charges
+  steps:
+  - intent: business_registration_fees_charges
+  - action: utter_business_registration_fees_charges
+
+- story: Information services
+  steps:
+  - intent: about_information_services
+  - action: utter_about_information_services
+
 # ==========================================
 - story: Business registration procedures
   steps:
