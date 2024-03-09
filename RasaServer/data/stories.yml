@@ -71,6 +71,11 @@ stories:
   - intent: about_information_services
   - action: utter_about_information_services
 
+- story: Look up business lines
+  steps:
+  - intent: lookup_business_lines
+  - action: action_lookup_business_lines
+
 # ==========================================
 - story: Business registration procedures
   steps:

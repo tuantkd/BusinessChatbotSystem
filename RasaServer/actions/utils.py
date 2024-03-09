@@ -49,3 +49,20 @@ def convert_to_snake_case(text):
   processed_text = normalized_text.translate(table)
 
   return processed_text
+
+
+def get_json(file_path):
+  try:
+    with open(file_path, 'r', encoding='utf-8') as json_file:
+      data = json.load(json_file)
+      return data
+  except FileNotFoundError:
+      print(f"File not found: {file_path}")
+  except json.JSONDecodeError:
+      print(f"Error decoding JSON in file: {file_path}")
+  except Exception as e:
+      print(f"An error occurred: {e}")
+      
+
+def cleaned_text(original_text):
+  return re.sub(r'[^a-zA-Z0-9\s]', '', original_text)

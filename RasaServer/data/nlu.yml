@@ -226,3 +226,27 @@ nlu:
     - Mức phí của các sản phẩm dịch vụ thông tin trên Cổng thông tin đăng ký doanh nghiệp quốc gia được quy định ở đâu?
     - Sau khi Tôi đã chọn các sản phẩm cho vào đơn hàng, nếu tôi nhận thấy không cần mua một số sản phẩm đã chọn, tôi có khả năng loại bỏ những sản phẩm này ra khỏi đơn hàng hay không?
     - Cung cấp thông tin đăng ký doanh nghiệp
+
+- intent: lookup_business_lines
+  examples: |
+    - [nông nghiệp, lâm nghiệp và thuỷ sản](industry_name)
+    - [khai khoáng](industry_name)
+    - [công nghiệp chế biến, chế tạo](industry_name)
+    - [sản xuất và phân phối điện, khí đốt, nước nóng, hơi nước và điều hoà không khí](industry_name)
+    - [cung cấp nước, hoạt động quản lý và xử lý rác thải, nước thải](industry_name)
+    - [xây dựng](industry_name)
+    - [bán buôn và bán lẻ; sửa chữa ô tô, mô tô, xe máy và xe có động cơ khác](industry_name)
+    - [vận tải kho bãi](industry_name)
+    - [dịch vụ lưu trú và ăn uống](industry_name)
+    - [thông tin và truyền thông](industry_name)
+    - [hoạt động tài chính, ngân hàng và bảo hiểm](industry_name)
+    - [hoạt động kinh doanh bất động sản](industry_name)
+    - [hoạt động chuyên môn, khoa học và công nghệ](industry_name)
+    - [hoạt động hành chính và dịch vụ hỗ trợ](industry_name)
+    - [hoạt động của đảng cộng sản, tổ chức chính trị - xã hội, quản lý nhà nước, an ninh quốc phòng; bảo đảm xã hội bắt buộc](industry_name)
+    - [giáo dục và đào tạo](industry_name)
+    - [y tế và hoạt động trợ giúp xã hội](industry_name)
+    - [nghệ thuật, vui chơi và giải trí](industry_name)
+    - [hoạt động dịch vụ khác](industry_name)
+    - [hoạt động làm thuê các công việc trong các hộ gia đình, sản xuất sản phẩm vật chất và dịch vụ tự tiêu dùng của hộ gia đình](industry_name)
+    - [hoạt động của các tổ chức và cơ quan quốc tế](industry_name)

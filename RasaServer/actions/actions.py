@@ -7,7 +7,7 @@
 
 from typing import Any, Text, Dict, List
 
-from .utils import convert_to_snake_case
+from .utils import cleaned_text, convert_to_snake_case, get_json
 from .enum import DATA_BUSINESS
 from .db_operations import check_business_type_status_name, find_business_type_status, find_business_type_status_by_code_and_business_type_id, get_business_registration_businessprocessstep, get_business_type_id, get_business_type_status, get_business_type_status_names, get_business_types
 from rasa_sdk import Action, Tracker
@@ -110,4 +110,27 @@ class ActionRegisterTypeOfBusiness(Action):
         contents += f'</div>'
         
         dispatcher.utter_message(text=process_step + contents)
+        return []
+
+
+class ActionLookupBusinessLines(Action):
+    
+    def name(self) -> Text:
+        return "action_lookup_business_lines"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        industrys = get_json('../DjangoServer/sql_data/industry-filter.json')
+        industry_name = tracker.latest_message['text']
+        
+        text_message = f'Một số ngành nghề kinh doanh liên quan (<b>{industry_name})</b> gồm:'
+        text_message += '<ul>'
+        for industry in industrys:
+            if cleaned_text(industry['primary_name']).upper().strip() == cleaned_text(industry_name).upper().strip():
+                text_message += ''.join(f"<li>{name}</li>" for name in industry['names'])
+        text_message += '</ul>'
+        
+        dispatcher.utter_message(text=text_message)
         return []

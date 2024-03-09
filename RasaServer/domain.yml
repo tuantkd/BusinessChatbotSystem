@@ -20,6 +20,7 @@ intents:
   - registration_dossier
   - business_registration_fees_charges
   - about_information_services
+  - lookup_business_lines
 
 responses:
   utter_greet:
@@ -479,12 +480,14 @@ responses:
 entities:
   - business_type_name
   - type_of_business_name
+  - industry_name
 
 actions:
   - action_business_types
   - action_register_business_procedure
   - action_register_business_type_name
   - action_register_type_of_business
+  - action_lookup_business_lines
 
 slots:
   business_type:
@@ -499,6 +502,12 @@ slots:
     mappings:
       - type: from_entity
         entity: type_of_business_name
+  industry:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: industry_name
 
 session_config:
   session_expiration_time: 60
