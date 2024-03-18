@@ -390,9 +390,90 @@ nlu:
     - [hoạt động làm thuê các công việc trong các hộ gia đình, sản xuất sản phẩm vật chất và dịch vụ tự tiêu dùng của hộ gia đình](industry_name)
     - [hoạt động của các tổ chức và cơ quan quốc tế](industry_name)
 
-- intent: about_faq
+- intent: define_business_registration_certificate_revocation_faq
   examples: |
     - Khái niệm về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp được hiểu như thế nào?
+    - Cách hiểu về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
+    - Ý nghĩa của việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
+    - Hiểu biết về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp như thế nào?
+    - Tính chất của việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
+    - Giải thích về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Thu hồi Giấy chứng nhận đăng ký doanh nghiệp có ý nghĩa gì?
+    - Việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp được hiểu như thế nào?
+    - Khái quát về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Sự định nghĩa của việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
+
+- intent: inquire_retrieval_procedure_faq
+  examples: |
     - Vậy Doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp trong những trường hợp nào? Trình tự, thủ tục thu hồi Giấy CNĐKDN quy định tại đâu?
-    - Cơ quan nào có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp? Các Bộ, cơ quan ngang Bộ và Ủy ban nhân dân các cấp có quyền ban hành quy định về đăng ký doanh nghiệp và chỉ đạo Cơ quan đăng ký kinh doanh thu hồi Giấy chứng nhận đăng ký doanh
+    - Trình tự, thủ tục thu hồi Giấy CNĐKDN quy định tại đâu?
+    - Nơi quy định trình tự và thủ tục thu hồi Giấy CNĐKDN là ở đâu?
+    - Ở đâu quy định về cách thức thu hồi Giấy CNĐKDN?
+    - Làm sao để biết được quy trình và thủ tục thu hồi Giấy CNĐKDN?
+    - Tôi cần tìm thông tin về cách thu hồi Giấy CNĐKDN, điều đó được quy định ở đâu?
+    - Tại đâu có hướng dẫn về việc thu hồi Giấy CNĐKDN?
+    - Có thông tin nào về quy trình thu hồi Giấy CNĐKDN không?
+    - Nơi nào cung cấp hướng dẫn về thủ tục thu hồi Giấy CNĐKDN?
+    - Trong tình huống nào tôi cần phải thu hồi Giấy CNĐKDN và làm thế nào để thực hiện?
+    - Ai có thể hướng dẫn về việc thu hồi Giấy CNĐKDN?
+    - Làm thế nào để tìm hiểu về quy trình thu hồi Giấy CNĐKDN?
+
+- intent: query_business_registration_cert_revocation_faq
+  examples: |
+    - Cơ quan nào có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp? Các Bộ, cơ quan ngang Bộ và Ủy ban nhân dân các cấp có quyền ban hành quy định về đăng ký doanh nghiệp và chỉ đạo Cơ quan đăng ký kinh doanh thu hồi Giấy chứng nhận đăng ký doanh nghiệp
+    - Cơ quan nào có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Ai có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Đơn vị nào có thẩm quyền rút lại Giấy chứng nhận đăng ký doanh nghiệp?
+    - Người nào được phép hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
+    - Cơ quan nào có thể thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Ai có khả năng hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
+    - Ai là người có thể rút lại Giấy chứng nhận đăng ký doanh nghiệp?
+    - Cơ quan nào chịu trách nhiệm thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Ai được ủy quyền để hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
+    - Đơn vị nào có thẩm quyền hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
+
+- intent: inquiry_business_resumption_faq
+  examples: |
     - Trường hợp doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp sai, không đúng quy định của pháp luật, doanh nghiệp có được quyền quay trở lại hoạt động không?
+    - Trong trường hợp một công ty bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp vì không tuân thủ quy định, liệu họ có thể hoạt động trở lại không?
+    - Khi Giấy chứng nhận đăng ký doanh nghiệp bị thu hồi do vi phạm quy định, doanh nghiệp có cơ hội phục hồi và tiếp tục kinh doanh không?
+    - Doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký vì không đúng quy định pháp luật, liệu họ có được phép tái khởi động kinh doanh không?
+    - Trong trường hợp một doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký do vi phạm quy định, liệu họ có quyền tái lập hoạt động kinh doanh không?
+    - Khi một công ty bị thu hồi Giấy chứng nhận đăng ký do không tuân thủ quy định, liệu họ có cơ hội khôi phục hoạt động kinh doanh không?
+    - Trong tình huống doanh nghiệp vi phạm pháp luật và bị thu hồi Giấy chứng nhận đăng ký, liệu họ có thể xin phép để tiếp tục kinh doanh không?
+    - Nếu doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký vì vi phạm quy định, liệu họ có được quyền phục hồi và hoạt động trở lại không?
+    - Khi một doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký do không tuân thủ quy định, liệu họ có thể làm thủ tục để tái khởi động kinh doanh không?
+    - Trong trường hợp doanh nghiệp vi phạm quy định và bị thu hồi Giấy chứng nhận đăng ký, liệu họ có được phép hoạt động trở lại không?
+
+- intent: documents_business_registration
+  examples: |
+    - Luật Doanh nghiệp số 59/2020/QH14
+    - Luật Phí và Lệ Phí 97/2015/QH13
+    - Luật Đầu tư 67/2014/QH13
+    - Luật Doanh nghiệp 68/2014/QH13
+    - Luật sửa đổi, bổ sung một số điều của Luật quản lý thuế
+    - Luật Quản lý thuế số 78/2006/QH11
+    - Nghị định số 01/2021/NĐ-CP của Chính phủ về đăng ký doanh nghiệp
+    - Nghị định quy định về phối hợp, liên thông thủ tục đăng ký thành lập doanh nghiệp, chi nhánh, văn phòng đại diện, khai trình việc sử dụng lao động, cấp mã số đơn vị tham gia bảo hiểm xã hội, đăng ký sử dụng hóa đơn của doanh nghiệp
+    - Nghị định số 108/2018/NĐ-CP sửa đổi, bổ sung một số điều của Nghị định số 78/2018/NĐ-CP ngày 14/9/2015 của Chính phủ về đăng ký doanh nghiệp
+    - Nghị định số 120/2016/NĐ-CP hướng dẫn Luật Phí và lệ phí
+    - Nghị định số 50/2016/NĐ-CP ngày 01/6/2016 quy định về xử phạt vi phạm hành chính trong lĩnh vực kế hoạch và đầu tư và thay thế Nghị định số 155/2013/NĐ-CP ngày 11/11/2013
+    - Nghị định số 96/2015/NĐ-CP ngày 19/10/2015 của Chính phủ quy quy định chi tiết một số điều của Luật Doanh nghiệp
+    - Nghị định số 78/2015/NĐ-CP ngày 14/09/2015 của Chính phủ về đăng ký doanh nghiệp
+    - Nghị định số 118/2015/NĐ-CP ngày 12/11/2015 của Chính phủ quy định chi tiết và hướng dẫn thi hành một số điều của Luật Đầu tư
+    - Nghị định số 83/2013/NĐ-CP ngày 22/7/2013 hướng dẫn Luật quản lý thuế và Luật quản lý thuế sửa đổi
+    - Thông tư 01/2021/TT-BKHĐT hướng dẫn về đăng ký doanh nghiệp
+    - Sửa đổi, bổ sung một số điều của Thông tư số 20/2015/TT-BKHĐT ngày 01 tháng 12 năm 2015 của Bộ Kế hoạch và Đầu tư hướng dẫn về đăng ký doanh nghiệp
+    - Thông tư số 130/2017/TT-BTC sửa đổi, bổ sung một số điều của Thông tư số 215/2016/TT-BTC
+    - Thông tư số 215/2016/TT-BTC ngày 10/11/2016 của Bộ Tài chính quy định mức thu, chế độ thu, nộp, quản lý và sử dụng phí cung cấp thông tin doanh nghiệp, lệ phí đăng ký doanh nghiệp
+    - Thông tư số 133/2016/TT-BTC ngày 26/8/2016 của Bộ Tài chính hướng dẫn chế độ kế toán doanh nghiệp nhỏ và vừa
+    - Thông tư số 95/2016/TT-BTC hướng dẫn về đăng ký thuế thay thế Thông tư số 80/2012/TT-BTC
+    - Thông tư số 20/2015/TT-BKHĐT ngày 01/12/2015 của Bộ Kế hoạch và Đầu tư hướng dẫn về đăng ký doanh nghiệp
+    - Thông tư số 200/2014/TT-BTC hướng dẫn chế độ kế toán doanh nghiệp
+    - Công bố thủ tục hành chính mới ban hành, sửa đổi, bổ sung, thay thế, bãi bỏ, hủy bỏ, hủy công khai trong lĩnh vực thành lập và hoạt động của doanh nghiệp, hộ kinh doanh thuộc phạm vi chức năng quản lý của Bộ Kế hoạch và Đầu tư
+    - Quyết định ban hành Hệ thống ngành kinh tế Việt Nam
+    - Quyết định số 1888/QĐ-BKHĐT của Bộ Kế hoạch và Đầu tư về chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của Cục Quản lý đăng ký kinh doanh
+    - Quyết định số 1852/QĐ-BKHĐT ngày 28/12/2012 của Bộ Kế hoạch và Đầu tư về việc ban hành Quy chế quản lý, vận hành và khai thác Hệ thống Thông tin đăng ký kinh doanh quốc gia
+    - Quyết định số 337/QĐ-BKH ngày 10/4/2007 của Bộ Kế hoạch và Đầu tư về việc ban hành Quy định nội dung Hệ thống ngành kinh tế của Việt Nam
+    - Quyết định số 10/2007/QĐ-TTg ngày 23/01/2007 của Thủ tướng Chính phủ về việc ban hành Hệ thống ngành kinh tế của Việt Nam
+

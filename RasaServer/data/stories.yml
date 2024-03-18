@@ -78,10 +78,29 @@ stories:
 
 - story: FAQ - về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp
   steps:
-  - intent: about_faq
-  - action: utter_about_faq
+  - intent: define_business_registration_certificate_revocation_faq
+  - action: utter_define_business_registration_certificate_revocation_faq
 
-# ==========================================
+- story: FAQ - điều tra nối lại hoạt động kinh doanh
+  steps:
+  - intent: inquiry_business_resumption_faq
+  - action: utter_inquiry_business_resumption_faq
+
+- story: FAQ - truy vấn thu hồi giấy chứng nhận đăng ký kinh doanh
+  steps:
+  - intent: query_business_registration_cert_revocation_faq
+  - action: utter_query_business_registration_cert_revocation_faq
+
+- story: FAQ - hỏi thủ tục truy xuất
+  steps:
+  - intent: inquire_retrieval_procedure_faq
+  - action: utter_inquire_retrieval_procedure_faq
+
+- story: Các văn bản về đăng ký kinh doanh
+  steps:
+  - intent: documents_business_registration
+  - action: action_documents_business_registration
+
 - story: Thủ tục đăng ký kinh doanh
   steps:
   - intent: register_business_procedure

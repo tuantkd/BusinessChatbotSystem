@@ -135,3 +135,18 @@ class ActionLookupBusinessLines(Action):
         
         dispatcher.utter_message(text=text_message)
         return []
+    
+
+class ActionDocumentsBusinessRegistration(Action):
+    
+    def name(self) -> Text:
+        return "action_documents_business_registration"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        document_name = tracker.latest_message['text']
+        
+        dispatcher.utter_message(text='')
+        return []
