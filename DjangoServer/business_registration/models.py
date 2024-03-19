@@ -78,7 +78,11 @@ class Business(models.Model):
 
     business_code = models.CharField(_("Business Code"), max_length=255, default=generate_unique_random_code, editable=False)
     company_name = models.CharField(_("Company Name"), max_length=255)
-    detail = models.TextField(_("Details"), null=True, blank=True)
+    longitude = models.CharField(_("Longitude"), max_length=20)
+    latitude = models.CharField(_("Latitude"), max_length=20)
+    address = models.CharField(_("Address"), max_length=255)
+    company_name = models.CharField(_("Company Name"), max_length=255)
+    detail = models.TextField(_("Details"), blank=True)
     capital = models.BigIntegerField(_("Capital"), validators=[validate_multiple_of_1000])
     status = models.CharField(
         _("Status"),
@@ -94,6 +98,8 @@ class Business(models.Model):
     
     def __str__(self):
         return self.company_name
+    
+
 class BusinessStatusChange(models.Model):
     class Meta:
         verbose_name = _("Business Status Change")
