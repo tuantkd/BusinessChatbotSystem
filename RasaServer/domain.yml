@@ -21,6 +21,11 @@ intents:
   - business_registration_fees_charges
   - about_information_services
   - lookup_business_lines
+  - define_business_registration_certificate_revocation_faq
+  - inquire_retrieval_procedure_faq
+  - query_business_registration_cert_revocation_faq
+  - inquiry_business_resumption_faq
+  - documents_business_registration
 
 responses:
   utter_greet:
@@ -477,6 +482,77 @@ responses:
             <p style="text-align: justify;">Theo quy định tại khoản 4, khoản 5 Thông tư số 47/2019/TT-BTC thì cơ quan nhà nước đề nghị cung cấp thông tin phục vụ quản lý nhà nước được miễn phí cung cấp thông tin doanh nghiệp; doanh nghiệp nhỏ và vừa chuyển đổi từ hộ kinh doanh được miễn phí cung cấp thông tin doanh nghiệp lần đầu.</p>
           </div>'
 
+  utter_inquiry_business_resumption_faq:
+  - text: '<div>
+            <p style="text-align: justify;">
+                Theo quy định tại Khoản 1 Điều 64 Nghị định số 78/2015/NĐ-CP ngày 14/9/2015 của Chính phủ về đăng ký doanh nghiệp thì một trong những trường hợp Phòng Đăng ký kinh doanh ra quyết định hủy bỏ quyết định thu hồi Giấy chứng nhận đăng
+                ký doanh nghiệp và khôi phục tình trạng pháp lý của doanh nghiệp trên Hệ thống thông tin quốc gia về đăng ký doanh nghiệp là: “Phòng Đăng ký kinh doanh xác định doanh nghiệp không thuộc trường hợp phải thu hồi Giấy chứng nhận đăng
+                ký doanh nghiệp”.
+            </p>
+            <p style="text-align: justify;">
+                Căn cứ quy định này, trường hợp doanh nghiệp không vi phạm quy định pháp luật thuộc trường hợp phải thu hồi Giấy chứng nhận đăng ký doanh nghiệp, doanh nghiệp có quyền yêu cầu Phòng đăng ký kinh doanh khôi phục tình trạng pháp lý
+                của doanh nghiệp. Trường hợp cơ quan đăng ký kinh doanh không chấp thuận yêu cầu khôi phục, doanh nghiệp có thể thực hiện quyền khiếu nại hoặc khởi kiện Phòng Đăng ký kinh doanh ra Tòa án hành chính theo quy định của pháp luật.
+                Trường hợp cơ quan đăng ký kinh doanh khôi phục tình trạng pháp lý của doanh nghiệp trên Hệ thống Thông tin quốc gia về đăng ký doanh nghiệp, doanh nghiệp có thể hoạt động trở lại.
+            </p>
+            <p style="text-align: justify;">
+                Trường hợp doanh nghiệp ngừng hoạt động trên 1 năm và không thông báo cho cơ quan thuế, cơ quan đăng ký kinh doanh, đã bị Phòng Đăng ký kinh doanh thu hồi Giấy chứng nhận đăng ký doanh nghiệp, đến nay, doanh nghiệp muốn quay trở lại
+                hoạt động không thuộc một trong hai trường hợp doanh nghiệp được khôi phục tình trạng pháp lý quy định tại Điều 64 Nghị định số 78/2015/NĐ-CP.
+            </p>
+          </div>'
+
+  utter_define_business_registration_certificate_revocation_faq:
+  - text: "Luật Doanh nghiệp và các văn bản hướng dẫn thi hành không nêu khái niệm thế nào là thu hồi Giấy chứng nhận đăng ký doanh nghiệp. Nếu coi việc cấp Giấy chứng nhận đăng ký doanh nghiệp là “khai sinh” cho doanh nghiệp, doanh nghiệp
+        được phép hoạt động, kinh doanh sản xuất kể từ khi được cấp Giấy chứng nhận đăng ký doanh nghiệp, thì việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp có thể hiểu là “khai tử” doanh nghiệp, doanh nghiệp không được phép kinh doanh
+        sau khi đã bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp (quy định tại Khoản 3 Điều 17 Luật Doanh nghiệp). Sau khi bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp, doanh nghiệp phải thực hiện thủ tục giải thể theo quy định tại
+        Khoản 6 Điều 63 Nghị định số 78/2015/NĐ-CP. Doanh nghiệp chấm dứt tồn tại sau khi hoàn tất thủ tục giải thể. Trong trường hợp doanh nghiệp cố ý không thực hiện giải thể, sau 180 ngày, cơ quan đăng ký kinh doanh sẽ cập nhật tình
+        trạng “đã giải thể” trên Hệ thống Thông tin quốc gia về đăng ký doanh nghiệp."
+
+  utter_inquire_retrieval_procedure_faq:
+  - text: '<div>
+            <p style="text-align: justify;">
+                Các trường hợp thu hồi Giấy chứng nhận đăng ký doanh nghiệp được quy định tại Khoản 1 Điều 211 Luật Doanh nghiệp và Khoản 26 Điều 1 Luật sửa đổi, bổ sung một số điều của Luật Quản lý thuế cụ thể là:
+            </p>
+            <ol style="text-align: justify;">
+                <li>
+                    Nội dung kê khai trong hồ sơ đăng ký doanh nghiệp là giả mạo;
+                </li>
+                <li>
+                    Doanh nghiệp do những người bị cấm thành lập doanh nghiệp theo khoản 2 Điều 18 của Luật này thành lập;
+                </li>
+                <li>
+                    Doanh nghiệp ngừng hoạt động kinh doanh 01 năm mà không thông báo với Cơ quan đăng ký kinh doanh và cơ quan thuế;
+                </li>
+                <li>
+                    Doanh nghiệp không gửi báo cáo theo quy định tại điểm c khoản 1 Điều 209 của Luật này đến Cơ quan đăng ký kinh doanh trong thời hạn 06 tháng, kể từ ngày hết hạn gửi báo cáo hoặc có yêu cầu bằng văn bản;
+                </li>
+                <li>
+                    Trường hợp khác theo quyết định của Tòa án.
+                </li>
+            </ol>
+            <p style="text-align: justify;">
+                6. Trường hợp doanh nghiệp bị cưỡng chế thi hành quyết định hành chính thuế theo quy định tại Khoản 26 Điều 1 Luật sửa đổi, bổ sung một số điều của Luật Quản lý thuế
+            </p>
+            <p style="text-align: justify;">
+                Trình tự, thủ tục thu hồi Giấy chứng nhận đăng ký doanh nghiệp được quy định tại Điều 63 Nghị định số 78/2015/NĐ-CP ngày 14/9/2015 của Chính phủ về đăng ký doanh nghiệp.
+            </p>
+          </div>'
+
+  utter_query_business_registration_cert_revocation_faq:
+  - text: '<div>
+            <p style="text-align: justify;">
+                Theo quy định tại điểm e khoản 1 Điều 209 Luật Doanh nghiệp thì một trong những nhiệm vụ, quyền hạn của Cơ quan đăng ký kinh doanh là thu hồi Giấy chứng nhận đăng ký doanh nghiệp và yêu cầu doanh nghiệp làm thủ tục giải thể.
+            </p>
+            <p style="text-align: justify;">
+                Các văn bản quy phạm pháp luật hiện hành không quy định cơ quan khác ngoài cơ quan đăng ký kinh doanh có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp. Do vậy, tính đến nay cơ quan đăng ký kinh doanh là cơ quan duy nhất có
+                thẩm quyền thực hiện việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp.
+            </p>
+            <p style="text-align: justify;">
+                Khoản 4 Điều 5 nghị định số 78/2015/NĐ-CP ngày 14/9/2017 của Chính phủ quy định: “Các Bộ, cơ quan ngang Bộ, Hội đồng nhân dân và Ủy ban nhân dân các cấp không được ban hành các quy định về đăng ký doanh nghiệp áp dụng riêng cho
+                ngành hoặc địa phương mình. Những quy định về đăng ký doanh nghiệp do các Bộ, cơ quan ngang Bộ, Hội đồng nhân dân và Ủy ban nhân dân các cấp ban hành trái với quy định tại Khoản này hết hiệu lực thi hành kể từ ngày Nghị định này có
+                hiệu lực”.
+            </p>
+          </div>'
+
 entities:
   - business_type_name
   - type_of_business_name
@@ -488,6 +564,7 @@ actions:
   - action_register_business_type_name
   - action_register_type_of_business
   - action_lookup_business_lines
+  - action_documents_business_registration
 
 slots:
   business_type:
