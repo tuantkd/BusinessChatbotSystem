@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active"><span>Bots</span></li>
+  <!-- Breadcrumb Menu-->
+  <li class="breadcrumb-menu">
+    <div class="btn-group" role="group">
+      <!-- Uncomment the line below and update the href to use Django URL name if importing bots is a feature -->
+      <a class="btn btn-outline-secondary" href="{% url 'import_bot' %}"><i class="fa fa-upload"></i> &nbsp;Import Bot</a>
+      <a class="btn btn-outline-secondary" href="{% url 'add_bot' %}" data-toggle="tooltip" data-placement="top" title="Click to Add a New Bot"><i class="fa fa-plus"></i></a>
+    </div>
+  </li>
+</ol>
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        {% for bot in botList %}
+        <div class="card">
+          <div class="card-header" role="tab">
+            <span><a href="{% url 'bot_detail' bot_id=bot.id %}">{{ bot.bot_name }}</a></span>
+          </div>
+        </div>
+        {% endfor %}
+        <div style="float:right">
+            <!-- Pagination controls -->
+            <!-- Django does not have a built-in replacement for dir-pagination-controls, you might need to implement pagination in your view and adjust here -->
+        </div>
+      </div>
+    </div>
+    <br><br>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+  <li class="breadcrumb-item active">Import Bot</li>
+</ol>
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Import New Bot (Rasa NLU only)</strong>
+                        </div>
+                        <div class="card-block">
+                            <div class="form-group">
+                                <label for="id_bot_name">Name</label>
+                                {{ form.bot_name }}
+                            </div>
+                            <div class="form-group">
+                              <label for="id_file">File <small>(rasa_nlu: json format)</small></label>
+                              {{ form.file }}
+                            </div>
+                        </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Save</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

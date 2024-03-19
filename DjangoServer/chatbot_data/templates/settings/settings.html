@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active"><span>UI Settings</span></li>
+</ol>
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <form method="POST" class="form-horizontal">
+          {% csrf_token %}
+          <div class="card">
+            <div class="card-block">
+              <div class="form-group row">
+                <label class="col-md-3 col-form-label" for="select">Rasa status check poll interval</label>
+                <div class="col-md-9">
+                  <select class="form-control" name="refresh_time">
+                    <option value="5000">5 Seconds</option>
+                    <option value="30000">30 Seconds</option>
+                    <option value="60000">1 min</option>
+                    <option value="300000">5 mins</option>
+                    <option value="-1">Disabled</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active"><span>Training</span></li>
+</ol>
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="card">
+                    <div class="card-block">
+                        <div class="form-group row">
+                            <label for="select" class="col-sm-2 col-form-label">Bot</label>
+                            <div class="col-sm-10">
+                                <select id="bot_name" class="form-control" onchange="location = this.value;">
+                                    <option value="">Please select a bot</option>
+                                    {% for bot in botList %}
+                                    <option value="{% url 'training' bot.id %}" {% if selected_bot == bot.id %} selected {% endif %}>{{ bot.bot_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if selected_bot %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tab-container">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item active"><a class="nav-link active" data-target="#raw_data"
+                                data-toggle="tab"><span></span><i class="fa fa-file"></i> Raw Data</a></li>
+                        <li class="nav-item"><a class="nav-link" data-target="#config" data-toggle="tab"><span></span><i
+                                    class="fa fa-cogs"></i> Config</a></li>
+                        <li class="nav-item"><a class="nav-link" data-target="#nlu_data"
+                                data-toggle="tab"><span></span><i class="fa fa-comment"></i> NLU Data</a></li>
+                        <li class="nav-item"><a class="nav-link" data-target="#stories"
+                                data-toggle="tab"><span></span><i class="fa fa-book"></i> Stories</a></li>
+                        <li class="nav-item"><a class="nav-link" data-target="#domain" data-toggle="tab"><span></span><i
+                                    class="fa fa-globe"></i> Domain</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="raw_data">
+                            <textarea class="datainput">{{ raw_data_stringified }}</textarea>
+                        </div>
+                        <div class="tab-pane" id="config">
+                            <textarea class="datainput">{{ raw_data.config }}</textarea>
+                        </div>
+                        <div class="tab-pane" id="nlu_data">
+                            <textarea class="datainput">{{ raw_data.nlu }}</textarea>
+                        </div>
+                        <div class="tab-pane" id="stories">
+                            <textarea class="datainput">{{ raw_data.stories }}</textarea>
+                        </div>
+                        <div class="tab-pane" id="domain">
+                            <textarea class="datainput">{{ raw_data.domain }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+              &nbsp;
+            </div>
+        </div>
+        
+        {% if selected_bot %}
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-header">
+                <strong>Training</strong>
+              </div>
+              <div class="card-block">
+                <form method="POST">
+                  {% csrf_token %}
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Comment</label>
+                    <div class="col-sm-9">
+                      <input type="text" autocomplete="off" name="comment" class="form-control" id="comment">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Force Model Update</label>
+                    <div class="col-sm-9">
+                      <label class="switch switch-3d switch-success">
+                        <input type="checkbox" class="switch-input" name="force_model_update">
+                        <span class="switch-label"></span>
+                        <span class="switch-handle"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Start Training</button>
+                    <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'download_file' %}'"><i class="fa fa-file"></i>&nbsp; Download File</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

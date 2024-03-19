@@ -1,0 +1,45 @@
+{% load static %}
+
+<aside class="aside-menu">
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="dialog" role="tabpanel">
+      <div class="callout m-0 py-2 text-muted text-center bg-light text-uppercase">
+        <small><b>Input</b></small>
+      </div>
+      <div class="callout m-0 py-3">
+        <form method="post" action="#">
+          {% csrf_token %}
+          <div class="input-group">
+            <input type="text" name="test_text" class="form-control" id="test_text"
+              placeholder="Try it now ..." title="Select a model from dropdown and enter text to be parsed">
+            <button type="submit" class="btn btn-primary">Go</button>
+          </div>
+        </form>
+      </div>
+      <!-- Output section (conditionally displayed based on context variable) -->
+      {% if response_text %}
+        <div class="callout m-0 py-2 text-muted text-center bg-light text-uppercase">
+          <small><b>Output</b></small>
+        </div>
+        <div class="callout m-0 py-3">
+          {% for resp in response_text %}
+            <div class="clearfix">
+              <div class="callout callout-info">{{ resp }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      
+      <div class="callout m-0 py-2 text-muted text-center bg-light text-uppercase">
+        <small><b>JSON Data</b></small>
+      </div>
+      <!-- Display JSON Data (Assuming you pass a variable 'test_text_response' to the template) -->
+      <div class="callout m-0 py-3">
+        <!-- Displaying JSON data directly in templates is not straightforward in Django. 
+             You might need to serialize it in views and then print it here. -->
+        {{ test_text_response|safe }}
+      </div>
+    </div>
+  </div>
+</aside>

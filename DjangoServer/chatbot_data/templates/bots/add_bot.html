@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <form method="post" class="p-a-1">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Bot</strong>
+                        </div>
+                        <div class="card-block">
+                            <div class="form-group">
+                                <label for="id_bot_name">Bot Name</label>
+                                {{ form.bot_name }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_bot_config">Bot Config</label>
+                                {{ form.bot_config }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_output_folder">Output Folder Path</label>
+                                {{ form.output_folder }}
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

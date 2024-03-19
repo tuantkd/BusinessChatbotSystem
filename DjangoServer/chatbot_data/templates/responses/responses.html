@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active"><span>Responses</span></li>
+</ol>
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-sm-12">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="card">
+          <div class="card-block">
+            <div class="form-group row">
+              <label for="selectBot" class="col-sm-2 col-form-label">Bot</label>
+              <div class="col-sm-10">
+                <select id="selectBot" class="form-control" onchange="location = this.value;">
+                  <option value="">Please select one</option>
+                  {% for bot in bots %}
+                  <option value="{% url 'responses' bot.id %}" {% if selected_bot|add:0 == bot.id|add:0 %}selected{% endif %}>{{ bot.bot_name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if selected_bot %}
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <strong>Actions</strong>
+            <span class="float-right">
+              <!-- Đường link để thêm action mới cho bot này -->
+              <a class="btn btn-ghost-primary" href="{% url 'add_response' selected_bot %}"><i
+                  class="fa fa-plus"></i></a>
+            </span>
+          </div>
+          <div class="card-block">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="list-group">
+                  {% for action in actionsList %}
+                  <div class="list-group-item">
+                    <span>{{ action.action_name }}</span>
+                    <span class="float-right">
+                      <button class="btn btn-outline-secondary mr-2" data-toggle="collapse"
+                        data-target="#table_action_{{action.action_id}}" aria-expanded="false"
+                        aria-controls="table_action_{{action.action_id}}">
+                        <span class="icon-plus" id="icon_action_{{action.action_id}}"></span>
+                      </button>
+                      <button class="btn btn btn-outline-danger">
+                        <span class="icon-trash"></span>
+                      </button>
+                    </span>
+                  </div>
+                  <table class="table table-bordered">
+                    <tbody>
+                      <tr class="collapse" id="table_action_{{action.action_id}}">
+                        <td>
+                          <select class="form-control">
+                            <option value="">Please select one</option>
+                            {% for responseType in responseTypeList %}
+                            <option value="{{responseType.id}}">{{responseType.type}}</option>
+                            {% endfor %}
+                          </select>
+                        </td>
+                        <td>
+                          <form>
+                            <input type="text" class="form-control" placeholder="Enter the response text" required>
+                          </form>
+                        </td>
+                        <td>
+                          <span class="float-right">
+                            <button class="btn btn btn-outline-success">
+                              <span class="icon-check"></span>
+                            </button>
+                          </span>
+                        </td>
+                      </tr>
+                      {% for response in responseList %}
+                      <tr>
+                        <td>
+                          <select class="form-control">
+                            <option value="">Please select one</option>
+                            {% for responseType in responseTypeList %}
+                            <option value="{{responseType.type}}">{{responseType.type}}</option>
+                            {% endfor %}
+                          </select>
+                        </td>
+                        <td>
+                          <input type="text" class="form-control" placeholder="Enter the response text" required>
+                        </td>
+                        <td>
+                          <span class="float-right">
+                            <button class="btn btn btn-outline-success">
+                              <span class="icon-check"></span>
+                            </button>
+                            <button class="btn btn btn-outline-danger">
+                              <span class="icon-trash"></span>
+                            </button>
+                          </span>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  {% endfor %}
+                </div>
+                <br>
+                <div style="float:right">
+                  <!-- Pagination controls -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% block scripts %}
+<script src="{% static 'js/responses.js' %}"></script>
+{% endblock %}
+{% endblock %}

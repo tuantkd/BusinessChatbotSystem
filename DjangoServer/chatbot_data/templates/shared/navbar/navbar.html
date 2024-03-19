@@ -1,0 +1,21 @@
+<header class="app-header navbar">
+    <button class="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button">&#9776;</button>
+    <a class="navbar-brand"></a>
+    <ul class="nav navbar-nav d-md-down-none">
+      <li class="nav-item">
+        <!-- Example for toggleSidebar(), you would handle this with JS or Django view -->
+        <a class="nav-link navbar-toggler layout-toggler" style="color: #999;" href="#">&#9776;</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav ml-auto">
+      {% if config.isonline == 1 %}
+      <li class="nav-item">
+        <i class="fa fa-server header-buttons fa-lg" style="color: #90EE90;"></i>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <i class="fa fa-server fa-lg" style="color: #ff6666;"></i>
+      </li>
+      {% endif %}
+    </ul>
+  </header>
