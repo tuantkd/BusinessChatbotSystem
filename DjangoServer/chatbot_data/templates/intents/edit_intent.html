@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block title %} Edit Entity {% endblock %}
+{% load static %}
+
+{% block content %}
+<ol class="breadcrumb" breadcrumb="">
+    <li class="breadcrumb-item">
+        <a href="#/bots">Bots</a>
+    </li>
+    <li class="breadcrumb-item">
+        <a href="#/bot/{{bot.id}}">{{ bot.bot_name }} </a>
+    </li>
+    <li class="breadcrumb-item active">{{intent.intent_name}}</li>
+    <!-- Breadcrumb Menu-->
+    <li class="breadcrumb-menu">
+        <div class="btn-group" role="group">
+            <a class="btn btn-outline-secondary" click="deleteIntent()" confirm-click-title="Delete Intent"
+                confirm-click="Are you sure? This will delete the intent and all its expressions, and their resolved entities.">
+                <i class="fa fa-trash"></i> &nbsp;Delete Intent</a>
+        </div>
+    </li>
+</ol>
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <form>
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Intent Name</strong>
+                        </div>
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control"
+                                            value="{{intent.intent_name}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-sm btn-primary"
+                                click="updateIntentNameAndWebhook(intent)"><i
+                                    class="fa fa-dot-circle-o"></i>Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <form autocomplete="off" id="addExpressionForm">
+                        {% csrf_token %}
+
+                        <div class="card-header">
+                            <strong>Expressions</strong>
+                        </div>
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="text">User Says ...</label>
+                                        <input type="text" autocomplete="off" class="form-control" id="text"
+                                            placeholder="Enter an expression and press enter">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <form>
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <label>Highlight the word you want to reference as a entity value ...</label>
+                                    <div class="list-group">
+                                        {% for expression in expression_list %}
+                                        <div class="list-group-item">
+                                            <span
+                                                id="expression_{{expression.id}}">{{expression.expression_text}}</span>
+                                            <span class="float-right">
+                                                <span class="badge badge-default badge-pill mr-2">{{
+                                                    parameter_list|length
+                                                    }}</span>
+                                                <button class="btn btn-outline-secondary">
+                                                    <span class="fa fa-bolt"></span>
+                                                </button>
+                                                <button class="btn btn-outline-secondary">
+                                                    <span class="fa fa-link"></span>
+                                                </button>
+                                                <button class="btn btn-outline-secondary mr-2" data-toggle="collapse"
+                                                    data-target="#table_expression_{{expression.id}}"
+                                                    aria-expanded="false"
+                                                    aria-controls="table_expression_{{expression.id}}">
+                                                    <span class="fa fa-arrow-down"
+                                                        id="icon_expression_{{expression.id}}"></span>
+                                                </button>
+                                                <button class="btn btn-outline-danger">
+                                                    <span class="fa fa-trash"></span>
+                                                </button>
+                                            </span>
+                                        </div>
+                                        <div class="collapse" id="table_expression_{{expression.id}}">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Entity</th>
+                                                        <th>Resolved Value</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for parameter in parameter_list %}
+                                                    <tr>
+                                                        <td class="col-md-3">
+                                                            <select class="form-control">
+                                                                <option value="">Please select one</option>
+                                                                {% for entity in entity_list %}
+                                                                <option value="{{entity.id}}">{{entity.name}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </td>
+                                                        <td class="td-middle">{{ parameter.value }}</td>
+                                                        <td class="col-md-1">
+                                                            <button class="btn btn btn-outline-danger">
+                                                                <span class="fa fa-trash"></span>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    <br>
+                                    <div style="float:right">
+                                        <!-- Pagination controls -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/edit_intent.js' %}"></script>
+{% endblock %}

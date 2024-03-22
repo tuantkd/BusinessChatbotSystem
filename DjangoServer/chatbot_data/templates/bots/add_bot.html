@@ -2,29 +2,23 @@
 {% load static %}
 
 {% block content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+    <li class="breadcrumb-item active">Add Bot</li>
+</ol>
+
 <div class="container-fluid">
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-                <form method="post" class="p-a-1">
+                <form method="post">
                     {% csrf_token %}
                     <div class="card">
                         <div class="card-header">
                             <strong>Bot</strong>
                         </div>
                         <div class="card-block">
-                            <div class="form-group">
-                                <label for="id_bot_name">Bot Name</label>
-                                {{ form.bot_name }}
-                            </div>
-                            <div class="form-group">
-                                <label for="id_bot_config">Bot Config</label>
-                                {{ form.bot_config }}
-                            </div>
-                            <div class="form-group">
-                                <label for="id_output_folder">Output Folder Path</label>
-                                {{ form.output_folder }}
-                            </div>
+                            {{ form.as_p }}
                         </div>
 
                         <div class="card-footer">

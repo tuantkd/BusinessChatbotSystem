@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,15 +13,15 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
     <!-- Các file CSS khác -->
 </head>
+
 <body>
     <div class="container-fluid">
         {% include 'shared/navbar/navbar.html' %}
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-lg-2">
+            <div class="col-lg-2 sidebar-fixed">
                 {% include 'shared/sidebar/sidebar.html' %}
             </div>
-    
             <!-- Main Content -->
             <main role="main" class="col-lg-10 ml-sm-auto px-md-4">
                 {% block content %}{% endblock %}
@@ -34,12 +35,13 @@
     <script src="{% static 'js/bots.js' %}"></script>
     <script src="{% static 'js/dashboard.js' %}"></script>
     <!-- Các script khác theo nhu cầu cụ thể của trang -->
-    
+
     <!-- Sidebar và Navbar scripts -->
-    
+
     <script src="{% static 'js/sidebar/sidebar.js' %}"></script>
     <script src="{% static 'js/navbar/navbar.js' %}"></script>
     <!-- Các script khác -->
     {% block scripts %} {% endblock %}
 </body>
+
 </html>

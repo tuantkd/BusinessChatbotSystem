@@ -1,14 +1,15 @@
 from datetime import datetime, timezone
+import json
 import pdb
 import time
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import FileResponse
+from django.http import FileResponse, HttpResponseServerError
 from django.views import View
 from django.views.generic.base import TemplateView
-from .models import Bot, Action, Response, Story, ModelModel, Conversation
+from .models import Bot, Action, Entity, Expression, ExpressionParameter, Intent, Response, Story, ModelModel, Conversation
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import BotForm, ImportBotForm, ActionForm, ResponseForm, StoryForm
+from .forms import BotForm, ImportBotForm, ActionForm, IntentForm, ResponseForm, StoryForm
 from django.shortcuts import redirect
 from django.contrib import messages
 class DashboardView(TemplateView):
@@ -20,7 +21,11 @@ class BotsView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['botList'] = Bot.objects.all()  # Get all bots
         return context
-
+    
+def delete_bot(request, bot_id):
+    bot = Bot.objects.get(id=bot_id)
+    bot.delete()
+    return redirect('bots') 
 class EditBotView(View):
     form_class = BotForm
     template_name = 'bots/edit_bot.html'
@@ -30,8 +35,20 @@ class EditBotView(View):
         bot = get_object_or_404(Bot, pk=bot_id)
         # Khởi tạo form với instance là đối tượng bot
         form = self.form_class(instance=bot)
-        # Render template kèm theo form
-        return render(request, self.template_name, {'form': form, 'bot': bot})
+        # Lấy danh sách các Intent, Entity, Synonym, và Regex liên quan đến bot
+        intents = bot.intents.all()
+        entities = bot.entities.all()
+        synonyms = bot.synonyms.all()
+        regexes = bot.regexes.all()
+        # Render template kèm theo form và các danh sách
+        return render(request, self.template_name, {
+            'form': form,
+            'bot': bot,
+            'intents': intents,
+            'entities': entities,
+            'synonyms': synonyms,
+            'regexes': regexes,
+        })
 
     def post(self, request, bot_id, *args, **kwargs):
         # Lấy lại đối tượng bot như ở phương thức GET
@@ -100,12 +117,58 @@ class ActionsView(TemplateView):
     # Assuming there might be a specific template for actions that hasn't been listed
     template_name = 'actions/edit_action.html'  # Adjust if there's an actual path
 
-class AddIntentView(TemplateView):
+class AddIntentView(View):
     template_name = 'intents/add_intent.html'
+    def get(self, request, bot_id):
+        bot = Bot.objects.get(id=bot_id)  # Replace with your actual query
+        return render(request, self.template_name, {'bot': bot})
 
-class EditIntentView(TemplateView):
+    def post(self, request, bot_id):
+        bot = Bot.objects.get(id=bot_id)  # Replace with your actual query
+        intent_name = request.POST.get('intent_name')
+        Intent.objects.create(bot=bot, intent_name=intent_name)  # Replace with your actual creation logic
+        return redirect('bot_detail', bot_id=bot.id)  # Replace with your actual redirect
+
+class EditIntentView(View):
     template_name = 'intents/edit_intent.html'
+    
+    def get(self, request, intent_id, *args, **kwargs):
+        intent = get_object_or_404(Intent, pk=intent_id)
+        bot = intent.bot
+        form = IntentForm(instance=intent)
+        context = {
+            'form': form,
+            'bot': bot,
+            'intent': intent,
+            'bot_entities': bot.entities.all(),
+            'expression_list': intent.expressions.all(),
+            'parameter_list': ExpressionParameter.objects.filter(intent=intent),
+        }
+        return render(request, self.template_name, context)
 
+    def post(self, request, bot_id, intent_id, *args, **kwargs):
+        bot = get_object_or_404(Bot, pk=bot_id)
+        intent = get_object_or_404(Intent, pk=intent_id)
+        form = IntentForm(request.POST, instance=intent)
+        if form.is_valid():
+            form.save()
+            return redirect('intents:edit_intent', bot_id=bot.id, intent_id=intent.id)
+        return render(request, self.template_name, {'form': form, 'bot': bot, 'intent': intent})
+    
+class AddExpressionView(View):
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            expression_text = data.get('expression_text')
+            intent_id = kwargs.get('intent_id')
+            intent = Intent.objects.get(pk=intent_id) if intent_id else None
+            bot = intent.bot if intent else None
+            Expression.objects.create(expression_text=expression_text, intent=intent)
+            return redirect('intents:edit_intent', intent_id=intent_id, bot_id=bot.id)
+        except Exception as e:
+            # Handle the exception here
+            # You can log the error or return an error response
+            return HttpResponseServerError("An error occurred: " + str(e))
 class StoriesView(View):
     template_name = 'stories/stories.html'
 

@@ -2,40 +2,175 @@
 {% load static %}
 
 {% block content %}
+<ol class="breadcrumb" breadcrumb="">
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+    <li class="breadcrumb-item active">{{ bot.bot_name }}</li>
+    <li class="breadcrumb-menu">
+        <div class="btn-group" role="group">
+            <a class="btn btn-outline-secondary" href="{% url 'delete_bot' bot.id %}" confirm-click-title="Delete Bot"
+                confirm-click="Are you sure? This will delete the bot, all its intents, expressions, and resolved entities."><i
+                    class="fa fa-trash"></i> &nbsp;Delete Bot</a>
+        </div>
+    </li>
+</ol>
+
 <div class="container-fluid">
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-                <form method="post" class="p-a-1">
-                    {% csrf_token %}
-                    <div class="card">
-                        <div class="card-header">
-                            <strong>{{ bot.id|default:"Add" }} Bot</strong>
-                        </div>
-                        <div class="card-block">
-                            <div class="form-group">
-                                <label for="id_bot_name">Bot Name</label>
-                                {{ form.bot_name }}
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Settings</strong>
+                        <span class="float-right">
+                            <a class="btn btn-ghost-primary" data-toggle="collapse" data-target="#bot_settings"
+                                aria-expanded="true" aria-controls="collapseOne"><i class="fa fa-arrow-down"></i></a>
+                        </span>
+                    </div>
+                    <div id="accordion" role="tablist">
+                        <div id="bot_settings" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                            data-parent="#accordion">
+                            <div class="card-block">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="{{bot.id}}_formGroupInput1">Name</label>
+                                        <input name="bot_name" autocomplete="off" type="text" class="form-control"
+                                            id="{{bot.id}}_formGroupInput1" placeholder="Bot Name"
+                                            value="{{ bot.bot_name }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="{{bot.id}}_formGroupInput2">Rasa Config</label>
+                                        <textarea class="datainput form-control" id="{{bot.id}}_formGroupInput2"
+                                            name="bot_config">{{ bot.bot_config}}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="{{bot.id}}_formGroupInput3">Server Output Folder</label>
+                                        <input name="output_folder" autocomplete="off" type="text" class="form-control"
+                                            id="{{bot.id}}_formGroupInput3" placeholder="Output Folder"
+                                            value="{{ bot.output_folder }}">
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-sm btn-primary"><i
+                                                class="fa fa-dot-circle-o"></i>Save</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="form-group">
-                                <label for="id_bot_config">Bot Config</label>
-                                {{ form.bot_config }}
-                            </div>
-                            <div class="form-group">
-                                <label for="id_output_folder">Output Folder Path</label>
-                                {{ form.output_folder }}
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <!-- Duy nhất một nút để lưu bot mới hoặc cập nhật bot đã tồn tại -->
-                            <button type="submit" class="btn btn-sm btn-primary">
-                                <i class="fa fa-dot-circle-o"></i> {{ "Save Changes" }}
-                            </button>
                         </div>
                     </div>
-                </form>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Intents</strong>
+                        <input id="botFilter" style="width:30%" autocomplete="off" class="filtertext" type="text"
+                            name="search" placeholder="Filter Intents..">
+                        <span class="float-right">
+                            <a class="btn btn-ghost-primary" href="{% url 'add_intent' bot.id %}" data-toggle="tooltip"
+                                data-placement="top" title="Click to Add a New Intent"><i class="fa fa-plus"></i></a>
+                        </span>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group">
+                                    {% for intent in bot.intents.all %}
+                                    <div class="list-group-item">
+                                        <a href="{% url 'edit_intent' intent.id %}">{{ intent.intent_name }}</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Pagination controls would go here -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Entities</strong>
+                        <span class="float-right">
+                            <a class="btn btn-ghost-primary" href="{% url 'add_entity' bot.id %}"><i
+                                    class="fa fa-plus"></i></a>
+                        </span>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group">
+                                    {% for entity in bot.entities.all %}
+                                    <div class="list-group-item">
+                                        <a href="{% url 'edit_entity' entity.id %}">{{ entity.name }}</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Pagination controls would go here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Synonyms</strong>
+                        <span class="float-right">
+                            <a class="btn btn-ghost-primary" href="{% url 'add_synonym' bot.id %}" data-toggle="tooltip"
+                                data-placement="top" title="Click to Add a New Synonym"><i class="fa fa-plus"></i></a>
+                        </span>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group">
+                                    {% for synonym in bot.synonyms.all %}
+                                    <div class="list-group-item">
+                                        <a href="{% url 'edit_synonym' synonym.id %}">{{ synonym.reference }}</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Pagination controls would go here -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Regex</strong>
+                        <span class="float-right">
+                            <a class="btn btn-ghost-primary" href="{% url 'add_regex' bot.id %}"><i
+                                    class="fa fa-plus"></i></a>
+                        </span>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group">
+                                    {% for regex in bot.regexes.all %}
+                                    <div class="list-group-item">
+                                        <a href="{% url 'edit_regex' regex.id %}">{{ regex.name }}</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Pagination controls would go here -->
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/edit_bot.js' %}"></script>
 {% endblock %}

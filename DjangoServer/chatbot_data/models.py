@@ -9,34 +9,34 @@ class Bot(models.Model):
 
 class Intent(models.Model):
     intent_name = models.TextField()
-    bot = models.ForeignKey(Bot, on_delete=models.CASCADE)
+    bot = models.ForeignKey(Bot, on_delete=models.CASCADE, related_name='intents')
 
 class Synonym(models.Model):
     synonym_reference = models.TextField()
     regex_pattern = models.TextField(blank=True, null=True)
-    bot = models.ForeignKey(Bot, on_delete=models.CASCADE)
+    bot = models.ForeignKey(Bot, on_delete=models.CASCADE, related_name='synonyms')
 
 class Entity(models.Model):
     entity_name = models.TextField()
     slot_data_type = models.TextField()
-    bot = models.ForeignKey(Bot, on_delete=models.CASCADE)
+    bot = models.ForeignKey(Bot, on_delete=models.CASCADE, related_name='entities')
 
 class Expression(models.Model):
     expression_text = models.TextField()
-    intent = models.ForeignKey(Intent, on_delete=models.CASCADE)
+    intent = models.ForeignKey(Intent, on_delete=models.CASCADE, related_name='expressions')
 
 class ExpressionParameter(models.Model):
     parameter_start = models.IntegerField()
     parameter_end = models.IntegerField()
     parameter_value = models.TextField()
-    expression = models.ForeignKey(Expression, on_delete=models.CASCADE)
-    intent = models.ForeignKey(Intent, on_delete=models.CASCADE)
-    entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
+    expression = models.ForeignKey(Expression, on_delete=models.CASCADE, related_name='parameters')
+    intent = models.ForeignKey(Intent, on_delete=models.CASCADE, related_name='parameters')
+    entity = models.ForeignKey(Entity, on_delete=models.CASCADE, related_name='parameters')
 
 class Regex(models.Model):
     regex_name = models.TextField()
     regex_pattern = models.TextField()
-    bot = models.ForeignKey(Bot, on_delete=models.CASCADE)
+    bot = models.ForeignKey(Bot, on_delete=models.CASCADE, related_name='regexes')
 
 class Response(models.Model):
     response_text = models.TextField()

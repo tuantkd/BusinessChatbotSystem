@@ -1,9 +1,12 @@
 from django import forms
-from .models import Action, Bot, Response, Story
+from .models import Action, Bot, Intent, Response, Story
 
 class BotForm(forms.ModelForm):
     bot_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Enter bot name here...', 'class': 'form-control'}))
-    bot_config = forms.Textarea(attrs={'placeholder': 'Enter bot config here...', 'class': 'form-control'})
+    bot_config = forms.CharField(
+        label='Bot Config',
+        widget=forms.Textarea(attrs={'placeholder': 'Enter bot config here...', 'class': 'form-control'})
+    )
     output_folder = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Folder path...', 'class': 'form-control'}))
 
     class Meta:
@@ -59,7 +62,10 @@ class ResponseForm(forms.ModelForm):
         elif response_type in ['image', 'video', 'audio'] and not response_file:
             self.add_error('response_file', 'Uploading a file is required for this response type.')
 
-
+class IntentForm(forms.ModelForm):
+    class Meta:
+        model = Intent
+        fields = ['intent_name']
 # forms.py
 
 class StoryForm(forms.ModelForm):
