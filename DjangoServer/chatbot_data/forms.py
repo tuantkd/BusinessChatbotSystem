@@ -1,5 +1,5 @@
 from django import forms
-from .models import Action, Bot, Entity, Intent, Regex, Response, Story, Synonym, SynonymVariant
+from .models import Action, Bot, Entity, Intent, LookupVariant, Regex, Response, Story, Synonym, SynonymVariant, Lookup
 
 class BotForm(forms.ModelForm):
     bot_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Enter bot name here...', 'class': 'form-control'}))
@@ -15,16 +15,14 @@ class BotForm(forms.ModelForm):
 class RegexForm(forms.ModelForm):
     class Meta:
         model = Regex
-        fields = ['regex_name', 'regex_pattern']
+        fields = ['regex_name']
         widgets = {
             'regex_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter regex name'}),
-            'regex_pattern': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter regex pattern'}),
         }
         
 class ImportBotForm(forms.Form):
     bot_name = forms.CharField(label='Bot Name', max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Enter the bot name', 'class': 'form-control'}))
-    file = forms.FileField(label='Bot Configuration File', widget=forms.FileInput(attrs={'accept': '.json', 'class': 'form-control'}))
-
+    file = forms.FileField(label='Bot Configuration File', widget=forms.FileInput(attrs={'accept': '.yml', 'class': 'form-control'}))
 class ActionForm(forms.ModelForm):
     action_name = forms.CharField(label='Name', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter the action name'}))
     class Meta:
@@ -78,10 +76,9 @@ class IntentForm(forms.ModelForm):
 class SynonymForm(forms.ModelForm):
     class Meta:
         model = Synonym
-        fields = ['synonym_reference', 'regex_pattern']
+        fields = ['synonym_reference']
         widgets = {
             'synonym_reference': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter synonym reference'}),
-            'regex_pattern': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter regex pattern'}),
         }
 class SynonymVariantForm(forms.ModelForm):
     class Meta:
@@ -89,6 +86,22 @@ class SynonymVariantForm(forms.ModelForm):
         fields = ['synonym_value']
         widgets = {
             'synonym_value': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter synonym variant'}),
+        }
+
+class LookupForm(forms.ModelForm):
+    class Meta:
+        model = Lookup
+        fields = ['lookup_name']
+        widgets = {
+            'lookup_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter lookup name'}),
+        }
+
+class LookupVariantForm(forms.ModelForm):
+    class Meta:
+        model = LookupVariant
+        fields = ['value']
+        widgets = {
+            'value': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter lookup variant'}),
         }
 class EntityForm(forms.ModelForm):
 

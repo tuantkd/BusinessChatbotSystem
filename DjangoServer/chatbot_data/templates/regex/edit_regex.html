@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 {% block title %}Edit Regex{% endblock %}
 {% load static %}
+{% block styles %}
+<link href="{% static 'css/tags-input.css' %}" rel="stylesheet">
+{% endblock %}
 {% block content %}
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
-    <li class="breadcrumb-item"><a href="#/bot/{{ bot.bot_id }}">{{ bot.bot_name }}</a></li>
+    <li class="breadcrumb-item"><a href="#/bot/{{ bot.id }}">{{ bot.bot_name }}</a></li>
     <li class="breadcrumb-item active">{{ regex.regex_name }}</li>
     <!-- Breadcrumb Menu-->
     <li class="breadcrumb-menu">
@@ -18,41 +21,23 @@
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="card">
-                        <div class="card-header"><strong>Regex</strong></div>
-                        <div class="card-block">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input type="text" name="regex_name" value="{{ regex.regex_name }}"
-                                            class="form-control" id="name" placeholder="Enter the regex name" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label for="name">Pattern</label>
-                                        <input type="text" name="regex_pattern" value="{{ regex.regex_pattern }}"
-                                            class="form-control" id="name" placeholder="Enter the regex pattern" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card">
+                    <div class="card-header"><strong>Regex</strong></div>
 
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-sm btn-primary">
-                                <i class="fa fa-dot-circle-o"></i> Save
-                            </button>
+                    <div class="card-block">
+                        <div class="tags-input-wrapper">
+                            <!-- Updated to reflect editing of regex values -->
+                            <label for="regex-values">Regex Values:</label>
+                            <div id="regex-values-container"></div>
+                            <input type="text" id="regex-values-input" placeholder="Enter regex values">
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
 {% endblock %}
 {% block scripts %}
-<script src="{% static 'js/add_regex.js' %}"></script>
+<script src="{% static 'js/edit_regex.js' %}"></script>
 {% endblock %}

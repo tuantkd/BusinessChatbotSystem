@@ -4,7 +4,7 @@
 {% block content %}
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
-    <li class="breadcrumb-item"><a href="#/bot/{{ bot.bot_id }}">{{ bot.bot_name }}</a></li>
+    <li class="breadcrumb-item"><a href="#/bot/{{ bot.id }}">{{ bot.bot_name }}</a></li>
     <li class="breadcrumb-item active">Add Regex</li>
 </ol>
 <div class="container-fluid">
@@ -22,13 +22,6 @@
                                         <label for="name">Name</label>
                                         <input autocomplete="off" type="text" name="regex_name" class="form-control"
                                             id="name" placeholder="Enter the regex name" />
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label for="name">Pattern</label>
-                                        <input autocomplete="off" type="text" name="regex_pattern" class="form-control"
-                                            id="pattern" placeholder="Enter the regex pattern" />
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,5 @@
 import json
 from django.db import models
-from django.core.validators import RegexValidator
 from enum import Enum
 class Bot(models.Model):
     bot_name = models.TextField()
@@ -13,7 +12,6 @@ class Intent(models.Model):
 
 class Synonym(models.Model):
     synonym_reference = models.TextField()
-    regex_pattern = models.TextField(blank=True, null=True)
     bot = models.ForeignKey(Bot, on_delete=models.CASCADE, related_name='synonyms')
 
 class Entity(models.Model):
@@ -35,8 +33,16 @@ class ExpressionParameter(models.Model):
 
 class Regex(models.Model):
     regex_name = models.TextField()
-    regex_pattern = models.TextField()
     bot = models.ForeignKey(Bot, on_delete=models.CASCADE, related_name='regexes')
+
+    def __str__(self):
+        return self.regex_name
+    
+class RegexVariant(models.Model):
+    regex = models.ForeignKey(Regex, on_delete=models.CASCADE, related_name='variants')
+    pattern = models.TextField()
+    def __str__(self):
+        return f"{self.regex.regex_name}: {self.pattern}"
 
 class Response(models.Model):
     response_text = models.TextField()
@@ -62,9 +68,45 @@ class ModelModel(models.Model):
     server_path = models.TextField()
     server_response = models.TextField()
 
+class ActionType(Enum):
+    UTTER = "utter"
+    ACTION = "action"
+    FORM = "form"
+    SLOT_SET = "slot_set"
+
+    @classmethod
+    def choices(cls):
+        return [(key.value, key.name) for key in cls]
+
 class Action(models.Model):
     action_name = models.TextField()
     bot = models.ForeignKey(Bot, on_delete=models.CASCADE)
+    action_type = models.CharField(max_length=10, choices=ActionType.choices(), default=ActionType.UTTER.value)
+
+    def __str__(self):
+        return self.action_name
+    
+class Rule(models.Model):
+    rule_name = models.TextField()
+    rule_steps = models.TextField()
+    bot = models.ForeignKey(Bot, on_delete=models.CASCADE, related_name='rules')
+
+    def __str__(self):
+        return self.rule_name
+class Lookup(models.Model):
+    lookup_name = models.TextField()
+    bot = models.ForeignKey(Bot, on_delete=models.CASCADE, related_name='lookups')
+
+    def __str__(self):
+        return self.lookup_name
+    
+class LookupVariant(models.Model):
+    lookup = models.ForeignKey(Lookup, on_delete=models.CASCADE, related_name='variants')
+    value = models.TextField()
+
+    def __str__(self):
+        return f"{self.lookup.lookup_name}: {self.value}"
+
 
 class Story(models.Model):
     story_name = models.TextField()

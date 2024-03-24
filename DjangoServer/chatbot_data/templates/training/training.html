@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 <ol class="breadcrumb">
     <li class="breadcrumb-item active"><span>Training</span></li>
@@ -22,7 +23,7 @@
                                 <select id="bot_name" class="form-control" onchange="location = this.value;">
                                     <option value="">Please select a bot</option>
                                     {% for bot in botList %}
-                                    <option value="{% url 'training' bot.id %}" {% if selected_bot == bot.id %} selected {% endif %}>{{ bot.bot_name }}</option>
+                                    <option value="{% url 'training' bot.id %}" {% if selectedBot.id|add:0 == bot.id|add:0 %} selected {% endif %}>{{ bot.bot_name }}</option>
                                     {% endfor %}
                                 </select>
                             </div>
@@ -31,15 +32,15 @@
                 </div>
             </div>
         </div>
-        {% if selected_bot %}
+        {% if selectedBot %}
         <div class="row">
             <div class="col-md-12">
                 <div class="tab-container">
                     <ul class="nav nav-tabs">
                         <li class="nav-item active"><a class="nav-link active" data-target="#raw_data"
-                                data-toggle="tab"><span></span><i class="fa fa-file"></i> Raw Data</a></li>
+                        data-toggle="tab"><span></span><i class="fa fa-file"></i> Raw Data</a></li>
                         <li class="nav-item"><a class="nav-link" data-target="#config" data-toggle="tab"><span></span><i
-                                    class="fa fa-cogs"></i> Config</a></li>
+                            class="fa fa-cogs"></i> Config</a></li>
                         <li class="nav-item"><a class="nav-link" data-target="#nlu_data"
                                 data-toggle="tab"><span></span><i class="fa fa-comment"></i> NLU Data</a></li>
                         <li class="nav-item"><a class="nav-link" data-target="#stories"
@@ -48,12 +49,12 @@
                                     class="fa fa-globe"></i> Domain</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" id="raw_data">
-                            <textarea class="datainput">{{ raw_data_stringified }}</textarea>
-                        </div>
-                        <div class="tab-pane" id="config">
-                            <textarea class="datainput">{{ raw_data.config }}</textarea>
-                        </div>
+                    <div class="tab-pane active" id="raw_data">
+                        <textarea class="datainput">{{ raw_data_stringified }}</textarea>
+                    </div>
+                    <div class="tab-pane" id="config">
+                        <textarea class="datainput">{{ raw_data.config }}</textarea>
+                    </div>
                         <div class="tab-pane" id="nlu_data">
                             <textarea class="datainput">{{ raw_data.nlu }}</textarea>
                         </div>
@@ -74,7 +75,7 @@
             </div>
         </div>
         
-        {% if selected_bot %}
+        {% if selectedBot %}
         <div class="row">
           <div class="col-sm-12">
             <div class="card">
@@ -112,4 +113,7 @@
         {% endif %}
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/training.js' %}"></script>
 {% endblock %}

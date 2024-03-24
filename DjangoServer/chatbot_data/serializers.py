@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import ExpressionParameter, Response, SynonymVariant
+from .models import ExpressionParameter, LookupVariant, RegexVariant, Response, SynonymVariant
 
 class ExpressionParameterSerializer(serializers.ModelSerializer):
     entity_name = serializers.SerializerMethodField()
@@ -22,3 +22,13 @@ class ResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Response
         fields = ['id', 'response_text', 'response_type', 'action']
+
+class LookupVariantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LookupVariant
+        fields = ['id', 'value', 'lookup']
+
+class RegexVariantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegexVariant
+        fields = ['id', 'pattern', 'regex']

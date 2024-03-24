@@ -115,7 +115,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 col-lg-6">
+            <div class="col-sm-4 col-lg-4">
                 <div class="card">
                     <div class="card-header">
                         <strong>Synonyms</strong>
@@ -141,7 +141,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-6">
+            <div class="col-sm-4 col-lg-4">
                 <div class="card">
                     <div class="card-header">
                         <strong>Regex</strong>
@@ -157,6 +157,36 @@
                                     {% for regex in bot.regexes.all %}
                                     <div class="list-group-item">
                                         <a href="{% url 'edit_regex' bot.id regex.id %}">{{ regex.regex_name }}</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <!-- Pagination controls would go here -->
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Lookup Tables</strong>
+                        <span class="float-right">
+                            <!-- Update the URL name to the one used for adding a new lookup table -->
+                            <a class="btn btn-ghost-primary" href="{% url 'add_lookup' bot.id %}" data-toggle="tooltip"
+                                data-placement="top" title="Click to Add a New Lookup Table"><i class="fa fa-plus"></i></a>
+                        </span>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group">
+                                    <!-- Loop through lookup tables instead of synonyms -->
+                                    {% for lookup in bot.lookups.all %}
+                                    <div class="list-group-item">
+                                        <!-- Update the URL name to the one used for editing a lookup table and adjust property names as needed -->
+                                        <a href="{% url 'edit_lookup' bot.id lookup.id %}">{{ lookup.lookup_name }}</a>
                                     </div>
                                     {% endfor %}
                                 </div>

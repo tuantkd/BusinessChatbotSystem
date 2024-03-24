@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Edit Lookup Table{% endblock %}
+{% load static %}
+{% block styles %}
+<link href="{% static 'css/tags-input.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb" breadcrumb="">
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+    <li class="breadcrumb-item">
+        <a href="{% url 'bot_detail' lookup.bot.id %}">{{ lookup.bot.bot_name }}</a>
+    </li>
+    <li class="breadcrumb-item active">
+        <span>{{ lookup.lookup_name }}</span>
+    </li>
+    <li class="breadcrumb-menu">
+        <div class="btn-group" role="group">
+            <a class="btn btn-outline-secondary" href="{% url 'delete_lookup' bot_id=lookup.bot.id lookup_id=lookup.id %}">
+                <i class="fa fa-trash"></i>&nbsp;Delete Lookup Table</a>
+        </div>
+    </li>
+</ol>
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header"><strong>Lookup Table</strong></div>
+
+                    <div class="card-block">
+                        <div class="tags-input-wrapper">
+                            <!-- Updated to reflect editing of lookup values -->
+                            <label for="lookup-values">Lookup Values:</label>
+                            <div id="lookup-values-container"></div>
+                            <input type="text" id="lookup-values-input" placeholder="Enter lookup values, separated by commas">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="lookupVariantData" type="application/json">
+    {{ lookup_values_json|safe }}
+</script>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/edit_lookup.js' %}"></script>
+{% endblock %}

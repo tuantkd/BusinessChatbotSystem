@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    const input = $('#regex-values-input');
+    const input = $('#lookup-values-input');
     const csrftoken = getCookie('csrftoken');
     const baseURL = window.location.origin;
     const pathName = window.location.pathname;
@@ -29,17 +29,17 @@ $(document).ready(function () {
         return headers;
     }
 
-    function saveRegexVariant(regexValue) {
-        const addRegexURL = currentURL + '/add_regex_variant';
+    function saveLookupVariant(lookupValue) {
+        const addLookupURL = currentURL + '/add_lookup_variant';
         const headers = getHeaders();
         $.ajax({
-            url: addRegexURL,
+            url: addLookupURL,
             type: 'POST',
             headers: headers,
-            data: JSON.stringify({ regex_value: regexValue }),
+            data: JSON.stringify({ lookup_value: lookupValue }),
             success: function (data) {
                 console.log(data);
-                addTag(data.pattern, data.id);
+                addTag(data.value, data.id);
             },
             error: function (data) {
                 console.log(data);
@@ -48,7 +48,7 @@ $(document).ready(function () {
     }
 
     $(input).on('keyup', function(e) {
-        if (e.key === 'Enter') {
+        if (e.key === ';' || e.key === 'Enter') {
             var tagValue = $(this).val().trim(); // Remove comma and trim whitespace
             // check comma end of the string then remove it
             if (tagValue.charAt(tagValue.length - 1) === ';') {
@@ -64,7 +64,7 @@ $(document).ready(function () {
                 }
             }
             if (!tagExist) {
-                saveRegexVariant(tagValue);
+                saveLookupVariant(tagValue);
             }
 
             $(this).val(''); 
@@ -72,17 +72,17 @@ $(document).ready(function () {
     });
 
     
-    function removeRegexVariant(id, tag) {
+    function removeLookupVariant(id, tag) {
         
-        const removeRegexURL = currentURL + '/remove_regex_variant';
+        const removeLookupURL = currentURL + '/remove_lookup_variant';
         const headers = getHeaders();
         $.ajax({
-            url: removeRegexURL,
+            url: removeLookupURL,
             type: 'POST',
             headers: headers,
-            data: JSON.stringify({ regex_variant_id: id }),
+            data: JSON.stringify({ lookup_variant_id: id }),
             success: function (data) {
-                let tagsContainer = document.getElementById('regex-values-container');
+                let tagsContainer = document.getElementById('lookup-values-container');
                 tagsContainer.removeChild(tag);
             },
             error: function (data) {
@@ -92,7 +92,7 @@ $(document).ready(function () {
     }
 
     function addTag(text, id) {
-        let tagsContainer = document.getElementById('regex-values-container');
+        let tagsContainer = document.getElementById('lookup-values-container');
         const tag = document.createElement('span');
         tag.className = 'tag';
         tag.textContent = text;
@@ -103,7 +103,7 @@ $(document).ready(function () {
         removeBtn.textContent = 'x';
         removeBtn.id = 'removeBtn_' + text; // Add id to the remove button
         removeBtn.onclick = function() {
-            removeRegexVariant(id, tag);
+            removeLookupVariant(id, tag);
         };
 
         tag.appendChild(removeBtn);
@@ -111,11 +111,11 @@ $(document).ready(function () {
     }
 
     function init() {
-        const element = document.getElementById('regexVariantData');
-        const regexVariantData = JSON.parse(element.textContent);
-        console.log(regexVariantData);
-        for (const regexVariant of regexVariantData) {
-            addTag(regexVariant.pattern, regexVariant.id);
+        const element = document.getElementById('lookupVariantData');
+        const lookupVariantData = JSON.parse(element.textContent);
+        console.log(lookupVariantData);
+        for (const lookupVariant of lookupVariantData) {
+            addTag(lookupVariant.value, lookupVariant.id);
         }
     }
 

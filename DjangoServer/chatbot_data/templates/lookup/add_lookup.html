@@ -1,41 +1,40 @@
 {% extends 'base.html' %}
 
-{% block title %}Add Synonym{% endblock %}
-
+{% block title %}Add Lookup Table{% endblock %}
 {% load static %}
 {% block content %}
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
-    <li class="breadcrumb-item"><a href="#/bot/{{ bot.id }}">{{ bot.bot_name }}</a></li>
-    <li class="breadcrumb-item active"><span>Add Synonym</span></li>
+    <li class="breadcrumb-item"><a href="{% url 'bot_detail' bot.id %}">{{ bot.bot_name }}</a></li>
+    <li class="breadcrumb-item active"><span>Add Lookup Table</span></li>
 </ol>
 
 <div class="container-fluid">
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
+                <!-- Update the form action URL to the one used for adding a lookup table -->
                 <form method="post">
                     {% csrf_token %}
                     <div class="card">
                         <div class="card-header">
-                            <strong>Synonym</strong>
+                            <strong>Lookup Table</strong>
                         </div>
                         <div class="card-block">
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="name">Reference value ...</label>
-                                        <input id="synonym_reference" type="text" name="synonym_reference"
-                                            class="form-control"
-                                            placeholder="Any synonyms matched, will resolve to this value" />
+                                        <!-- Adjust the field for the lookup table name -->
+                                        <label for="lookup_name">Lookup Table Name</label>
+                                        <input id="lookup_name" type="text" name="lookup_name"
+                                            class="form-control" placeholder="Enter lookup table name" required />
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>
-                                Save</button>
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Save</button>
                         </div>
                     </div>
                 </form>
@@ -45,5 +44,6 @@
 </div>
 {% endblock %}
 {% block scripts %}
-<script src="{% static 'js/add_synonym.js' %}"></script>
+<!-- Update the script if necessary for adding a lookup table -->
+<script src="{% static 'js/add_lookup.js' %}"></script>
 {% endblock %}
