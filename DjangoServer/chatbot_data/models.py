@@ -31,7 +31,7 @@ class ExpressionParameter(models.Model):
     parameter_value = models.TextField()
     expression = models.ForeignKey(Expression, on_delete=models.CASCADE, related_name='parameters')
     intent = models.ForeignKey(Intent, on_delete=models.CASCADE, related_name='parameters')
-    entity = models.ForeignKey(Entity, on_delete=models.CASCADE, related_name='parameters')
+    entity = models.ForeignKey(Entity, on_delete=models.CASCADE, related_name='parameters',null=True, blank=True)
 
 class Regex(models.Model):
     regex_name = models.TextField()
@@ -41,13 +41,7 @@ class Regex(models.Model):
 class Response(models.Model):
     response_text = models.TextField()
     response_type = models.TextField()
-    # Assuming Action model is defined elsewhere
     action = models.ForeignKey('Action', on_delete=models.CASCADE)
-        
-
-        # Add more response types as needed
-
-
 class SynonymVariant(models.Model):
     synonym_value = models.TextField()
     synonym = models.ForeignKey(Synonym, on_delete=models.CASCADE)

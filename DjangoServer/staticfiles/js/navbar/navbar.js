@@ -1,5 +1,5 @@
-$(document).ready(function() {
-    // Toggle Aside Menu
+
+$(document).ready(function () {
     function toggleAside() {
         if ($("body").hasClass("aside-menu-hidden")) {
             $("body").removeClass("aside-menu-hidden").addClass("aside-menu-fixed");
@@ -8,25 +8,29 @@ $(document).ready(function() {
         }
     }
 
-    // Toggle Sidebar
     function toggleSidebar() {
         if ($("body").hasClass("sidebar-fixed")) {
-            $("body").removeClass("sidebar-fixed").addClass("sidebar-hidden");
+            $(".sidebar-fixed").addClass("sidebar-hidden").removeClass("sidebar-fixed");
         } else {
-            $("body").addClass("sidebar-fixed").removeClass("sidebar-hidden");
+            $(".sidebar-hidden").addClass("sidebar-fixed").removeClass("sidebar-hidden");
         }
     }
 
-    // Logout function could be handled differently based on your backend logic.
-    // Here's a simple way to redirect to a logout URL. Adjust the URL as needed.
-    function logout() {
-        // Assuming you have a Django view handling logout at '/logout/'
-        window.location.href = '/logout/';
-    }
+    
+    // Attach these functions to the relevant events
+    // For example, if you have a button to toggle the sidebar:
+    $(".navbar-toggler.layout-toggler").click(function (e) {
+        e.preventDefault();
+        toggleSidebar();
+    });
+    $("#asideToggleButton").click(toggleAside);
+    
 
-    // Bind events to elements
-    // Example: Assuming you have buttons or links with specific IDs or classes for these actions
-    $('#toggle-aside-btn').click(toggleAside);
-    $('#toggle-sidebar-btn').click(toggleSidebar);
-    $('#logout-btn').click(logout);
+    // For logout, you would typically make a POST request to a Django view
+    // that handles logout. Here is a simple example:
+    $("#logoutButton").click(function () {
+        $.post("{% url 'logout' %}", function () {
+            location.reload();
+        });
+    });
 });

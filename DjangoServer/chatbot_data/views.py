@@ -1,17 +1,23 @@
 from datetime import datetime, timezone
 import json
 import pdb
+from django.core import serializers
 import time
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import FileResponse, HttpResponseServerError
+from django.http import FileResponse, HttpResponseServerError, JsonResponse
 from django.views import View
 from django.views.generic.base import TemplateView
-from .models import Bot, Action, Entity, Expression, ExpressionParameter, Intent, Response, Story, ModelModel, Conversation
+import requests
+from rest_framework.renderers import JSONRenderer
+from .serializers import ExpressionParameterSerializer, ResponseSerializer, SynonymVariantSerializer
+from .models import Bot, Action, Entity, Expression, ExpressionParameter, Intent, Regex, Response, Story, ModelModel, Conversation, Synonym, SynonymVariant
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import BotForm, ImportBotForm, ActionForm, IntentForm, ResponseForm, StoryForm
+from .forms import BotForm, ImportBotForm, ActionForm, IntentForm, RegexForm, ResponseForm, StoryForm, EntityForm, SynonymForm
 from django.shortcuts import redirect
 from django.contrib import messages
+from enterprise_registration_app.settings import RASA_PREDICT_URL
+
 class DashboardView(TemplateView):
     template_name = 'dashboard/dashboard.html'
 class BotsView(TemplateView):
@@ -64,6 +70,7 @@ class EditBotView(View):
         
         # If the form is not valid, re-render the page with existing form data
         return render(request, self.template_name, {'form': form})
+
 
 
 class AddBotView(View):
@@ -136,13 +143,18 @@ class EditIntentView(View):
         intent = get_object_or_404(Intent, pk=intent_id)
         bot = intent.bot
         form = IntentForm(instance=intent)
+        parameter_list = ExpressionParameter.objects.filter(intent=intent).all()
+        serializer = ExpressionParameterSerializer(parameter_list, many=True)
+        serialized_parameters = JSONRenderer().render(serializer.data)
         context = {
             'form': form,
             'bot': bot,
             'intent': intent,
-            'bot_entities': bot.entities.all(),
+            'entity_list': bot.entities.all(),
             'expression_list': intent.expressions.all(),
-            'parameter_list': ExpressionParameter.objects.filter(intent=intent),
+            'parameter_list': parameter_list,
+            'parameter_json': serialized_parameters.decode('utf-8')
+
         }
         return render(request, self.template_name, context)
 
@@ -152,7 +164,7 @@ class EditIntentView(View):
         form = IntentForm(request.POST, instance=intent)
         if form.is_valid():
             form.save()
-            return redirect('intents:edit_intent', bot_id=bot.id, intent_id=intent.id)
+            return redirect('edit_intent', intent_id=intent.id)
         return render(request, self.template_name, {'form': form, 'bot': bot, 'intent': intent})
     
 class AddExpressionView(View):
@@ -164,11 +176,108 @@ class AddExpressionView(View):
             intent = Intent.objects.get(pk=intent_id) if intent_id else None
             bot = intent.bot if intent else None
             Expression.objects.create(expression_text=expression_text, intent=intent)
-            return redirect('intents:edit_intent', intent_id=intent_id, bot_id=bot.id)
+            return redirect('edit_intent', intent_id=intent_id)
         except Exception as e:
             # Handle the exception here
             # You can log the error or return an error response
             return HttpResponseServerError("An error occurred: " + str(e))
+
+
+def delete_expression(request, intent_id ,expression_id):
+    if request.method == 'POST':
+        try:
+            expression = Expression.objects.get(id=expression_id)
+            intent = Intent.objects.get(id=intent_id)
+            expression.delete()
+            return redirect('edit_intent', intent_id=intent_id)
+        except Expression.DoesNotExist:
+            return JsonResponse({'error': 'Expression not found.'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=400)
+    
+def add_parameter(request, intent_id ,expression_id):
+    if request.method == 'POST':
+        try:
+            expression = Expression.objects.get(id=expression_id)
+            intent = Intent.objects.get(id=intent_id)
+            data = json.loads(request.body)
+            parameter_start = data.get('parameter_start')
+            parameter_end = data.get('parameter_end')
+            parameter_value = data.get('parameter_value')
+            new_parameter = ExpressionParameter.objects.create(
+                parameter_start = parameter_start,
+                parameter_end = parameter_end,
+                parameter_value = parameter_value,
+                intent = intent,
+                expression = expression,
+            )
+            return redirect('edit_intent', intent_id=intent.id)
+        except Exception as e:
+            return HttpResponseServerError("An error occurred: " + str(e))
+
+def update_parameter(request, intent_id, parameter_id):
+    if request.method == 'POST':
+        try:
+            parameter = ExpressionParameter.objects.get(id=parameter_id)
+            data = json.loads(request.body)
+            entity_id = data.get('entity_id')
+            entity = Entity.objects.get(id=entity_id) if entity_id else None
+            parameter.entity = entity
+            parameter.save()
+            return JsonResponse({'message': 'Parameter updated successfully.'}, status=200)
+        except Exception as e:
+            return HttpResponseServerError("An error occurred: " + str(e))
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=400)
+    
+def delete_parameter(request, intent_id, parameter_id):
+    if request.method == 'POST':
+        try:
+            parameter = ExpressionParameter.objects.get(id=parameter_id)
+            parameter.delete()
+            return JsonResponse({'message': 'Parameter deleted successfully.'}, status=200)
+        except ExpressionParameter.DoesNotExist:
+            return JsonResponse({'error': 'Parameter not found.'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=400)
+
+def predict_expression(request, intent_id, expression_id):
+    try:
+        # Parse dữ liệu từ AJAX request
+        data = json.loads(request.body)
+        expression_text = data.get('expression_text')
+        # URL của RASA server endpoint
+
+        # Gửi dữ liệu đến RASA server
+        response = requests.post(RASA_PREDICT_URL, json={'text': expression_text})
+        response_data = response.json()
+        if response_data is not None:
+            entities = response_data.get('entities', [])
+            for entity in entities:
+                entity_name = entity.get('entity')
+                entity_obj = Entity.objects.filter(entity_name=entity_name).first()
+                expression = Expression.objects.get(pk=expression_id)
+                intent = Intent.objects.get(pk=intent_id)
+                if not entity_obj:
+                    entity_obj = Entity.objects.create(
+                        entity_name=entity_name,
+                        slot_data_type='text',
+                        bot_id=intent.bot.id
+                    )
+                # Save entity and database using expression parameter
+                expression_parameter = ExpressionParameter.objects.create(
+                    parameter_start=entity.get('start'),
+                    parameter_end=entity.get('end'),
+                    parameter_value=entity.get('value'),
+                    intent=intent,
+                    expression=expression,
+                    entity=entity_obj
+                )
+                expression_parameter.save()
+        return JsonResponse({'success': True, 'data': response_data}, status=200)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+    
 class StoriesView(View):
     template_name = 'stories/stories.html'
 
@@ -177,7 +286,8 @@ class StoriesView(View):
         stories = Story.objects.filter(bot_id=bot_id) if bot_id else []
         bots = Bot.objects.all()
         selected_bot = Bot.objects.get(pk=bot_id) if bot_id else None
-        return render(request, self.template_name, {'storyList': stories, 'botList': bots, 'selected_bot': selected_bot})
+        selected_bot_id = selected_bot.id if selected_bot else 0
+        return render(request, self.template_name, {'storyList': stories, 'botList': bots, 'selectedBot': selected_bot_id})
 
     def post(self, request, *args, **kwargs):
         # This method would be used if you're creating a story via a form submission
@@ -187,22 +297,65 @@ class StoriesView(View):
             return redirect('stories_view')
         return render(request, self.template_name, {'form': form})
     
+def search_text(request, bot_id):
+    bot = Bot.objects.get(id=bot_id)
+    data = json.loads(request.body)
+    results_search = []
+    intent_filter = Intent.objects.filter(bot=bot)
+    results_search += [{
+        'text' : intent.intent_name,
+        'type' : 'intent',
+    } for intent in intent_filter]
+    entity_filter = Entity.objects.filter(bot=bot)
+    results_search += [{
+        'text' : entity.entity_name,
+        'type' : 'entity',
+    } for entity in entity_filter]
+    action_filter = Action.objects.filter(bot=bot)
+    results_search += [{
+        'text' : action.action_name,
+        'type' : 'action',
+    } for action in action_filter]
+    
+    return JsonResponse({'items': results_search}, status=200)
+
 class AddStoryView(View):
     template_name = 'stories/add_story.html'
 
-    def get(self, request, *args, **kwargs):
-        bot_id = self.kwargs.get('bot_id')
-        new_story = Story()
+    def get(self, request, bot_id, *args, **kwargs):
+        bot = Bot.objects.get(id=bot_id)
         timestamp = int(time.mktime(datetime.now().timetuple()))
-        selected_bot = get_object_or_404(Bot, pk=bot_id) if bot_id else None
-        # if not bot return 404
+        story_name = "story_" + str(timestamp)
+        return render(request, self.template_name, {'bot': bot, 'story_name': story_name})
+    
+    def post(self, request, bot_id, *args, **kwargs):
+        bot = Bot.objects.get(id=bot_id)
+        story_name = request.POST.get('story_name')
+        timestamp = datetime.now(timezone.utc)
+        
+        Story.objects.create(bot=bot, story_name=story_name, timestamp=timestamp)
+        return redirect('stories', bot_id=bot_id)
+    
+class EditStoryView(View):
+    template_name = 'stories/edit_story.html'
 
-        new_story.bot = selected_bot
-        new_story.story_name = "story_" + str(timestamp)
-        new_story.timestamp = datetime.now()
-        new_story.save()
-        return redirect('stories', {'selected_bot': selected_bot}, bot_id=bot_id)
-
+    def get(self, request, *args, **kwargs):
+        story = get_object_or_404(Story, pk=kwargs.get('story_id'))
+        bot_id = story.bot.id
+        bot = Bot.objects.get(id=bot_id)
+        form = StoryForm(instance=story)
+        return render(request, self.template_name, {'form': form, 'story': story, 'bot': bot})
+    
+    def post(self, request, *args, **kwargs):
+        try:
+            story = get_object_or_404(Story, pk=kwargs.get('story_id'))
+            form = StoryForm(request.POST, instance=story)
+            story.story_name = form.data['story_name']
+            story.timestamp = datetime.now(timezone.utc)
+            story.save()
+            return redirect('stories', bot_id=story.bot.id)
+        except Exception as e:
+            return render(request, self.template_name, {'form': form, 'story': story})
 class StoryDetailView(View):
     template_name = 'stories/story_detail.html'
 
@@ -210,35 +363,176 @@ class StoryDetailView(View):
         story = get_object_or_404(Story, pk=story_id)
         return render(request, self.template_name, {'story': story})
 
-class DeleteStoryView(View):
-
-    def post(self, request, story_id, *args, **kwargs):
-        story = get_object_or_404(Story, pk=story_id)
+def delete_story(request, bot_id, story_id):
+    try:
+        story = Story.objects.get(id=story_id)
         story.delete()
-        return redirect('stories_view')
-
+        return redirect('stories', bot_id=bot_id)
+    except Story.DoesNotExist:
+        return JsonResponse({'error': 'Story not found.'}, status=404)
+    
+def save_story_step(request, bot_id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        story_id = data.get('story_id')
+        story_text = data.get('yaml_text')
+        story = Story.objects.get(id=story_id)
+        story.story = story_text
+        story.save()
+        return JsonResponse({'message': 'Story saved successfully.'}, status=200)
 class EntitiesView(TemplateView):
     # Assuming entities list view might be missing, using 'entities.html' if exists
     template_name = 'entities/entities.html'  # Adjust if there's an actual path
 
-class AddEntityView(TemplateView):
+class AddEntityView(View):
     template_name = 'entities/add_entity.html'
 
-class EditEntityView(TemplateView):
+    def get(self, request,  *args, **kwargs):
+        bot_id = self.kwargs.get('bot_id')
+        bot = Bot.objects.get(id=bot_id)
+        return render(request, self.template_name, {'bot': bot})
+    
+    def post(self, request, *args, **kwargs):
+        bot_id = self.kwargs.get('bot_id')
+        bot = Bot.objects.get(id=bot_id)
+        entity_name = request.POST.get('entity_name')
+        slot_data_type = request.POST.get('slot_data_type')
+        Entity.objects.create(entity_name=entity_name, slot_data_type=slot_data_type, bot=bot)
+        return redirect('bot_detail', bot_id=bot_id)
+
+def delete_entity(request, bot_id, entity_id):
+    try:
+        entity = Entity.objects.get(id=entity_id)
+        entity.delete()
+        return redirect('bot_detail', bot_id=bot_id)
+    except Entity.DoesNotExist:
+        return JsonResponse({'error': 'Entity not found.'}, status=404)
+
+class EditEntityView(View):
     template_name = 'entities/edit_entity.html'
 
-class AddRegexView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        entity = get_object_or_404(Entity, pk=kwargs.get('entity_id'))
+
+        form = EntityForm(instance=entity)
+        return render(request, self.template_name, {'form': form, 'entity': entity})
+    
+    def post(self, request, *args, **kwargs):
+        entity = get_object_or_404(Entity, pk=kwargs.get('entity_id'))
+        form = EntityForm(request.POST, instance=entity)
+        if form.is_valid():
+            form.save()
+            return redirect('bot_detail', bot_id=entity.bot.id)
+        return render(request, self.template_name, {'form': form, 'entity': entity})
+
+class AddRegexView(View):
     template_name = 'regex/add_regex.html'
 
-class EditRegexView(TemplateView):
+    def get(self, request, bot_id, *args, **kwargs):
+        bot = Bot.objects.get(id=bot_id)
+        return render(request, self.template_name, {'bot': bot})
+    
+    def post(self, request, *args, **kwargs):
+        bot_id = self.kwargs.get('bot_id')
+        bot = Bot.objects.get(id=bot_id)
+        regex_pattern = request.POST.get('regex_pattern')
+        regex_name = request.POST.get('regex_name')
+        Regex.objects.create(regex_pattern=regex_pattern, regex_name=regex_name, bot=bot)
+        return redirect('bot_detail', bot_id=bot_id)
+    
+class EditRegexView(View):
     template_name = 'regex/edit_regex.html'
 
-class AddSynonymView(TemplateView):
-    template_name = 'synonyms/add_synonym.html'
+    def get(self, request, *args, **kwargs):
+        regex = get_object_or_404(Regex, pk=kwargs.get('regex_id'))
+        form = RegexForm(instance=regex)
 
-class EditSynonymView(TemplateView):
+        return render(request, self.template_name, {'form': form, 'regex': regex, 'bot': regex.bot})
+
+    def post(self, request, *args, **kwargs):
+        regex = get_object_or_404(Regex, pk=kwargs.get('regex_id'))
+        form = RegexForm(request.POST, instance=regex)
+        if form.is_valid():
+            form.save()
+            return redirect('bot_detail', bot_id=regex.bot.id)
+        return render(request, self.template_name, {'form': form, 'regex': regex})
+    
+def delete_regex(request, bot_id, regex_id):
+    try:
+        regex = Regex.objects.get(id=regex_id)
+        regex.delete()
+        return redirect('bot_detail', bot_id=bot_id)
+    except Regex.DoesNotExist:
+        return JsonResponse({'error': 'Regex not found.'}, status=404)
+class AddSynonymView(View):
+    template_name = 'synonyms/add_synonym.html'
+    def get(self, request, bot_id, *args, **kwargs):
+        bot = Bot.objects.get(id=bot_id)
+        return render(request, self.template_name, {'bot': bot})
+    
+    def post(self, request, *args, **kwargs):
+        bot_id = self.kwargs.get('bot_id')
+        bot = Bot.objects.get(id=bot_id)
+        synonym_reference = request.POST.get('synonym_reference')
+        regex_pattern = request.POST.get('regex_pattern')
+        Synonym.objects.create(synonym_reference=synonym_reference, regex_pattern=regex_pattern, bot=bot)
+        return redirect('bot_detail', bot_id=bot_id)
+
+class EditSynonymView(View):
     template_name = 'synonyms/edit_synonym.html'
 
+    def get(self, request, *args, **kwargs):
+        synonym = get_object_or_404(Synonym, pk=kwargs.get('synonym_id'))
+        form = SynonymForm(instance=synonym)
+        synonym_variants = SynonymVariant.objects.filter(synonym=synonym)
+        serializer = SynonymVariantSerializer(synonym_variants, many=True)
+        serialized_synonyms = JSONRenderer().render(serializer.data)
+        synonyms_json = serialized_synonyms.decode('utf-8')
+        return render(request, self.template_name, {'form': form, 'synonym': synonym,'synonym_json': synonyms_json})
+    
+    def post(self, request, *args, **kwargs):
+        synonym = get_object_or_404(Synonym, pk=kwargs.get('synonym_id'))
+        form = SynonymForm(request.POST, instance=synonym)
+        if form.is_valid():
+            form.save()
+            return redirect('bot_detail', bot_id=synonym.bot.id)
+        return render(request, self.template_name, {'form': form, 'synonym': synonym})
+    
+def remove_synonym_variant(request, bot_id, synonym_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            synonym_variant_id = data.get('synonym_variant_id')
+            synonym_variant = SynonymVariant.objects.get(id=synonym_variant_id)
+            synonym_variant.delete()
+            return JsonResponse({'message': 'Synonym variant deleted successfully.'}, status=200)
+        except SynonymVariant.DoesNotExist:
+            return JsonResponse({'error': 'Synonym variant not found.'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=400)
+    
+def add_synonym_variant(request, bot_id, synonym_id):
+    if request.method == 'POST':
+        try:
+            synonym = Synonym.objects.get(id=synonym_id)
+            data = json.loads(request.body)
+            synonym_value = data.get('synonym_value')
+            synonym_variant = SynonymVariant.objects.create(synonym=synonym, synonym_value=synonym_value)
+            serializer = SynonymVariantSerializer(synonym_variant)
+            return JsonResponse(serializer.data, status=201)
+        except Exception as e:
+            return HttpResponseServerError("An error occurred: " + str(e))
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=400)
+    
+def delete_synonym(request, bot_id, synonym_id):
+    try:
+        synonym = Synonym.objects.get(id=synonym_id)
+        synonym.delete()
+        return redirect('bot_detail', bot_id=bot_id)
+    except Synonym.DoesNotExist:
+        return JsonResponse({'error': 'Synonym not found.'}, status=404)
+    
 class RasaConfigView(TemplateView):
     template_name = 'rasaconfig/rasa_config.html'
 
@@ -324,12 +618,86 @@ class ResponseView(TemplateView):
         else:
             actions = Action.objects.none()  # Tránh lỗi khi không có bot nào được chọn
             responses = Response.objects.none()
-    
-        context['selected_bot'] = selected_bot_id
-        context['actions'] = actions
-        context['responses'] = responses
+        responseType = [
+            {
+                'id': 'text',
+                'type': 'Text'
+            },
+            {
+                'id': 'button',
+                'type': 'Button'
+            }
+        ]
+        context= {
+            'bots' : bots,
+            'selectedBot': selected_bot_id,
+            'actionsList': actions,
+            'responseList': responses,
+            'responseTypeList': responseType
+        }
+        
         return context
+    
+def delete_action(request, bot_id):
+    try:
+        data = json.loads(request.body)
+        action_id = data.get('action_id')
+        action = Action.objects.get(id=action_id)
+        action.delete()
+        return JsonResponse({'message': 'Action deleted successfully.'}, status=200)
+    except Action.DoesNotExist:
+        return JsonResponse({'error': 'Action not found.'}, status=404)
+    
+def add_response(request, bot_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            action_id = data.get('action_id')
+            response_text = data.get('response_text')
+            response_type = data.get('response_type')
+            action = Action.objects.get(id=action_id)
+            response = Response.objects.create(
+                response_text=response_text,
+                response_type=response_type,
+                action=action
+            )
+            serializer = ResponseSerializer(response)
+            return JsonResponse(serializer.data, status=201)
+        except Exception as e:
+            return HttpResponseServerError("An error occurred: " + str(e))
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=400)
+    
+def update_response(request, bot_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            response_id = data.get('response_id')
+            response_text = data.get('response_text')
+            response_type = data.get('response_type')
+            response = Response.objects.get(id=response_id)
+            response.response_text = response_text
+            response.response_type = response_type
+            response.save()
+            serializer = ResponseSerializer(response)
+            return JsonResponse(serializer.data, status=200)
+        except Exception as e:
+            return HttpResponseServerError("An error occurred: " + str(e))
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=400)
 
+def delete_response(request, bot_id):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            response_id = data.get('response_id')
+            response = Response.objects.get(id=response_id)
+            response.delete()
+            return JsonResponse({'message': 'Response deleted successfully.'}, status=200)
+        except Response.DoesNotExist:
+            return JsonResponse({'error': 'Response not found.'}, status=404)
+    else:
+        return JsonResponse({'error': 'Invalid request method.'}, status=400)
 class AddActionView(View):
     form_class = ActionForm
     template_name = 'responses/add_action.html'

@@ -100,9 +100,9 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="list-group">
-                                    {% for entity in bot.entities.all %}
+                                    {% for entity in entities %}
                                     <div class="list-group-item">
-                                        <a href="{% url 'edit_entity' entity.id %}">{{ entity.name }}</a>
+                                        <a href="{% url 'edit_entity' bot_id=bot.id entity_id=entity.id %}">{{ entity.entity_name }}</a>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -130,7 +130,7 @@
                                 <div class="list-group">
                                     {% for synonym in bot.synonyms.all %}
                                     <div class="list-group-item">
-                                        <a href="{% url 'edit_synonym' synonym.id %}">{{ synonym.reference }}</a>
+                                        <a href="{% url 'edit_synonym' bot.id synonym.id %}">{{ synonym.synonym_reference }}</a>
                                     </div>
                                     {% endfor %}
                                 </div>
@@ -156,7 +156,7 @@
                                 <div class="list-group">
                                     {% for regex in bot.regexes.all %}
                                     <div class="list-group-item">
-                                        <a href="{% url 'edit_regex' regex.id %}">{{ regex.name }}</a>
+                                        <a href="{% url 'edit_regex' bot.id regex.id %}">{{ regex.regex_name }}</a>
                                     </div>
                                     {% endfor %}
                                 </div>

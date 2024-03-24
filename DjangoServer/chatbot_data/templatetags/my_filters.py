@@ -21,3 +21,7 @@ def chatDate(value):
 @register.filter
 def as_json(data):
     return json.dumps(data, indent=4)
+
+@register.filter
+def length_filtered(queryset, expression_id):
+    return len([obj for obj in queryset if obj.expression.id == expression_id])

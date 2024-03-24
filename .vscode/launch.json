@@ -17,7 +17,7 @@
             "env": {
                 "DJANGO_SETTINGS_MODULE": "enterprise_registration_app.settings"
             },
-            "python": "${workspaceFolder}/DjangoServer/venv/Scripts/python.exe"
+            "python": "${workspaceFolder}/DjangoServer/djangoenv/Scripts/python.exe"
         },
         {
             "name": "Rasa Server",

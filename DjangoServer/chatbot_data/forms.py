@@ -1,5 +1,5 @@
 from django import forms
-from .models import Action, Bot, Intent, Response, Story
+from .models import Action, Bot, Entity, Intent, Regex, Response, Story, Synonym, SynonymVariant
 
 class BotForm(forms.ModelForm):
     bot_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Enter bot name here...', 'class': 'form-control'}))
@@ -12,7 +12,15 @@ class BotForm(forms.ModelForm):
     class Meta:
         model = Bot
         fields = ['bot_name', 'bot_config', 'output_folder']
-
+class RegexForm(forms.ModelForm):
+    class Meta:
+        model = Regex
+        fields = ['regex_name', 'regex_pattern']
+        widgets = {
+            'regex_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter regex name'}),
+            'regex_pattern': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter regex pattern'}),
+        }
+        
 class ImportBotForm(forms.Form):
     bot_name = forms.CharField(label='Bot Name', max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Enter the bot name', 'class': 'form-control'}))
     file = forms.FileField(label='Bot Configuration File', widget=forms.FileInput(attrs={'accept': '.json', 'class': 'form-control'}))
@@ -67,19 +75,35 @@ class IntentForm(forms.ModelForm):
         model = Intent
         fields = ['intent_name']
 # forms.py
+class SynonymForm(forms.ModelForm):
+    class Meta:
+        model = Synonym
+        fields = ['synonym_reference', 'regex_pattern']
+        widgets = {
+            'synonym_reference': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter synonym reference'}),
+            'regex_pattern': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter regex pattern'}),
+        }
+class SynonymVariantForm(forms.ModelForm):
+    class Meta:
+        model = SynonymVariant
+        fields = ['synonym_value']
+        widgets = {
+            'synonym_value': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter synonym variant'}),
+        }
+class EntityForm(forms.ModelForm):
 
+    class Meta:
+        model = Entity
+        fields = ['entity_name', 'slot_data_type']
+        widgets = {
+            'entity_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter entity name'}),
+            'slot_data_type': forms.Select(attrs={'class': 'form-control'}),
+        }
 class StoryForm(forms.ModelForm):
     class Meta:
         model = Story
-        fields = ['story_name', 'story', 'bot']
+        fields = ['story_name']
         widgets = {
             'story_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter story name'}),
-            'story': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter details of the story', 'rows': 4}),
-            'bot': forms.Select(attrs={'class': 'form-control'}),
         }
-
-    def __init__(self, *args, **kwargs):
-        super(StoryForm, self).__init__(*args, **kwargs)
-        # Optionally, add a bootstrap class to the timestamp field's widget if you want to include it in the form.
-        self.fields['timestamp'].widget = forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Select a date and time'})
 

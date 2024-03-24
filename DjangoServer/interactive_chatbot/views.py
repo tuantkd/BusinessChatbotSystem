@@ -3,7 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 import requests
 
-from .constant import RASA_ENDPOINT
+from enterprise_registration_app.settings import RASA_PREDICT_URL
+
 
 def chatbot(request):
     return render(request, 'chatbot.html')
@@ -17,7 +18,7 @@ class ChatbotView(APIView):
 
             # Send message and sender_id to Rasa
             data = {"message": user_message, "session_id": session_id, "sender": sender}
-            response = requests.post(RASA_ENDPOINT, json=data)
+            response = requests.post(RASA_PREDICT_URL, json=data)
 
             # Return Rasa's response
             return Response(response.json(), status=200)

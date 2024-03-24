@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Stories</li>
+    <li class="breadcrumb-item active">Edit Story</li>
+    <li class="breadcrumb-menu">
+        <div class="btn-group" role="group">
+            <a class="btn btn-outline-secondary" href="{% url 'delete_story' bot_id=bot.id story_id=story.id %}">
+                <i class="fa fa-trash"></i> &nbsp;Delete Story</a>
+        </div>
+    </li>
+</ol>
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Action</strong>
+                        </div>
+                        <div class="card-block">
+                            <div class="form-group">
+                                <label for="story_name">Story Name</label>
+                                <input type="text" class="form-control" id="story_name" name="story_name" value="{{ story.story_name }}" required>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
