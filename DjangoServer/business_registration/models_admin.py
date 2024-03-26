@@ -18,13 +18,13 @@ class ContactInline(admin.TabularInline):
 
 class BusinessAdmin(admin.ModelAdmin):
     
-    fields = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
+    # fields = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
     list_display = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
-    list_display_links = ('business_code', 'company_name')
+    # list_display_links = ('business_code', 'company_name')
     list_filter = ('business_type', 'main_industry')
-    search_fields = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
+    # search_fields = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
     list_per_page = 25
-    readonly_fields = ('business_code',)
+    # readonly_fields = ('business_code',)
     # inlines = (AddressInline, ContactInline)
     
 class LegalRepresentativeAdmin(admin.ModelAdmin):
@@ -104,10 +104,10 @@ class AdministrativeUnitAdmin(admin.ModelAdmin):
     list_per_page = 25
 
 class AdministrativeRegionAdmin(admin.ModelAdmin):
-    list_display = ('code', 'name', 'name_en', 'code_name', 'code_name_en')
-    list_display_links = ('code', 'name', 'name_en', 'code_name', 'code_name_en')
-    list_filter = ('code', 'name', 'name_en', 'code_name', 'code_name_en')
-    search_fields = ('code', 'name', 'name_en', 'code_name', 'code_name_en')
+    list_display = ('code', 'name', 'name_en', 'code_name_en')
+    list_display_links = ('code', 'name', 'name_en', 'code_name_en')
+    list_filter = ('code', 'name', 'name_en', 'code_name_en')
+    search_fields = ('code', 'name', 'name_en', 'code_name_en')
     list_per_page = 25
 
 

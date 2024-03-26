@@ -49,7 +49,7 @@ responses:
 
   utter_inquire_business_registration:
   - text: "Quy trình đăng ký doanh nghiệp thường bao gồm: Xác định loại hình doanh nghiệp, Chọn tên doanh nghiệp, Lập hồ sơ đăng ký, Nộp hồ sơ, Thanh toán phí và nhận giấy chứng nhận."
-  - text: "Quy trình đăng ký doanh nghiệp gồm:\n
+  - text: "Quy trình đăng ký doanh nghiệp gồm:<br>
           1. Chuẩn bị hồ sơ:\n 
           - Tờ khai đăng ký doanh nghiệp: Sử dụng mẫu theo quy định của Bộ Kế hoạch và Đầu tư.\n
           - Dự thảo Điều lệ công ty: Bao gồm thông tin về công ty, thành viên/cổ đông, vốn điều lệ, quyền và nghĩa vụ của thành viên/cổ đông ...\n

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-26 03:32+0700\n"
+"POT-Creation-Date: 2024-03-10 10:07+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,10 +27,8 @@ msgid "Business"
 msgstr "Mã Doanh Nghiệp"
 
 #: .\business_registration\models.py:55
-#, fuzzy
-#| msgid "Business Code"
-msgid "Businesses"
-msgstr "Mã Doanh Nghiệp"
+msgid "Doanh Nghiệp"
+msgstr ""
 
 #: .\business_registration\models.py:79
 msgid "Business Code"
@@ -392,7 +390,7 @@ msgstr "Tên Công Ty"
 
 #: .\business_registration\models.py:281 .\business_registration\models.py:294
 msgid "Code Name (English)"
-msgstr "Tên Mã (Tiếng Anh)"
+msgstr "Mã vùng (Tiếng Anh)"
 
 #: .\business_registration\models.py:287 .\business_registration\models.py:310
 msgid "Administrative Region"
@@ -426,3 +424,8 @@ msgstr "Quận/Huyện"
 #| msgid "Ward"
 msgid "Wards"
 msgstr "Phường/Xã"
+
+#, fuzzy
+#~| msgid "Business Code"
+#~ msgid "Businesses"
+#~ msgstr "Doanh Nghiệp"
