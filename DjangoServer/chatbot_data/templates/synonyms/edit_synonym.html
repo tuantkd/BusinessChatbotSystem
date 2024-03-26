@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Edit Synonym{% endblock %}
+{% load static %}
+{% block content %}
+<link href="{% static 'css/tags-input.css' %}" rel="stylesheet">
+<ol class="breadcrumb" breadcrumb="">
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'bot_detail' bot_id=bot.id %}">{{ bot.bot_name }}</a></li>
+    <li class="breadcrumb-item active"><span>{{ synonym.synonym_reference }}</span></li>
+    <li class="breadcrumb-menu">
+        <div class="btn-group" role="group">
+            <a class="btn btn-outline-secondary" href="{% url 'delete_synonym' bot_id=synonym.bot.id synonym_id=synonym.id %}">
+                <i class="fa fa-trash"></i>&nbsp;Delete Synonym</a>
+        </div>
+    </li>
+</ol>
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header"><strong>Synonyms</strong></div>
+
+                    <div class="card-block">
+                        <div class="tags-input-wrapper">
+                            <div id="tags-container"></div>
+                            <input type="text" id="tags-input" placeholder="Enter tags, separated by commas">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="synonymVariantData" type="application/json">
+    {{ synonym_json|safe }}
+</script>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/edit_synonym.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,20 @@
+.table-bordered,.table-bordered td,.table-bordered th {
+    border: 1px solid #a4b7c1;
+    align-content: center;
+}
+
+.btn-response-action {
+    width: 110px;
+}
+
+.add-row td{
+    background-color: #f86c6b2e; 
+}
+td.btn-response-action {
+    background-color: #c7bbc529;
+}
+span.action-type {
+    color: #333; /* Change text color */
+    font-weight: bold; /* Make text bold */
+    margin-right: 10px; /* Add some space to the right */
+}

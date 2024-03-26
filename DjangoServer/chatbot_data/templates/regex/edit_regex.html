@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Edit Regex{% endblock %}
+{% load static %}
+{% block styles %}
+<link href="{% static 'css/tags-input.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'bot_detail' bot_id=bot.id %}">{{ bot.bot_name }}</a></li>
+    <li class="breadcrumb-item active">{{ regex.regex_name }}</li>
+    <!-- Breadcrumb Menu-->
+    <li class="breadcrumb-menu">
+        <div class="btn-group" role="group">
+            <a class="btn btn-outline-secondary" href="{% url 'delete_regex' bot_id=bot.id regex_id=regex.id %}">
+                <i class="fa fa-trash"></i> &nbsp;Delete Regex</a>
+        </div>
+    </li>
+</ol>
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header"><strong>Regex</strong></div>
+
+                    <div class="card-block">
+                        <div class="tags-input-wrapper">
+                            <!-- Updated to reflect editing of regex values -->
+                            <label for="regex-values">Regex Values:</label>
+                            <div id="regex-values-container"></div>
+                            <input type="text" id="regex-values-input" placeholder="Enter regex values">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/edit_regex.js' %}"></script>
+{% endblock %}

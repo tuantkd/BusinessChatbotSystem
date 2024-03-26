@@ -1,0 +1,122 @@
+.tags-input-wrapper {
+    width: 300px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.tags-input-wrapper input {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 3px 8px;
+    margin-right: 5px;
+    border-radius: 3px;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.remove-tag {
+    margin-left: 5px;
+    cursor: pointer;
+    color: red; 
+}
+
+.intent {
+    color: blue;
+    font-weight: bold;
+}
+
+.entity {
+    color: green;
+    font-style: italic;
+}
+
+.action {
+    color: red;
+}
+
+.item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+
+#story-builder {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: auto;
+}
+
+.add-steps {
+    margin-bottom: 10px;
+}
+
+.add-btn {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.step {
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.step .remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    color: red;
+}
+
+.intent, .entities, .action {
+    padding-left: 10px;
+}
+
+.entity {
+    padding-left: 20px;
+}
+
+.entities {
+    font-weight: bold;
+}
+
+.remove-btn {
+    display: none;
+}
+
+.entity .remove-btn, .action .remove-btn , .intent .remove-btn {
+    display: inline;
+}
+
+.story-detail {
+    max-height: 300px; /* Adjust this value to your needs */
+    overflow-y: auto;
+}
+
+.search-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px; /* Adjust this value to your needs */
+}

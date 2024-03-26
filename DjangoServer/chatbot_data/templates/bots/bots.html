@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}Bots{% endblock %}
+{% load static %}
+{% block styles %}
+<link href="{% static 'css/bots.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active"><span>Bots</span></li>
+  <li class="breadcrumb-menu">
+    <div class="btn-group" role="group">
+      <a class="btn btn-outline-secondary" href="{% url 'add_bot' %}" data-toggle="tooltip" data-placement="top"
+        title="Click to Add a New Bot"><i class="fa fa-plus"></i> &nbsp;Add Bot</a>
+    </div>
+  </li>
+</ol>
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-sm-12 col-lg-12">
+        <div class="card">
+          <div class="card-header" role="tab">
+            <strong>Bots</strong>
+          </div>
+          <div class="card-block">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="list-group">
+                  {% for bot in botList %}
+                  <div class="list-group-item" id="bot_group_{{bot.id}}">
+                    <span><a href="{% url 'bot_detail' bot_id=bot.id %}"><strong>{{ bot.bot_name }}</strong></a>
+                      <br />intents: {{ bot.intents.count }} | entities: {{ bot.entities.count }} | stories: {{ bot.stories.count }} |
+                      rules: {{ bot.rules.count }}</span>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div style="float:right">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  {% if botList.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page=1">First</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ botList.previous_page_number }}">Previous</a>
+                  </li>
+                  {% endif %}
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#">Page {{ botList.number }} of {{ botList.paginator.num_pages }}</a>
+                  </li>
+                  {% if botList.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ botList.next_page_number }}">Next</a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ botList.paginator.num_pages }}">Last</a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br>
+  </div>
+</div>
+{% endblock %}

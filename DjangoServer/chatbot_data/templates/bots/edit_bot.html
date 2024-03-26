@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<ol class="breadcrumb" breadcrumb="">
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+    <li class="breadcrumb-item active">{{ bot.bot_name }}</li>
+    <li class="breadcrumb-menu">
+        <div class="btn-group" role="group">
+            <a class="btn btn-outline-secondary" href="{% url 'import_bot' bot.id %}" data-toggle="tooltip"
+                data-placement="top" title="Click to Import a Bot"><i class="fa fa-upload"></i> &nbsp;Import Bot</a>
+            <a class="btn btn-outline-secondary" href="{% url 'delete_bot' bot.id %}" confirm-click-title="Delete Bot"
+                confirm-click="Are you sure? This will delete the bot, all its intents, expressions, and resolved entities."><i
+                    class="fa fa-trash"></i> &nbsp;Delete Bot</a>
+        </div>
+    </li>
+</ol>
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Settings</strong>
+                        <span class="float-right">
+                            <a class="btn btn-ghost-primary" data-toggle="collapse" data-target="#bot_settings"
+                                aria-expanded="true" aria-controls="collapseOne"><i class="fa fa-arrow-down"></i></a>
+                        </span>
+                    </div>
+                    <div id="accordion" role="tablist">
+                        <div id="bot_settings" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+                            data-parent="#accordion">
+                            <div class="card-block">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="{{bot.id}}_formGroupInput1">Name</label>
+                                        <input name="bot_name" autocomplete="off" type="text" class="form-control"
+                                            id="{{bot.id}}_formGroupInput1" placeholder="Bot Name"
+                                            value="{{ bot.bot_name }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="{{bot.id}}_formGroupInput2">Rasa Config</label>
+                                        <textarea class="datainput form-control" id="{{bot.id}}_formGroupInput2"
+                                            name="bot_config">{{ bot.bot_config}}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="{{bot.id}}_formGroupInput3">Server Output Folder</label>
+                                        <input name="output_folder" autocomplete="off" type="text" class="form-control"
+                                            id="{{bot.id}}_formGroupInput3" placeholder="Output Folder"
+                                            value="{{ bot.output_folder }}">
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-sm btn-primary"><i
+                                                class="fa fa-dot-circle-o"></i>Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Intents</strong>
+                        <input id="botFilter" style="width:30%" autocomplete="off" class="filtertext" type="text"
+                            name="search" placeholder="Filter Intents..">
+                        <span class="float-right">
+                            <a class="btn btn-ghost-primary" href="{% url 'add_intent' bot.id %}" data-toggle="tooltip"
+                                data-placement="top" title="Click to Add a New Intent"><i class="fa fa-plus"></i></a>
+                        </span>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group">
+                                    {% for intent in intents %}
+                                    <div class="list-group-item">
+                                        <a href="{% url 'edit_intent' intent.id %}">{{ intent.intent_name }}</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                  {% if intents.has_previous %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?intent_page=1">First</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="?intent_page={{ intents.previous_page_number }}">Previous</a>
+                                  </li>
+                                  {% endif %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link" href="#">Page {{ intents.number }} of {{ intents.paginator.num_pages }}</a>
+                                  </li>
+                                  {% if intents.has_next %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?intent_page={{ intents.next_page_number }}">Next</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="?intent_page={{ intents.paginator.num_pages }}">Last</a>
+                                  </li>
+                                  {% endif %}
+                                </ul>
+                              </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Entities</strong>
+                        <span class="float-right">
+                            <a class="btn btn-ghost-primary" href="{% url 'add_entity' bot.id %}"><i
+                                    class="fa fa-plus"></i></a>
+                        </span>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group">
+                                    {% for entity in entities %}
+                                    <div class="list-group-item">
+                                        <a href="{% url 'edit_entity' bot_id=bot.id entity_id=entity.id %}">{{ entity.entity_name }}</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                  {% if entities.has_previous %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?entity_page=1">First</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="?entity_page={{ entities.previous_page_number }}">Previous</a>
+                                  </li>
+                                  {% endif %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link" href="#">Page {{ entities.number }} of {{ entities.paginator.num_pages }}</a>
+                                  </li>
+                                  {% if entities.has_next %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?entity_page={{ entities.next_page_number }}">Next</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="?entity_page={{ entities.paginator.num_pages }}">Last</a>
+                                  </li>
+                                  {% endif %}
+                                </ul>
+                              </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Synonyms</strong>
+                        <span class="float-right">
+                            <a class="btn btn-ghost-primary" href="{% url 'add_synonym' bot.id %}" data-toggle="tooltip"
+                                data-placement="top" title="Click to Add a New Synonym"><i class="fa fa-plus"></i></a>
+                        </span>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group">
+                                    {% for synonym in synonyms %}
+                                    <div class="list-group-item">
+                                        <a href="{% url 'edit_synonym' bot.id synonym.id %}">{{ synonym.synonym_reference }}</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                  {% if synonyms.has_previous %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?synonym_page=1">First</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="?synonym_page={{ synonyms.previous_page_number }}">Previous</a>
+                                  </li>
+                                  {% endif %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link" href="#">Page {{ synonyms.number }} of {{ synonyms.paginator.num_pages }}</a>
+                                  </li>
+                                  {% if synonyms.has_next %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?synonym_page={{ synonyms.next_page_number }}">Next</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="?synonym_page={{ synonyms.paginator.num_pages }}">Last</a>
+                                  </li>
+                                  {% endif %}
+                                </ul>
+                              </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Regex</strong>
+                        <span class="float-right">
+                            <a class="btn btn-ghost-primary" href="{% url 'add_regex' bot.id %}"><i
+                                    class="fa fa-plus"></i></a>
+                        </span>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group">
+                                    {% for regex in regexes %}
+                                    <div class="list-group-item">
+                                        <a href="{% url 'edit_regex' bot.id regex.id %}">{{ regex.regex_name }}</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                  {% if regexes.has_previous %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?regex_page=1">First</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="?regex_page={{ regexes.previous_page_number }}">Previous</a>
+                                  </li>
+                                  {% endif %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link" href="#">Page {{ regexes.number }} of {{ regexes.paginator.num_pages }}</a>
+                                  </li>
+                                  {% if regexes.has_next %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?regex_page={{ regexes.next_page_number }}">Next</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="?regex_page={{ regexes.paginator.num_pages }}">Last</a>
+                                  </li>
+                                  {% endif %}
+                                </ul>
+                              </nav>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Lookup Tables</strong>
+                        <span class="float-right">
+                            <!-- Update the URL name to the one used for adding a new lookup table -->
+                            <a class="btn btn-ghost-primary" href="{% url 'add_lookup' bot.id %}" data-toggle="tooltip"
+                                data-placement="top" title="Click to Add a New Lookup Table"><i class="fa fa-plus"></i></a>
+                        </span>
+                    </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="list-group">
+                                    <!-- Loop through lookup tables instead of synonyms -->
+                                    {% for lookup in lookups %}
+                                    <div class="list-group-item">
+                                        <!-- Update the URL name to the one used for editing a lookup table and adjust property names as needed -->
+                                        <a href="{% url 'edit_lookup' bot.id lookup.id %}">{{ lookup.lookup_name }}</a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div style="float:right">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                  {% if lookups.has_previous %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?lookup_page=1">First</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="?lookup_page={{ lookups.previous_page_number }}">Previous</a>
+                                  </li>
+                                  {% endif %}
+                                  <li class="page-item disabled">
+                                    <a class="page-link" href="#">Page {{ lookups.number }} of {{ lookups.paginator.num_pages }}</a>
+                                  </li>
+                                  {% if lookups.has_next %}
+                                  <li class="page-item">
+                                    <a class="page-link" href="?lookup_page={{ lookups.next_page_number }}">Next</a>
+                                  </li>
+                                  <li class="page-item">
+                                    <a class="page-link" href="?lookup_page={{ lookups.paginator.num_pages }}">Last</a>
+                                  </li>
+                                  {% endif %}
+                                </ul>
+                              </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/edit_bot.js' %}"></script>
+{% endblock %}

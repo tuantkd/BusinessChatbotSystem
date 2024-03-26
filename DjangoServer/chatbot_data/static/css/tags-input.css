@@ -1,0 +1,28 @@
+.tags-input-wrapper {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.tags-input-wrapper input {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 3px 8px;
+    margin-right: 5px;
+    border-radius: 3px;
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+.remove-tag {
+    margin-left: 5px;
+    cursor: pointer;
+    color: red; 
+}

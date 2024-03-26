@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Rules{% endblock %}
+{% block styles %}
+<link href="{% static 'css/rules.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb" breadcrumb="">
+  <li class="breadcrumb-item active"><span>Rules</span></li>
+</ol>
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-sm-12">
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+        <div class="card">
+          <div class="card-block">
+            <div class="form-group row">
+              <label for="select" class="col-sm-2 col-form-label">Bot</label>
+              <div class="col-sm-10">
+                <select id="selectBot"  class="form-control" onchange="location = this.value;">
+                  <option value="">Please select one</option>
+                  {% for bot in botList %}
+                    <option value="{% url 'rules' bot.id %}" {% if selectedBot|add:0 == bot.id|add:0 %}selected{% endif %}>{{ bot.bot_name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% if selectedBot %}
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Rules</strong>
+          <span class="float-right">
+            <a class="btn btn-ghost-primary" href="{% url 'add_rule' selectedBot %}"><i class="fa fa-plus"></i></a>
+          </span>
+        </div>
+        <div class="card-block">
+          <div class="list-group">
+            {% for rule in ruleList %}
+            <div class="list-group-item" id="rule_group_{{ rule.id }}">
+                <span id="rule_{{ rule.id }}"><strong>
+                  <a href="{% url 'edit_rule' selectedBot rule.id %}">{{ rule.rule_name }}</a>
+                  </strong><br />{{ rule.timestamp }}</span>
+                <span class="float-right">
+                  <!-- Nút xem chi tiết hoặc chỉnh sửa -->
+                  <a class="btn btn-outline-secondary mr-2 btn-toggle-collapse">
+                    <span class="fa fa-eye">
+                  </a>
+                  <!-- Nút xóa -->
+                  <a  href="{% url 'delete_rule' bot_id=selectedBot rule_id=rule.id %}" class="btn btn-outline-danger" onclick="return confirm('Are you sure? This will delete the rule.');">
+                    <span class="fa fa-trash">
+                  </a>
+                </span>
+            </div>              
+            <div class="collapse table-rule" id="table_rule_{{rule.id}}">
+              <div class="list-group-item">
+                <div class="row">
+                  <input type="hidden" id="rule-script-{{rule.id}}" value="{{rule.rule_steps}}">
+                  <div class="col-sm-8 rule-steps">
+                    <div id="rule-steps-{{rule.id}}">
+                          <!-- Rule steps will be added here -->
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <input type="text" autocomplete="off" name="searchText" class="form-control search-text" id="searchText-{{rule.id}}"
+                        placeholder="Search for Intents, Actions and Entities">
+                    <div class="form-group rule-steps">
+                      <!-- You need to handle the search logic in your Django view -->
+                      <div class="list-group">
+                        <div id="items-list-{{rule.id}}">
+                          <!-- Các item sẽ được thêm vào đây bởi JavaScript -->
+                        </div>
+                        {% for item in searchList %}
+                          <div class="list-group-item">
+                            
+                            <!-- <a href="">{{ item.text }} <span class="float-right">{{ item.type }}</span></a> -->
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <form method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-sm btn-primary btn-save-rule"><i
+                      class="fa fa-dot-circle-o"></i>Save</button>
+                </form>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <div style="float:right">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                {% if ruleList.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page=1">First</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ ruleList.previous_page_number }}">Previous</a>
+                </li>
+                {% endif %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="#">Page {{ ruleList.number }} of {{ ruleList.paginator.num_pages }}</a>
+                </li>
+                {% if ruleList.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ ruleList.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ ruleList.paginator.num_pages }}">Last</a>
+                </li>
+                {% endif %}
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/rules.js' %}"></script>
+{% endblock %}

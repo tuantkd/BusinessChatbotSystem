@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+{% block title %}Responses{% endblock %}
+{% load static %}
+{% block styles %}
+<link href="{% static 'css/responses.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb">
+  <li class="breadcrumb-item active"><span>Responses</span></li>
+</ol>
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-sm-12">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+          {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="card">
+          <div class="card-block">
+            <div class="form-group row">
+              <label for="selectBot" class="col-sm-2 col-form-label">Bot</label>
+              <div class="col-sm-10">
+                <select id="selectBot" class="form-control" onchange="location = this.value;">
+                  <option value="">Please select one</option>
+                  {% for bot in bots %}
+                  <option value="{% url 'responses' bot.id %}" {% if selectedBot|add:0 == bot.id|add:0 %}selected{% endif %}>{{ bot.bot_name }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% if selectedBot %}
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <strong>Actions</strong>
+            <span class="float-right">
+              <!-- Đường link để thêm action mới cho bot này -->
+              <a class="btn btn-ghost-primary" href="{% url 'add_action' selectedBot %}"><i
+                  class="fa fa-plus"></i></a>
+            </span>
+          </div>
+          <div class="card-block">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="list-group" >
+                  {% for action in actionsList %}
+                  <div class="list-group-item" id="action_group_{{action.id}}">
+                    <span><a href="{% url 'edit_action' selectedBot action.id %}"><strong>{{ action.action_name }}</strong></a>
+                      <br />({{ action.action_type }})</span>
+                    
+                    <span class="float-right">
+                      <button class="btn btn-outline-secondary mr-2" data-toggle="collapse"
+                        data-target="#table_action_{{action.id}}" aria-expanded="false"
+                        aria-controls="table_action_{{action.id}}">
+                        <span class="fa fa-plus" id="icon_action_{{action.id}}"></span>
+                      </button>
+                      <button class="btn btn btn-outline-danger delete-action">
+                        <span class="fa fa-trash"></span>
+                      </button>
+                    </span>
+                  </div>
+                  <table class="table table-bordered" id="action_table_{{action.id}}">
+                    <tbody>
+                      <tr class="collapse add-row" id="table_action_{{action.id}}">
+                        <td>
+                          <select class="form-control">
+                            {% for responseType in responseTypeList %}
+                            <option value="{{responseType.type}}" {% if responseType.type == 'text' %}selected{% endif %}>{{responseType.type}}</option>
+                            {% endfor %}
+                          </select>
+                        </td>
+                        <td>
+                          <form>
+                            <textarea class="form-control" placeholder="Enter the response text" required>{{ response.response_text }}</textarea>
+                          </form>
+                        </td>
+                        <td class="col-md-1 btn-response-action">
+                          <span class="float-right">
+                            <button class="btn btn btn-outline-success">
+                              <span class="fa fa-check"></span>
+                            </button>
+                          </span>
+                        </td>
+                      </tr>
+                      {% for response in responseList %}
+                        {% if response.action_id == action.id %}
+                        <tr data-response-id="{{ response.id }}">
+                          <td>
+                            <select class="form-control">
+                              {% for responseType in responseTypeList %}
+                              <option value="{{responseType.id}}" {% if responseType.id == response.response_type %}selected{% endif %}>{{responseType.type}}</option>
+                              {% endfor %}
+                            </select>
+                          </td>
+                          <td>
+                            <textarea class="form-control" placeholder="Enter the response text" required>{{ response.response_text }}</textarea>
+                          </td>
+                          <td class="col-md-1 btn-response-action">
+                            <span class="float-right">
+                              <button class="btn btn-outline-info">
+                                <span class="fa fa-save"></span>
+                              </button>
+                              <button class="btn btn-outline-danger delete-response">
+                                <span class="fa fa-times"></span>
+                              </button>
+                            </span>
+                          </td>
+                        </tr>
+                        {% endif %}
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  {% endfor %}
+                </div>
+                <br>
+                <div style="float:right">
+                  <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                      {% if actionsList.has_previous %}
+                      <li class="page-item">
+                        <a class="page-link" href="?page=1">First</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="?page={{ actionsList.previous_page_number }}">Previous</a>
+                      </li>
+                      {% endif %}
+                      <li class="page-item disabled">
+                        <a class="page-link" href="#">Page {{ actionsList.number }} of {{ actionsList.paginator.num_pages }}</a>
+                      </li>
+                      {% if actionsList.has_next %}
+                      <li class="page-item">
+                        <a class="page-link" href="?page={{ actionsList.next_page_number }}">Next</a>
+                      </li>
+                      <li class="page-item">
+                        <a class="page-link" href="?page={{ actionsList.paginator.num_pages }}">Last</a>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/responses.js' %}"></script>
+{% endblock %}

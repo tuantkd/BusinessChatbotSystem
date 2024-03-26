@@ -1,0 +1,152 @@
+{% extends "admin/change_form.html" %} {% block content %}
+<link
+  rel="stylesheet"
+  href="https://js.arcgis.com/4.29/esri/themes/light/main.css"
+/>
+<script src="https://js.arcgis.com/4.29/"></script>
+
+<div id="content-main">
+  <form
+    id="{{ opts.model_name }}_form"
+    method="post"
+    enctype="multipart/form-data"
+    novalidate
+  >
+    {% csrf_token %} {{ form.non_field_errors }} 
+    
+    {% if opts.model_name == 'business' %}
+    <fieldset class="module aligned">
+      <!-- Add the new field -->
+      <div class="form-row">
+        <label for="longitude">Longitude:</label>
+        <input
+          type="text"
+          id="longitude"
+          name="longitude"
+          value="{{ obj.longitude }}"
+        />
+
+        <label for="latitude">Latitude:</label>
+        <input
+          type="text"
+          id="latitude"
+          name="latitude"
+          value="{{ obj.latitude }}"
+        />
+
+        <input
+          type="hidden"
+          id="address"
+          name="address"
+          value="{{ obj.address }}"
+        />
+      </div>
+    </fieldset>
+    <div id="viewDiv" style="height:350px;width:100%;"></div>
+    {% endif %}
+
+    <!-- Include other sections of the form -->
+    {{ block.super }}
+  </form>
+</div>
+
+<script>
+  require([
+    "esri/config",
+    "esri/Map",
+    "esri/views/MapView",
+    "esri/Graphic",
+    "esri/PopupTemplate",
+    "esri/widgets/Popup",
+  ], function (esriConfig, Map, MapView, Graphic, PopupTemplate) {
+    esriConfig.apiKey =
+      "AAPK8e60139ca8174a0daaeb2819e88c33d52MZ7rrmtyYuTBEqFpTABF6YUrXY2Zej4NvjJAtQogZR2f8Hk2z59TBbwaXGnjoNt";
+
+    // Create a new map instance
+    const map = new Map({
+      basemap: "arcgis/navigation", //Basemap styles service
+    });
+
+    // Create a new MapView instance
+    var view = new MapView({
+      container: "viewDiv",
+      map: map,
+      center: [-74.006, 40.7128], // Longitude, Latitude
+      zoom: 12,
+    });
+
+    // Create a graphic object with the specified geometry
+    var graphic = new Graphic({
+      geometry: {
+        type: "point",
+        longitude: -74.006,
+        latitude: 40.7128,
+      },
+      symbol: {
+        type: "picture-marker",
+        url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
+        width: "25px",
+        height: "25px",
+        outline: {
+          color: "#ffffff",
+          width: "30px",
+        },
+      },
+      popupTemplate: new PopupTemplate({
+        title: "Sample Popup AAAAAA",
+        content:
+          "This is a sample popup content Lon" +
+          -74.006 +
+          "<br>Lat: " +
+          40.7128,
+      }),
+    });
+
+    // Add the graphic to the map's graphics layer
+    view.graphics.add(graphic);
+
+    var graphic = new Graphic({
+      geometry: {
+        type: "point",
+        longitude: -78.006,
+        latitude: 40.7128,
+      },
+      symbol: {
+        type: "picture-marker",
+        url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
+        width: "25px",
+        height: "25px",
+        outline: {
+          color: "#ffffff",
+          width: "30px",
+        },
+      },
+      popupTemplate: popupTemplate,
+    });
+
+    // Add the graphic to the map's graphics layer
+    view.graphics.add(graphic);
+
+    // Create a popup
+    var popup = new Popup({
+      dockEnabled: true,
+      dockOptions: {
+        buttonEnabled: false,
+        breakpoint: false,
+      },
+    });
+
+    view.popup = popup;
+
+    // Display popup when graphic is clicked
+    view.on("click", function (event) {
+      view.popup.open({
+        title: graphic.popupTemplate.title,
+        content: graphic.popupTemplate.content,
+        location: event.mapPoint,
+      });
+    });
+  });
+</script>
+
+{% endblock %}

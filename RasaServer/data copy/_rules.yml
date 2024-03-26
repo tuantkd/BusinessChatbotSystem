@@ -1,0 +1,15 @@
+version: '3.1'
+rules:
+  - rule: Say goodbye anytime the user says goodbye
+    steps:
+    - intent: goodbye
+    - action: utter_goodbye
+      
+
+  - rule: Start a conversation
+    steps:
+    - intent: greet
+    - action: utter_greet
+    
+
+

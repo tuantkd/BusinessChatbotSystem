@@ -22,4 +22,5 @@ admin.site.site_title =  "Enterprise Registration Administration"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('chat/', include('interactive_chatbot.urls')),
+    path('chatbot/', include('chatbot_data.urls')),
 ]

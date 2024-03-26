@@ -1,0 +1,42 @@
+{% load static %}
+<aside class="aside-menu">
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="dialog" role="tabpanel">
+      <div class="callout m-0 py-2 text-muted text-center bg-light text-uppercase">
+        <small><b>Input</b></small>
+      </div>
+      <div class="callout m-0 py-3">
+        <form method="post" action="{% url 'execute_test_request' %}">
+          {% csrf_token %}
+          <hr class="m-x-1 m-y-0">
+          <div class="input-group">
+            <input type="text" name="test_text" class="form-control" id="test_text"
+              placeholder="Try it now ..." data-placement="left"
+              title="Select a model from dropdown and enter text to be parsed">
+            <button type="submit" class="btn btn btn-primary">Go</button>
+          </div>
+        </form>
+      </div>
+      {% if response_text %}
+      <div class="callout m-0 py-2 text-muted text-center bg-light text-uppercase">
+        <small><b>Output</b></small>
+      </div>
+      <div class="callout m-0 py-3">
+        {% for resp in response_text %}
+        <div class="clearfix">
+          <div class="callout callout-info">{{ resp }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="callout m-0 py-2 text-muted text-center bg-light text-uppercase">
+        <small><b>JSON Data</b></small>
+      </div>
+      <div class="callout m-0 py-3">
+        {{ test_text_response|safe }}
+      </div>
+      <hr class="mx-3 my-0">
+    </div>
+  </div>
+</aside>

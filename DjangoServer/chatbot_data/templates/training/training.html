@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item active"><span>Training</span></li>
+</ol>
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12">
+                {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="card">
+                    <div class="card-block">
+                        <div class="form-group row">
+                            <label for="select" class="col-sm-2 col-form-label">Bot</label>
+                            <div class="col-sm-10">
+                                <select id="bot_name" class="form-control" onchange="location = this.value;">
+                                    <option value="">Please select a bot</option>
+                                    {% for bot in botList %}
+                                    <option value="{% url 'training' bot.id %}" {% if selectedBot.id|add:0 == bot.id|add:0 %} selected {% endif %}>{{ bot.bot_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if selectedBot %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tab-container">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item active"><a class="nav-link active" data-target="#rawData"
+                        data-toggle="tab"><span></span><i class="fa fa-file"></i> Raw Data</a></li>
+                        <li class="nav-item"><a class="nav-link" data-target="#config" data-toggle="tab"><span></span><i
+                            class="fa fa-cogs"></i> Config</a></li>
+                        <li class="nav-item"><a class="nav-link" data-target="#nlu_data"
+                                data-toggle="tab"><span></span><i class="fa fa-comment"></i> NLU Data</a></li>
+                        <li class="nav-item"><a class="nav-link" data-target="#stories"
+                                data-toggle="tab"><span></span><i class="fa fa-book"></i> Stories</a></li>
+                        <li class="nav-item"><a class="nav-link" data-target="#rules"
+                                data-toggle="tab"><span></span><i class="fa fa-gavel"></i> Rules</a></li>
+                        <li class="nav-item"><a class="nav-link" data-target="#domain" data-toggle="tab"><span></span><i
+                                    class="fa fa-globe"></i> Domain</a></li>
+                    </ul>
+                    <div class="tab-content">
+                    <div class="tab-pane active" id="rawData">
+                        <textarea class="datainput">{{ rawData.raw }}</textarea>
+                    </div>
+                    <div class="tab-pane" id="config">
+                        <textarea class="datainput">{{ rawData.config }}</textarea>
+                    </div>
+                        <div class="tab-pane" id="nlu_data">
+                            <textarea class="datainput">{{ rawData.nlu }}</textarea>
+                        </div>
+                        <div class="tab-pane" id="stories">
+                            <textarea class="datainput">{{ rawData.stories }}</textarea>
+                        </div>
+                        <div class="tab-pane" id="rules">
+                            <textarea class="datainput">{{ rawData.rules }}</textarea>
+                        </div>
+                        <div class="tab-pane" id="domain">
+                            <textarea class="datainput">{{ rawData.domain }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-12">
+              &nbsp;
+            </div>
+        </div>
+        
+        {% if selectedBot %}
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-header">
+                <strong>Training</strong>
+              </div>
+              <div class="card-block">
+                <form method="POST" id="trainingForm">
+                  {% csrf_token %}
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Comment</label>
+                    <div class="col-sm-9">
+                      <input type="text" autocomplete="off" name="comment" class="form-control" id="comment">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Force Model Update</label>
+                    <div class="col-sm-9">
+                      <label class="switch switch-3d switch-success">
+                        <input type="checkbox" class="switch-input" name="force_model_update" id="force_model_update">
+                        <span class="switch-label"></span>
+                        <span class="switch-handle"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-magic"></i>&nbsp; Start Training</button>
+                    <!-- download -->
+                    <a href="{% url 'download_zip' selectedBot.id %}" class="btn btn-primary"><i class="fa fa-download"></i>&nbsp; Download Training Data</a>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/training.js' %}"></script>
+{% endblock %}
