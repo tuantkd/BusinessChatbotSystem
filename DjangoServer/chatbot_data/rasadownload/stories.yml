@@ -1,0 +1,133 @@
+version: '3.1'
+stories:
+  - story: Tư vấn quy trình đăng ký
+    steps:
+      - intent: inquire_business_registration
+      - action: utter_inquire_business_registration
+      
+
+  - story: Xác định nhu cầu của loại hình doanh nghiệp
+    steps:
+      - intent: business_types
+      - action: action_business_types
+      
+
+  - story: Hỏi hồ sơ đăng ký kinh doanh
+    steps:
+      - intent: registration_requirements
+      - action: utter_registration_requirements
+      
+
+  - story: Chọn tên doanh nghiệp
+    steps:
+      - intent: business_name_selection
+      - action: utter_business_name_selection
+      
+
+  - story: Hỏi địa điểm đăng ký kinh doanh
+    steps:
+      - intent: registration_agencies
+      - action: utter_registration_agencies
+      
+
+  - story: Hỏi chi phí đăng ký
+    steps:
+      - intent: registration_fees
+      - action: utter_registration_fees
+      
+
+  - story: Hỏi khung thời gian đăng ký
+    steps:
+      - intent: business_registration_timeframe
+      - action: utter_business_registration_timeframe
+      
+
+  - story: Các bước sau khi thành lập doanh nghiệp
+    steps:
+      - intent: post_registration_steps
+      - action: utter_post_registration_steps
+      
+
+  - story: Công bố thông tin
+    steps:
+      - intent: disclosure_requirements
+      - action: utter_disclosure_requirements
+      
+
+  - story: Đăng ký hỗ trợ pháp lý
+    steps:
+      - intent: legal_assistance
+      - action: utter_legal_assistance
+      
+
+  - story: Về việc giải thể tổ chức lại
+    steps:
+      - intent: regarding_reorganization_dissolution_bankruptcy
+      - action: utter_regarding_reorganization_dissolution_bankruptcy
+      
+
+  - story: Hồ sơ đăng ký kinh doanh
+    steps:
+      - intent: registration_dossier
+      - action: utter_registration_dossier
+      
+
+  - story: Lệ phí đăng ký
+    steps:
+      - intent: business_registration_fees_charges
+      - action: utter_business_registration_fees_charges
+      
+
+  - story: Dịch vụ thông tin
+    steps:
+      - intent: about_information_services
+      - action: utter_about_information_services
+      
+
+  - story: Tra cứu ngành nghề kinh doanh
+    steps:
+      - intent: lookup_business_lines
+      - action: action_lookup_business_lines
+      
+
+  - story: FAQ - về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp
+    steps:
+      - intent: define_business_registration_certificate_revocation_faq
+      - action: utter_define_business_registration_certificate_revocation_faq
+      
+
+  - story: FAQ - điều tra nối lại hoạt động kinh doanh
+    steps:
+      - intent: inquiry_business_resumption_faq
+      - action: utter_inquiry_business_resumption_faq
+      
+
+  - story: FAQ - truy vấn thu hồi giấy chứng nhận đăng ký kinh doanh
+    steps:
+      - intent: query_business_registration_cert_revocation_faq
+      - action: utter_query_business_registration_cert_revocation_faq
+      
+
+  - story: FAQ - hỏi thủ tục truy xuất
+    steps:
+      - intent: inquire_retrieval_procedure_faq
+      - action: utter_inquire_retrieval_procedure_faq
+      
+
+  - story: Các văn bản về đăng ký kinh doanh
+    steps:
+      - intent: documents_business_registration
+      - action: action_documents_business_registration
+      
+
+  - story: Thủ tục đăng ký kinh doanh
+    steps:
+      - intent: register_business_procedure
+      - action: action_register_business_procedure
+      - intent: register_business_type_name
+      - action: action_register_business_type_name
+      - intent: register_type_of_business
+      - action: action_register_type_of_business
+      
+
+

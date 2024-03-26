@@ -3,24 +3,30 @@ import json
 import os
 import pdb
 import re
+import zipfile
 from django.core import serializers
 import time
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import FileResponse, HttpResponseServerError, JsonResponse
+from django.http import FileResponse, HttpResponse, HttpResponseServerError, JsonResponse
 from django.views import View
 from django.views.generic.base import TemplateView
 import requests
 from rest_framework.renderers import JSONRenderer
 from .serializers import ExpressionParameterSerializer, LookupVariantSerializer, RegexVariantSerializer, ResponseSerializer, SynonymVariantSerializer
-from .models import Bot, Action, Entity, Expression, ExpressionParameter, Intent, Lookup, LookupVariant, Regex, RegexVariant, Response, Story, ModelModel, Conversation, Synonym, SynonymVariant
+from .models import Bot, Action, Entity, Expression, ExpressionParameter, Intent, Lookup, LookupVariant, Regex, RegexVariant, Response, Rule, Story, ModelModel, Conversation, Synonym, SynonymVariant
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import BotForm, ImportBotForm, ActionForm, IntentForm, LookupForm, RegexForm, ResponseForm, StoryForm, EntityForm, SynonymForm
+from .forms import BotForm, ImportBotForm, ActionForm, IntentForm, LookupForm, RegexForm, ResponseForm, RuleForm, StoryForm, EntityForm, SynonymForm
 from django.shortcuts import redirect
 from django.contrib import messages
-from enterprise_registration_app.settings import RASA_PREDICT_URL
+from enterprise_registration_app.settings import RASA_PREDICT_URL, RASA_TRAINING_URL
 import yaml
 from django.db import transaction
+from django.core.paginator import Paginator
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
+
 class DashboardView(TemplateView):
     template_name = 'dashboard/dashboard.html'
 class BotsView(TemplateView):
@@ -28,7 +34,10 @@ class BotsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['botList'] = Bot.objects.all()  # Get all bots
+        bots = Bot.objects.all()
+        paginator = Paginator(bots, 5)
+        page = self.request.GET.get('page', 1)
+        context['botList'] = paginator.get_page(page)
         return context
     
 def delete_bot(request, bot_id):
@@ -45,18 +54,27 @@ class EditBotView(View):
         # Khởi tạo form với instance là đối tượng bot
         form = self.form_class(instance=bot)
         # Lấy danh sách các Intent, Entity, Synonym, và Regex liên quan đến bot
-        intents = bot.intents.all()
-        entities = bot.entities.all()
-        synonyms = bot.synonyms.all()
-        regexes = bot.regexes.all()
+        intent_paginator = Paginator(bot.intents.all(), 5)
+        entity_paginator = Paginator(bot.entities.all(), 5)
+        synonym_paginator = Paginator(bot.synonyms.all(), 5)
+        regex_paginator = Paginator(bot.regexes.all(), 5)
+        lookup_paginator = Paginator(bot.lookups.all(), 5)
+        
+        intent_page = request.GET.get('intent_page', 1)
+        entity_page = request.GET.get('entity_page', 1)
+        synonym_page = request.GET.get('synonym_page', 1)
+        regex_page = request.GET.get('regex_page', 1)
+        lookup_page = request.GET.get('lookup_page', 1)
+
         # Render template kèm theo form và các danh sách
         return render(request, self.template_name, {
             'form': form,
             'bot': bot,
-            'intents': intents,
-            'entities': entities,
-            'synonyms': synonyms,
-            'regexes': regexes,
+            'intents': intent_paginator.get_page(intent_page),
+            'entities': entity_paginator.get_page(entity_page),
+            'synonyms': synonym_paginator.get_page(synonym_page),
+            'regexes': regex_paginator.get_page(regex_page),
+            'lookups': lookup_paginator.get_page(lookup_page),
         })
 
     def post(self, request, bot_id, *args, **kwargs):
@@ -113,167 +131,345 @@ def extract_entities(expression):
             end = match.end()
             entities.append({'entity': entity, 'value': value, 'start': start, 'end': end})
         return entities
-class ImportBotView(View):
+class ImportNLUView(View):
     form_class = ImportBotForm
     template_name = 'bots/import_bot.html'  # Đường dẫn đến template của bạn
 
     def get(self, request, *args, **kwargs):
-        form = self.form_class()  # Khởi tạo form rỗng
-        return render(request, self.template_name, {'form': form})
+        bot_id = self.kwargs.get('bot_id')
+        bot = Bot.objects.get(id=bot_id) if bot_id else None
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form, 'bot': bot})
 
-    def post(self, request, *args, **kwargs):
-        try:
-            with transaction.atomic():
-                form = self.form_class(request.POST, request.FILES)
-                if form.is_valid():
-                    bot_name = form.cleaned_data['bot_name']
-                    current_dir = os.path.dirname(os.path.abspath(__file__))
-                    config_file_path = os.path.join(current_dir, 'data/config.yml')
-                    with open(config_file_path, 'r', encoding='utf-8') as file:
-                        config_default = file.read()
+def import_nlu(request, bot_id):
+    try:
+        with transaction.atomic():
+            bot = Bot.objects.get(id=bot_id) if bot_id else None
+            if not bot:
+                raise Exception('Bot not found')
+            
+            intents = bot.intents.all()
+            entities = bot.entities.all()
+            synonyms = bot.synonyms.all()
+            regexes = bot.regexes.all()
+            lookups = bot.lookups.all()
 
-                    output_folder = 'models'
+            if len(intents) > 0 or len(entities) > 0 or len(synonyms) > 0 or len(regexes) > 0 or len(lookups) > 0:
+                raise Exception('Bot already has NLU data. Please clear the data before importing new data.')
+            
+            bot_file = request.FILES['file']
+            bot_data = yaml.safe_load(bot_file)
+            
+            for data in bot_data['nlu']:
+                if 'intent' in data:
+                    # create new intent
+                    intent_name = data['intent']
+                    intent_find = Intent.objects.filter(intent_name=intent_name, bot=bot).first()
+                    if not intent_find:
+                        new_intent = Intent.objects.create(
+                            intent_name=intent_name,
+                            bot=bot
+                        )
+                    else:
+                        new_intent = intent_find
 
-                    bot_find = Bot.objects.filter(bot_name=bot_name).first()
-                    if bot_find:
-                        raise Exception('Bot name already exists')
-                    
-                    new_bot = Bot.objects.create(
-                        bot_name=bot_name,
-                        bot_config=config_default,
-                        output_folder=output_folder
-                    )
-                bot_file = request.FILES['file']
-                bot_data = yaml.safe_load(bot_file)
-                
-                for data in bot_data['nlu']:
-                    if 'intent' in data:
-                        # create new intent
-                        intent_name = data['intent']
-                        intent_find = Intent.objects.filter(intent_name=intent_name, bot=new_bot).first()
-                        if not intent_find:
-                            new_intent = Intent.objects.create(
-                                intent_name=intent_name,
-                                bot=new_bot
+                    expressions = data['examples'].split('\n')
+                    for expression in expressions:
+                        # remove - at the beginning of the expression
+                        expression = re.sub(r'^\s*-\s*', '', expression)
+                        expression = expression.strip()
+                        if expression == '':
+                            continue
+                        entities = extract_entities(expression)
+                        stand_expression = expression
+                        match_expression = expression
+                        new_parameters = []
+                        for entity in entities:
+                            stand_expression = re.sub(r'\[(.*?)\]\((.*?)\)', r'\1', stand_expression, 1)
+                            match_expression = re.sub(r'\[(.*?)\]\((.*?)\)', r'\1', match_expression, 1)
+                            entity['start'] = match_expression.find(entity['value'])
+                            entity['end'] = entity['start'] + len(entity['value'])
+                            # replace matched value with * to avoid duplicate search
+                            match_expression = match_expression[:entity['start']] + '*' * len(entity['value']) + match_expression[entity['end']:]
+                        
+                            # check if entity not exist in database, create new entity
+                            entity_find = Entity.objects.filter(entity_name=entity['entity'], bot=bot).first()
+                            if not entity_find:
+                                new_entity = Entity.objects.create(entity_name=entity['entity'], bot=bot, slot_data_type='text')
+                            else :
+                                new_entity = entity_find
+                                
+                            new_parameter = {
+                                'entity': new_entity,
+                                'start': entity['start'],
+                                'end': entity['end'],
+                                'value': entity['value'],
+                                'intent': new_intent,
+                            }
+                            new_parameters.append(new_parameter)
+
+                        # check if expression not exist in database, create new expression
+                        expression_find = Expression.objects.filter(expression_text=stand_expression, intent=new_intent).first()
+                        if not expression_find:
+                            new_expression = Expression.objects.create(
+                                expression_text=stand_expression,
+                                intent=new_intent
                             )
                         else:
-                            new_intent = intent_find
+                            new_expression = expression_find
 
-                        expressions = data['examples'].split('\n')
-                        for expression in expressions:
-                            # remove - at the beginning of the expression
-                            expression = re.sub(r'^\s*-\s*', '', expression)
-                            expression = expression.strip()
-                            if expression == '':
-                                continue
-                            entities = extract_entities(expression)
-                            stand_expression = expression
-                            match_expression = expression
-                            new_parameters = []
-                            for entity in entities:
-                                stand_expression = re.sub(r'\[(.*?)\]\((.*?)\)', r'\1', stand_expression, 1)
-                                match_expression = re.sub(r'\[(.*?)\]\((.*?)\)', r'\1', match_expression, 1)
-                                entity['start'] = match_expression.find(entity['value'])
-                                entity['end'] = entity['start'] + len(entity['value'])
-                                # replace matched value with * to avoid duplicate search
-                                match_expression = match_expression[:entity['start']] + '*' * len(entity['value']) + match_expression[entity['end']:]
-                            
-                                # check if entity not exist in database, create new entity
-                                entity_find = Entity.objects.filter(entity_name=entity['entity'], bot=new_bot).first()
-                                if not entity_find:
-                                    new_entity = Entity.objects.create(entity_name=entity['entity'], bot=new_bot, slot_data_type='text')
-                                else :
-                                    new_entity = entity_find
-                                    
-                                new_parameter = {
-                                    'entity': new_entity,
-                                    'start': entity['start'],
-                                    'end': entity['end'],
-                                    'value': entity['value'],
-                                    'intent': new_intent,
-                                }
-                                new_parameters.append(new_parameter)
+                        for parameter in new_parameters:
 
-                            # check if expression not exist in database, create new expression
-                            expression_find = Expression.objects.filter(expression_text=stand_expression, intent=new_intent).first()
-                            if not expression_find:
-                                new_expression = Expression.objects.create(
-                                    expression_text=stand_expression,
-                                    intent=new_intent
-                                )
-                            else:
-                                new_expression = expression_find
-
-                            for parameter in new_parameters:
-
-                                parameters_find = ExpressionParameter.objects.filter(
+                            parameters_find = ExpressionParameter.objects.filter(
+                                intent=new_intent,
+                                expression=new_expression,
+                                entity=parameter['entity']
+                            ).all()
+                            # check conflict parameter
+                            if not parameters_find or all([False if\
+                                        param.parameter_start < parameter['start'] <= param.parameter_end\
+                                    or  param.parameter_start < parameter['end'] <= param.parameter_end\
+                                    or (parameter['start'] < param.parameter_start and parameter['end'] > param.parameter_end)\
+                                    else True
+                                    for param in parameters_find]):
+                                ExpressionParameter.objects.create(
+                                    parameter_start=parameter['start'],
+                                    parameter_end=parameter['end'],
+                                    parameter_value=parameter['value'],
                                     intent=new_intent,
                                     expression=new_expression,
                                     entity=parameter['entity']
-                                ).all()
-                                # check conflict parameter
-                                if not parameters_find or all([False if\
-                                            param.parameter_start < parameter['start'] <= param.parameter_end\
-                                        or  param.parameter_start < parameter['end'] <= param.parameter_end\
-                                        or (parameter['start'] < param.parameter_start and parameter['end'] > param.parameter_end)\
-                                        else True
-                                        for param in parameters_find]):
-                                    ExpressionParameter.objects.create(
-                                        parameter_start=parameter['start'],
-                                        parameter_end=parameter['end'],
-                                        parameter_value=parameter['value'],
-                                        intent=new_intent,
-                                        expression=new_expression,
-                                        entity=parameter['entity']
-                                    )
-
-                    elif 'regex' in data:
-                        regex_name = data['regex']
-                        # check if regex not exist in database, create new regex
-                        regex_find = Regex.objects.filter(regex_name=regex_name, bot=new_bot).first()
-                        if not regex_find:
-                            new_regex = Regex.objects.create(
-                                regex_name=regex_name,
-                                bot=new_bot
-                            )
-                            
-                    elif 'synonym' in data:
-                        synonym_reference = data['synonym']
-                        synonym_reference = synonym_reference.strip()
-                        if synonym_reference == '':
-                            continue
-                        synonym_variants = data['examples'].split('\n')
-                        # check if synonym not exist in database, create new synonym
-                        synonym_find = Synonym.objects.filter(synonym_reference=synonym_reference, bot=new_bot).first()
-                        if not synonym_find:
-                            new_synonym = Synonym.objects.create(
-                                synonym_reference=synonym_reference,
-                                bot=new_bot
-                            )
-                        else:
-                            new_synonym = synonym_find
-                        for synonym_variant in synonym_variants:
-                            synonym_variant = re.sub(r'^\s*-\s*', '', synonym_variant)
-                            synonym_variant = synonym_variant.strip()
-                            if synonym_variant == '':
-                                continue
-                            synonym_variant_find = SynonymVariant.objects.filter(synonym=new_synonym, synonym_value=synonym_variant).first()
-                            if not synonym_variant_find:
-                                new_synonym_variant = SynonymVariant.objects.create(
-                                    synonym=new_synonym,
-                                    synonym_value=synonym_variant
                                 )
-            return redirect('bots')
 
-        except Exception as e:
-            messages.error(request, 'Error importing bot: ' + str(e))
-            return render(request, self.template_name, {'form': form})
-        
+                elif 'regex' in data:
+                    regex_name = data['regex']
+                    regex_name = regex_name.strip()
+                    if regex_name == '':
+                        continue
+                    # check if regex not exist in database, create new regex
+                    regex_find = Regex.objects.filter(regex_name=regex_name, bot=bot).first()
+                    if not regex_find:
+                        new_regex = Regex.objects.create(
+                            regex_name=regex_name,
+                            bot=bot
+                        )
+                    else:
+                        new_regex = regex_find
+                    regex_variants = data['examples'].split('\n')
+                    for regex_variant in regex_variants:
+                        regex_variant = re.sub(r'^\s*-\s*', '', regex_variant)
+                        regex_variant = regex_variant.strip()
+                        if regex_variant == '':
+                            continue
+                        regex_variant_find = RegexVariant.objects.filter(regex=new_regex, pattern=regex_variant).first()
+                        if not regex_variant_find:
+                            new_regex_variant = RegexVariant.objects.create(
+                                regex=new_regex,
+                                pattern=regex_variant
+                            )
+                        
+                elif 'synonym' in data:
+                    synonym_reference = data['synonym']
+                    synonym_reference = synonym_reference.strip()
+                    if synonym_reference == '':
+                        continue
+                    synonym_variants = data['examples'].split('\n')
+                    # check if synonym not exist in database, create new synonym
+                    synonym_find = Synonym.objects.filter(synonym_reference=synonym_reference, bot=bot).first()
+                    if not synonym_find:
+                        new_synonym = Synonym.objects.create(
+                            synonym_reference=synonym_reference,
+                            bot=bot
+                        )
+                    else:
+                        new_synonym = synonym_find
+                    for synonym_variant in synonym_variants:
+                        synonym_variant = re.sub(r'^\s*-\s*', '', synonym_variant)
+                        synonym_variant = synonym_variant.strip()
+                        if synonym_variant == '':
+                            continue
+                        synonym_variant_find = SynonymVariant.objects.filter(synonym=new_synonym, synonym_value=synonym_variant).first()
+                        if not synonym_variant_find:
+                            new_synonym_variant = SynonymVariant.objects.create(
+                                synonym=new_synonym,
+                                synonym_value=synonym_variant
+                            )
+                elif 'lookup' in data:
+                    lookup_name = data['lookup']
+                    lookup_name = lookup_name.strip()
+                    if lookup_name == '':
+                        continue
+                    lookup_find = Lookup.objects.filter(lookup_name=lookup_name, bot=bot).first()
+                    if not lookup_find:
+                        new_lookup = Lookup.objects.create(
+                            lookup_name=lookup_name,
+                            bot=bot
+                        )
+                    else:
+                        new_lookup = lookup_find
+                    lookup_variants = data['examples'].split('\n')
+                    for lookup_variant in lookup_variants:
+                        lookup_variant = re.sub(r'^\s*-\s*', '', lookup_variant)
+                        lookup_variant = lookup_variant.strip()
+                        if lookup_variant == '':
+                            continue
+                        lookup_variant_find = LookupVariant.objects.filter(lookup=new_lookup, lookup_value=lookup_variant).first()
+                        if not lookup_variant_find:
+                            new_lookup_variant = LookupVariant.objects.create(
+                                lookup=new_lookup,
+                                value=lookup_variant
+                            )
+
+        return redirect('bot_detail', bot_id=bot_id)
+
+    except Exception as e:
+        messages.error(request, 'Error importing bot: ' + str(e))
+        return redirect('import_bot', bot_id=bot_id)
+
+def clear_nlu_data(request, bot_id):
+    bot = Bot.objects.get(id=bot_id)
+    bot.intents.all().delete()
+    bot.entities.all().delete()
+    bot.synonyms.all().delete()
+    bot.regexes.all().delete()
+    bot.lookups.all().delete()
+    return redirect('bot_detail', bot_id=bot_id)
+
+def import_response(request, bot_id):
+    try:
+        bot = Bot.objects.get(id=bot_id)
+        response_file = request.FILES['file']
+        response_data = yaml.safe_load(response_file)
+        for action_name in response_data['responses']:
+            action = Action.objects.filter(action_name=action_name, bot=bot).first()
+            if not action:
+                action = Action.objects.create(action_name=action_name, action_type='utter', bot=bot)
+
+            for res in response_data['responses'][action_name]:
+                response = Response.objects.filter(action=action, response_type='text', response_text=res['text']).first()
+                if not response:
+                    response = Response.objects.create(
+                        response_text=res['text'],
+                        response_type='text',
+                        action=action
+                    )
+
+        for action_name in response_data['actions']:
+            action = Action.objects.filter(action_name=action_name, action_type='action', bot=bot).first()
+            if not action:
+                action = Action.objects.create(action_name=action_name, action_type='action', bot=bot)
+                
+        for action_name in response_data['slots']:
+            action = Action.objects.filter(action_name=action_name, action_type='slot_set', bot=bot).first()
+            if not action:
+                action = Action.objects.create(action_name=action_name, action_type='slot_set', bot=bot)
             
+            slots_yaml = yaml.dump(response_data['slots'][action_name])
+            action.action_config = slots_yaml
+            action.save()
     
-class ActionsView(TemplateView):
-    # Assuming there might be a specific template for actions that hasn't been listed
-    template_name = 'actions/edit_action.html'  # Adjust if there's an actual path
+        return redirect('responses', bot_id=bot_id)
+    except Exception as e:
+        messages.error(request, 'Error importing responses: ' + str(e))
+        return redirect('bot_detail', bot_id=bot_id)
+    
+def clear_response(request, bot_id):
+    bot = Bot.objects.get(id=bot_id)
+    actions = Action.objects.filter(bot=bot)
+    actions.delete()
+    return redirect('bot_detail', bot_id=bot_id)
+
+def import_story(request, bot_id):
+    try:
+        bot = Bot.objects.get(id=bot_id)
+        story_file = request.FILES['file']
+        story_data = yaml.safe_load(story_file)
+        for sto in story_data['stories']:
+            story_name = sto['story']
+            story = Story.objects.filter(story_name=story_name, bot=bot).first()
+            if not story:
+                story = Story.objects.create(story_name=story_name, bot=bot, timestamp=datetime.now(timezone.utc))
+            story_steps = sto['steps']
+            story_text = ''
+            for step in story_steps:
+                if 'intent' in step:
+                    intent_name = step['intent']
+                    intent = Intent.objects.filter(intent_name=intent_name, bot=bot).first()
+                    if not intent:
+                        intent = Intent.objects.create(intent_name=intent_name, bot=bot)
+                    story_text += f'- intent: {step["intent"]}\n'
+                    if 'entities' in step:
+                        entities = step['entities']
+                        for en in entities:
+                            entity = Entity.objects.filter(entity_name=en, bot=bot).first()
+                            if not entity:
+                                entity = Entity.objects.create(entity_name=en, bot=bot, slot_data_type='text')
+                            story_text += f'  - {en}\n'
+                elif 'action' in step:
+                    action_name = step['action']
+                    action = Action.objects.filter(action_name=action_name, bot=bot).first()
+                    if not action:
+                        action = Action.objects.create(action_name=action_name, action_type='action', bot=bot)
+                    story_text += f'- action: {step["action"]}\n'
+
+            story.story = story_text
+            story.save()
+        return redirect('stories', bot_id=bot_id)
+    except Exception as e:
+        messages.error(request, 'Error importing stories: ' + str(e))
+        return redirect('bot_detail', bot_id=bot_id)
+    
+def clear_story(request, bot_id):
+    bot = Bot.objects.get(id=bot_id)
+    stories = Story.objects.filter(bot=bot)
+    stories.delete()
+    return redirect('bot_detail', bot_id=bot_id)
+
+def import_rule(request, bot_id):
+    try:
+        bot = Bot.objects.get(id=bot_id)
+        rule_file = request.FILES['file']
+        rule_data = yaml.safe_load(rule_file)
+        for ru in rule_data['rules']:
+            rule_name = ru['rule']
+            rule = Rule.objects.filter(rule_name=rule_name, bot=bot).first()
+            if not rule:
+                rule = Rule.objects.create(rule_name=rule_name, bot=bot, timestamp=datetime.now(timezone.utc))
+            rule_steps = ru['steps']
+            rule_text = ''
+            for step in rule_steps:
+                if 'intent' in step:
+                    intent_name = step['intent']
+                    intent = Intent.objects.filter(intent_name=intent_name, bot=bot).first()
+                    if not intent:
+                        intent = Intent.objects.create(intent_name=intent_name, bot=bot)
+                    rule_text += f'- intent: {step["intent"]}\n'
+                    if 'entities' in step:
+                        entities = step['entities']
+                        for en in entities:
+                            entity = Entity.objects.filter(entity_name=en, bot=bot).first()
+                            if not entity:
+                                entity = Entity.objects.create(entity_name=en, bot=bot, slot_data_type='text')
+                            rule_text += f'  - {en}\n'
+                elif 'action' in step:
+                    action_name = step['action']
+                    action = Action.objects.filter(action_name=action_name, bot=bot).first()
+                    if not action:
+                        action = Action.objects.create(action_name=action_name, action_type='action', bot=bot)
+                    rule_text += f'- action: {step["action"]}\n'
+
+            rule.rule_steps = rule_text
+            rule.save()
+        return redirect('rules', bot_id=bot_id)
+    except Exception as e:
+        messages.error(request, 'Error importing rules: ' + str(e))
+        return redirect('bot_detail', bot_id=bot_id)
+    
+def clear_rule(request, bot_id):
+    bot = Bot.objects.get(id=bot_id)
+    rules = Rule.objects.filter(bot=bot)
+    rules.delete()
+    return redirect('bot_detail', bot_id=bot_id)
 
 class AddIntentView(View):
     template_name = 'intents/add_intent.html'
@@ -297,12 +493,15 @@ class EditIntentView(View):
         parameter_list = ExpressionParameter.objects.filter(intent=intent).all()
         serializer = ExpressionParameterSerializer(parameter_list, many=True)
         serialized_parameters = JSONRenderer().render(serializer.data)
+        paginator = Paginator(intent.expressions.all(), 5)
+        page = request.GET.get('page', 1)
+
         context = {
             'form': form,
             'bot': bot,
             'intent': intent,
             'entity_list': bot.entities.all(),
-            'expression_list': intent.expressions.all(),
+            'expression_list': paginator.get_page(page),
             'parameter_list': parameter_list,
             'parameter_json': serialized_parameters.decode('utf-8')
 
@@ -438,6 +637,9 @@ class StoriesView(View):
         bots = Bot.objects.all()
         selected_bot = Bot.objects.get(pk=bot_id) if bot_id else None
         selected_bot_id = selected_bot.id if selected_bot else 0
+        paginator = Paginator(stories, 5)
+        page = request.GET.get('page', 1)
+        stories = paginator.get_page(page)
         return render(request, self.template_name, {'storyList': stories, 'botList': bots, 'selectedBot': selected_bot_id})
 
     def post(self, request, *args, **kwargs):
@@ -531,6 +733,86 @@ def save_story_step(request, bot_id):
         story.story = story_text
         story.save()
         return JsonResponse({'message': 'Story saved successfully.'}, status=200)
+
+class RulesView(View):
+    template_name = 'rules/rules.html'
+
+    def get(self, request, *args, **kwargs):
+        bot_id = self.kwargs.get('bot_id')
+        rules = Rule.objects.filter(bot_id=bot_id) if bot_id else []
+        bots = Bot.objects.all()
+        selected_bot = Bot.objects.get(pk=bot_id) if bot_id else None
+        selected_bot_id = selected_bot.id if selected_bot else 0
+        paginator = Paginator(rules, 5)
+        page = request.GET.get('page', 1)
+        rules = paginator.get_page(page)
+        return render(request, self.template_name, {'ruleList': rules, 'botList': bots, 'selectedBot': selected_bot_id})
+
+    def post(self, request, *args, **kwargs):
+        # This method would be used if you're creating a rule via a form submission
+        form = RuleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('rules_view')
+        return render(request, self.template_name, {'form': form})
+    
+class AddRuleView(View):
+    template_name = 'rules/add_rule.html'
+
+    def get(self, request, bot_id, *args, **kwargs):
+        bot = Bot.objects.get(id=bot_id)
+        default_name = "rule_" + str(int(time.mktime(datetime.now().timetuple())))
+        return render(request, self.template_name, {'bot': bot, 'rule_name': default_name})
+    
+    def post(self, request, bot_id, *args, **kwargs):
+        bot = Bot.objects.get(id=bot_id)
+        rule_name = request.POST.get('rule_name')
+        Rule.objects.create(bot=bot, rule_name=rule_name, timestamp=datetime.now(timezone.utc))
+        return redirect('rules', bot_id=bot_id)
+    
+class EditRuleView(View):
+    template_name = 'rules/edit_rule.html'
+
+    def get(self, request, *args, **kwargs):
+        rule = get_object_or_404(Rule, pk=kwargs.get('rule_id'))
+        bot_id = rule.bot.id
+        bot = Bot.objects.get(id=bot_id)
+        form = RuleForm(instance=rule)
+        return render(request, self.template_name, {'form': form, 'rule': rule, 'bot': bot})
+    
+    def post(self, request, *args, **kwargs):
+        rule = get_object_or_404(Rule, pk=kwargs.get('rule_id'))
+        form = RuleForm(request.POST, instance=rule)
+        if form.is_valid():
+            form.save()
+            return redirect('rules', bot_id=rule.bot.id)
+        return render(request, self.template_name, {'form': form, 'rule': rule})
+    
+class RuleDetailView(View):
+    template_name = 'rules/rule_detail.html'
+
+    def get(self, request, rule_id, *args, **kwargs):
+        rule = get_object_or_404(Rule, pk=rule_id)
+        return render(request, self.template_name, {'rule': rule})
+    
+        
+def delete_rule(request, bot_id, rule_id):
+    try:
+        rule = Rule.objects.get(id=rule_id)
+        rule.delete()
+        return redirect('rules', bot_id=bot_id)
+    except Rule.DoesNotExist:
+        return JsonResponse({'error': 'Rule not found.'}, status=404)
+    
+def save_rule_step(request, bot_id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        rule_id = data.get('rule_id')
+        rule_text = data.get('yaml_text')
+        rule = Rule.objects.get(id=rule_id)
+        rule.rule = rule_text
+        rule.save()
+        return JsonResponse({'message': 'Rule saved successfully.'}, status=200)
 class EntitiesView(TemplateView):
     # Assuming entities list view might be missing, using 'entities.html' if exists
     template_name = 'entities/entities.html'  # Adjust if there's an actual path
@@ -564,9 +846,8 @@ class EditEntityView(View):
 
     def get(self, request, *args, **kwargs):
         entity = get_object_or_404(Entity, pk=kwargs.get('entity_id'))
-
         form = EntityForm(instance=entity)
-        return render(request, self.template_name, {'form': form, 'entity': entity})
+        return render(request, self.template_name, {'form': form, 'entity': entity, 'bot': entity.bot})
     
     def post(self, request, *args, **kwargs):
         entity = get_object_or_404(Entity, pk=kwargs.get('entity_id'))
@@ -614,7 +895,7 @@ class EditLookupView(View):
         serializer = LookupVariantSerializer(lookup_variants, many=True)
         serialized_lookups = JSONRenderer().render(serializer.data)
         lookups_json = serialized_lookups.decode('utf-8')
-        return render(request, self.template_name, {'form': form, 'lookup': lookup, 'lookup_values_json': lookups_json})
+        return render(request, self.template_name, {'form': form, 'lookup': lookup, 'lookup_values_json': lookups_json, 'bot': lookup.bot})
     
     def post(self, request, *args, **kwargs):
         lookup = get_object_or_404(Lookup, pk=kwargs.get('lookup_id'))
@@ -732,7 +1013,7 @@ class EditSynonymView(View):
         serializer = SynonymVariantSerializer(synonym_variants, many=True)
         serialized_synonyms = JSONRenderer().render(serializer.data)
         synonyms_json = serialized_synonyms.decode('utf-8')
-        return render(request, self.template_name, {'form': form, 'synonym': synonym,'synonym_json': synonyms_json})
+        return render(request, self.template_name, {'form': form, 'synonym': synonym,'synonym_json': synonyms_json, 'bot':synonym.bot})
     
     def post(self, request, *args, **kwargs):
         synonym = get_object_or_404(Synonym, pk=kwargs.get('synonym_id'))
@@ -794,33 +1075,60 @@ class ConversationView(TemplateView):
 class InsightsView(TemplateView):
     template_name = 'insights/insights.html'
 
+@csrf_exempt
+def rasa_callback(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            # Process the data from Rasa
+            # For example, update the model information in your database
+            # You can access the training result or error message from `data`
+            
+            # Log or handle the callback data as needed
+            print("Rasa callback data:", data)
+
+            # Return a success response
+            return JsonResponse({"status": "success", "message": "Callback received successfully"})
+
+        except Exception as e:
+            # Log the error
+            print("Error processing Rasa callback:", e)
+            return HttpResponse(status=400, content="Error processing callback")
+    
+    # If not POST request, return 405 Method Not Allowed
+    return HttpResponse(status=405, content="Method not allowed")
+
 class TrainingView(View):
     template_name = 'training/training.html'
 
     def get(self, request, *args, **kwargs):
         bots = Bot.objects.all()
-        bot_id = self.kwargs.get('bot_id')
+        bot_id = self.kwargs.get('bot_id') 
         selected_bot = get_object_or_404(Bot, pk=bot_id) if bot_id else None
+        raw_data = get_training_data(bot_id) if bot_id else ""
         context = {
             'botList': bots,
             'selectedBot': selected_bot,
+            'rawData': raw_data
         }
         return render(request, self.template_name, context)
 
-def load_training_data(request, bot_id):
+def get_training_data(bot_id):
     # replace with your actual logic for loading training data
     bot = Bot.objects.get(id=bot_id)
     # read file data/config.yml
     config_data = bot.bot_config
     raw_data = ""
-    raw_data += config_data
+    raw_data += config_data + "\n"
 
     intents = Intent.objects.filter(bot=bot)
     entities = Entity.objects.filter(bot=bot)
     actions = Action.objects.filter(bot=bot)
     regexes = Regex.objects.filter(bot=bot)
     synonyms = Synonym.objects.filter(bot=bot)
+    lookup_tables = Lookup.objects.filter(bot=bot)
     stories = Story.objects.filter(bot=bot)
+    rules = Rule.objects.filter(bot=bot)
 
     nlu_data = "version: '3.1'\n"
     nlu_data_raw = "nlu:\n"
@@ -846,9 +1154,11 @@ def load_training_data(request, bot_id):
     for regex in regexes:
         nlu_data_raw += "  - regex: " + regex.regex_name + "\n"
         nlu_data_raw += "    examples: |\n"
-        nlu_data_raw += "      - " + regex.regex_pattern + "\n"
-
+        regex_variants = RegexVariant.objects.filter(regex=regex)
+        for regex_variant in regex_variants:
+            nlu_data_raw += "      - " + regex_variant.pattern + "\n"
         nlu_data_raw += "\n"
+    nlu_data_raw += "\n"
 
     for synonym in synonyms:
         nlu_data_raw += "  - synonym: " + synonym.synonym_reference + "\n"
@@ -857,9 +1167,19 @@ def load_training_data(request, bot_id):
         for synonym_variant in synonym_variants:
             nlu_data_raw += "      - " + synonym_variant.synonym_value + "\n"
         nlu_data_raw += "\n"
+    nlu_data_raw += "\n"
+
+    for lookup_table in lookup_tables:
+        nlu_data_raw += "  - lookup: " + lookup_table.lookup_name + "\n"
+        nlu_data_raw += "    examples: |\n"
+        lookup_variants = LookupVariant.objects.filter(lookup=lookup_table)
+        for lookup_variant in lookup_variants:
+            nlu_data_raw += "      - " + lookup_variant.value + "\n"
+        nlu_data_raw += "\n"
+    nlu_data_raw += "\n"
 
     nlu_data += nlu_data_raw
-    raw_data += nlu_data_raw + "\n"
+    raw_data += nlu_data_raw
 
     stories_data = "version: '3.1'\n"
     stories_data_raw = "stories:\n"
@@ -870,34 +1190,72 @@ def load_training_data(request, bot_id):
         for step in steps:
             stories_data_raw += "      " + step + "\n"
         stories_data_raw += "\n"
+    stories_data_raw += "\n"
+
     stories_data += stories_data_raw
-    raw_data += stories_data_raw + "\n"
+    raw_data += stories_data_raw
+
+    rules_data = "version: '3.1'\n"
+    rules_data_raw = "rules:\n"
+    for rule in rules:
+        rules_data_raw += "  - rule: " + rule.rule_name + "\n"
+        rules_data_raw += "    steps:\n"
+        steps = rule.rule_steps.split("\n")
+        for step in steps:
+            rules_data_raw += "    " + step + "\n"
+        rules_data_raw += "\n"
+    rules_data_raw += "\n"
+
+    rules_data += rules_data_raw
+    raw_data += rules_data_raw
 
     domain_data = "version: '3.1'\n"
     domain_data_raw = "intents:\n"
     for intent in intents:
         domain_data_raw += "  - " + intent.intent_name + "\n"
     domain_data_raw += "\n"
+
+    domain_data_raw += "responses:\n"
+    for action in actions:
+        if action.action_type != 'utter':
+            continue
+        responses = Response.objects.filter(action=action)
+        domain_data_raw += "  " + action.action_name + ":\n"
+        for response in responses:
+            response_texts = response.response_text.split("\n")
+            if len(response_texts) >= 1:
+                domain_data_raw += "    - text: |\n"
+                for response_text in response_texts:
+                    response_text = response_text.strip()
+                    if response_text == "":
+                        continue
+                    domain_data_raw += "        " + response_text + "\n"
+            
+        domain_data_raw += "\n"
+    domain_data_raw += "\n"
+
     domain_data_raw += "entities:\n"
     for entity in entities:
         domain_data_raw += "  - " + entity.entity_name + "\n"
     domain_data_raw += "\n"
-    domain_data_raw += "actions: []\n"
-    # for action in actions:
-    #     domain_data_raw += "  - " + action.action_name + "\n"
-    domain_data_raw += "slots:\n"
-    for entity in entities:
-        domain_data_raw += "  " + entity.entity_name + ":\n"
-        domain_data_raw += "    type: " + entity.slot_data_type + "\n"
-    domain_data_raw += "\n"
-    domain_data_raw += "responses:\n"
+
+    domain_data_raw += "actions:\n"
     for action in actions:
-        responses = Response.objects.filter(action=action)
-        for response in responses:
-            domain_data_raw += "  " + action.action_name + ":\n"
-            domain_data_raw += "    - text: " + response.response_text + "\n"
+        if action.action_type == 'action':
+            domain_data_raw += "  - " + action.action_name + "\n"
+    domain_data_raw += "\n"
+
+    domain_data_raw += "slots:\n"
+    for action in actions:
+        if action.action_type != 'slot_set':
+            continue
+        domain_data_raw += "  " + action.action_name + ":\n"
+        config = action.action_config.split("\n")
+        for conf in config:
+            domain_data_raw += "    " + conf + "\n"
         domain_data_raw += "\n"
     domain_data_raw += "\n"
+
     domain_data_raw += "session_config:\n"
     domain_data_raw += "  session_expiration_time: 60\n"
     domain_data_raw += "  carry_over_slots_to_new_session: true\n"
@@ -909,12 +1267,88 @@ def load_training_data(request, bot_id):
         'raw': raw_data,
         'config': config_data,
         'nlu': nlu_data,
+        'rules': rules_data,
         'stories': stories_data,
         'domain': domain_data
     }
-    return JsonResponse(data, status=200)
-    
+    return data
 
+def load_training_data(request, bot_id):
+    return JsonResponse(get_training_data(bot_id), status=200)
+    
+def create_yml_files(data, folder_path):
+    for file_name, file_content in data.items():
+        path = os.path.join(folder_path, f"{file_name}.yml")
+        with open(path, 'w', encoding='utf-8') as file:
+            file.write(file_content)
+
+def zip_files(folder_path, zip_name):
+    zip_path = os.path.join(folder_path, zip_name)
+    with zipfile.ZipFile(zip_path, 'w') as zipf:
+        for root, dirs, files in os.walk(folder_path):
+            for file in files:
+                if file.endswith('.yml'):
+                    zipf.write(os.path.join(root, file), arcname=file)
+    return zip_path
+
+def download_zip(request, bot_id):
+    yml_data = get_training_data(bot_id)
+
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    folder_path = os.path.join(current_dir, 'rasadownload')
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
+    create_yml_files(yml_data, folder_path)
+
+    data_time = datetime.now().strftime('%Y%m%d%H%M%S')
+    zip_name = 'rasa_files_' + data_time + '.zip'
+    zip_path = zip_files(folder_path, zip_name)
+
+    if os.path.exists(zip_path):
+        with open(zip_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/zip")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(zip_path)
+            return response
+    return HttpResponse("Không tìm thấy file")
+
+def train_model(request, bot_id):
+    # replace with your actual logic for training a model
+    bot = Bot.objects.get(id=bot_id)
+    data = json.loads(request.body)
+    raw_data = data.get('raw_data')
+    force_training = data.get('force_training')
+
+    model_name = f"{bot.bot_name}_model_{datetime.now().strftime('%Y%m%d%H%M%S')}"
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    local_path = os.path.join(current_dir, 'rasamodels')
+    force_training = 'true' if force_training == 'true' else 'false'
+    comment = data.get('comment')
+    # generate model name
+    
+    headers = {'Content-Type': 'application/x-yaml', 'filename': model_name}
+    url = RASA_TRAINING_URL 
+    response = requests.post(url, data=raw_data, headers=headers)
+
+    filename = response.headers.get('filename')
+    file_path = os.path.join(local_path, filename)
+    with open(file_path, 'wb') as f:
+        f.write(response.content)
+        
+    if response.status_code == 200:
+        newModel = ModelModel.objects.create(
+            model_name=filename,
+            server_path=url,
+            local_path=local_path,
+            comment=comment,
+            server_response="available",
+            timestamp=datetime.now(),
+            bot=bot
+        )
+    
+    messages.success(request, 'Model trained successfully.')
+    return redirect('training', bot_id=bot_id)
+
+    
 
 def download_file(request):
     # replace 'filepath' with the actual path to the file you want to serve
@@ -929,10 +1363,12 @@ class ModelView(View):
     def get(self, request, *args, **kwargs):
         bots = Bot.objects.all()
         bot_id = self.kwargs.get('bot_id')
+        model_list = ModelModel.objects.filter(bot=bot_id) if bot_id else []
         selected_bot = get_object_or_404(Bot, pk=bot_id) if bot_id else None
         context = {
             'botList': bots,
             'selectedBot': selected_bot,
+            "modelList": model_list
         }
         return render(request, self.template_name, context)
 
@@ -970,6 +1406,10 @@ class ResponseView(TemplateView):
         else:
             actions = Action.objects.none()  # Tránh lỗi khi không có bot nào được chọn
             responses = Response.objects.none()
+
+        paginator = Paginator(actions, 5)
+        page = self.request.GET.get('page')
+        
         responseType = [
             {
                 'id': 'text',
@@ -983,7 +1423,7 @@ class ResponseView(TemplateView):
         context= {
             'bots' : bots,
             'selectedBot': selected_bot_id,
-            'actionsList': actions,
+            'actionsList': paginator.get_page(page),
             'responseList': responses,
             'responseTypeList': responseType
         }
@@ -1057,7 +1497,9 @@ class AddActionView(View):
     def get(self, request, *args, **kwargs):
         bot_id = kwargs.get('bot_id')  # Giả sử bot_id được truyền qua URL
         form = self.form_class(initial={'bot': bot_id})
-        return render(request, self.template_name, {'form': form, 'bot_id': bot_id})
+        bot = Bot.objects.get(id=bot_id)
+        action = Action.objects.filter(bot=bot)
+        return render(request, self.template_name, {'form': form, 'bot': bot})
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
@@ -1070,6 +1512,22 @@ class AddActionView(View):
         else:
             return render(request, self.template_name, {'form': form, 'bot_id': bot_id})
 
+class EditActionView(View):
+    form_class = ActionForm
+    template_name = 'responses/edit_action.html'
+
+    def get(self, request, *args, **kwargs):
+        action = get_object_or_404(Action, pk=kwargs.get('action_id'))
+        form = self.form_class(instance=action)
+        return render(request, self.template_name, {'form': form, 'action': action})
+
+    def post(self, request, *args, **kwargs):
+        action = get_object_or_404(Action, pk=kwargs.get('action_id'))
+        form = self.form_class(request.POST, instance=action)
+        if form.is_valid():
+            form.save()
+            return redirect('responses', bot_id=action.bot.id)
+        return render(request, self.template_name, {'form': form, 'action': action})
 class ChatView(TemplateView):
     template_name = 'chat/chat.html'  # Điều chỉnh nếu có đường dẫn thực tế
 

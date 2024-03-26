@@ -58,7 +58,7 @@ function callApiChatbot(message) {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "/chat/chatbot",
+        url: "/chat/",
         data: JSON.stringify(data),
         dataType: "json",
         headers: {

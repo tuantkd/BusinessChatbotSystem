@@ -5,11 +5,11 @@
 
             <li class="divider"></li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link {% if request.path == '/dashboard/' %}active{% endif %}"
                     href="{% url 'dashboard' %}"><i class="fa fa-tachometer-alt"></i> Dashboard
                 </a>
-            </li>
+            </li> -->
 
             <li class="divider"></li>
 
@@ -30,6 +30,11 @@
                 <a class="nav-link {% if request.path == '/stories/' %}active{% endif %}" href="{% url 'stories' %}"><i
                         class="fa fa-book"></i> Stories</a>
             </li>
+            <!-- Rules -->
+            <li class="nav-item">
+                <a class="nav-link {% if request.path == '/rules/' %}active{% endif %}" href="{% url 'rules' %}"><i
+                        class="fa fa-gavel"></i> Rules</a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.path == '/training/' %}active{% endif %}"
                     href="{% url 'training' %}"><i class="fa fa-graduation-cap"></i> Training</a>
@@ -38,21 +43,21 @@
                 <a class="nav-link {% if request.path == '/models/' %}active{% endif %}" href="{% url 'models' %}"><i
                         class="fa fa-cogs"></i> Models</a>
             </li>
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link {% if request.path == '/chat/' %}active{% endif %}" href="{% url 'chat' %}"><i
                         class="fa fa-comments"></i> Chat</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.path == '/settings/' %}active{% endif %}"
                     href="{% url 'settings' %}"><i class="fa fa-cogs"></i> Settings</a>
-            </li>
+            </li> -->
             <!-- TODO: Need to fix Insights page then add back 
             <li class="nav-item">
               <a class="nav-link" ng-class="{active: $route.current.activePage == 'insights'}" href="#/insights"><i
                   class="fa fa-chart-bar"></i> Insights</a>
             </li>
             -->
-            <li class="divider"></li>
+            <!-- <li class="divider"></li>
 
             <li class="nav-title">Rasa</li>
             <li class="nav-item">
@@ -62,7 +67,7 @@
             <li class="nav-item">
                 <a class="nav-link {% if request.path == '/rasaconfig/' %}active{% endif %}"
                     href="{% url 'rasa_config' %}"><i class="fa fa-cogs"></i> Configuration</a>
-            </li>
+            </li> -->
 
             <li class="nav-title">&nbsp;</li>
 

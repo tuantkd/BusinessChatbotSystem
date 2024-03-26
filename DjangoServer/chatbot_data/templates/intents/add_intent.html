@@ -4,8 +4,8 @@
 
 {% block content %}
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="#/bot">Bots</a></li>
-    <li class="breadcrumb-item"><a href="#/bot/{{ bot.id }}">{{ bot.bot_name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'bot_detail' bot_id=bot.id %}">{{ bot.bot_name }}</a></li>
     <li class="breadcrumb-item active">Add Intent</li>
 </ol>
 <div class="container-fluid">

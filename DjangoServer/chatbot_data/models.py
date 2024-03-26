@@ -82,13 +82,15 @@ class Action(models.Model):
     action_name = models.TextField()
     bot = models.ForeignKey(Bot, on_delete=models.CASCADE)
     action_type = models.CharField(max_length=10, choices=ActionType.choices(), default=ActionType.UTTER.value)
-
+    action_config = models.TextField(null=True, blank=True)
+    
     def __str__(self):
         return self.action_name
     
 class Rule(models.Model):
     rule_name = models.TextField()
     rule_steps = models.TextField()
+    timestamp = models.DateTimeField()
     bot = models.ForeignKey(Bot, on_delete=models.CASCADE, related_name='rules')
 
     def __str__(self):

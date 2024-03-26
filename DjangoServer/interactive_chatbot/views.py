@@ -5,11 +5,11 @@ import requests
 
 from enterprise_registration_app.settings import RASA_PREDICT_URL
 
-
-def chatbot(request):
-    return render(request, 'chatbot.html')
-
 class ChatbotView(APIView):
+    template_name = 'chatbot.html'
+    def get(self, request, format=None):
+        return render(request, self.template_name)
+    
     def post(self, request, format=None):
         try:
             user_message = request.data.get('message')

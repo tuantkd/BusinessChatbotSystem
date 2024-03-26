@@ -4,12 +4,8 @@
 {% load my_filters %}
 {% block content %}
 <ol class="breadcrumb" breadcrumb="">
-    <li class="breadcrumb-item">
-        <a href="#/bots">Bots</a>
-    </li>
-    <li class="breadcrumb-item">
-        <a href="#/bot/{{bot.id}}">{{ bot.bot_name }} </a>
-    </li>
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'bot_detail' bot_id=bot.id %}">{{ bot.bot_name }}</a></li>
     <li class="breadcrumb-item active">{{intent.intent_name}}</li>
     <!-- Breadcrumb Menu-->
     <li class="breadcrumb-menu">
@@ -142,8 +138,30 @@
                                     </div>
                                     <br>
                                     <div style="float:right">
-                                        <!-- Pagination controls -->
-                                    </div>
+                                        <nav aria-label="Page navigation example">
+                                            <ul class="pagination">
+                                              {% if expression_list.has_previous %}
+                                              <li class="page-item">
+                                                <a class="page-link" href="?page=1">First</a>
+                                              </li>
+                                              <li class="page-item">
+                                                <a class="page-link" href="?page={{ expression_list.previous_page_number }}">Previous</a>
+                                              </li>
+                                              {% endif %}
+                                              <li class="page-item disabled">
+                                                <a class="page-link" href="#">Page {{ expression_list.number }} of {{ expression_list.paginator.num_pages }}</a>
+                                              </li>
+                                              {% if expression_list.has_next %}
+                                              <li class="page-item">
+                                                <a class="page-link" href="?page={{ expression_list.next_page_number }}">Next</a>
+                                              </li>
+                                              <li class="page-item">
+                                                <a class="page-link" href="?page={{ expression_list.paginator.num_pages }}">Last</a>
+                                              </li>
+                                              {% endif %}
+                                            </ul>
+                                          </nav>
+                                      </div>
                                 </div>
                             </div>
                         </div>

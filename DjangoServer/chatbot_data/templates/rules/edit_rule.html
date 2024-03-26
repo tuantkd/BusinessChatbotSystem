@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'rules' bot_id=bot.id %}">Rules</a></li>
+    <li class="breadcrumb-item active">Edit Rule</li>
+    <li class="breadcrumb-menu">
+        <div class="btn-group" role="group">
+            <a class="btn btn-outline-secondary" href="{% url 'delete_rule' bot_id=bot.id rule_id=rule.id %}">
+                <i class="fa fa-trash"></i> &nbsp;Delete Rule</a>
+        </div>
+    </li>
+</ol>
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Rule</strong>
+                        </div>
+                        <div class="card-block">
+                            <div class="form-group">
+                                <label for="rule_name">Rule Name</label>
+                                <input type="text" class="form-control" id="rule_name" name="rule_name" value="{{ rule.rule_name }}" required>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -32,10 +32,11 @@
                 "endpoints.yml",
                 "--port",
                 "5055",
+                "--enable-api",
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/RasaServer",
-            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
+            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
         },
         {
             "name": "Rasa Action Server",

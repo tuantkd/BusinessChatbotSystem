@@ -39,29 +39,60 @@ $(document).ready(function() {
         $(targetId).addClass('active'); // Add active class to the target tab pane
     });
 
-    function init() {
-        const loadTrainingDataUrl = `${currentUrl}/load_training_data`;
+    $('#trainingForm').on('submit', function(e) {
+        e.preventDefault();
+        const trainUrl = `${currentUrl}/train_model`;
         const headers = getHeaders();
+        const rawData = $('#rawData > textarea').val();
+        const forceTraining = $('#force_model_update').is(':checked');
+        const localPath = 'local_path';
+        const comment = $('#comment').val();
+        const data = {
+            raw_data : rawData,
+            force_training : forceTraining,
+            local_path : localPath,
+            force_training : forceTraining,
+            comment : comment,
+        };
         $.ajax({
-            url: loadTrainingDataUrl,
-            type: 'GET',
+            url: trainUrl,
+            method: 'POST',
             headers: headers,
-            success: function(data) {
-                // Handle the returned data here
-                console.log(data);
-            
-                $('#raw_data > textarea').val(data.raw);
-                $('#config > textarea').val(data.config);
-                $('#nlu_data > textarea').val(data.nlu);
-                $('#stories > textarea').val(data.stories);
-                $('#domain > textarea').val(data.domain);
+            data: JSON.stringify(data),
+            success: function(response) {
+                // handle success
+                console.log(response);
             },
-            error: function(error) {
-                // Handle errors here
-                console.log(error);
+            error: function(jqXHR, textStatus, errorThrown) {
+                // handle error
+                console.error(textStatus, errorThrown);
             }
         });
-    }
+    });
 
-    init();
+    // function init() {
+    //     const loadTrainingDataUrl = `${currentUrl}/load_training_data`;
+    //     const headers = getHeaders();
+    //     $.ajax({
+    //         url: loadTrainingDataUrl,
+    //         type: 'GET',
+    //         headers: headers,
+    //         success: function(data) {
+    //             // Handle the returned data here
+    //             console.log(data);
+            
+    //             $('#raw_data > textarea').val(data.raw);
+    //             $('#config > textarea').val(data.config);
+    //             $('#nlu_data > textarea').val(data.nlu);
+    //             $('#stories > textarea').val(data.stories);
+    //             $('#domain > textarea').val(data.domain);
+    //         },
+    //         error: function(error) {
+    //             // Handle errors here
+    //             console.log(error);
+    //         }
+    //     });
+    // }
+
+    // init();
 });

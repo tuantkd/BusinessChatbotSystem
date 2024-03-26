@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 <ol class="breadcrumb">
-    <li class="breadcrumb-item active"><span>Responses</span></li>
+    <li class="breadcrumb-item"><a href="{% url 'responses' action.bot.id %}">Responses</a></li>
     <li class="breadcrumb-item active">Edit Response</li>
 </ol>
 <div class="container-fluid">

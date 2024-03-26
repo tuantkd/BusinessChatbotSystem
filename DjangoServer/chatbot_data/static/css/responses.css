@@ -13,3 +13,8 @@
 td.btn-response-action {
     background-color: #c7bbc529;
 }
+span.action-type {
+    color: #333; /* Change text color */
+    font-weight: bold; /* Make text bold */
+    margin-right: 10px; /* Add some space to the right */
+}

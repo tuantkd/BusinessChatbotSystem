@@ -70,15 +70,16 @@
               <div class="list-group-item">
                 <div class="row">
                   <input type="hidden" id="story-script-{{story.id}}" value="{{story.story}}">
-                  <div class="col-sm-8">
-                    <div id="story-steps-{{story.id}}">
+                  <div class="col-sm-8 story-detail">
+                    <div id="story-steps-{{story.id}}" class="story-steps">
                           <!-- Story steps will be added here -->
-                      </div>
+                    </div>
                   </div>
                   <div class="col-sm-4">
-                    <div class="form-group">
-                      <input type="text" autocomplete="off" name="searchText" class="form-control search-text" id="searchText-{{story.id}}"
+                    <input type="text" autocomplete="off" name="searchText" class="form-control search-text" id="searchText-{{story.id}}"
                         placeholder="Search for Intents, Actions and Entities">
+                    <div class="form-group story-detail">
+                      
                       <!-- You need to handle the search logic in your Django view -->
                       <div class="list-group">
                         <div id="items-list-{{story.id}}">
@@ -87,7 +88,6 @@
                         {% for item in searchList %}
                           <div class="list-group-item">
                             
-                            <!-- <a href="">{{ item.text }} <span class="float-right">{{ item.type }}</span></a> -->
                           </div>
                         {% endfor %}
                       </div>
@@ -106,7 +106,29 @@
           </div>
 
           <div style="float:right">
-            <!-- Django pagination controls -->
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                {% if storyList.has_previous %}
+                <li class="page-item">
+                  <a class="page-link" href="?page=1">First</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ storyList.previous_page_number }}">Previous</a>
+                </li>
+                {% endif %}
+                <li class="page-item disabled">
+                  <a class="page-link" href="#">Page {{ storyList.number }} of {{ storyList.paginator.num_pages }}</a>
+                </li>
+                {% if storyList.has_next %}
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ storyList.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="?page={{ storyList.paginator.num_pages }}">Last</a>
+                </li>
+                {% endif %}
+              </ul>
+            </nav>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@
 {% block content %}
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
-    <li class="breadcrumb-item"><a href="{% url 'bot_detail' bot.id %}">{{ bot.bot_name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'bot_detail' bot_id=bot.id %}">{{ bot.bot_name }}</a></li>
     <li class="breadcrumb-item active"><span>Add Lookup Table</span></li>
 </ol>
 

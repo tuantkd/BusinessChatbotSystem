@@ -56,6 +56,7 @@ $(document).ready(function () {
                 textElement.textContent = "Action: ";
             }
             textElement.textContent += item.text;
+            textElement.classList.add('search-item');
             textElement.classList.add('search-' + item.type);
             textElement.classList.add('left');
             itemElement.appendChild(textElement);

@@ -3,7 +3,7 @@
 
 {% block content %}
 <ol class="breadcrumb">
-    <li class="breadcrumb-item">Stories</li>
+    <li class="breadcrumb-item"><a href="{% url 'stories' %}">Stories</a></li>
     <li class="breadcrumb-item active">Add Story</li>
 </ol>
 
@@ -15,7 +15,7 @@
                     {% csrf_token %}
                     <div class="card">
                         <div class="card-header">
-                            <strong>Action</strong>
+                            <strong>Story</strong>
                         </div>
                         <div class="card-block">
                             <div class="form-group">

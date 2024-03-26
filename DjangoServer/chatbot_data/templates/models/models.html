@@ -22,7 +22,7 @@
                 <select id="bot_name"  class="form-control" onchange="location = this.value;">
                   <option value="">Please select one</option>
                   {% for bot in botList %}
-                    <option value="{% url 'models' bot.id %}" {% if selectedBot == bot.id %} selected {% endif %}>{{ bot.bot_name }}</option>
+                    <option value="{% url 'models' bot.id %}" {% if selectedBot.id|add:0 == bot.id|add:0 %} selected {% endif %}>{{ bot.bot_name }}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -61,12 +61,10 @@
                   <td>{{ model.comment }}</td>
                   <td>
                     <!-- Cập nhật URL cho việc tải và xóa mô hình -->
-                    <button class="btn btn-outline-secondary" onclick="location.href='{% url load_model model.server_path %}'">
+                    <a class="btn btn-outline-primary" href="{% url 'load_model' model.bot.id model.server_path %}" data-toggle="tooltip" data-placement="top" title="Click to Load the Model">
                       <span class="fa fa-download"></span>
-                    </button>
-                    <button class="btn btn-outline-danger" onclick="if(confirm('Are you sure? This will delete the model.')){location.href='{% url delete_model model.model_id %}';}">
-                      <span class="fa fa-trash">
-                    </button>
+                    <a class="btn btn-outline-danger" href="{% url 'delete_model' model.bot.id model.id %}" data-toggle="tooltip" data-placement="top" title="Click to Delete the Model" onclick="return confirm('Are you sure? This will delete the model.')">
+                      <span class="fa fa-trash"></span>
                   </td>
                 </tr>
                 {% endfor %}

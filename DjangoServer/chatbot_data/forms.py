@@ -1,5 +1,5 @@
 from django import forms
-from .models import Action, Bot, Entity, Intent, LookupVariant, Regex, Response, Story, Synonym, SynonymVariant, Lookup
+from .models import Action, Bot, Entity, Intent, LookupVariant, Regex, Response, Rule, Story, Synonym, SynonymVariant, Lookup
 
 class BotForm(forms.ModelForm):
     bot_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'placeholder': 'Enter bot name here...', 'class': 'form-control'}))
@@ -21,13 +21,22 @@ class RegexForm(forms.ModelForm):
         }
         
 class ImportBotForm(forms.Form):
-    bot_name = forms.CharField(label='Bot Name', max_length=100, widget=forms.TextInput(attrs={'placeholder': 'Enter the bot name', 'class': 'form-control'}))
     file = forms.FileField(label='Bot Configuration File', widget=forms.FileInput(attrs={'accept': '.yml', 'class': 'form-control'}))
 class ActionForm(forms.ModelForm):
+    ACTION_TYPE_CHOICES = [
+        ('utter', 'Utter'),
+        ('action', 'Action'),
+        ('form', 'Form'),
+        ('slot_set', 'Slot Set'),
+    ]
+
     action_name = forms.CharField(label='Name', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter the action name'}))
+    action_type = forms.ChoiceField(label='Type', choices=ACTION_TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))
+    action_config = forms.CharField(label='Config', widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter the action config'}))
     class Meta:
         model = Action
-        fields = ['action_name']
+        fields = ['action_name', 'action_type', 'action_config']
+
 
 class ResponseForm(forms.ModelForm):
     RESPONSE_TYPE_CHOICES = [
@@ -67,7 +76,14 @@ class ResponseForm(forms.ModelForm):
             self.add_error('response_text', 'This field is required for text responses.')
         elif response_type in ['image', 'video', 'audio'] and not response_file:
             self.add_error('response_file', 'Uploading a file is required for this response type.')
-
+            
+class RuleForm(forms.ModelForm):
+    class Meta:
+        model = Rule
+        fields = ['rule_name']
+        widgets = {
+            'rule_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter rule name'}),
+        }
 class IntentForm(forms.ModelForm):
     class Meta:
         model = Intent

@@ -3,38 +3,113 @@
 
 {% block content %}
 <ol class="breadcrumb">
-  <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
-  <li class="breadcrumb-item active">Import Bot</li>
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'bot_detail' bot_id=bot.id %}">{{ bot.bot_name }}</a></li>
+    <li class="breadcrumb-item active">Import Bot</li>
 </ol>
 
 <div class="container-fluid">
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-sm-12 col-lg-12">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" action="{% url 'import_nlu' bot_id=bot.id %}">
                     {% csrf_token %}
                     <div class="card">
                         <div class="card-header">
-                            <strong>Import New Bot (Rasa NLU only)</strong>
+                            <strong>Import Rasa NLU</strong>
                         </div>
                         <div class="card-block">
                             <div class="form-group">
-                                <label for="id_bot_name">Name</label>
-                                {{ form.bot_name }}
-                            </div>
-                            <div class="form-group">
-                              <label for="id_file">File <small>(rasa_nlu: yml format)</small></label>
-                              {{ form.file }}
+                                <label for="id_file">File <small>(rasa_nlu: yml format)</small></label>
+                                {{ form.file }}
                             </div>
                         </div>
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Save</button>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>
+                                Save</button>
+                            <!-- Clear NLU Data -->
+                            <a href="{% url 'clear_nlu_data' bot_id=bot.id %}" class="btn btn-sm btn-danger"><i
+                                    class="fa fa-ban"></i> Clear NLU Data</a>
+                        </div>
                     </div>
-                  </div>
                 </form>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <form method="post" enctype="multipart/form-data" action="{% url 'import_response' bot_id=bot.id %}">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Import Responses</strong>
+                        </div>
+                        <div class="card-block">
+                            <div class="form-group">
+                                <label for="id_file">File <small>(responses: yml format)</small></label>
+                                {{ form.file }}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>
+                                Save</button>
+                            <!-- Clear NLU Data -->
+                            <a href="{% url 'clear_response_data' bot_id=bot.id %}" class="btn btn-sm btn-danger"><i
+                                    class="fa fa-ban"></i> Clear Responses</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <form method="post" enctype="multipart/form-data" action="{% url 'import_story' bot_id=bot.id %}">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Import Stories</strong>
+                        </div>
+                        <div class="card-block">
+                            <div class="form-group">
+                                <label for="id_file">File <small>(story: yml format)</small></label>
+                                {{ form.file }}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>
+                                Save</button>
+                            <!-- Clear NLU Data -->
+                            <a href="{% url 'clear_story_data' bot_id=bot.id %}" class="btn btn-sm btn-danger"><i
+                                    class="fa fa-ban"></i> Clear Stories</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <form method="post" enctype="multipart/form-data" action="{% url 'import_rule' bot_id=bot.id %}">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-header">
+                            <strong>Import Rules</strong>
+                        </div>
+                        <div class="card-block">
+                            <div class="form-group">
+                                <label for="id_file">File <small>(rule: yml format)</small></label>
+                                {{ form.file }}
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>
+                                Save</button>
+                            <!-- Clear NLU Data -->
+                            <a href="{% url 'clear_rule_data' bot_id=bot.id %}" class="btn btn-sm btn-danger"><i
+                                    class="fa fa-ban"></i> Clear Rules</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

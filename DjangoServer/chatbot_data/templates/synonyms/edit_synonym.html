@@ -4,13 +4,9 @@
 {% block content %}
 <link href="{% static 'css/tags-input.css' %}" rel="stylesheet">
 <ol class="breadcrumb" breadcrumb="">
-    <li class="breadcrumb-item"><a href="#/bot">Bots</a></li>
-    <li class="breadcrumb-item">
-        <a href="#/bot/{{ synonym.bot.id }}">{{ synonym.bot.bot_name }}</a>
-    </li>
-    <li class="breadcrumb-item active">
-        <span>{{ synonym.synonym_reference }}</span>
-    </li>
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'bot_detail' bot_id=bot.id %}">{{ bot.bot_name }}</a></li>
+    <li class="breadcrumb-item active"><span>{{ synonym.synonym_reference }}</span></li>
     <li class="breadcrumb-menu">
         <div class="btn-group" role="group">
             <a class="btn btn-outline-secondary" href="{% url 'delete_synonym' bot_id=synonym.bot.id synonym_id=synonym.id %}">

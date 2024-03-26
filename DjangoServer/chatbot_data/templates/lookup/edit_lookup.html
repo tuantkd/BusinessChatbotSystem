@@ -7,12 +7,8 @@
 {% block content %}
 <ol class="breadcrumb" breadcrumb="">
     <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
-    <li class="breadcrumb-item">
-        <a href="{% url 'bot_detail' lookup.bot.id %}">{{ lookup.bot.bot_name }}</a>
-    </li>
-    <li class="breadcrumb-item active">
-        <span>{{ lookup.lookup_name }}</span>
-    </li>
+    <li class="breadcrumb-item"><a href="{% url 'bot_detail' bot_id=bot.id %}">{{ bot.bot_name }}</a></li>
+    <li class="breadcrumb-item active"><span>{{ lookup.lookup_name }}</span></li>
     <li class="breadcrumb-menu">
         <div class="btn-group" role="group">
             <a class="btn btn-outline-secondary" href="{% url 'delete_lookup' bot_id=lookup.bot.id lookup_id=lookup.id %}">

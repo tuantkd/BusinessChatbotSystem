@@ -108,3 +108,15 @@ button {
 .entity .remove-btn, .action .remove-btn , .intent .remove-btn {
     display: inline;
 }
+
+.story-detail {
+    max-height: 300px; /* Adjust this value to your needs */
+    overflow-y: auto;
+}
+
+.search-item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px; /* Adjust this value to your needs */
+}
