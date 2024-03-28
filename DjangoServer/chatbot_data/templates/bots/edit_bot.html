@@ -3,15 +3,17 @@
 
 {% block content %}
 <ol class="breadcrumb" breadcrumb="">
-    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">{% trans 'Bots' %}</a></li>
     <li class="breadcrumb-item active">{{ bot.bot_name }}</li>
     <li class="breadcrumb-menu">
         <div class="btn-group" role="group">
             <a class="btn btn-outline-secondary" href="{% url 'import_bot' bot.id %}" data-toggle="tooltip"
-                data-placement="top" title="Click to Import a Bot"><i class="fa fa-upload"></i> &nbsp;Import Bot</a>
-            <a class="btn btn-outline-secondary" href="{% url 'delete_bot' bot.id %}" confirm-click-title="Delete Bot"
-                confirm-click="Are you sure? This will delete the bot, all its intents, expressions, and resolved entities."><i
-                    class="fa fa-trash"></i> &nbsp;Delete Bot</a>
+                data-placement="top" title="{% trans 'Click to Import a Bot' %}"><i class="fa fa-upload"></i>
+                &nbsp;{%trans 'Import Bot' %}</a>
+            <a class="btn btn-outline-secondary" href="{% url 'delete_bot' bot.id %}"
+                confirm-click-title="{% trans 'Delete Bot' %}"
+                confirm-click="{% trans 'Are you sure? This will delete the bot, all its intents, expressions, and resolved entities.' %}"><i
+                    class="fa fa-trash"></i> &nbsp;{% trans 'Delete Bot' %}</a>
         </div>
     </li>
 </ol>
@@ -22,7 +24,7 @@
             <div class="col-sm-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Settings</strong>
+                        <strong>{% trans 'Settings' %}</strong>
                         <span class="float-right">
                             <a class="btn btn-ghost-primary" data-toggle="collapse" data-target="#bot_settings"
                                 aria-expanded="true" aria-controls="collapseOne"><i class="fa fa-arrow-down"></i></a>
@@ -35,25 +37,25 @@
                                 <form method="post">
                                     {% csrf_token %}
                                     <div class="form-group">
-                                        <label for="{{bot.id}}_formGroupInput1">Name</label>
+                                        <label for="{{bot.id}}_formGroupInput1">{% trans 'Name' %}</label>
                                         <input name="bot_name" autocomplete="off" type="text" class="form-control"
-                                            id="{{bot.id}}_formGroupInput1" placeholder="Bot Name"
+                                            id="{{bot.id}}_formGroupInput1" placeholder="{% trans 'Bot Name' %}"
                                             value="{{ bot.bot_name }}">
                                     </div>
                                     <div class="form-group">
-                                        <label for="{{bot.id}}_formGroupInput2">Rasa Config</label>
+                                        <label for="{{bot.id}}_formGroupInput2">{% trans 'Rasa Config' %}</label>
                                         <textarea class="datainput form-control" id="{{bot.id}}_formGroupInput2"
                                             name="bot_config">{{ bot.bot_config}}</textarea>
                                     </div>
                                     <div class="form-group">
-                                        <label for="{{bot.id}}_formGroupInput3">Server Output Folder</label>
+                                        <label for="{{bot.id}}_formGroupInput3">{% trans 'Server Output Folder' %}</label>
                                         <input name="output_folder" autocomplete="off" type="text" class="form-control"
-                                            id="{{bot.id}}_formGroupInput3" placeholder="Output Folder"
+                                            id="{{bot.id}}_formGroupInput3" placeholder="{% trans 'Output Folder' %}"
                                             value="{{ bot.output_folder }}">
                                     </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-sm btn-primary"><i
-                                                class="fa fa-dot-circle-o"></i>Save</button>
+                                                class="fa fa-dot-circle-o"></i>{% trans 'Save' %}</button>
                                     </div>
                                 </form>
                             </div>
@@ -64,12 +66,13 @@
             <div class="col-sm-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Intents</strong>
+                        <strong>{% trans 'Intents' %}</strong>
                         <input id="botFilter" style="width:30%" autocomplete="off" class="filtertext" type="text"
-                            name="search" placeholder="Filter Intents..">
+                            name="search" placeholder="{% trans 'Filter Intents..' %}">
                         <span class="float-right">
                             <a class="btn btn-ghost-primary" href="{% url 'add_intent' bot.id %}" data-toggle="tooltip"
-                                data-placement="top" title="Click to Add a New Intent"><i class="fa fa-plus"></i></a>
+                                data-placement="top" title="{% trans 'Click to Add a New Intent' %}"><i
+                                    class="fa fa-plus"></i></a>
                         </span>
                     </div>
                     <div class="card-block">
@@ -88,27 +91,27 @@
                         <div style="float:right">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                  {% if intents.has_previous %}
-                                  <li class="page-item">
-                                    <a class="page-link" href="?intent_page=1">First</a>
-                                  </li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="?intent_page={{ intents.previous_page_number }}">Previous</a>
-                                  </li>
-                                  {% endif %}
-                                  <li class="page-item disabled">
-                                    <a class="page-link" href="#">Page {{ intents.number }} of {{ intents.paginator.num_pages }}</a>
-                                  </li>
-                                  {% if intents.has_next %}
-                                  <li class="page-item">
-                                    <a class="page-link" href="?intent_page={{ intents.next_page_number }}">Next</a>
-                                  </li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="?intent_page={{ intents.paginator.num_pages }}">Last</a>
-                                  </li>
-                                  {% endif %}
+                                    {% if intents.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?intent_page=1">{% trans 'First' %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?intent_page={{ intents.previous_page_number }}">{% trans 'Previous' %}</a>
+                                    </li>
+                                    {% endif %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">{% trans 'Page' %} {{ intents.number }} {% trans 'of' %} {{ intents.paginator.num_pages }}</a>
+                                    </li>
+                                    {% if intents.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?intent_page={{ intents.next_page_number }}">{% trans 'Next' %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?intent_page={{ intents.paginator.num_pages }}">{% trans 'Last' %}</a>
+                                    </li>
+                                    {% endif %}
                                 </ul>
-                              </nav>
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -116,7 +119,7 @@
             <div class="col-sm-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Entities</strong>
+                        <strong>{% trans 'Entities' %}</strong>
                         <span class="float-right">
                             <a class="btn btn-ghost-primary" href="{% url 'add_entity' bot.id %}"><i
                                     class="fa fa-plus"></i></a>
@@ -138,27 +141,27 @@
                         <div style="float:right">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                  {% if entities.has_previous %}
-                                  <li class="page-item">
-                                    <a class="page-link" href="?entity_page=1">First</a>
-                                  </li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="?entity_page={{ entities.previous_page_number }}">Previous</a>
-                                  </li>
-                                  {% endif %}
-                                  <li class="page-item disabled">
-                                    <a class="page-link" href="#">Page {{ entities.number }} of {{ entities.paginator.num_pages }}</a>
-                                  </li>
-                                  {% if entities.has_next %}
-                                  <li class="page-item">
-                                    <a class="page-link" href="?entity_page={{ entities.next_page_number }}">Next</a>
-                                  </li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="?entity_page={{ entities.paginator.num_pages }}">Last</a>
-                                  </li>
-                                  {% endif %}
+                                    {% if entities.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?entity_page=1">{% trans 'First' %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?entity_page={{ entities.previous_page_number }}">{% trans 'Previous' %}</a>
+                                    </li>
+                                    {% endif %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">{% trans 'Page' %} {{ entities.number }} {% trans 'of' %} {{ entities.paginator.num_pages }}</a>
+                                    </li>
+                                    {% if entities.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?entity_page={{ entities.next_page_number }}">{% trans 'Next' %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?entity_page={{ entities.paginator.num_pages }}">{% trans 'Last' %}</a>
+                                    </li>
+                                    {% endif %}
                                 </ul>
-                              </nav>
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -168,10 +171,10 @@
             <div class="col-sm-4 col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Synonyms</strong>
+                        <strong>{% trans 'Synonyms' %}</strong>
                         <span class="float-right">
                             <a class="btn btn-ghost-primary" href="{% url 'add_synonym' bot.id %}" data-toggle="tooltip"
-                                data-placement="top" title="Click to Add a New Synonym"><i class="fa fa-plus"></i></a>
+                                data-placement="top" title="{% trans 'Click to Add a New Synonym' %}"><i class="fa fa-plus"></i></a>
                         </span>
                     </div>
                     <div class="card-block">
@@ -190,27 +193,27 @@
                         <div style="float:right">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                  {% if synonyms.has_previous %}
-                                  <li class="page-item">
-                                    <a class="page-link" href="?synonym_page=1">First</a>
-                                  </li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="?synonym_page={{ synonyms.previous_page_number }}">Previous</a>
-                                  </li>
-                                  {% endif %}
-                                  <li class="page-item disabled">
-                                    <a class="page-link" href="#">Page {{ synonyms.number }} of {{ synonyms.paginator.num_pages }}</a>
-                                  </li>
-                                  {% if synonyms.has_next %}
-                                  <li class="page-item">
-                                    <a class="page-link" href="?synonym_page={{ synonyms.next_page_number }}">Next</a>
-                                  </li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="?synonym_page={{ synonyms.paginator.num_pages }}">Last</a>
-                                  </li>
-                                  {% endif %}
+                                    {% if synonyms.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?synonym_page=1">{% trans 'First' %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?synonym_page={{ synonyms.previous_page_number }}">{% trans 'Previous' %}</a>
+                                    </li>
+                                    {% endif %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">{{% trans 'Page' %}} {{ synonyms.number }} {{% trans 'of' %}} {{ synonyms.paginator.num_pages }}</a>
+                                    </li>
+                                    {% if synonyms.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?synonym_page={{ synonyms.next_page_number }}">{% trans 'Next' %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?synonym_page={{ synonyms.paginator.num_pages }}">{% trans 'Last' %}</a>
+                                    </li>
+                                    {% endif %}
                                 </ul>
-                              </nav>
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -218,7 +221,7 @@
             <div class="col-sm-4 col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Regex</strong>
+                        <strong>{% trans 'Regex' %}</strong>
                         <span class="float-right">
                             <a class="btn btn-ghost-primary" href="{% url 'add_regex' bot.id %}"><i
                                     class="fa fa-plus"></i></a>
@@ -240,40 +243,41 @@
                         <div style="float:right">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                  {% if regexes.has_previous %}
-                                  <li class="page-item">
-                                    <a class="page-link" href="?regex_page=1">First</a>
-                                  </li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="?regex_page={{ regexes.previous_page_number }}">Previous</a>
-                                  </li>
-                                  {% endif %}
-                                  <li class="page-item disabled">
-                                    <a class="page-link" href="#">Page {{ regexes.number }} of {{ regexes.paginator.num_pages }}</a>
-                                  </li>
-                                  {% if regexes.has_next %}
-                                  <li class="page-item">
-                                    <a class="page-link" href="?regex_page={{ regexes.next_page_number }}">Next</a>
-                                  </li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="?regex_page={{ regexes.paginator.num_pages }}">Last</a>
-                                  </li>
-                                  {% endif %}
+                                    {% if regexes.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?regex_page=1">{% trans 'First' %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?regex_page={{ regexes.previous_page_number }}">{% trans 'Previous' %}</a>
+                                    </li>
+                                    {% endif %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">{{% trans 'Page' %}} {{ regexes.number }} {{% trans 'of' %}} {{ regexes.paginator.num_pages }}</a>
+                                    </li>
+                                    {% if regexes.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?regex_page={{ regexes.next_page_number }}">{% trans 'Next' %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?regex_page={{ regexes.paginator.num_pages }}">{% trans 'Last' %}</a>
+                                    </li>
+                                    {% endif %}
                                 </ul>
-                              </nav>
+                            </nav>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="col-sm-4 col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Lookup Tables</strong>
+                        <strong>{% trans 'Lookup Tables' %}</strong>
                         <span class="float-right">
                             <!-- Update the URL name to the one used for adding a new lookup table -->
                             <a class="btn btn-ghost-primary" href="{% url 'add_lookup' bot.id %}" data-toggle="tooltip"
-                                data-placement="top" title="Click to Add a New Lookup Table"><i class="fa fa-plus"></i></a>
+                                data-placement="top" title="{% trans 'Click to Add a New Lookup Table' %}"><i
+                                    class="fa fa-plus"></i></a>
                         </span>
                     </div>
                     <div class="card-block">
@@ -294,27 +298,27 @@
                         <div style="float:right">
                             <nav aria-label="Page navigation example">
                                 <ul class="pagination">
-                                  {% if lookups.has_previous %}
-                                  <li class="page-item">
-                                    <a class="page-link" href="?lookup_page=1">First</a>
-                                  </li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="?lookup_page={{ lookups.previous_page_number }}">Previous</a>
-                                  </li>
-                                  {% endif %}
-                                  <li class="page-item disabled">
-                                    <a class="page-link" href="#">Page {{ lookups.number }} of {{ lookups.paginator.num_pages }}</a>
-                                  </li>
-                                  {% if lookups.has_next %}
-                                  <li class="page-item">
-                                    <a class="page-link" href="?lookup_page={{ lookups.next_page_number }}">Next</a>
-                                  </li>
-                                  <li class="page-item">
-                                    <a class="page-link" href="?lookup_page={{ lookups.paginator.num_pages }}">Last</a>
-                                  </li>
-                                  {% endif %}
+                                    {% if lookups.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?lookup_page=1">{% trans 'First' %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?lookup_page={{ lookups.previous_page_number }}">{% trans 'Previous' %}</a>
+                                    </li>
+                                    {% endif %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">{{% trans 'Page' %}} {{ lookups.number }} {{% trans 'of' %}} {{ lookups.paginator.num_pages }}</a>
+                                    </li>
+                                    {% if lookups.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?lookup_page={{ lookups.next_page_number }}">{% trans 'Next' %}</a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?lookup_page={{ lookups.paginator.num_pages }}">{% trans 'Last' %}</a>
+                                    </li>
+                                    {% endif %}
                                 </ul>
-                              </nav>
+                            </nav>
                         </div>
                     </div>
                 </div>
