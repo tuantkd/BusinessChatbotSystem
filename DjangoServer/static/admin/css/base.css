@@ -1148,3 +1148,7 @@ a.deletelink:focus, a.deletelink:hover {
 #id_address {
     width: 650px !important;
 }
+
+.field-latitude, .field-longitude {
+    display: none !important;
+}

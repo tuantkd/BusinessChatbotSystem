@@ -33,8 +33,6 @@ class BusinessAdmin(admin.ModelAdmin):
         'main_industry'
     )
     list_display = (
-        'latitude',
-        'longitude',
         'address',
         'business_code', 
         'company_name', 
@@ -49,8 +47,6 @@ class BusinessAdmin(admin.ModelAdmin):
     list_display_links = ('business_code', 'company_name')
     list_filter = ('business_type', 'main_industry')
     search_fields = (
-        'latitude',
-        'longitude',
         'address',
         'business_code', 
         'company_name', 
