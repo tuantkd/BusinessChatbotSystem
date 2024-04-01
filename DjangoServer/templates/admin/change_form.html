@@ -15,37 +15,9 @@
     {% csrf_token %} {{ form.non_field_errors }} 
     
     {% if opts.model_name == 'business' %}
-    <fieldset class="module aligned">
-      <!-- Add the new field -->
-      <div class="form-row">
-        <label for="longitude">Longitude:</label>
-        <input
-          type="text"
-          id="longitude"
-          name="longitude"
-          value="{{ obj.longitude }}"
-        />
-
-        <label for="latitude">Latitude:</label>
-        <input
-          type="text"
-          id="latitude"
-          name="latitude"
-          value="{{ obj.latitude }}"
-        />
-
-        <input
-          type="hidden"
-          id="address"
-          name="address"
-          value="{{ obj.address }}"
-        />
-      </div>
-    </fieldset>
-    <div id="viewDiv" style="height:350px;width:100%;"></div>
+    <div id="viewDiv" style="height: 350px; width: 100%"></div>
     {% endif %}
 
-    <!-- Include other sections of the form -->
     {{ block.super }}
   </form>
 </div>
@@ -55,98 +27,46 @@
     "esri/config",
     "esri/Map",
     "esri/views/MapView",
-    "esri/Graphic",
-    "esri/PopupTemplate",
-    "esri/widgets/Popup",
-  ], function (esriConfig, Map, MapView, Graphic, PopupTemplate) {
-    esriConfig.apiKey =
-      "AAPK8e60139ca8174a0daaeb2819e88c33d52MZ7rrmtyYuTBEqFpTABF6YUrXY2Zej4NvjJAtQogZR2f8Hk2z59TBbwaXGnjoNt";
+    "esri/widgets/Search",
+  ], function (esriConfig, Map, MapView, Search) {
+    
+    esriConfig.apiKey = "AAPKf6bad8545535400a83f358f5fdf81051y9eWCcsG42YNDkQfOus38QvbZP6AqfXXILZV1K4WLE4g3VcICpzo9Az2siZv_Vit";
 
-    // Create a new map instance
     const map = new Map({
-      basemap: "arcgis/navigation", //Basemap styles service
+      basemap: "arcgis/navigation",
     });
 
-    // Create a new MapView instance
-    var view = new MapView({
+    const view = new MapView({
       container: "viewDiv",
       map: map,
-      center: [-74.006, 40.7128], // Longitude, Latitude
+      center: [-122.3321,47.6062],
       zoom: 12,
     });
 
-    // Create a graphic object with the specified geometry
-    var graphic = new Graphic({
-      geometry: {
-        type: "point",
-        longitude: -74.006,
-        latitude: 40.7128,
-      },
-      symbol: {
-        type: "picture-marker",
-        url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
-        width: "25px",
-        height: "25px",
-        outline: {
-          color: "#ffffff",
-          width: "30px",
-        },
-      },
-      popupTemplate: new PopupTemplate({
-        title: "Sample Popup AAAAAA",
-        content:
-          "This is a sample popup content Lon" +
-          -74.006 +
-          "<br>Lat: " +
-          40.7128,
-      }),
+    //Add Search widget
+    const search = new Search({
+      view: view,
     });
 
-    // Add the graphic to the map's graphics layer
-    view.graphics.add(graphic);
+    //Add to the map
+    view.ui.add(search, "top-right"); 
 
-    var graphic = new Graphic({
-      geometry: {
-        type: "point",
-        longitude: -78.006,
-        latitude: 40.7128,
-      },
-      symbol: {
-        type: "picture-marker",
-        url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
-        width: "25px",
-        height: "25px",
-        outline: {
-          color: "#ffffff",
-          width: "30px",
-        },
-      },
-      popupTemplate: popupTemplate,
-    });
+    // Listen for the search-complete event to get the result
+    search.on("search-complete", function (event) {
+      var result = event.results[0];
+      if (result) {
+        var latitude = result.results[0].feature.geometry.latitude;
+        var longitude = result.results[0].feature.geometry.longitude;
+        var address = result.results[0].name;
+        console.log("Latitude:", latitude, "Longitude:", longitude, "Address", address);
 
-    // Add the graphic to the map's graphics layer
-    view.graphics.add(graphic);
-
-    // Create a popup
-    var popup = new Popup({
-      dockEnabled: true,
-      dockOptions: {
-        buttonEnabled: false,
-        breakpoint: false,
-      },
-    });
-
-    view.popup = popup;
-
-    // Display popup when graphic is clicked
-    view.on("click", function (event) {
-      view.popup.open({
-        title: graphic.popupTemplate.title,
-        content: graphic.popupTemplate.content,
-        location: event.mapPoint,
-      });
+        document.getElementById('id_latitude').value = latitude;
+        document.getElementById('id_longitude').value = longitude;
+        document.getElementById('id_address').value = address;
+      }
     });
   });
+  
 </script>
 
 {% endblock %}

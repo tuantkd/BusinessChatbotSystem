@@ -18,11 +18,50 @@ class ContactInline(admin.TabularInline):
 
 class BusinessAdmin(admin.ModelAdmin):
     
-    fields = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
-    list_display = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
+    fields = (
+        'latitude',
+        'longitude',
+        'address',
+        'business_code', 
+        'company_name', 
+        'detail', 
+        'capital', 
+        'status', 
+        'legal_representative', 
+        'issued_date', 
+        'business_type', 
+        'main_industry'
+    )
+    list_display = (
+        'latitude',
+        'longitude',
+        'address',
+        'business_code', 
+        'company_name', 
+        'detail', 
+        'capital', 
+        'status', 
+        'legal_representative', 
+        'issued_date', 
+        'business_type', 
+        'main_industry'
+    )
     list_display_links = ('business_code', 'company_name')
     list_filter = ('business_type', 'main_industry')
-    search_fields = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
+    search_fields = (
+        'latitude',
+        'longitude',
+        'address',
+        'business_code', 
+        'company_name', 
+        'detail', 
+        'capital', 
+        'status', 
+        'legal_representative', 
+        'issued_date', 
+        'business_type', 
+        'main_industry'
+    )
     list_per_page = 25
     readonly_fields = ('business_code',)
     # inlines = (AddressInline, ContactInline)
