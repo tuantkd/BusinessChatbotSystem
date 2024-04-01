@@ -46,9 +46,7 @@ class BusinessStatus(models.TextChoices):
     PRIVATE_ENTERPRISE_2 = 'PE2', 'Doanh nghiệp tư nhân'
     LIMITED_PARTNERSHIP_2 = 'LP2', 'Công ty TNHH 2 TV'
     JOINT_STOCK_COMPANY_2 = 'JS2', 'Công ty Cổ phần'
-
     
-
 class Business(models.Model):
     class Meta:
         verbose_name = _("Business")
@@ -193,6 +191,10 @@ class BusinessTypeStatus(models.Model):
         max_length=5,
         choices=BusinessStatus.choices,
     )  # Trạng thái
+
+    def __str__(self):
+        return f"{self.business_type}, {self.get_status_display()}"
+
 class BusinessProcessStep(models.Model):
     class Meta:
         verbose_name = _("Business Process Step")
@@ -223,6 +225,9 @@ class BusinessIndustry(models.Model):
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name=_("Business"))  # Khóa ngoại đến model Business
     industry = models.ForeignKey(Industry, on_delete=models.CASCADE, verbose_name=_("Industry"))  # Khóa ngoại đến model Industry
 
+    def __str__(self):
+        return f"{self.business}, {self.industry}"
+
 class ActivityField(models.Model):
     class Meta:
         verbose_name = _("Activity Field")
@@ -240,6 +245,9 @@ class BusinessActivityField(models.Model):
 
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name=_("Business"))  # Khóa ngoại đến model Business
     activity_field = models.ForeignKey(ActivityField, on_delete=models.CASCADE, verbose_name=_("Activity Field"))  # Khóa ngoại đến model ActivityField
+
+    def __str__(self):
+        return f"{self.business}, {self.activity_field}"
 
 class Contacts(models.Model):
     class Meta:
@@ -273,6 +281,9 @@ class BusinessAddress(models.Model):
 
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name=_("Business"))  # Khóa ngoại đến model Business
     address = models.ForeignKey(Address, on_delete=models.CASCADE, verbose_name=_("Address"))  # Khóa ngoại đến model Address
+
+    def __str__(self):
+        return f"{self.business}, {self.address}"
     
 class AdministrativeUnit(models.Model):
     class Meta:
