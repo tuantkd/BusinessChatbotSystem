@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'bots' %}">Bots</a></li>
-    <li class="breadcrumb-item active">Add Bot</li>
+    <li class="breadcrumb-item"><a href="{% url 'bots' %}">{% trans 'Bots' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Add Bot' %}</li>
 </ol>
 
 <div class="container-fluid">
@@ -15,14 +15,14 @@
                     {% csrf_token %}
                     <div class="card">
                         <div class="card-header">
-                            <strong>Bot</strong>
+                            <strong>{% trans 'Bot' %}</strong>
                         </div>
                         <div class="card-block">
                             {{ form.as_p }}
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>Save</button>
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>{% trans 'Save' %}</button>
                         </div>
                     </div>
                 </form>
