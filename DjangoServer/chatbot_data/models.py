@@ -22,6 +22,7 @@ class Entity(models.Model):
 class Expression(models.Model):
     expression_text = models.TextField()
     intent = models.ForeignKey(Intent, on_delete=models.CASCADE, related_name='expressions')
+    is_train = models.BooleanField(default=True)
 
 class ExpressionParameter(models.Model):
     parameter_start = models.IntegerField()
@@ -108,7 +109,6 @@ class LookupVariant(models.Model):
 
     def __str__(self):
         return f"{self.lookup.lookup_name}: {self.value}"
-
 
 class Story(models.Model):
     story_name = models.TextField()
