@@ -28,7 +28,7 @@ msgstr "Mã Doanh Nghiệp"
 
 #: .\business_registration\models.py:55
 msgid "Doanh Nghiệp"
-msgstr ""
+msgstr "Mã Doanh nghiệp"
 
 #: .\business_registration\models.py:79
 msgid "Business Code"
@@ -343,13 +343,13 @@ msgstr "Phường/Xã"
 #, fuzzy
 #| msgid "Business Code"
 msgid "Business Address"
-msgstr "Mã Doanh Nghiệp"
+msgstr "Địa chỉ Doanh Nghiệp"
 
 #: .\business_registration\models.py:266
 #, fuzzy
 #| msgid "Business Code"
 msgid "Business Addresses"
-msgstr "Mã Doanh Nghiệp"
+msgstr "Địa chỉ Doanh Nghiệp"
 
 #: .\business_registration\models.py:273 .\business_registration\models.py:309
 #: .\business_registration\models.py:326 .\business_registration\models.py:342

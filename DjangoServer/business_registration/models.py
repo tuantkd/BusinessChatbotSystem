@@ -166,7 +166,7 @@ class Owner(models.Model):
 class BusinessOwner(models.Model):
     class Meta:
         verbose_name = _("Business Owner")
-        verbose_name_plural = _("Business Owners")
+        verbose_name_plural = _("Business Owner")
 
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name=_("Business"))  # Khóa ngoại đến model Business
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE, verbose_name=_("Owner"))  # Khóa ngoại đến model Owner

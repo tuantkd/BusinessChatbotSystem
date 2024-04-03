@@ -29,9 +29,9 @@ pipeline:
   epochs: 100
   constrain_similarities: true
   model_confidence: softmax
-- name: FallbackClassifier
-  threshold: 0.7
-  ambiguity_threshold: 0.1
+# - name: FallbackClassifier
+#   threshold: 0.7
+#   ambiguity_threshold: 0.1
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
