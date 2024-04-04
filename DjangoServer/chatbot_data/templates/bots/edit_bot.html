@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
 <ol class="breadcrumb" breadcrumb="">
     <li class="breadcrumb-item"><a href="{% url 'bots' %}">{% trans 'Bots' %}</a></li>
     <li class="breadcrumb-item active">{{ bot.bot_name }}</li>
     <li class="breadcrumb-menu">
         <div class="btn-group" role="group">
+            <a class="btn btn-outline-secondary"  data-toggle="tooltip"
+                data-placement="top" title="{% trans 'Click to Split the Test Data' %}"><i class="fa fa-random"></i>
+                &nbsp;{% trans 'Split Test' %}</a>
             <a class="btn btn-outline-secondary" href="{% url 'import_bot' bot.id %}" data-toggle="tooltip"
                 data-placement="top" title="{% trans 'Click to Import a Bot' %}"><i class="fa fa-upload"></i>
-                &nbsp;{%trans 'Import Bot' %}</a>
+                &nbsp;{% trans 'Import Bot' %}</a>
             <a class="btn btn-outline-secondary" href="{% url 'delete_bot' bot.id %}"
                 confirm-click-title="{% trans 'Delete Bot' %}"
                 confirm-click="{% trans 'Are you sure? This will delete the bot, all its intents, expressions, and resolved entities.' %}"><i
@@ -202,7 +205,7 @@
                                     </li>
                                     {% endif %}
                                     <li class="page-item disabled">
-                                        <a class="page-link" href="#">{{% trans 'Page' %}} {{ synonyms.number }} {{% trans 'of' %}} {{ synonyms.paginator.num_pages }}</a>
+                                        <a class="page-link" href="#">{% trans 'Page' %} {{ synonyms.number }} {% trans 'of' %} {{ synonyms.paginator.num_pages }}</a>
                                     </li>
                                     {% if synonyms.has_next %}
                                     <li class="page-item">
@@ -252,7 +255,7 @@
                                     </li>
                                     {% endif %}
                                     <li class="page-item disabled">
-                                        <a class="page-link" href="#">{{% trans 'Page' %}} {{ regexes.number }} {{% trans 'of' %}} {{ regexes.paginator.num_pages }}</a>
+                                        <a class="page-link" href="#">{% trans 'Page' %} {{ regexes.number }} {% trans 'of' %} {{ regexes.paginator.num_pages }}</a>
                                     </li>
                                     {% if regexes.has_next %}
                                     <li class="page-item">
@@ -307,7 +310,7 @@
                                     </li>
                                     {% endif %}
                                     <li class="page-item disabled">
-                                        <a class="page-link" href="#">{{% trans 'Page' %}} {{ lookups.number }} {{% trans 'of' %}} {{ lookups.paginator.num_pages }}</a>
+                                        <a class="page-link" href="#">{% trans 'Page' %} {{ lookups.number }} {% trans 'of' %} {{ lookups.paginator.num_pages }}</a>
                                     </li>
                                     {% if lookups.has_next %}
                                     <li class="page-item">

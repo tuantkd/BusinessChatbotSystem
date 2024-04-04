@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %} Edit Entity {% endblock %}
 {% load static %}
+{% block styles %}
+<link href="{% static 'css/edit_intent.css' %}" rel="stylesheet">
+{% endblock %}
 {% load my_filters %}
 {% block content %}
 <ol class="breadcrumb" breadcrumb="">
@@ -74,8 +78,11 @@
                                     <div class="list-group">
                                         {% for expression in expression_list %}
                                         <div class="list-group-item">
-                                            <span
-                                                id="expression_{{expression.id}}">{{expression.expression_text}}</span>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input toggle-expression-status" id="toggle_train_test_{{expression.id}}" {% if expression.is_train %}checked{% endif %}>
+                                                <label class="custom-control-label" for="toggle_train_test_{{expression.id}}"></label>
+                                                <span id="expression_{{expression.id}}">{{expression.expression_text}}</span>
+                                            </div>
                                             <span class="float-right">
                                                 <span class="badge-default badge-pill mr-2">( {{ parameter_list|length_filtered:expression.id }} )</span>
                                                 <button class="btn btn-outline-secondary send-expression">
