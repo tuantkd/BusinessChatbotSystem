@@ -3,7 +3,7 @@
     --msger-bg: #fff;
     --border: 2px solid #ddd;
     --left-msg-bg: #ececec;
-    --right-msg-bg: #579ffb;
+    --right-msg-bg: #4c5362;
 }
 
 html {
@@ -217,3 +217,42 @@ input[disabled] {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+
+.chat-container {
+    margin-bottom: 20px;
+  }
+  
+  .chat-bot {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .input-form {
+    display: flex;
+  }
+  
+  .input-form input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+  }
+  
+  .input-form button {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #4CAF50;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .input-form button:hover {
+    background-color: #45a049;
+  }
+  

@@ -1,17 +1,28 @@
 import requests
 from .db_config import cursor, connection
+import json
 
-def get_business_types():
-    query = f"SELECT * FROM business_registration_businesstype"
-    cursor.execute(query)
-    result = cursor.fetchall()
-    return result
+DJ_BASE_URL = "http://localhost:8000"
+GET_SENDER = f"{DJ_BASE_URL}/chat/get_current_user"
+BUSINESS_REGISTRATION_BUSINESSTYPE = f"{DJ_BASE_URL}/api/business_registration_businesstype"
+GET_BUSINESS_TYPE_STATUS = f"{DJ_BASE_URL}/api/business_type_status"
+
+
+# def get_business_types():
+#     # query = f"SELECT * FROM business_registration_businesstype"
+#     # cursor.execute(query)
+#     # result = cursor.fetchall()
+#     # return result
+#     response = requests.get(BUSINESS_REGISTRATION_BUSINESSTYPE)
+#     if response.status_code != 200:
+#         return []
+#     return response.json()
 
 def get_business_type_status(business_type_id):
-    query = f"SELECT * FROM business_registration_businesstypestatus WHERE business_type_id = {business_type_id}"
-    cursor.execute(query)
-    result = cursor.fetchall()
-    return result
+    response = requests.get(f"{GET_BUSINESS_TYPE_STATUS}/{business_type_id}")
+    if response.status_code != 200:
+        return []
+    return response.json()
 
 def get_business_type_status_names(status_codes_db, business_type_status_enum):
     status_names = []
@@ -82,3 +93,17 @@ def insert_data(data, table_name):
 def get_api(url_link):
     response = requests.get(url=url_link)
     return response.json()
+
+def get_saved_slots(sender_id):
+
+    query = f"SELECT slot_values FROM chatbot_data_history WHERE sender_id = '{sender_id}' ORDER BY id DESC LIMIT 1"
+
+    saved_slots = {}
+    cursor.execute(query)
+    result = cursor.fetchall()
+    for row in result:
+        # Phân tích chuỗi JSON thành đối tượng Python
+        slot_values = json.loads(row[0].replace("'", "\""))
+        for slot in slot_values:
+            saved_slots[slot['name']] = slot['value']
+    return saved_slots

@@ -1,15 +1,41 @@
 version: "3.1"
 
 stories:
-- story: Tư vấn quy trình đăng ký
-  steps:
-  - intent: inquire_business_registration
-  - action: utter_inquire_business_registration
 
-- story: Xác định nhu cầu của loại hình doanh nghiệp
+- story: Hỏi về quy trình đăng ký kinh doanh (Bước 1)
   steps:
-  - intent: business_types
-  - action: action_business_types
+  - intent: business_registration_proccess
+  - action: utter_business_registration_proccess
+  - intent: business_registration_proccess_step_1
+  - action: utter_business_registration_proccess_step_1
+
+- story: Hỏi về quy trình đăng ký kinh doanh (Bước 2)
+  steps:
+  - intent: business_registration_proccess
+  - action: utter_business_registration_proccess
+  - intent: business_registration_proccess_step_2
+  - action: utter_business_registration_proccess_step_2
+
+- story: Hỏi về quy trình đăng ký kinh doanh (Bước 3)
+  steps:
+  - intent: business_registration_proccess
+  - action: utter_business_registration_proccess
+  - intent: business_registration_proccess_step_3
+  - action: utter_business_registration_proccess_step_3
+
+- story: Hỏi về quy trình đăng ký kinh doanh (Bước 4)
+  steps:
+  - intent: business_registration_proccess
+  - action: utter_business_registration_proccess
+  - intent: business_registration_proccess_step_4
+  - action: utter_business_registration_proccess_step_4
+
+- story: Hỏi về quy trình đăng ký kinh doanh (Bước 5)
+  steps:
+  - intent: business_registration_proccess
+  - action: utter_business_registration_proccess
+  - intent: business_registration_proccess_step_5
+  - action: utter_business_registration_proccess_step_5
 
 - story: Hỏi hồ sơ đăng ký kinh doanh
   steps:
@@ -25,11 +51,6 @@ stories:
   steps:
   - intent: registration_agencies
   - action: utter_registration_agencies
-
-- story: Hỏi chi phí đăng ký
-  steps:
-  - intent: registration_fees
-  - action: utter_registration_fees
 
 - story: Hỏi khung thời gian đăng ký
   steps:
@@ -101,11 +122,46 @@ stories:
   - intent: documents_business_registration
   - action: action_documents_business_registration
 
-- story: Thủ tục đăng ký kinh doanh
+- story: Quy trình đăng ký kinh doanh có bước thực hiện
   steps:
   - intent: register_business_procedure
-  - action: action_register_business_procedure
-  - intent: register_business_type_name
-  - action: action_register_business_type_name
-  - intent: register_type_of_business
-  - action: action_register_type_of_business
+  - action: action_list_business_type_in_procedure
+  - action: utter_register_business_procedure
+  - intent: choose_business_type
+  - action: action_list_business_type_status
+  - action: utter_list_business_type_status
+  - intent: choose_business_status
+  - action: action_list_business_procedure_steps
+  - slot_was_set:
+    - has_process_steps: true
+  - action: utter_list_business_procedure_steps
+  - intent: choose_business_process_step
+  - action: action_business_procedure_step_description
+  - slot_was_set:
+    - has_process_step_description: true
+  - action: utter_business_procedure_step_description
+  - slot_was_set:
+    - has_process_step_description: false
+  - action: utter_no_business_process_step_description
+
+- story: Quy trình đăng ký kinh doanh không có bước thực hiện
+  steps:
+  - intent: register_business_procedure
+  - action: action_list_business_type_in_procedure
+  - action: utter_register_business_procedure
+  - intent: choose_business_type
+  - action: action_list_business_type_status
+  - action: utter_list_business_type_status
+  - intent: choose_business_status
+  - action: action_list_business_procedure_steps
+  - slot_was_set:
+    - has_process_steps: false
+  - action: utter_no_business_produre_steps
+
+- story: Có bao nhiêu loại hình doanh nghiệp
+  steps:
+  - intent: how_many_business_types
+  - action: action_list_business_types
+  - action: utter_list_business_types
+
+

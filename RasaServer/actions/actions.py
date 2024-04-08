@@ -1,119 +1,126 @@
-# This files contains your custom actions which can be used to run
-# custom Python code.
-#
-# See this guide on how to implement these action:
-# https://rasa.com/docs/rasa/custom-actions
-
-
 from typing import Any, Text, Dict, List
 
-from .utils import cleaned_text, convert_to_snake_case, get_json, get_key_business_type
-from .enum import DATA_BUSINESS
-from .db_operations import check_business_type_status_name, find_business_type_status, find_business_type_status_by_code_and_business_type_id, get_business_registration_businessprocessstep, get_business_type_id, get_business_type_status, get_business_type_status_names, get_business_types
+
+from .utils import cleaned_text, get_json
+from .api_operations import get_business_process_step, get_business_type_status, get_business_types, get_senders
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.types import DomainDict
+from rasa_sdk.events import SlotSet
 
+class ActionWelcome(Action):
+    
+    def name(self) -> Text:
+        return "action_session_start"
 
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: DomainDict) -> List[Dict[Text, Any]]:
+        
+        sender_id = tracker.sender_id
+        sender = get_senders(sender_id=sender_id)
+        sender_name = "Bạn"
+
+        if len(sender) > 0:
+            sender_name = sender[0]['sender_name']
+
+        dispatcher.utter_message(response="utter_welcome", sender_name=sender_name)
+        return [SlotSet("sender_name", sender_name)]
+    
 class ActionBusinessTypes(Action):
 
     def name(self) -> Text:
-        return "action_business_types"
+        # Liệt kê các loại hình doanh nghiệp
+        return "action_list_business_types"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        intent_name = tracker.latest_message['intent']['name']
         
         business_types = get_business_types()
-        formatted_business_types = ', '.join(f"{business_type[1]}" for business_type in business_types)
-        
-        if intent_name == "register_business_procedure":
-            dispatcher.utter_message(template="utter_register_business_procedure", business_types=formatted_business_types)
-        
-        dispatcher.utter_message(template="utter_business_types", entity_business_type=formatted_business_types)
-        
-        return []
-    
+        type_names = [f"- _{business_type['type_description']}_" for business_type in business_types]
+        type_names_formatted = '\n'.join(type_names)
+
+        return [SlotSet("business_types", type_names_formatted)]
 
 class ActionRegisterBusinessProcedure(Action):
 
     def name(self) -> Text:
-        return "action_register_business_procedure"
+        # Chọn loại hình doanh nghiệp
+        return "action_list_business_type_in_procedure"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         business_types = get_business_types()
-        formatted_business_types = ', '.join(f"{business_type[1]}" for business_type in business_types)
+        type_names = [f"- _{business_type['type_description']}_" for business_type in business_types]
+        type_names_formatted = '\n'.join(type_names)
         
-        dispatcher.utter_message(template="utter_register_business_procedure", business_types=formatted_business_types)
-        return []
+        return [SlotSet("business_types", type_names_formatted)]
     
-    
-class ActionRegisterBusinessTypeName(Action):
+class ActionRegisterBusinessTypeStatus(Action):
 
     def name(self) -> Text:
-        return "action_register_business_type_name"
+        # Chọn trạng thái của loai hình doanh nghiệp
+        return "action_list_business_type_status"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         business_type_name = tracker.get_slot("business_type")
+        business_type_status = get_business_type_status(business_type_name)
+        status = [f"- _+st['status_display_full']+_" for st in business_type_status]
+        business_type_status_list = '\n'.join(status)
         
-        business_type_id = get_business_type_id(business_type_name, get_business_types())
-        business_type_status = get_business_type_status(business_type_id)
-        
-        status_codes = [code[1] for code in business_type_status]
-        status_names = get_business_type_status_names(status_codes, DATA_BUSINESS.BUSINESS_TYPE_STATUS.value)
-        
-        formatted_business_type_status = ', '.join(f"{status_name['name']}" for status_name in status_names)
-        message_text = f"Tiếp theo hãy chọn loại trạng thái đăng ký doanh nghiệp ({business_type_name}): type_of_business={formatted_business_type_status}"
-        
-        dispatcher.utter_message(text=message_text)
-        return []
+        return [SlotSet("business_type_status_list", business_type_status_list)]
     
 
-class ActionRegisterTypeOfBusiness(Action):
+class ActionListBusinessProcessSteps(Action):
 
     def name(self) -> Text:
-        return "action_register_type_of_business"
+        # Danh sách các bước đăng ký doanh nghiệp
+        return "action_list_business_procedure_steps"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-        dictionaries = get_json('actions/dictionaries.json')
-        business_type_name = get_key_business_type(tracker.get_slot("business_type"), dictionaries)
-        type_of_business_name = tracker.get_slot("type_of_business")
-        
-        business_type_id = get_business_type_id(business_type_name, get_business_types())
-        business_type_status_all = get_business_type_status(business_type_id)
-        status_codes = [code[1] for code in business_type_status_all]
-        status_names = get_business_type_status_names(status_codes, DATA_BUSINESS.BUSINESS_TYPE_STATUS.value)
-        
-        business_type_status_single_enum = check_business_type_status_name(type_of_business_name, status_names)
-        business_type_status = find_business_type_status_by_code_and_business_type_id(business_type_status_single_enum['code'], business_type_id)
-        
-        business_process_step = get_business_registration_businessprocessstep(business_type_status[0][0])
-        business_type_status_name = find_business_type_status(business_type_status[0][1], DATA_BUSINESS.BUSINESS_TYPE_STATUS.value)
-        
-        step_name = []
-        for process_step in business_process_step:
-            step_name.append(f'<a href="#{convert_to_snake_case(process_step[1])}"><h5>{process_step[1]}</h5></a>')
-        
-        process_step = f'Gồm <b>{len(business_process_step)}</b> trường hợp thuộc loại trạng thái <b>{business_type_status_name["name"]}</b> của <b>{business_type_name}</b>: {"".join(f"{step}" for step in step_name)}'
-        contents = f'<hr><div>'
-        for content in business_process_step:
-            contents += f'<h5 id="{convert_to_snake_case(content[1])}">{content[1]}</h5>'
-            contents += f'<p>{content[3]}</p>'
-        contents += f'</div>'
-        
-        dispatcher.utter_message(text=process_step + contents)
-        return []
+        business_type = tracker.get_slot("business_type")
+        business_status = tracker.get_slot("business_status")
 
+        business_process_steps = get_business_process_step(business_type=business_type, business_type_status=business_status)
+        has_process_steps = True
+        if len(business_process_steps) == 0:
+            has_process_steps = False
+        
+        process_steps_formatted = '\n'.join([f'- _{step["step_name"]}_\n' for step in business_process_steps])
+        return [SlotSet("has_process_steps", has_process_steps), SlotSet("process_steps", process_steps_formatted)]
 
+class ActionBusinessProcessStepDescription(Action):
+    
+        def name(self) -> Text:
+            # Mô tả bước đăng ký doanh nghiệp
+            return "action_business_procedure_step_description"
+    
+        def run(self, dispatcher: CollectingDispatcher,
+                tracker: Tracker,
+                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+            
+            business_type = tracker.get_slot("business_type")
+            business_status = tracker.get_slot("business_status")
+            process_step = tracker.get_slot("process_step")
+            
+            process_step_description = get_business_process_step(step_name=process_step, business_type=business_type, business_type_status=business_status)
+            has_process_step_description = True
+            if len(process_step_description) == 0:
+                has_process_step_description = False
+            
+            return [SlotSet("has_process_step_description", has_process_step_description),
+                    SlotSet("process_step_description", process_step_description[0]['step_description']), 
+                    SlotSet("process_step", process_step)]
+        
 class ActionLookupBusinessLines(Action):
     
     def name(self) -> Text:
@@ -136,7 +143,6 @@ class ActionLookupBusinessLines(Action):
         dispatcher.utter_message(text=text_message)
         return []
     
-
 class ActionDocumentsBusinessRegistration(Action):
     
     def name(self) -> Text:
@@ -149,4 +155,16 @@ class ActionDocumentsBusinessRegistration(Action):
         document_name = tracker.latest_message['text']
         
         dispatcher.utter_message(text='')
+        return []
+
+class ActionDefaultFallback(Action):
+    
+    def name(self) -> Text:
+        return "action_default_fallback"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        dispatcher.utter_message(response="utter_default")
         return []
