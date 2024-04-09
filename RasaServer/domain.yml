@@ -1,6 +1,7 @@
 version: "3.1"
 
 intents:
+  - lam_tho
   - greet
   - goodbye
   - inquire_business_registration
@@ -28,6 +29,13 @@ intents:
   - documents_business_registration
 
 responses:
+  utter_lam_tho:
+  - text: "Thơ 1"
+  - text: "Thơ 2"
+  - text: "Thơ 3"
+  - text: "Thơ 4"
+  - text: "Thơ 5"
+
   utter_greet:
   - text: "Xin chào! Bạn cần giúp đỡ về điều gì hôm nay?"
   - text: "Hello! Chào mừng bạn đến với dịch vụ của chúng tôi. Có điều gì tôi có thể hỗ trợ?"

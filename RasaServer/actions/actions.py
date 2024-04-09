@@ -94,6 +94,9 @@ class ActionRegisterTypeOfBusiness(Action):
         status_names = get_business_type_status_names(status_codes, DATA_BUSINESS.BUSINESS_TYPE_STATUS.value)
         
         business_type_status_single_enum = check_business_type_status_name(type_of_business_name, status_names)
+        if business_type_status_single_enum is None:
+            dispatcher.utter_message("Xin lỗi, tôi chưa dữ liệu cho câu hỏi của bạn!")
+            return []
         business_type_status = find_business_type_status_by_code_and_business_type_id(business_type_status_single_enum['code'], business_type_id)
         
         business_process_step = get_business_registration_businessprocessstep(business_type_status[0][0])

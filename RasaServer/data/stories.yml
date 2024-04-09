@@ -1,6 +1,11 @@
 version: "3.1"
 
 stories:
+- story: Làm thơ cho người dùng
+  steps:
+  - intent: lam_tho
+  - action: utter_lam_tho
+
 - story: Tư vấn quy trình đăng ký
   steps:
   - intent: inquire_business_registration

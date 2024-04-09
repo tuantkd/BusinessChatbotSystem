@@ -50,7 +50,7 @@ class BusinessStatus(models.TextChoices):
 class Business(models.Model):
     class Meta:
         verbose_name = _("Business")
-        verbose_name_plural = _("Businesses")
+        verbose_name_plural = _("Doanh nghiệp")
 
     def validate_multiple_of_1000(value):
         if value % 1000 != 0:
@@ -122,7 +122,7 @@ class BusinessStatusChange(models.Model):
 class LegalRepresentative(models.Model):
     class Meta:
         verbose_name = _("Legal Representative")
-        verbose_name_plural = _("Legal Representatives")
+        verbose_name_plural = _("Người đại diện")
 
     name = models.CharField(_("Name"),max_length=255)  # Họ và tên
     gender = models.CharField(_("Gender"),max_length=10)  # Giới tính
@@ -143,7 +143,7 @@ class LegalRepresentative(models.Model):
 class Owner(models.Model):
     class Meta:
         verbose_name = _("Owner")
-        verbose_name_plural = _("Owners")
+        verbose_name_plural = _("Chủ sở hữu")
 
     name = models.CharField(_("Name"), max_length=255)  # Họ và tên
     gender = models.CharField(_("Gender"), max_length=10)  # Giới tính
@@ -164,7 +164,7 @@ class Owner(models.Model):
 class BusinessOwner(models.Model):
     class Meta:
         verbose_name = _("Business Owner")
-        verbose_name_plural = _("Business Owner")
+        verbose_name_plural = _("Chủ sở hữu")
 
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name=_("Business"))  # Khóa ngoại đến model Business
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE, verbose_name=_("Owner"))  # Khóa ngoại đến model Owner
@@ -174,7 +174,7 @@ class BusinessOwner(models.Model):
 class BusinessType(models.Model):
     class Meta:
         verbose_name = _("Business Type")
-        verbose_name_plural = _("Business Types")
+        verbose_name_plural = _("Loại hình kinh doanh")
 
     type_description = models.CharField(_("Type Description"), max_length=255)  # Mô tả về loại hình doanh nghiệp
 
@@ -183,7 +183,7 @@ class BusinessType(models.Model):
 class BusinessTypeStatus(models.Model):
     class Meta:
         verbose_name = _("Business Type Status")
-        verbose_name_plural = _("Business Type Statuses")
+        verbose_name_plural = _("Trạng thái doanh nghiệp")
 
     business_type = models.ForeignKey(BusinessType, on_delete=models.CASCADE, verbose_name=_("Business Type"))  # Khóa ngoại đến model BusinessType
     status = models.CharField(
@@ -198,7 +198,7 @@ class BusinessTypeStatus(models.Model):
 class BusinessProcessStep(models.Model):
     class Meta:
         verbose_name = _("Business Process Step")
-        verbose_name_plural = _("Business Process Steps")
+        verbose_name_plural = _("Quy trình đăng ký")
 
     business_type_status = models.ForeignKey(BusinessTypeStatus, on_delete=models.CASCADE, verbose_name=_("Business Type Status"))  # Khóa ngoại đến model BusinessTypeStatus
     step_name = models.CharField(_("Step Name"), max_length=255)  # Tên của bước trong quy trình
@@ -210,7 +210,7 @@ class BusinessProcessStep(models.Model):
 class Industry(models.Model):
     class Meta:
         verbose_name = _("Industry")
-        verbose_name_plural = _("Industries")
+        verbose_name_plural = _("Ngành nghề")
 
     activity_code = models.IntegerField(_("Activity Code"))  # Mã của ngành nghề kinh doanh
     activity_name = models.CharField(_("Activity Name"), max_length=255)  # Tên của ngành nghề kinh doanh
@@ -220,7 +220,7 @@ class Industry(models.Model):
 class BusinessIndustry(models.Model):
     class Meta:
         verbose_name = _("Business Industry")
-        verbose_name_plural = _("Business Industries")
+        verbose_name_plural = _("Ngành nghề kinh doanh")
 
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name=_("Business"))  # Khóa ngoại đến model Business
     industry = models.ForeignKey(Industry, on_delete=models.CASCADE, verbose_name=_("Industry"))  # Khóa ngoại đến model Industry
@@ -231,7 +231,7 @@ class BusinessIndustry(models.Model):
 class ActivityField(models.Model):
     class Meta:
         verbose_name = _("Activity Field")
-        verbose_name_plural = _("Activity Fields")
+        verbose_name_plural = _("Lĩnh vực hoạt động")
 
     field_code = models.IntegerField(_("Field Code"))  # Mã của lĩnh vực hoạt động
     field_name = models.CharField(_("Field Name"), max_length=255)  # Tên của lĩnh vực hoạt động
@@ -241,7 +241,7 @@ class ActivityField(models.Model):
 class BusinessActivityField(models.Model):
     class Meta:
         verbose_name = _("Business Activity Field")
-        verbose_name_plural = _("Business Activity Fields")
+        verbose_name_plural = _("Lĩnh vực kinh doanh")
 
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name=_("Business"))  # Khóa ngoại đến model Business
     activity_field = models.ForeignKey(ActivityField, on_delete=models.CASCADE, verbose_name=_("Activity Field"))  # Khóa ngoại đến model ActivityField
@@ -252,7 +252,7 @@ class BusinessActivityField(models.Model):
 class Contacts(models.Model):
     class Meta:
         verbose_name = _("Contact")
-        verbose_name_plural = _("Contacts")
+        verbose_name_plural = _("Liên hệ")
 
     phone = models.CharField(_("Phone"), max_length=255)  # Số điện thoại
     email = models.CharField(_("Email"), max_length=255)  # Địa chỉ email
@@ -265,7 +265,7 @@ class Contacts(models.Model):
 class Address(models.Model):
     class Meta:
         verbose_name = _("Address")
-        verbose_name_plural = _("Addresses")
+        verbose_name_plural = _("Địa chỉ")
 
     detail = models.CharField(_("Detail"), max_length=255)  # Địa chỉ chi tiết
     province = models.ForeignKey('Province', on_delete=models.CASCADE, verbose_name=_("Province"))
@@ -277,7 +277,7 @@ class Address(models.Model):
 class BusinessAddress(models.Model):
     class Meta:
         verbose_name = _("Business Address")
-        verbose_name_plural = _("Business Addresses")
+        verbose_name_plural = _("Địa chỉ doanh nghiệp")
 
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name=_("Business"))  # Khóa ngoại đến model Business
     address = models.ForeignKey(Address, on_delete=models.CASCADE, verbose_name=_("Address"))  # Khóa ngoại đến model Address

@@ -10,6 +10,13 @@ nlu:
     - hình thức doanh nghiệp
     - hình thức
 
+- intent: lam_tho
+  examples: |
+    - Tôi muốn làm một bài thơ?
+    - Hãy hướng dẫn tôi viết thơ.
+    - Đọc thơ cho tôi một bài thơ.
+    - Làm cho tôi 1 bài thơ.
+
 - intent: greet
   examples: |
     - Chào bạn

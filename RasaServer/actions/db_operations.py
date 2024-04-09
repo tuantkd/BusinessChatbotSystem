@@ -8,6 +8,8 @@ def get_business_types():
     return result
 
 def get_business_type_status(business_type_id):
+    if business_type_id is None:
+        return []
     query = f"SELECT * FROM business_registration_businesstypestatus WHERE business_type_id = {business_type_id}"
     cursor.execute(query)
     result = cursor.fetchall()
