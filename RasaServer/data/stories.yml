@@ -6,10 +6,10 @@ stories:
   - intent: lam_tho
   - action: utter_lam_tho
 
-- story: Tư vấn quy trình đăng ký
-  steps:
-  - intent: inquire_business_registration
-  - action: utter_inquire_business_registration
+# - story: Tư vấn quy trình đăng ký
+#   steps:
+#   - intent: inquire_business_registration
+#   - action: utter_inquire_business_registration
 
 - story: Hỏi về quy trình đăng ký kinh doanh (Bước 1)
   steps:

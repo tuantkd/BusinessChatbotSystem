@@ -21,7 +21,7 @@ class BusinessAdmin(admin.ModelAdmin):
     # fields = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
     list_display = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
     # list_display_links = ('business_code', 'company_name')
-    list_filter = ('business_type', 'main_industry')
+    list_filter = ('business_type',)
     # search_fields = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
     list_per_page = 25
     # readonly_fields = ('business_code',)
@@ -57,7 +57,7 @@ class BusinessTypeAdmin(admin.ModelAdmin):
 class IndustryAdmin(admin.ModelAdmin):
     list_display = ('activity_code', 'activity_name')
     list_display_links = ('activity_code', 'activity_name')
-    list_filter = ('activity_code', 'activity_name')
+    # list_filter = ('activity_code', 'activity_name')
     search_fields = ('activity_code', 'activity_name')
     list_per_page = 25
 

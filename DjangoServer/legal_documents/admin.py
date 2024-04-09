@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Laws, Decrees, Circulars, Decisions
 
-admin.site.index_title =  "Legal Documents Administration"
+admin.site.index_title =  "HỆ THỐNG QUẢN LÝ"
 
 class LawsAdmin(admin.ModelAdmin):
     list_display = ('law_number', 'law_name', 'law_link')

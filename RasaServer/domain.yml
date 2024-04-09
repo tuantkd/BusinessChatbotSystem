@@ -32,6 +32,7 @@ intents:
   - business_registration_proccess_step_3
   - business_registration_proccess_step_4
   - business_registration_proccess_step_5
+  # - inquire_business_registration
   
 responses:
   utter_lam_tho:
