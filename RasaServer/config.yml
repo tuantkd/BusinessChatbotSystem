@@ -12,8 +12,9 @@ language: vi
 
 pipeline:
 - name: components.preprocess_text.Preprocess
-- name: components.tokenizer.VietnameseTokenizer
-  tokenizer: underthesea
+# - name: components.tokenizer.VietnameseTokenizer
+#   tokenizer: underthesea
+- name: WhitespaceTokenizer
 - name: RegexFeaturizer
 - name: LexicalSyntacticFeaturizer
 - name: CountVectorsFeaturizer
@@ -29,19 +30,19 @@ pipeline:
   epochs: 100
   constrain_similarities: true
   model_confidence: softmax
-# - name: FallbackClassifier
-#   threshold: 0.7
-#   ambiguity_threshold: 0.1
+- name: FallbackClassifier
+  threshold: 0.7
+  ambiguity_threshold: 0.1
 
 # Configuration for Rasa Core.
 # https://rasa.com/docs/rasa/core/policies/
-policies:
-- name: MemoizationPolicy
-- name: TEDPolicy
-  max_history: 5
-  epochs: 100
-  constrain_similarities: true
-  model_confidence: softmax
-- name: RulePolicy
-  core_fallback_threshold: 0.4
-  enable_fallback_prediction: true
+# policies:
+# - name: MemoizationPolicy
+# - name: TEDPolicy
+#   max_history: 5
+#   epochs: 100
+#   constrain_similarities: true
+#   model_confidence: softmax
+# - name: RulePolicy
+#   core_fallback_threshold: 0.4
+#   enable_fallback_prediction: true

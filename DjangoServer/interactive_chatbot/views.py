@@ -67,9 +67,10 @@ class ChatbotView(View):
             if response.status_code != 200:
                 return JsonResponse({'error': 'Rasa server error'}, status=500)
             data_json = response.json()
-            if len(data_json) == 0:
-                return JsonResponse({'text': 'Xin lỗi, tôi không hiểu câu hỏi của bạn'}, status=200)
-            response_text = data_json[0].get('text', '')
+            response_text = 'Xin lỗi, tôi không hiểu câu hỏi của bạn'
+            if len(data_json) > 0:
+                # return JsonResponse({'text': 'Xin lỗi, tôi không hiểu câu hỏi của bạn'}, status=200)
+                response_text = data_json[0].get('text', '')
             save_conversation(sender_id, user_message, response_text)
             # Return Rasa's response
             response_data = {
@@ -94,7 +95,9 @@ class InitChatView(View):
         if response.status_code != 200:
             return JsonResponse({'error': 'Rasa server error'}, status=500)
         response_data = response.json()
-        response_text = response_data[0].get('text', '')
+        response_text = 'Xin lỗi, tôi không hiểu câu hỏi của bạn'
+        if len(response_data) > 0:
+            response_text = response_data[0].get('text', '')
         save_conversation(sender_id, "Bắt đầu", response_text)
         return redirect('chatbot', sender_id=sender_id)
     

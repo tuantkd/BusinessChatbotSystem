@@ -303,7 +303,6 @@ responses:
       Các văn bản quy phạm pháp luật hiện hành không quy định cơ quan khác ngoài cơ quan đăng ký kinh doanh có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp. Do vậy, tính đến nay cơ quan đăng ký kinh doanh là cơ quan duy nhất có thẩm quyền thực hiện việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp.
 
       ||Khoản 4 Điều 5 nghị định số 78/2015/NĐ-CP ngày 14/9/2017 của Chính phủ|| quy định: “Các Bộ, cơ quan ngang Bộ, Hội đồng nhân dân và Ủy ban nhân dân các cấp không được ban hành các quy định về đăng ký doanh nghiệp áp dụng riêng cho ngành hoặc địa phương mình. Những quy định về đăng ký doanh nghiệp do các Bộ, cơ quan ngang Bộ, Hội đồng nhân dân và Ủy ban nhân dân các cấp ban hành trái với quy định tại Khoản này hết hiệu lực thi hành kể từ ngày Nghị định này có hiệu lực”.
-
           
   utter_welcome:
     - text: Chào mừng **{sender_name}** đến với hệ thống hỗ trợ đăng ký doanh nghiệp trực tuyển của **tỉnh Cà Mau**. Hãy cho chúng tôi biết bạn cần hỗ trợ về vấn đề gì?

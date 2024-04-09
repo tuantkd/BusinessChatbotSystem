@@ -1,6 +1,6 @@
 import requests
-from .db_config import cursor, connection
-import json
+# from .db_config import cursor, connection
+# import json
 
 DJ_BASE_URL = "http://localhost:8000"
 SENDER_API = f"{DJ_BASE_URL}/api/senders/"

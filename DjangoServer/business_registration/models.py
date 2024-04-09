@@ -56,7 +56,7 @@ class BusinessStatus(models.TextChoices):
 class Business(models.Model):
     class Meta:
         verbose_name = _("Business")
-        verbose_name_plural = _("Doanh nghiệp")
+        verbose_name_plural = _("Businesses")
 
     def validate_multiple_of_1000(value):
         if value % 1000 != 0:
@@ -81,24 +81,25 @@ class Business(models.Model):
         return code
 
     business_code = models.CharField(_("Business Code"), max_length=255, default=generate_unique_random_code, editable=False)
-    company_name = models.CharField(_("Company Name"), max_length=255)
-    longitude = models.CharField(_("Longitude"), max_length=20)
-    latitude = models.CharField(_("Latitude"), max_length=20)
-    address = models.CharField(_("Address"), max_length=255)
-    company_name = models.CharField(_("Company Name"), max_length=255)
+    company_name = models.CharField(_("Company Name"), max_length=255, null=True, blank=True)
+    longitude = models.CharField(_("Longitude"), max_length=20, null=True, blank=True)
+    latitude = models.CharField(_("Latitude"), max_length=20, null=True, blank=True)
+    address = models.CharField(_("Address"), max_length=255, null=True, blank=True)
+    company_name = models.CharField(_("Company Name"), max_length=255, null=True, blank=True)
     detail = models.TextField(_("Details"), blank=True)
-    capital = models.BigIntegerField(_("Capital"), validators=[validate_multiple_of_1000])
+    capital = models.BigIntegerField(_("Capital"), validators=[validate_multiple_of_1000], null=True, blank=True)
     status = models.CharField(
         _("Status"),
         max_length=5,
         choices=BusinessStatus.choices,
         default=BusinessStatus.NEWLY_ESTABLISHED,
+        blank=True, null=True
     )
     legal_representative = models.ForeignKey('LegalRepresentative', on_delete=models.CASCADE, null=True, blank=True, verbose_name=_("Legal Representative"))
-    issued_date = models.DateField(_("Issued Date"))
-    business_type = models.ForeignKey('BusinessType', on_delete=models.CASCADE, verbose_name=_("Business Type"))
-    main_industry = models.ForeignKey('Industry', on_delete=models.CASCADE, related_name='+', verbose_name=_("Main Industry"))
-    headquarters_address = models.ForeignKey('Address', on_delete=models.CASCADE, related_name='+', verbose_name=_("Headquarters Address"))
+    issued_date = models.DateField(_("Issued Date"), null=True, blank=True)
+    business_type = models.ForeignKey('BusinessType', on_delete=models.CASCADE, verbose_name=_("Business Type"), null=True, blank=True)
+    main_industry = models.ForeignKey('Industry', on_delete=models.CASCADE, related_name='+', verbose_name=_("Main Industry"), null=True, blank=True)
+    headquarters_address = models.ForeignKey('Address', on_delete=models.CASCADE, related_name='+', verbose_name=_("Headquarters Address"), null=True, blank=True)
     
     def __str__(self):
         return self.company_name

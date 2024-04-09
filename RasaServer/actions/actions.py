@@ -1,6 +1,4 @@
 from typing import Any, Text, Dict, List
-
-
 from .utils import cleaned_text, get_json
 from .api_operations import get_business_process_step, get_business_type_status, get_business_types, get_senders
 from rasa_sdk import Action, Tracker
