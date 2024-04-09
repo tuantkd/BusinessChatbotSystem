@@ -22,12 +22,14 @@ RASA_PREDICT_URL = f'{RASA_SERVER_URL}/model/parse'
 RASA_TRAINING_URL = f'{RASA_SERVER_URL}/model/train'
 # Add more training configurations if needed
 RASA_WEBHOOKS_ENDPOINT = f'{RASA_SERVER_URL}/webhooks/rest/webhook'
-
+RASA_CONVERSATIONS_ENDPOINT = f'{RASA_SERVER_URL}/conversations/<sender_id>/tracker'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-+*gvgstj7^8l$($*m$1os6k5(hihb-%5)l%zd2t4^1b7*9lnq_'
+CSRF_FAILURE_VIEW = 'interactive_chatbot.views.csrf_failure'
+HANDLER500 = 'enterprise_registration_app.views.handler500'
 # Language settings
 LANGUAGE_CODE = 'vi'
 
@@ -62,7 +64,8 @@ INSTALLED_APPS = [
     'chatbot_data',
     'legal_documents',
     'interactive_chatbot',
-    'rest_framework'
+    'rest_framework',
+    "api",
 ]
 
 MIDDLEWARE = [

@@ -2,18 +2,46 @@ const msgerForm = get(".msger-inputarea");
 const msgerInput = get(".msger-input");
 const msgerSendBtn = get(".msger-send-btn");
 const msgerChat = get(".msger-chat");
-const BOT_IMG = "http://127.0.0.1:8000/static/icons/chat.png";
-const PERSON_IMG = "http://127.0.0.1:8000/static/icons/user.png";
-const BOT_NAME = "BOT";
-const PERSON_NAME = "User";
+const BOT_IMG = "/static/images/bot_avatar.jpg";
+const PERSON_IMG = "/static/icons/user.png";
+const BOT_NAME = "BIZGREG";
+let  senderName = "Guest";
 const BOT_MSGS = [];
-
-let senderId = localStorage.getItem('senderId');
-
+const paths  = window.location.pathname.split('/');
+if (paths.length > 2) {
+    senderId = paths[2];
+}
 // If not, create a new one and save it to localStorage
-if (!senderId) {
-    senderId = 'user-' + Date.now();
-    localStorage.setItem('senderId', senderId);
+function get_user() {
+   
+    csrf_token = getCookie('csrftoken');
+    fetch(`/chat/get_current_user/${senderId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrf_token
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        senderName = data['senderName'];
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+get_user();
+
+function enableSubmitButton() {
+    const nameInput = document.getElementById("nameInput");
+    const submitButton = document.getElementById("submitButton");
+    
+    if (nameInput.value !== "") {
+        submitButton.disabled = false;
+    } else {
+        submitButton.disabled = true;
+    }
 }
 
 msgerForm.addEventListener("submit", event => {
@@ -29,7 +57,7 @@ msgerForm.addEventListener("submit", event => {
 
     callApiChatbot(message);
 
-    appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+    appendMessage(senderName, PERSON_IMG, "right", msgText);
     msgerInput.value = "";
 });
 
@@ -52,7 +80,6 @@ function getCookie(name) {
 function callApiChatbot(message) {
     data = {
         "message": message.text,
-        "session_id": "1234567890",
         "sender": message.senderId
     }
     $.ajax({
@@ -67,7 +94,7 @@ function callApiChatbot(message) {
         },
         success: function (res) {
             console.log(res);
-            botResponse(res[0].text);
+            botResponse(res.text);
             var buttons = document.querySelectorAll('input[type="button"]');
             getEventCallApi(buttons);
         },
@@ -146,7 +173,7 @@ function getEventCallApi(buttons) {
                     senderId: senderId
                 };
                 callApiChatbot(message);
-                appendMessage(PERSON_NAME, PERSON_IMG, "right", this.value);
+                appendMessage(senderName, PERSON_IMG, "right", this.value);
                 disableAllInputButtons(buttons);
                 disableInputAndBtnSendChatbot(msgerInput, msgerSendBtn, false);
             });

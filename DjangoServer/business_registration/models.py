@@ -46,7 +46,13 @@ class BusinessStatus(models.TextChoices):
     PRIVATE_ENTERPRISE_2 = 'PE2', 'Doanh nghiệp tư nhân'
     LIMITED_PARTNERSHIP_2 = 'LP2', 'Công ty TNHH 2 TV'
     JOINT_STOCK_COMPANY_2 = 'JS2', 'Công ty Cổ phần'
-    
+
+    def get_business_status_value_by_fullname(fullname):
+        for value, full_name in BusinessStatus.choices:
+            if full_name.lower() == fullname.lower():
+                return value
+        return None
+
 class Business(models.Model):
     class Meta:
         verbose_name = _("Business")
@@ -194,6 +200,10 @@ class BusinessTypeStatus(models.Model):
 
     def __str__(self):
         return f"{self.business_type}, {self.get_status_display()}"
+    
+    def get_status_display_full(self):
+        return dict(BusinessStatus.choices)[self.status]
+
 
 class BusinessProcessStep(models.Model):
     class Meta:

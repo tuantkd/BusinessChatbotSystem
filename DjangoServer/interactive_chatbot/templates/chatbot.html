@@ -1,89 +1,107 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Chatbot tư vấn</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="{% static 'icons/chatbot.png' %}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/bootstrap-5.3.2.min.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/styles.css' %}"
-    />
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  </head>
 
-  <body>
-    <section class="msger">
-      <header class="msger-header">
-        <div class="msger-header-title">
-            <div class="icon"><i class="fa fa-comment-o"></i></div>
-            <div class="text">Tư vấn doanh nghiệp</div>
+<head>
+  <title>BIZREG BOT</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'icons/icon.png' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap-5.3.2.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <section class="msger">
+    <header class="msger-header">
+      <div class="msger-header-title">
+        <div class="icon"><i class="fa fa-commenting"></i></div>
+        <div class="text">Trợ lý ảo hỗ trợ đăng ký doanh nghiệp</div>
+      </div>
+      <div class="msger-header-options"></div>
+    </header>
+
+    <main class="msger-chat" style="background-image: url('http://127.0.0.1:8000/static/images/background.jpg');">
+      {% if chat_history %}
+      {% for chat in chat_history %}
+      <div class="msg right-msg">
+        <div class="msg-img" style="background-image: url('/static/icons/user.png');"></div>
+        <div class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">{{ chat_user.sender_name }}</div>
+            <div class="msg-info-time">{{ chat.timestamp }}</div>
+          </div>
+
+          <div class="msg-text">{{ chat.user_say }}</div>
         </div>
-        <div class="msger-header-options"></div>
-      </header>
-
-      <main class="msger-chat" style="background-image: url('http://127.0.0.1:8000/static/images/background.jpg');">
-        <!--<div class="msg left-msg">
-          <div
-            class="msg-img"
-            style="
-              background-image: url(https://image.flaticon.com/icons/svg/327/327779.svg);
-            "
-          ></div>
-          <div class="msg-bubble">
-            <div class="msg-info">
-              <div class="msg-info-name">BOT</div>
-              <div class="msg-info-time">12:45</div>
-            </div>
-
-            <div class="msg-text">
-              Hi, welcome to SimpleChat! Go ahead and send me a message. 😄
-            </div>
+      </div>
+      <div class="msg left-msg">
+        <div class="msg-img" style="background-image: url('/static/images/bot_avatar.jpg');"></div>
+        <div class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">BIZREG</div>
+            <div class="msg-info-time">{{ chat.timestamp }}</div>
           </div>
-        </div>-->
-
-        <!--<div class="msg right-msg">
-          <div
-            class="msg-img"
-            style="
-              background-image: url(https://image.flaticon.com/icons/svg/145/145867.svg);
-            "
-          ></div>
-          <div class="msg-bubble">
-            <div class="msg-info">
-              <div class="msg-info-name">Sajad</div>
-              <div class="msg-info-time">12:46</div>
-            </div>
-
-            <div class="msg-text">You can change your name in JS section!</div>
+          <div class="msg-text">{{ chat.response|safe }}</div>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      {% if chat_user.sender_id %}
+      <div class="msg left-msg">
+        <div class="msg-img" style="background-image: url('/static/images/bot_avatar.jpg');"></div>
+        <div class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">BIZREG</div>
+            <div class="msg-info-time">{{ chat.timestamp }}</div>
           </div>
-        </div>-->
+          <div class="msg-text">Xin chào <strong>{{chat_user.sender_name}}</strong>! Tôi là <strong>BIZREG BOT</strong>, trợ lý ảo hỗ trợ đăng ký doanh nghiệp tỉnh Cà Mau. Bạn cần giúp đỡ gì không?</div>
+        </div>
+      </div>
+      {% else %}
+      <div class="msg left-msg">
+        <div class="msg-img" style="background-image: url('/static/images/bot_avatar.jpg');"></div>
+        <div class="msg-bubble">
+          <div class="msg-info">
+            <div class="msg-info-name">BIZREG</div>
+            <div class="msg-info-time">{{ chat.timestamp }}</div>
+          </div>
 
-      </main>
+          <div class="msg-text">
+            <div class="chat-container" id="chatContainer">
+              <div class="chat-bot">
+              <p>Chào mừng bạn đến với hệ thống hỗ trợ thông tin doanh nghiệp. Xin hãy cho tôi biết tên của bạn để bắt đầu.</p>
+              </div>
+              </div>
+              <form id="nameForm" class="input-form" method="POST" action="/chat/init_chat">
+                  <input type="hidden" name="csrf_token" value="${ csrf_token }">
+                  <input type="text" id="nameInput" placeholder="Nhập tên của bạn" onchange="enableSubmitButton()" name="senderName" required>
+                  <button type="submit" id="submitButton" disabled>Bắt đầu</button>
+              </form>
+          </div>
+        </div>
+      </div>
+       {% endif %}
+      {% endif %}
+    </main>
+    {% if chat_user.sender_id %}
+    <form class="msger-inputarea">
+      <input type="hidden" name="sender_id" value="{{ chat_user.sender_id }}" />
+      <input type="text" class="msger-input" placeholder="Nhập tin nhắn..." />
+      <button type="submit" class="msger-send-btn"><i class="fa fa-paper-plane"></i></button>
+    </form>
+    {% else %}
+    <form class="msger-inputarea" method="post" action="{% url 'init_chat' %}">
+      {% csrf_token %}
+      <input type="text" class="msger-input" placeholder="Nhập tên của bạn..." disabled />
+      <button type="submit" class="msger-send-btn" disabled><i class="fa fa-paper-plane"></i></button>
+    </form>
+    {% endif %}
+  </section>
 
-      <form class="msger-inputarea">
-        <input
-          type="text"
-          class="msger-input"
-          placeholder="Nhập tin nhắn..."
-        />
-        <button type="submit" class="msger-send-btn"><i class="fa fa-paper-plane"></i></button>
-      </form>
-    </section>
+  <script src="{% static 'js/script.js' %}"></script>
+  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+</body>
 
-    <script src="{% static 'js/script.js' %}"></script>
-    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-  </body>
 </html>

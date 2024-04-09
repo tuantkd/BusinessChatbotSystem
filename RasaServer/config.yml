@@ -45,4 +45,3 @@ policies:
 - name: RulePolicy
   core_fallback_threshold: 0.4
   enable_fallback_prediction: true
-  

@@ -126,3 +126,19 @@ class Conversation(models.Model):
 class Settings(models.Model):
     setting_name = models.TextField(unique=True)
     setting_value = models.TextField()
+
+class History(models.Model):
+    intent = models.TextField(null=True, blank=True)
+    entities = models.TextField(null=True, blank=True)
+    user_say = models.TextField()
+    confidence = models.FloatField(null=True, blank=True)
+    sender_id = models.TextField()
+    slot_values = models.TextField(null=True, blank=True)
+    response = models.TextField(null=True, blank=True)
+    timestamp = models.DateTimeField()
+    # bot = models.ForeignKey(Bot, on_delete=models.CASCADE)
+
+class ChatUser(models.Model):
+    sender_id = models.TextField()
+    sender_name = models.TextField()
+

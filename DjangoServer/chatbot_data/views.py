@@ -13,7 +13,7 @@ from django.views.generic.base import TemplateView
 import requests
 from rest_framework.renderers import JSONRenderer
 from .serializers import ExpressionParameterSerializer, LookupVariantSerializer, RegexVariantSerializer, ResponseSerializer, SynonymVariantSerializer
-from .models import Bot, Action, Entity, Expression, ExpressionParameter, Intent, Lookup, LookupVariant, Regex, RegexVariant, Response, Rule, Story, ModelModel, Conversation, Synonym, SynonymVariant
+from .models import Bot, Action, ChatUser, Entity, Expression, ExpressionParameter, History, Intent, Lookup, LookupVariant, Regex, RegexVariant, Response, Rule, Story, ModelModel, Conversation, Synonym, SynonymVariant
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import BotForm, ImportBotForm, ActionForm, IntentForm, LookupForm, RegexForm, ResponseForm, RuleForm, StoryForm, EntityForm, SynonymForm
@@ -26,6 +26,7 @@ from django.core.paginator import Paginator
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
+from django.utils.decorators import method_decorator
 
 class DashboardView(TemplateView):
     template_name = 'dashboard/dashboard.html'
@@ -1064,9 +1065,29 @@ class RasaConfigView(TemplateView):
 class LogsView(TemplateView):
     template_name = 'logs/logs.html'
 
-class HistoryView(TemplateView):
-    # Assuming there might be a specific template for history that hasn't been listed
-    template_name = 'history/history.html'  # Adjust if there's an actual path
+@method_decorator(csrf_exempt, name='dispatch')
+class HistoryView(View):
+    template_name = 'history/history.html'
+
+    def get(self, request, *args, **kwargs):
+        history = History.objects.order_by('-timestamp').all()
+        chat_users = ChatUser.objects.all()
+        history = [{
+                    'sender_id': h.sender_id,
+                    'sender_name': chat_users.get(sender_id=h.sender_id).sender_name,
+                    'timestamp': h.timestamp,
+                    'user_say': h.user_say,
+                    'response': h.response,
+                    'intent': h.intent,
+                    'confidence': h.confidence,
+                    'entities': json.loads(h.entities.replace("'", "\"")),
+                    'slot_values': json.loads(h.slot_values.replace("'", "\"")),
+                    } for h in history]
+        paginator = Paginator(history, 5)
+        page = request.GET.get('page', 1)
+        history = paginator.get_page(page)
+        return render(request, self.template_name, {'historyList': history})
+    
 
 class ConversationView(TemplateView):
     # Assuming conversation view might need a specific template

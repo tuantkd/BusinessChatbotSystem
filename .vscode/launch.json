@@ -17,7 +17,7 @@
             "env": {
                 "DJANGO_SETTINGS_MODULE": "enterprise_registration_app.settings"
             },
-            "python": "${workspaceFolder}/DjangoServer/venv/Scripts/python.exe"
+            "python": "${workspaceFolder}/DjangoServer/djangoenv/Scripts/python.exe"
         },
         {
             "name": "Rasa Server",
@@ -33,10 +33,11 @@
                 "--port",
                 "5055",
                 "--enable-api",
+                "--debug"
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/RasaServer",
-            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
+            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
         },
         {
             "name": "Rasa Action Server",
@@ -51,7 +52,7 @@
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/RasaServer",
-            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
+            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
         },
         {
             "name": "Rasa Train",
@@ -63,7 +64,50 @@
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/RasaServer",
-            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
+            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
+        },
+        {
+            "name": "Rasa Shell",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "rasa",
+            "args": [
+                "shell",
+                "--port",
+                "5056",
+                "--debug",
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/RasaServer",
+            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
+        },
+        {
+            "name": "Rasa Interactive",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "rasa",
+            "args": [
+                "shell",
+                "--port",
+                "5057",
+                "--debug",
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/RasaServer",
+            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
+        },
+        {
+            "name": "Rasa Data Validate",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "rasa",
+            "args": [
+                "data",
+                "validate",
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/RasaServer",
+            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
         },
     ]
 }

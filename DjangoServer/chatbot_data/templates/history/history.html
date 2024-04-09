@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load i18n %}s
+{% load static %}
+{% block title %}Histories{% endblock %}
+{% block styles %}
+<link href="{% static 'css/histories.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb" breadcrumb="">
+    <li class="breadcrumb-item active"><span>Histories</span></li>
+</ol>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Histories</strong>
+                </div>
+                <div class="card-block">
+                    <div class="list-group">
+                        {% if historyList %}
+                        {% for history in historyList %}
+                            <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                <!-- timestamp -->
+                                <div><span class="timestamp float-right">{{history.timestamp}}</span></div>
+                                <div><strong>Sender: </strong><span class="sender-id">{{history.sender_name}} ({{history.sender_id}})</span></div>
+                                <div><strong>Say: </strong><span class="user-say">{{history.user_say}}</span></div>
+                                <div><strong>Bot Answer: </strong><span class="bot-reply">{{history.response}}</span></div>
+                                <div><strong>Intent: </strong><span class="intent">{{history.intent}} ({{history.confidence}})</span></div>
+
+                                <!-- Entities -->
+                                <div class="entities">
+                                    <button class="toggle-button" onclick="toggleList(this)">
+                                    <i class="fa fa-caret-down"></i> Entities
+                                    </button>
+                                    
+                                    <ul class="entity-list">
+                                        {% for entity in history.entities %}
+                                            <li>{{ entity.entity }}: {{ entity.value }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+
+                                <!-- Slots -->
+                                <div class="slots">
+                                    <button class="toggle-button" onclick="toggleList(this)">
+                                        <i class="fa fa-caret-down"></i> Slots
+                                    </button>
+                                    <ul class="slot-list">
+                                        {% for slot in history.slots %}
+                                        <li>{{ slot.name }}: {{ slot.value }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% else %}
+                            <div class="alert alert-info" role="alert">
+                                No histories found.
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div style="float:right">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                {% if historyList.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1">First</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="?page={{ historyList.previous_page_number }}">Previous</a>
+                                </li>
+                                {% endif %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Page {{ historyList.number }} of {{ historyList.paginator.num_pages }}</a>
+                                </li>
+                                {% if historyList.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ historyList.next_page_number }}">Next</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ historyList.paginator.num_pages }}">Last</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/histories.js' %}"></script>
+{% endblock %}
