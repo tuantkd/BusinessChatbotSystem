@@ -150,7 +150,7 @@ class LegalRepresentative(models.Model):
 class Owner(models.Model):
     class Meta:
         verbose_name = _("Owner")
-        verbose_name_plural = _("Chủ sở hữu")
+        verbose_name_plural = _("Thông tin Chủ sở hữu")
 
     name = models.CharField(_("Name"), max_length=255)  # Họ và tên
     gender = models.CharField(_("Gender"), max_length=10)  # Giới tính
