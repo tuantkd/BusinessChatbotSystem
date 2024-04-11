@@ -53,12 +53,33 @@ nlu:
 - intent: chon_loai_hinh_doanh_nghiep
   examples: |
     - [Công ty trách nhiệm hữu hạn một thành viên](business_type)
+    - tôi chọn [Công ty trách nhiệm hữu hạn một thành viên](business_type)
+    - chọn [Công ty trách nhiệm hữu hạn một thành viên](business_type)
+    - tôi muốn biết về [Công ty trách nhiệm hữu hạn một thành viên](business_type)
     - [Công ty cổ phần](business_type)
+    - Tôi chọn [Công ty cổ phần](business_type)
+    - Chọn [Công ty cổ phần](business_type)
+    - Tôi muốn biết về [Công ty cổ phần](business_type)
     - [Công ty hợp danh](business_type)
+    - Tôi chọn [Công ty hợp danh](business_type)
+    - Chọn [Công ty hợp danh](business_type)
+    - Tôi muốn biết về [Công ty hợp danh](business_type)
     - [Doanh nghiệp tư nhân](business_type)
+    - Tôi chọn [Doanh nghiệp tư nhân](business_type)
+    - Chọn [Doanh nghiệp tư nhân](business_type)
+    - Tôi muốn biết về [Doanh nghiệp tư nhân](business_type)
     - [Công ty trách nhiệm hữu hạn hai thành viên trở lên](business_type)
+    - Tôi chọn [Công ty trách nhiệm hữu hạn hai thành viên trở lên](business_type)
+    - Chọn [Công ty trách nhiệm hữu hạn hai thành viên trở lên](business_type)
+    - Tôi muốn biết về [Công ty trách nhiệm hữu hạn hai thành viên trở lên](business_type)
     - [Hợp tác xã](business_type)
+    - Tôi chọn [Hợp tác xã](business_type)
+    - Chọn [Hợp tác xã](business_type)
+    - Tôi muốn biết về [Hợp tác xã](business_type)
 
+- synonym: Doanh nghiệp
+  examples: |
+    - Công ty
 
 - synonym: Công ty trách nhiệm hữu hạn một thành viên
   examples: |
@@ -79,16 +100,96 @@ nlu:
 - intent: chon_trang_thai_doanh_nghiep
   examples: |
     - [Đăng ký thay đổi](business_status)
+    - Tôi chọn [Đăng ký thay đổi](business_status)
+    - Chọn [Đăng ký thay đổi](business_status)
+    - Tôi muốn biết về [Đăng ký thay đổi](business_status)
+    - Trạng thái [Đăng ký thay đổi](business_status)
     - [Thông báo thay đổi](business_status)
+    - Tôi chọn [Thông báo thay đổi](business_status)
+    - Chọn [Thông báo thay đổi](business_status)
+    - Tôi muốn biết về [Thông báo thay đổi](business_status)
+    - Trạng thái [Thông báo thay đổi](business_status)
     - [Tạm ngừng](business_status)
+    - Tôi chọn [Tạm ngừng](business_status)
+    - Chọn [Tạm ngừng](business_status)
+    - Tôi muốn biết về [Tạm ngừng](business_status)
+    - Trạng thái [Tạm ngừng](business_status)
     - [Giải thể](business_status)
+    - Tôi chọn [Giải thể](business_status)
+    - Chọn [Giải thể](business_status)
+    - Tôi muốn biết về [Giải thể](business_status)
+    - Trạng thái [Giải thể](business_status)
     - [Thành lập mới](business_status)
+    - Tôi chọn [Thành lập mới](business_status)
+    - Chọn [Thành lập mới](business_status)
+    - Tôi muốn biết về [Thành lập mới](business_status)
+    - Trạng thái [Thành lập mới](business_status)
     - [Mới thành lập](business_status)
+    - Tôi chọn [Mới thành lập](business_status)
+    - Chọn [Mới thành lập](business_status)
+    - Tôi muốn biết về [Mới thành lập](business_status)
+    - Trạng thái [Mới thành lập](business_status)
     - [Đang hoạt động](business_status)
+    - Tôi chọn [Đang hoạt động](business_status)
+    - Chọn [Đang hoạt động](business_status)
+    - Tôi muốn biết về [Đang hoạt động](business_status)
+    - Trạng thái [Đang hoạt động](business_status)
+    
+- intent: chon_buoc_thu_tuc
+  examples: |
+    - [Nộp hồ sơ](procedure_step)
+    - Tôi chọn [Nộp hồ sơ](procedure_step)
+    - Chọn [Nộp hồ sơ](procedure_step)
+    - Tôi muốn biết về [Nộp hồ sơ](procedure_step)
+    - [Chuẩn bị hồ sơ](procedure_step)
+    - Tôi chọn [Chuẩn bị hồ sơ](procedure_step)
+    - Chọn [Chuẩn bị hồ sơ](procedure_step)
+    - Tôi muốn biết về [Chuẩn bị hồ sơ](procedure_step)
+    - [Nhận kết quả](procedure_step)
+    - Tôi chọn [Nhận kết quả](procedure_step)
+    - Chọn [Nhận kết quả](procedure_step)
+    - Tôi muốn biết về [Nhận kết quả](procedure_step)
+    - [Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của công ty cổ phần](procedure_step)
+    - Tôi chọn [Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của công ty cổ phần](procedure_step)
+    - Chọn [Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của công ty cổ phần](procedure_step)
+    - Tôi muốn biết về [Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của công ty cổ phần](procedure_step)
+    - [Trường hợp 1: Đăng ký thay đổi người đại diện theo pháp luật của công ty cổ phần](procedure_step)
+    - Tôi chọn [Trường hợp 1: Đăng ký thay đổi người đại diện theo pháp luật của công ty cổ phần](procedure_step)
+    - Chọn [Trường hợp 1: Đăng ký thay đổi người đại diện theo pháp luật của công ty cổ phần](procedure_step)
+    - Tôi muốn biết về [Trường hợp 1: Đăng ký thay đổi người đại diện theo pháp luật của công ty cổ phần](procedure_step)
 
-# - Thủ tục gồm những gì?
-# - Các bước cần thực hiện?
-# - Thủ tục như thế nào?
+- lookup: lookup_procedure_step
+  examples: |
+    - Nộp hồ sơ
+    - Chuẩn bị hồ sơ
+    - Nhận kết quả
+    - Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của công ty cổ phần
+    - Trường hợp 1: Đăng ký thay đổi người đại diện theo pháp luật của công ty cổ phần
+    - Trường hợp 3: Đăng ký đổi tên doanh nghiệp của công ty cổ phần
+    - Trường hợp 4: Đăng ký thay đổi vốn điều lệ đối với công ty cổ phần (trường hợp giảm vốn điều lệ)
+    - Trường hợp 5: Đăng ký thay đổi vốn điều lệ đối với công ty cổ phần (trường hợp tăng vốn điều lệ)
+    - Trường hợp 1: Thông báo thay đổi cổ đông là nhà đầu tư nước ngoài
+    - Trường hợp 2: Thông báo thay đổi ngành, nghề kinh doanh của công ty cổ phần
+    - Trường hợp 3: Thông báo thay đổi nội dung đăng ký thuế
+    - Trường hợp 4: Thông báo thay đổi thông tin của cổ đông sáng lập
+    - Trường hợp 5: Thay đổi thông tin cổ đông là nhà đầu tư nước ngoài, thông tin người đại diện theo ủy quyền của cổ đông là nhà đầu tư nước ngoài
+    - Đăng ký tạm ngừng kinh doanh đối với doanh nghiệp
+    - Đăng ký tiếp tục kinh doanh trước thời hạn đã thông báo doanh nghiệp
+    - Đăng ký giải thể doanh nghiệp
+    - Hủy bỏ nghị quyết, quyết định giải thể doanh nghiệp
+    - Nộp hồ sơ
+    - Chuẩn bị hồ sơ
+    - Nhận kết quả
+
+- intent: hoi_thu_tuc_dang_ky_doanh_nghiep_hien_tai
+  examples: |
+    - Thủ tục gồm những gì?
+    - Các bước cần thực hiện?
+    - Thủ tục như thế nào?
+    - Đăng ký doanh nghiệp hiện tại cần làm gì?
+    - Làm thế nào để đăng ký doanh nghiệp hiện tại?
+    - Cần thực hiện những bước gì để đăng ký doanh nghiệp hiện tại?
+    - Đăng ký doanh nghiệp hiện tại cần chuẩn bị những gì?
 
 # - intent: business_registration_proccess
 #   examples: |

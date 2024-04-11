@@ -1081,13 +1081,22 @@ class HistoryView(View):
                     'intent': h.intent,
                     'confidence': h.confidence,
                     'entities': json.loads(h.entities.replace("'", "\"")),
-                    'slot_values': json.loads(h.slot_values.replace("'", "\"")),
+                    'slot_values': json.loads(h.slot_values.replace("'", "\"").replace("True", "true").replace("False", "false").replace("None", "null")),
                     } for h in history]
         paginator = Paginator(history, 5)
         page = request.GET.get('page', 1)
         history = paginator.get_page(page)
         return render(request, self.template_name, {'historyList': history})
     
+class UsersView(View):
+    template_name = 'users/users.html'
+
+    def get(self, request, *args, **kwargs):
+        chat_users = ChatUser.objects.all()
+        paginator = Paginator(chat_users, 5)
+        page = request.GET.get('page', 1)
+        chat_users = paginator.get_page(page)
+        return render(request, self.template_name, {'userList': chat_users})
 
 class ConversationView(TemplateView):
     # Assuming conversation view might need a specific template

@@ -7,6 +7,8 @@ intents:
   - dang_ky_doanh_nghiep
   - chon_loai_hinh_doanh_nghiep
   - chon_trang_thai_doanh_nghiep
+  - hoi_thu_tuc_dang_ky_doanh_nghiep_hien_tai
+  - chon_buoc_thu_tuc
   # - business_registration_proccess
   # - registration_requirements
   # - business_name_selection
@@ -46,16 +48,16 @@ responses:
   # - text: "Thơ 5"
 
   utter_greet:
-  - text: "Xin chào *{sender_name}*! Bạn cần giúp đỡ về điều gì hôm nay?"
-  - text: "Hello *{sender_name}*! Chào mừng bạn đến với dịch vụ của chúng tôi. Có điều gì tôi có thể hỗ trợ?"
-  - text: "Hi *{sender_name}*! Rất vui được gặp bạn. Bạn muốn biết thông tin gì?"
-  - text: "Chào anh/chị! *{sender_name}* cần tôi giúp đỡ về điều gì?"
-  - text: "Xin chào *{sender_name}*! Hãy cho tôi biết bạn cần gì."
-  - text: "Hey *{sender_name}*! Bạn muốn thảo luận về điều gì?"
-  - text: "Gì chưa? *{sender_name}* cần sự hỗ trợ nào?"
-  - text: "Chào *{sender_name}*, có thể giúp gì cho bạn ngày hôm nay?"
-  - text: "Có gì mới không? *{sender_name}* muốn tôi giúp đỡ gì?"
-  - text: "Chào *{sender_name}*! Bạn có câu hỏi hoặc yêu cầu gì đến dịch vụ của chúng tôi không?"
+  - text: "Xin chào **{sender_name}**! Bạn cần giúp đỡ về điều gì hôm nay?"
+  - text: "Hello **{sender_name}**! Chào mừng bạn đến với dịch vụ của chúng tôi. Có điều gì tôi có thể hỗ trợ?"
+  - text: "Hi **{sender_name}**! Rất vui được gặp bạn. Bạn muốn biết thông tin gì?"
+  - text: "Chào anh/chị! **{sender_name}** cần tôi giúp đỡ về điều gì?"
+  - text: "Xin chào **{sender_name}**! Hãy cho tôi biết bạn cần gì."
+  - text: "Hey **{sender_name}**! Bạn muốn thảo luận về điều gì?"
+  - text: "Gì chưa? **{sender_name}** cần sự hỗ trợ nào?"
+  - text: "Chào **{sender_name}**, có thể giúp gì cho bạn ngày hôm nay?"
+  - text: "Có gì mới không? **{sender_name}** muốn tôi giúp đỡ gì?"
+  - text: "Chào **{sender_name}**! Bạn có câu hỏi hoặc yêu cầu gì đến dịch vụ của chúng tôi không?"
 
   utter_goodbye:
   - text: "Nếu có bất kỳ câu hỏi nào khác, hãy đặt ra. Chúc bạn một ngày tốt lành!"
@@ -75,6 +77,7 @@ responses:
       Tiếp theo hãy chọn loại trạng thái đăng ký doanh nghiệp **{business_type}**: 
       Các loại trạng thái đăng ký doanh nghiệp bao gồm: 
       {business_type_status_list}
+      Bạn chọn trạng thái nào?
 
   # Quy trình đăng ký doanh nghiệp:
   # utter_business_registration_proccess:
@@ -205,8 +208,8 @@ responses:
       Bước đầu tiên bạn chọn Loại hình doanh nghiệp mà bạn muốn đăng ký. 
       Đây có nhiều loại hình doanh nghiệp:
       {business_types}
+      Bạn chọn loại hình doanh nghiệp nào?
 
-  
   # utter_regarding_reorganization_dissolution_bankruptcy:
   # - text: |
   #     Khoản 2 Điều 202 Luật Doanh nghiệp năm 2020 quy định công ty trách nhiệm hữu hạn có thể chuyển đổi thành công ty cổ phần theo phương thức sau đây:
@@ -317,14 +320,17 @@ responses:
   #       Không có bước đăng ký nào cho loại hình doanh nghiệp **{business_type}** ở trạng thái **{business_status}**
 
   # utter_list_business_procedure_steps:
-  #   - text: |
-  #       Dưới đây là các bước đăng ký doanh nghiệp **{business_type}** ở trạng thái **{business_status}**:
-  #       {process_steps}
+  utter_danh_sach_cac_buoc_thu_tuc_cua_cong_ty:
+    - text: |
+        Dưới đây là các bước đăng ký doanh nghiệp **{business_type}** ở trạng thái **{business_status}**:
+        {process_steps}
+        Bạn muốn biết thông tin chi tiết của bước nào?
 
   # utter_business_procedure_step_description:
-  #   - text: |
-  #       Bước đăng ký doanh nghiệp **{business_type}** với trạng thái **{business_status}** là **{process_step}**:
-  #       {process_step_description}
+  utter_thong_tin_chi_tiet_cua_buoc_thu_tuc:
+    - text: |
+        Bước đăng ký doanh nghiệp **{business_type}** với trạng thái **{business_status}** là **{process_step}**:
+        {process_step_description}
 
   utter_default_fallback:
     - text: Xin lỗi, tôi không hiểu yêu cầu của bạn. Bạn có thể giải thích rõ hơn không?
@@ -338,6 +344,7 @@ responses:
 entities:
   - business_type
   - business_status
+  - process_step
   # - industry_name
 
 actions:
@@ -345,17 +352,18 @@ actions:
   - action_lay_danh_sach_business_types
   - action_lay_danh_sach_trang_thai_cua_loai_hinh_nay
   - action_dua_ra_cac_thu_tuc_cua_cong_ty
+  - action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc
   # - action_list_business_type_in_procedure
   # - action_choose_business_type
   # - action_lookup_business_lines
   # - action_documents_business_registration
   # - action_welcome
-  # - action_session_start
+  - action_session_start
   # - action_save_business_type_status
   # - action_list_business_procedure_steps
   # - action_business_procedure_step_description
   # - action_list_business_type_status
-  # - action_default_fallback
+  - action_default_fallback
 
 slots:
   # Slot for the business type
@@ -393,42 +401,47 @@ slots:
   #   mappings:
   #     - type: from_entity
   #       entity: industry_name
-  # # Slot for the process step
-  # sender_name:
-  #   type: text
-  #   mappings:
-  #     - type: custom
-  #       value: "Bạn"
+  # Slot for the process step
+  sender_name:
+    type: text
+    mappings:
+      - type: custom
+        value: "Bạn"
 
   # # Slot check if the business type has process steps
-  # has_process_steps:
-  #   type: bool
-  #   influence_conversation: true
-  #   mappings:
-  #     - type: custom
-  #       value: false
+  has_process_steps:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: custom
+        value: false
 
-  # # Slot for the process step description
-  # process_steps:
-  #   type: text
-  #   mappings:
-  #     - type: custom
-  #       value: ""
+  # Slot for the process step description
+  process_steps:
+    type: text
+    mappings:
+      - type: custom
+        value: ""
 
-  # # Slot for the process step description
-  # process_step_description:
-  #   type: text
-  #   mappings:
-  #     - type: custom
-  #       value: ""
+  # Slot for the process step description
+  process_step_description:
+    type: text
+    mappings:
+      - type: custom
+        value: ""
 
-  # has_process_step_description:
-  #   type: bool
-  #   influence_conversation: true
-  #   mappings:
-  #     - type: custom
-  #       value: false
+  has_process_step_description:
+    type: bool
+    influence_conversation: true
+    mappings:
+      - type: custom
+        value: false
 
+  process_step:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: process_step
 
 session_config:
   session_expiration_time: 60

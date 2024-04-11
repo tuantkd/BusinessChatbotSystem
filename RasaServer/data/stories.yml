@@ -189,6 +189,34 @@ stories:
     - action: utter_danh_sach_trang_trang_doanh_nghiep_cua_loai_hinh_nay
     - intent: chon_trang_thai_doanh_nghiep
     - action: action_dua_ra_cac_thu_tuc_cua_cong_ty
+    - action: utter_danh_sach_cac_buoc_thu_tuc_cua_cong_ty
+    - intent: chon_buoc_thu_tuc
+    - action: action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc
+    - action: utter_thong_tin_chi_tiet_cua_buoc_thu_tuc
+
+- story: Chọn loại hình doanh nghiệp
+  steps:
+    - intent: chon_loai_hinh_doanh_nghiep
+    - action: action_lay_danh_sach_trang_thai_cua_loai_hinh_nay
+    - action: utter_danh_sach_trang_trang_doanh_nghiep_cua_loai_hinh_nay
+
+- story: Chọn trạng thái doanh nghiệp
+  steps:
+    - intent: chon_trang_thai_doanh_nghiep
+    - action: action_dua_ra_cac_thu_tuc_cua_cong_ty
+    - action: utter_danh_sach_cac_buoc_thu_tuc_cua_cong_ty
+    
+- story: Chọn bước thủ tục
+  steps:
+    - intent: chon_buoc_thu_tuc
+    - action: action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc
+    - action: utter_thong_tin_chi_tiet_cua_buoc_thu_tuc
+
+- story: Đăng ký doanh nghiệp hiện tại cần những gì?
+  steps:
+    - intent: hoi_thu_tuc_dang_ky_doanh_nghiep_hien_tai
+    - action: utter_thong_tin_chi_tiet_cua_buoc_thu_tuc
+
     
 #1/ Xin chào -> rồi cái này bên rule cố định
 

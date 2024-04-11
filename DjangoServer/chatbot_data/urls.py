@@ -11,6 +11,8 @@ urlpatterns = [
     path('delete_model/<int:model_id>/', views.delete_model, name='delete_model'),
     path('download_file/', views.download_file, name='download_file'),
     path('histories', views.HistoryView.as_view(), name='histories'),
+    # users
+    path('users', views.UsersView.as_view(), name='users'),
     path('insights', views.InsightsView.as_view(), name='insights'),
     # path('load_model/<str:server_path>/', views.load_model, name='load_model'),
     path('logs', views.LogsView.as_view(), name='logs'),

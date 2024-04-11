@@ -23,6 +23,8 @@ def save_conversation(sender_id, user_say, response):
     intent = last_message.get('intent', {})
     entities = last_message.get('entities', [])
     slot_values = tracker.get('slots', {})
+    intent_ranking = tracker.get('latest_message', {}).get('intent_ranking', [])
+
     saved_slots = []
     for key, value in slot_values.items():
         if value:
@@ -35,6 +37,7 @@ def save_conversation(sender_id, user_say, response):
                         confidence=last_message.get('intent', {}).get('confidence', 0),
                         user_say=user_say,
                         response=response,
+                        intent_ranking=intent_ranking,
                         timestamp=datetime.datetime.now())
     
 class ChatbotView(View):

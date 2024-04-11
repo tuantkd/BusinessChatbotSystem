@@ -95,15 +95,16 @@ class ActionListBusinessProcessSteps(Action):
         has_process_steps = True
         if len(business_process_steps) == 0:
             has_process_steps = False
-        
-        process_steps_formatted = '\n'.join([f'- _{step["step_name"]}_\n' for step in business_process_steps])
+        process_steps = [step["step_name"] for step in business_process_steps]
+        process_steps_formatted = '\n'.join([f"- _{step}_" for step in process_steps])
         return [SlotSet("has_process_steps", has_process_steps), SlotSet("process_steps", process_steps_formatted)]
 
 class ActionBusinessProcessStepDescription(Action):
     
         def name(self) -> Text:
             # Mô tả bước đăng ký doanh nghiệp
-            return "action_business_procedure_step_description"
+            # return "action_business_procedure_step_description"
+            return "action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc"
     
         def run(self, dispatcher: CollectingDispatcher,
                 tracker: Tracker,
@@ -158,14 +159,14 @@ class ActionDocumentsBusinessRegistration(Action):
         dispatcher.utter_message(text='')
         return []
 
-# class ActionDefaultFallback(Action):
+class ActionDefaultFallback(Action):
     
-#     def name(self) -> Text:
-#         return "action_default_fallback"
+    def name(self) -> Text:
+        return "action_default_fallback"
     
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
-#         dispatcher.utter_message(response="utter_default")
-#         return []
+        dispatcher.utter_message(response="utter_default")
+        return []

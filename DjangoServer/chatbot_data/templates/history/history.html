@@ -47,7 +47,7 @@
                                         <i class="fa fa-caret-down"></i> Slots
                                     </button>
                                     <ul class="slot-list">
-                                        {% for slot in history.slots %}
+                                        {% for slot in history.slot_values %}
                                         <li>{{ slot.name }}: {{ slot.value }}</li>
                                         {% endfor %}
                                     </ul>

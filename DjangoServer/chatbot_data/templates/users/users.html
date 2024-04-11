@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load i18n %}s
+{% load static %}
+{% block title %}Users{% endblock %}
+{% block styles %}
+<link href="{% static 'css/users.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<ol class="breadcrumb" breadcrumb="">
+    <li class="breadcrumb-item active"><span>Users</span></li>
+</ol>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Users</strong>
+                </div>
+                <div class="card-block">
+                    <div class="list-group">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                <th>Sender Id</th>
+                                <th>Sender Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% if userList %}
+                            {% for user in userList %}
+                                <tr>
+                                <td>{{ user.sender_id }}</td>
+                                <td>{{ user.sender_name }}</td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="alert alert-info" role="alert">
+                                            No users found.
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="float:right">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                {% if userList.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1">First</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link"
+                                        href="?page={{ userList.previous_page_number }}">Previous</a>
+                                </li>
+                                {% endif %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Page {{ userList.number }} of {{ userList.paginator.num_pages }}</a>
+                                </li>
+                                {% if userList.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ userList.next_page_number }}">Next</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ userList.paginator.num_pages }}">Last</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/users.js' %}"></script>
+{% endblock %}

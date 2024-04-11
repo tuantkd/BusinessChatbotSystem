@@ -134,6 +134,7 @@ class History(models.Model):
     confidence = models.FloatField(null=True, blank=True)
     sender_id = models.TextField()
     slot_values = models.TextField(null=True, blank=True)
+    intent_ranking = models.TextField(null=True, blank=True)
     response = models.TextField(null=True, blank=True)
     timestamp = models.DateTimeField()
     # bot = models.ForeignKey(Bot, on_delete=models.CASCADE)
