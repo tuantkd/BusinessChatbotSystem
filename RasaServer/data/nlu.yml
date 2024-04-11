@@ -10,12 +10,12 @@ nlu:
 #     - hình thức doanh nghiệp
 #     - hình thức
 
-# - intent: lam_tho
-#   examples: |
-#     - Tôi muốn làm một bài thơ?
-#     - Hãy hướng dẫn tôi viết thơ.
-#     - Đọc thơ cho tôi một bài thơ.
-#     - Làm cho tôi 1 bài thơ.
+- intent: lam_tho
+  examples: |
+    - Tôi muốn làm một bài thơ?
+    - Hãy hướng dẫn tôi viết thơ.
+    - Đọc thơ cho tôi một bài thơ.
+    - Làm cho tôi 1 bài thơ.
 
 - intent: greet
   examples: |
@@ -177,9 +177,6 @@ nlu:
     - Đăng ký tiếp tục kinh doanh trước thời hạn đã thông báo doanh nghiệp
     - Đăng ký giải thể doanh nghiệp
     - Hủy bỏ nghị quyết, quyết định giải thể doanh nghiệp
-    - Nộp hồ sơ
-    - Chuẩn bị hồ sơ
-    - Nhận kết quả
 
 - intent: hoi_thu_tuc_dang_ky_doanh_nghiep_hien_tai
   examples: |
@@ -191,216 +188,209 @@ nlu:
     - Cần thực hiện những bước gì để đăng ký doanh nghiệp hiện tại?
     - Đăng ký doanh nghiệp hiện tại cần chuẩn bị những gì?
 
-# - intent: business_registration_proccess
-#   examples: |
-#     - Quy trình xác nhận đăng ký doanh nghiệp như thế nào?
-#     - Làm thế nào để đăng ký một doanh nghiệp?
-#     - Quy trình đăng ký doanh nghiệp như thế nào?
-#     - Bước nào cần thiết để thành lập một công ty?
-#     - Các bước đăng ký doanh nghiệp là gì?
-#     - Làm thế nào để đăng ký một công ty?
-#     - Quy trình đăng ký doanh nghiệp như thế nào?
+- intent: business_registration_proccess
+  examples: |
+    - Quy trình xác nhận đăng ký doanh nghiệp như thế nào?
+    - Làm thế nào để đăng ký một doanh nghiệp?
+    - Quy trình đăng ký doanh nghiệp như thế nào?
+    - Bước nào cần thiết để thành lập một công ty?
+    - Các bước đăng ký doanh nghiệp là gì?
+    - Làm thế nào để đăng ký một công ty?
+    - Quy trình đăng ký doanh nghiệp như thế nào?
 
-# # - _Xác định loại hình doanh nghiệp_
-# # - _Chọn tên doanh nghiệp_
-# # - _Lập hồ sơ đăng ký_
-# # - _Nộp hồ sơ_
-# # - _Thanh toán phí và nhận giấy chứng nhận_
-# - intent: business_registration_proccess_step_1
-#   examples: |
-#     - Bước 1
-#     - Bước đầu tiên
-#     - Bước đầu
-#     - Bước xác định loại hình doanh nghiệp
-#     - Bước chọn loại hình doanh nghiệp
-#     - Xác định loại hình doanh nghiệp
-#     - Chọn loại hình doanh nghiệp
+- intent: business_registration_proccess_step_1
+  examples: |
+    - Bước 1
+    - Bước đầu tiên
+    - Bước đầu
+    - Bước xác định loại hình doanh nghiệp
+    - Bước chọn loại hình doanh nghiệp
+    - Xác định loại hình doanh nghiệp
+    - Chọn loại hình doanh nghiệp
 
-# - synonym: Bước 1
-#   examples: |
-#     - Bước đầu tiên
-#     - Bước đầu
+- synonym: Bước 1
+  examples: |
+    - Bước đầu tiên
+    - Bước đầu
   
-# - intent: business_registration_proccess_step_2
-#   examples: |
-#     - Bước 2
-#     - Bước thứ hai
-#     - Bước hai
-#     - Chọn tên doanh nghiệp
-#     - Đặt tên doanh nghiệp
-#     - Chọn tên công ty
-#     - Đặt tên công ty
+- intent: business_registration_proccess_step_2
+  examples: |
+    - Bước 2
+    - Bước thứ hai
+    - Bước hai
+    - Chọn tên doanh nghiệp
+    - Đặt tên doanh nghiệp
+    - Chọn tên công ty
+    - Đặt tên công ty
 
-# - synonym: Bước 2
-#   examples: |
-#     - Bước thứ hai
-#     - Bước hai
+- synonym: Bước 2
+  examples: |
+    - Bước thứ hai
+    - Bước hai
 
-# - synonym: Công ty
-#   examples: |
-#     - Doanh nghiệp
+- synonym: Công ty
+  examples: |
+    - Doanh nghiệp
 
-# - intent: business_registration_proccess_step_3
-#   examples: |
-#     - Bước 3
-#     - Bước thứ ba
-#     - Bước ba
-#     - Lập hồ sơ đăng ký
-#     - Chuẩn bị hồ sơ đăng ký
-#     - Làm hồ sơ đăng ký
-#     - Chuẩn bị hồ sơ
-#     - Lập hồ sơ
-#     - Thiêt lập hồ sơ
-#     - Tạo hồ sơ
+- intent: business_registration_proccess_step_3
+  examples: |
+    - Bước 3
+    - Bước thứ ba
+    - Bước ba
+    - Lập hồ sơ đăng ký
+    - Chuẩn bị hồ sơ đăng ký
+    - Làm hồ sơ đăng ký
+    - Lập hồ sơ
+    - Thiêt lập hồ sơ
+    - Tạo hồ sơ
 
-# - synonym: Bước 3
-#   examples: |
-#     - Bước thứ ba
-#     - Bước 3
+- synonym: Bước 3
+  examples: |
+    - Bước thứ ba
+    - Bước 3
 
-# - intent: business_registration_proccess_step_4
-#   examples: |
-#     - Bước 4
-#     - Bước thứ tư
-#     - Bước thứ bốn
-#     - Bước thứ 4
-#     - Bước thứ 4
-#     - Nộp hồ sơ
-#     - Gửi hồ sơ
-#     - Nộp hồ sơ đăng ký
-#     - Gửi hồ sơ đăng ký
+- intent: business_registration_proccess_step_4
+  examples: |
+    - Bước 4
+    - Bước thứ tư
+    - Bước thứ bốn
+    - Bước thứ 4
+    - Bước thứ 4
+    - Gửi hồ sơ
+    - Nộp hồ sơ đăng ký
+    - Gửi hồ sơ đăng ký
    
-# - synonym: Bước 4
-#   examples: |
-#     - Bước thứ tư
-#     - Bước bốn
+- synonym: Bước 4
+  examples: |
+    - Bước thứ tư
+    - Bước bốn
 
-# - intent: business_registration_proccess_step_5
-#   examples: |
-#     - Bước 5
-#     - Bước thứ năm
-#     - Bước thứ 5
-#     - Bước thứ năm
-#     - Thanh toán phí và nhận giấy chứng nhận
-#     - Thanh toán phí 
-#     - Nhận giấy chứng nhận
-#     - Nhận giấy chứng nhận đăng ký
-#     - Thanh toán phí và nhận giấy chứng nhận đăng ký
+- intent: business_registration_proccess_step_5
+  examples: |
+    - Bước 5
+    - Bước thứ năm
+    - Bước thứ 5
+    - Bước thứ năm
+    - Thanh toán phí và nhận giấy chứng nhận
+    - Thanh toán phí 
+    - Nhận giấy chứng nhận
+    - Nhận giấy chứng nhận đăng ký
+    - Thanh toán phí và nhận giấy chứng nhận đăng ký
 
-# - synonym: Bước 5
-#   examples: |
-#     - Bước thứ năm
-#     - Bước năm
-#     - Bước cuối
+- synonym: Bước 5
+  examples: |
+    - Bước thứ năm
+    - Bước năm
+    - Bước cuối
 
-# - intent: how_many_business_types
-#   examples: |
-#     - Có bao nhiêu loại hình doanh nghiệp?
-#     - Có những loại hình doanh nghiệp nào?
-#     - Có những loại hình doanh nghiệp nào có thể chọn?
-#     - Có những loại hình doanh nghiệp nào có thể đăng ký?
-#     - Các dạng công ty nào có sẵn để lựa chọn?
-#     - Loại hình doanh nghiệp phổ biến là gì?
-#     - Các loại hình doanh nghiệp nào có khả năng đăng ký?
-#     - Đăng ký doanh nghiệp có thể áp dụng cho những loại hình nào?
-#     - Hình thức kinh doanh nào có thể được đăng ký tại địa phương?
-#     - Có những loại hình nào khi quyết định đăng ký doanh nghiệp?
-#     - Đăng ký doanh nghiệp áp dụng cho những loại hình kinh doanh gì?
-#     - Hình thức doanh nghiệp nào là hợp lý để đăng ký tại thị trường hiện nay?
-#     - Có những loại hình doanh nghiệp nào có thể được chấp nhận đăng ký bởi cơ quan quản lý?
-#     - Đăng ký doanh nghiệp áp dụng cho loại hình kinh doanh nào ở cấp quốc tế?
-#     - Khi muốn mở doanh nghiệp, những hình thức nào có thể được xem xét để đăng ký?
+- intent: how_many_business_types
+  examples: |
+    - Có bao nhiêu loại hình doanh nghiệp?
+    - Có những loại hình doanh nghiệp nào?
+    - Có những loại hình doanh nghiệp nào có thể chọn?
+    - Có những loại hình doanh nghiệp nào có thể đăng ký?
+    - Các dạng công ty nào có sẵn để lựa chọn?
+    - Loại hình doanh nghiệp phổ biến là gì?
+    - Các loại hình doanh nghiệp nào có khả năng đăng ký?
+    - Đăng ký doanh nghiệp có thể áp dụng cho những loại hình nào?
+    - Hình thức kinh doanh nào có thể được đăng ký tại địa phương?
+    - Có những loại hình nào khi quyết định đăng ký doanh nghiệp?
+    - Đăng ký doanh nghiệp áp dụng cho những loại hình kinh doanh gì?
+    - Hình thức doanh nghiệp nào là hợp lý để đăng ký tại thị trường hiện nay?
+    - Có những loại hình doanh nghiệp nào có thể được chấp nhận đăng ký bởi cơ quan quản lý?
+    - Đăng ký doanh nghiệp áp dụng cho loại hình kinh doanh nào ở cấp quốc tế?
+    - Khi muốn mở doanh nghiệp, những hình thức nào có thể được xem xét để đăng ký?
 
-# - intent: registration_requirements
-#   examples: |
-#     - Những giấy tờ gì cần thiết để đăng ký doanh nghiệp?
-#     - Tôi cần chuẩn bị những giấy tờ gì cho quy trình đăng ký?
-#     - Những giấy tờ gì cần thiết để đăng ký doanh nghiệp?
-#     - Hồ sơ đăng ký doanh nghiệp gồm những gì?
-#     - Để đăng ký kinh doanh cần những giấy tờ gì?
-#     - Thủ tục đăng ký doanh nghiệp cần những giấy tờ gì?
-#     - Làm thế nào để đăng ký doanh nghiệp?
-#     - Cần chuẩn bị giấy tờ gì khi đăng ký doanh nghiệp?
-#     - Đăng ký doanh nghiệp cần những gì?
-#     - Hồ sơ đăng ký doanh nghiệp cần những giấy tờ gì?
+- intent: registration_requirements
+  examples: |
+    - Những giấy tờ gì cần thiết để đăng ký doanh nghiệp?
+    - Tôi cần chuẩn bị những giấy tờ gì cho quy trình đăng ký?
+    - Những giấy tờ gì cần thiết để đăng ký doanh nghiệp?
+    - Hồ sơ đăng ký doanh nghiệp gồm những gì?
+    - Để đăng ký kinh doanh cần những giấy tờ gì?
+    - Thủ tục đăng ký doanh nghiệp cần những giấy tờ gì?
+    - Làm thế nào để đăng ký doanh nghiệp?
+    - Cần chuẩn bị giấy tờ gì khi đăng ký doanh nghiệp?
+    - Đăng ký doanh nghiệp cần những gì?
+    - Hồ sơ đăng ký doanh nghiệp cần những giấy tờ gì?
 
-# - intent: business_name_selection
-#   examples: |
-#     - Làm thế nào để chọn tên cho doanh nghiệp của mình?
-#     - Quy tắc gì khi đặt tên cho công ty?
-#     - Cách đặt tên cho công ty hay và độc đáo
-#     - Giúp tôi chỉ mẹo chọn tên đẹp cho doanh nghiệp
-#     - Hướng dẫn đặt tên cho doanh nghiệp theo phong thủy
-#     - Đặt tên công ty theo ngành nghề kinh doanh
-#     - Cần lưu ý gì khi đặt tên cho doanh nghiệp
-#     - Đặt tên cho công ty theo nguyên tắc nào?
+- intent: business_name_selection
+  examples: |
+    - Làm thế nào để chọn tên cho doanh nghiệp của mình?
+    - Quy tắc gì khi đặt tên cho công ty?
+    - Cách đặt tên cho công ty hay và độc đáo
+    - Giúp tôi chỉ mẹo chọn tên đẹp cho doanh nghiệp
+    - Hướng dẫn đặt tên cho doanh nghiệp theo phong thủy
+    - Đặt tên công ty theo ngành nghề kinh doanh
+    - Cần lưu ý gì khi đặt tên cho doanh nghiệp
+    - Đặt tên cho công ty theo nguyên tắc nào?
 
-# - intent: registration_agencies
-#   examples: |
-#     - Ai là cơ quan quản lý đăng ký doanh nghiệp ở địa phương của tôi?
-#     - Nơi nào tôi có thể nộp hồ sơ đăng ký doanh nghiệp?
-#     - Cho biết địa chỉ nơi nhận hồ sơ đăng ký doanh nghiệp.
-#     - Xin hỏi về địa điểm nộp hồ sơ đăng ký kinh doanh.
-#     - Ở đâu là nơi tiếp nhận đơn đăng ký doanh nghiệp?
-#     - Nơi gửi hồ sơ đăng ký doanh nghiệp là ở đâu?
-#     - Cần biết địa chỉ nộp hồ sơ đăng ký doanh nghiệp.
-#     - Xin thông tin về nơi tiếp nhận hồ sơ đăng ký kinh doanh.
-#     - Ở đâu là địa chỉ nộp đơn đăng ký doanh nghiệp?
-#     - Nơi nào có thể đưa hồ sơ đăng ký kinh doanh?
+- intent: registration_agencies
+  examples: |
+    - Ai là cơ quan quản lý đăng ký doanh nghiệp ở địa phương của tôi?
+    - Nơi nào tôi có thể nộp hồ sơ đăng ký doanh nghiệp?
+    - Cho biết địa chỉ nơi nhận hồ sơ đăng ký doanh nghiệp.
+    - Xin hỏi về địa điểm nộp hồ sơ đăng ký kinh doanh.
+    - Ở đâu là nơi tiếp nhận đơn đăng ký doanh nghiệp?
+    - Nơi gửi hồ sơ đăng ký doanh nghiệp là ở đâu?
+    - Cần biết địa chỉ nộp hồ sơ đăng ký doanh nghiệp.
+    - Xin thông tin về nơi tiếp nhận hồ sơ đăng ký kinh doanh.
+    - Ở đâu là địa chỉ nộp đơn đăng ký doanh nghiệp?
+    - Nơi nào có thể đưa hồ sơ đăng ký kinh doanh?
 
 
-# - intent: business_registration_timeframe
-#   examples: |
-#     - Quy trình đăng ký doanh nghiệp mất bao lâu?
-#     - Thời gian cần thiết để có giấy chứng nhận đăng ký là bao lâu?
-#     - Thời gian xử lý hồ sơ đăng ký là bao lâu?
-#     - Bạn cần bao lâu để nhận được giấy chứng nhận đăng ký?
-#     - Khi nào tôi sẽ có giấy chứng nhận đăng ký?
-#     - Cần mất bao lâu để hồ sơ đăng ký được xử lý?
-#     - Bao lâu sau khi đăng ký tôi sẽ nhận được giấy chứng nhận?
-#     - Thời gian cần thiết để có giấy chứng nhận đăng ký là bao lâu?
+- intent: business_registration_timeframe
+  examples: |
+    - Quy trình đăng ký doanh nghiệp mất bao lâu?
+    - Thời gian cần thiết để có giấy chứng nhận đăng ký là bao lâu?
+    - Thời gian xử lý hồ sơ đăng ký là bao lâu?
+    - Bạn cần bao lâu để nhận được giấy chứng nhận đăng ký?
+    - Khi nào tôi sẽ có giấy chứng nhận đăng ký?
+    - Cần mất bao lâu để hồ sơ đăng ký được xử lý?
+    - Bao lâu sau khi đăng ký tôi sẽ nhận được giấy chứng nhận?
+    - Thời gian cần thiết để có giấy chứng nhận đăng ký là bao lâu?
 
-# - intent: post_registration_steps
-#   examples: |
-#     - Sau khi đăng ký, tôi cần thực hiện những bước gì tiếp theo?
-#     - Các bước cần làm sau khi thành lập doanh nghiệp là gì?
-#     - Điều gì cần thực hiện sau khi thành lập doanh nghiệp?
-#     - Hướng dẫn các bước sau khi thành lập doanh nghiệp.
-#     - Tôi phải làm gì sau khi đã thành lập doanh nghiệp?
-#     - Các bước tiếp theo sau khi khởi nghiệp là gì?
-#     - Làm thế nào để bắt đầu sau khi đã thành lập doanh nghiệp?
-#     - Điều quan trọng cần làm sau khi thành lập doanh nghiệp là gì?
-#     - Bước tiếp theo trong quá trình kinh doanh sau khi thành lập?
-#     - Cần làm gì để phát triển doanh nghiệp sau khi thành lập?
-#     - Hướng dẫn các bước thực hiện sau khi thành lập doanh nghiệp.
+- intent: post_registration_steps
+  examples: |
+    - Sau khi đăng ký, tôi cần thực hiện những bước gì tiếp theo?
+    - Các bước cần làm sau khi thành lập doanh nghiệp là gì?
+    - Điều gì cần thực hiện sau khi thành lập doanh nghiệp?
+    - Hướng dẫn các bước sau khi thành lập doanh nghiệp.
+    - Tôi phải làm gì sau khi đã thành lập doanh nghiệp?
+    - Các bước tiếp theo sau khi khởi nghiệp là gì?
+    - Làm thế nào để bắt đầu sau khi đã thành lập doanh nghiệp?
+    - Điều quan trọng cần làm sau khi thành lập doanh nghiệp là gì?
+    - Bước tiếp theo trong quá trình kinh doanh sau khi thành lập?
+    - Cần làm gì để phát triển doanh nghiệp sau khi thành lập?
+    - Hướng dẫn các bước thực hiện sau khi thành lập doanh nghiệp.
 
-# - intent: disclosure_requirements
-#   examples: |
-#     - Có yêu cầu nào về công bố thông tin sau khi đăng ký doanh nghiệp không?
-#     - Tôi cần công bố thông tin gì sau khi thành lập doanh nghiệp?
-#     - Sau khi thành lập doanh nghiệp, tôi cần công bố những thông tin gì?
-#     - Khi thành lập doanh nghiệp, tôi phải công bố những thông tin gì?
-#     - Cần phải công bố thông tin gì sau khi thành lập doanh nghiệp?
-#     - Sau khi khởi nghiệp, tôi cần công bố những thông tin gì?
-#     - Khi tôi bắt đầu kinh doanh, tôi cần công bố những thông tin gì?
-#     - Thông tin nào cần phải công bố sau khi tôi thành lập doanh nghiệp?
-#     - Tôi phải công bố những thông tin gì khi tôi mới thành lập doanh nghiệp?
-#     - Khi tôi đã thành lập doanh nghiệp, tôi cần công bố gì?
-#     - Tôi cần công bố những thông tin nào sau khi tôi đã tạo doanh nghiệp?
+- intent: disclosure_requirements
+  examples: |
+    - Có yêu cầu nào về công bố thông tin sau khi đăng ký doanh nghiệp không?
+    - Tôi cần công bố thông tin gì sau khi thành lập doanh nghiệp?
+    - Sau khi thành lập doanh nghiệp, tôi cần công bố những thông tin gì?
+    - Khi thành lập doanh nghiệp, tôi phải công bố những thông tin gì?
+    - Cần phải công bố thông tin gì sau khi thành lập doanh nghiệp?
+    - Sau khi khởi nghiệp, tôi cần công bố những thông tin gì?
+    - Khi tôi bắt đầu kinh doanh, tôi cần công bố những thông tin gì?
+    - Thông tin nào cần phải công bố sau khi tôi thành lập doanh nghiệp?
+    - Tôi phải công bố những thông tin gì khi tôi mới thành lập doanh nghiệp?
+    - Khi tôi đã thành lập doanh nghiệp, tôi cần công bố gì?
+    - Tôi cần công bố những thông tin nào sau khi tôi đã tạo doanh nghiệp?
 
-# - intent: legal_assistance
-#   examples: |
-#     - Tôi có cần sự hỗ trợ pháp lý khi đăng ký doanh nghiệp không?
-#     - Làm thế nào để có sự giúp đỡ pháp lý trong quá trình đăng ký doanh nghiệp?
-#     - Cách nào để đảm bảo sự hỗ trợ pháp lý khi đăng ký doanh nghiệp?
-#     - Ai có thể giúp tôi về vấn đề pháp lý khi tôi muốn đăng ký doanh nghiệp?
-#     - Đối tác nào có thể cung cấp sự hỗ trợ pháp lý cho quá trình đăng ký doanh nghiệp?
-#     - Cần phải làm gì để có nguồn hỗ trợ pháp lý trong quá trình thiết lập doanh nghiệp?
-#     - Làm thế nào để tìm kiếm sự giúp đỡ pháp lý cho doanh nghiệp của tôi?
-#     - Cơ quan nào có thể cung cấp sự hỗ trợ pháp lý khi đăng ký doanh nghiệp?
-#     - Tôi có thể làm gì để đảm bảo tôi được hỗ trợ pháp lý đầy đủ khi mở doanh nghiệp?
-#     - Có những dịch vụ nào cung cấp hỗ trợ pháp lý cho doanh nghiệp mới?
-#     - Làm thế nào để tìm kiếm nguồn hỗ trợ pháp lý chất lượng khi đăng ký doanh nghiệp?
+- intent: legal_assistance
+  examples: |
+    - Tôi có cần sự hỗ trợ pháp lý khi đăng ký doanh nghiệp không?
+    - Làm thế nào để có sự giúp đỡ pháp lý trong quá trình đăng ký doanh nghiệp?
+    - Cách nào để đảm bảo sự hỗ trợ pháp lý khi đăng ký doanh nghiệp?
+    - Ai có thể giúp tôi về vấn đề pháp lý khi tôi muốn đăng ký doanh nghiệp?
+    - Đối tác nào có thể cung cấp sự hỗ trợ pháp lý cho quá trình đăng ký doanh nghiệp?
+    - Cần phải làm gì để có nguồn hỗ trợ pháp lý trong quá trình thiết lập doanh nghiệp?
+    - Làm thế nào để tìm kiếm sự giúp đỡ pháp lý cho doanh nghiệp của tôi?
+    - Cơ quan nào có thể cung cấp sự hỗ trợ pháp lý khi đăng ký doanh nghiệp?
+    - Tôi có thể làm gì để đảm bảo tôi được hỗ trợ pháp lý đầy đủ khi mở doanh nghiệp?
+    - Có những dịch vụ nào cung cấp hỗ trợ pháp lý cho doanh nghiệp mới?
+    - Làm thế nào để tìm kiếm nguồn hỗ trợ pháp lý chất lượng khi đăng ký doanh nghiệp?
 
 # - intent: register_business_procedure
 #   examples: |
@@ -510,44 +500,44 @@ nlu:
 
 
 
-# - intent: regarding_reorganization_dissolution_bankruptcy
-#   examples: |
-#     - Về việc tạm ngừng kinh doanh
-#     - Về việc hủy bỏ nghị quyết, quyết định giải thể doanh nghiệp
-#     - Thay đổi người đại diện theo pháp luật
-#     - Chấm dứt hoạt động văn phòng đại diện tại nước ngoài
+- intent: regarding_reorganization_dissolution_bankruptcy
+  examples: |
+    - Về việc tạm ngừng kinh doanh
+    - Về việc hủy bỏ nghị quyết, quyết định giải thể doanh nghiệp
+    - Thay đổi người đại diện theo pháp luật
+    - Chấm dứt hoạt động văn phòng đại diện tại nước ngoài
 
-# - intent: registration_dossier
-#   examples: |
-#     - Cơ quan nào có thẩm quyền xem xét tính hợp lệ của hồ sơ đăng ký doanh nghiệp? Việc hướng dẫn sửa đổi, bổ sung hồ sơ đăng ký doanh nghiệp được quy định như thế nào?
-#     - Về đăng ký thay đổi nội dung đăng ký doanh nghiệp
-#     - Công ty chúng tôi đã thực hiện nhận sáp nhập Công ty TNHH B. Sau khi hoàn tất thủ tục sáp nhập, công ty chúng tôi có phải thực hiện đăng ký với cơ quan đăng ký kinh doanh không? Hồ sơ đăng ký như thế nào?
-#     - Hồ sơ đăng ký doanh nghiệp gồm những giấy tờ gì ?
-#     - Nhận kết quả - Các giấy tờ cần nộp khi nộp hồ sơ bản giấy đến Phòng ĐKKD
-#     - Nhận kết quả - Thời hạn nộp hồ sơ bản giấy đến Phòng ĐKKD
+- intent: registration_dossier
+  examples: |
+    - Cơ quan nào có thẩm quyền xem xét tính hợp lệ của hồ sơ đăng ký doanh nghiệp? Việc hướng dẫn sửa đổi, bổ sung hồ sơ đăng ký doanh nghiệp được quy định như thế nào?
+    - Về đăng ký thay đổi nội dung đăng ký doanh nghiệp
+    - Công ty chúng tôi đã thực hiện nhận sáp nhập Công ty TNHH B. Sau khi hoàn tất thủ tục sáp nhập, công ty chúng tôi có phải thực hiện đăng ký với cơ quan đăng ký kinh doanh không? Hồ sơ đăng ký như thế nào?
+    - Hồ sơ đăng ký doanh nghiệp gồm những giấy tờ gì ?
+    - Nhận kết quả - Các giấy tờ cần nộp khi nộp hồ sơ bản giấy đến Phòng ĐKKD
+    - Nhận kết quả - Thời hạn nộp hồ sơ bản giấy đến Phòng ĐKKD
 
-# - intent: business_registration_fees_charges
-#   examples: |
-#     - Lệ phí đăng ký doanh nghiệp là bao nhiêu?
-#     - Cho biết mức lệ phí đăng ký doanh nghiệp.
-#     - Giá đăng ký doanh nghiệp là bao nhiêu vậy?
-#     - Lệ phí đăng ký doanh nghiệp hiện nay là bao nhiêu?
-#     - Bạn có thông tin về mức phí đăng ký doanh nghiệp không?
-#     - Cho tôi biết về chi phí đăng ký doanh nghiệp được không?
-#     - Cần phải chuẩn bị bao nhiêu tiền cho việc đăng ký doanh nghiệp?
-#     - Xin thông tin về lệ phí đăng ký doanh nghiệp mới nhất.
-#     - Phải thanh toán những khoản phí nào khi đăng ký doanh nghiệp?
-#     - Chi phí đăng ký doanh nghiệp là bao nhiêu?
-#     - Cần phải trả bao nhiêu tiền để đăng ký doanh nghiệp?
-#     - Giá đăng ký doanh nghiệp là bao nhiêu vậy?
-#     - Cho hỏi chi phí đăng ký doanh nghiệp là bao nhiêu tiền?
+- intent: business_registration_fees_charges
+  examples: |
+    - Lệ phí đăng ký doanh nghiệp là bao nhiêu?
+    - Cho biết mức lệ phí đăng ký doanh nghiệp.
+    - Giá đăng ký doanh nghiệp là bao nhiêu vậy?
+    - Lệ phí đăng ký doanh nghiệp hiện nay là bao nhiêu?
+    - Bạn có thông tin về mức phí đăng ký doanh nghiệp không?
+    - Cho tôi biết về chi phí đăng ký doanh nghiệp được không?
+    - Cần phải chuẩn bị bao nhiêu tiền cho việc đăng ký doanh nghiệp?
+    - Xin thông tin về lệ phí đăng ký doanh nghiệp mới nhất.
+    - Phải thanh toán những khoản phí nào khi đăng ký doanh nghiệp?
+    - Chi phí đăng ký doanh nghiệp là bao nhiêu?
+    - Cần phải trả bao nhiêu tiền để đăng ký doanh nghiệp?
+    - Giá đăng ký doanh nghiệp là bao nhiêu vậy?
+    - Cho hỏi chi phí đăng ký doanh nghiệp là bao nhiêu tiền?
 
-# - intent: about_information_services
-#   examples: |
-#     - Có phải tất cả các sản phẩm dịch vụ thông tin đều mất phí hay không?
-#     - Mức phí của các sản phẩm dịch vụ thông tin trên Cổng thông tin đăng ký doanh nghiệp quốc gia được quy định ở đâu?
-#     - Sau khi Tôi đã chọn các sản phẩm cho vào đơn hàng, nếu tôi nhận thấy không cần mua một số sản phẩm đã chọn, tôi có khả năng loại bỏ những sản phẩm này ra khỏi đơn hàng hay không?
-#     - Cung cấp thông tin đăng ký doanh nghiệp
+- intent: about_information_services
+  examples: |
+    - Có phải tất cả các sản phẩm dịch vụ thông tin đều mất phí hay không?
+    - Mức phí của các sản phẩm dịch vụ thông tin trên Cổng thông tin đăng ký doanh nghiệp quốc gia được quy định ở đâu?
+    - Sau khi Tôi đã chọn các sản phẩm cho vào đơn hàng, nếu tôi nhận thấy không cần mua một số sản phẩm đã chọn, tôi có khả năng loại bỏ những sản phẩm này ra khỏi đơn hàng hay không?
+    - Cung cấp thông tin đăng ký doanh nghiệp
 
 # - intent: lookup_business_lines
 #   examples: |
@@ -573,60 +563,60 @@ nlu:
 #     - [hoạt động làm thuê các công việc trong các hộ gia đình, sản xuất sản phẩm vật chất và dịch vụ tự tiêu dùng của hộ gia đình](industry_name)
 #     - [hoạt động của các tổ chức và cơ quan quốc tế](industry_name)
 
-# - intent: define_business_registration_certificate_revocation_faq
-#   examples: |
-#     - Khái niệm về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp được hiểu như thế nào?
-#     - Cách hiểu về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
-#     - Ý nghĩa của việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
-#     - Hiểu biết về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp như thế nào?
-#     - Tính chất của việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
-#     - Giải thích về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
-#     - Thu hồi Giấy chứng nhận đăng ký doanh nghiệp có ý nghĩa gì?
-#     - Việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp được hiểu như thế nào?
-#     - Khái quát về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
-#     - Sự định nghĩa của việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
+- intent: define_business_registration_certificate_revocation_faq
+  examples: |
+    - Khái niệm về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp được hiểu như thế nào?
+    - Cách hiểu về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
+    - Ý nghĩa của việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
+    - Hiểu biết về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp như thế nào?
+    - Tính chất của việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
+    - Giải thích về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Thu hồi Giấy chứng nhận đăng ký doanh nghiệp có ý nghĩa gì?
+    - Việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp được hiểu như thế nào?
+    - Khái quát về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Sự định nghĩa của việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp là gì?
 
-# - intent: inquire_retrieval_procedure_faq
-#   examples: |
-#     - Vậy Doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp trong những trường hợp nào? Trình tự, thủ tục thu hồi Giấy CNĐKDN quy định tại đâu?
-#     - Trình tự, thủ tục thu hồi Giấy CNĐKDN quy định tại đâu?
-#     - Nơi quy định trình tự và thủ tục thu hồi Giấy CNĐKDN là ở đâu?
-#     - Ở đâu quy định về cách thức thu hồi Giấy CNĐKDN?
-#     - Làm sao để biết được quy trình và thủ tục thu hồi Giấy CNĐKDN?
-#     - Tôi cần tìm thông tin về cách thu hồi Giấy CNĐKDN, điều đó được quy định ở đâu?
-#     - Tại đâu có hướng dẫn về việc thu hồi Giấy CNĐKDN?
-#     - Có thông tin nào về quy trình thu hồi Giấy CNĐKDN không?
-#     - Nơi nào cung cấp hướng dẫn về thủ tục thu hồi Giấy CNĐKDN?
-#     - Trong tình huống nào tôi cần phải thu hồi Giấy CNĐKDN và làm thế nào để thực hiện?
-#     - Ai có thể hướng dẫn về việc thu hồi Giấy CNĐKDN?
-#     - Làm thế nào để tìm hiểu về quy trình thu hồi Giấy CNĐKDN?
+- intent: inquire_retrieval_procedure_faq
+  examples: |
+    - Vậy Doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp trong những trường hợp nào? Trình tự, thủ tục thu hồi Giấy CNĐKDN quy định tại đâu?
+    - Trình tự, thủ tục thu hồi Giấy CNĐKDN quy định tại đâu?
+    - Nơi quy định trình tự và thủ tục thu hồi Giấy CNĐKDN là ở đâu?
+    - Ở đâu quy định về cách thức thu hồi Giấy CNĐKDN?
+    - Làm sao để biết được quy trình và thủ tục thu hồi Giấy CNĐKDN?
+    - Tôi cần tìm thông tin về cách thu hồi Giấy CNĐKDN, điều đó được quy định ở đâu?
+    - Tại đâu có hướng dẫn về việc thu hồi Giấy CNĐKDN?
+    - Có thông tin nào về quy trình thu hồi Giấy CNĐKDN không?
+    - Nơi nào cung cấp hướng dẫn về thủ tục thu hồi Giấy CNĐKDN?
+    - Trong tình huống nào tôi cần phải thu hồi Giấy CNĐKDN và làm thế nào để thực hiện?
+    - Ai có thể hướng dẫn về việc thu hồi Giấy CNĐKDN?
+    - Làm thế nào để tìm hiểu về quy trình thu hồi Giấy CNĐKDN?
 
-# - intent: query_business_registration_cert_revocation_faq
-#   examples: |
-#     - Cơ quan nào có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp? Các Bộ, cơ quan ngang Bộ và Ủy ban nhân dân các cấp có quyền ban hành quy định về đăng ký doanh nghiệp và chỉ đạo Cơ quan đăng ký kinh doanh thu hồi Giấy chứng nhận đăng ký doanh nghiệp
-#     - Cơ quan nào có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
-#     - Ai có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
-#     - Đơn vị nào có thẩm quyền rút lại Giấy chứng nhận đăng ký doanh nghiệp?
-#     - Người nào được phép hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
-#     - Cơ quan nào có thể thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
-#     - Ai có khả năng hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
-#     - Ai là người có thể rút lại Giấy chứng nhận đăng ký doanh nghiệp?
-#     - Cơ quan nào chịu trách nhiệm thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
-#     - Ai được ủy quyền để hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
-#     - Đơn vị nào có thẩm quyền hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
+- intent: query_business_registration_cert_revocation_faq
+  examples: |
+    - Cơ quan nào có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp? Các Bộ, cơ quan ngang Bộ và Ủy ban nhân dân các cấp có quyền ban hành quy định về đăng ký doanh nghiệp và chỉ đạo Cơ quan đăng ký kinh doanh thu hồi Giấy chứng nhận đăng ký doanh nghiệp
+    - Cơ quan nào có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Ai có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Đơn vị nào có thẩm quyền rút lại Giấy chứng nhận đăng ký doanh nghiệp?
+    - Người nào được phép hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
+    - Cơ quan nào có thể thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Ai có khả năng hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
+    - Ai là người có thể rút lại Giấy chứng nhận đăng ký doanh nghiệp?
+    - Cơ quan nào chịu trách nhiệm thu hồi Giấy chứng nhận đăng ký doanh nghiệp?
+    - Ai được ủy quyền để hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
+    - Đơn vị nào có thẩm quyền hủy bỏ Giấy chứng nhận đăng ký doanh nghiệp?
 
-# - intent: inquiry_business_resumption_faq
-#   examples: |
-#     - Trường hợp doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp sai, không đúng quy định của pháp luật, doanh nghiệp có được quyền quay trở lại hoạt động không?
-#     - Trong trường hợp một công ty bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp vì không tuân thủ quy định, liệu họ có thể hoạt động trở lại không?
-#     - Khi Giấy chứng nhận đăng ký doanh nghiệp bị thu hồi do vi phạm quy định, doanh nghiệp có cơ hội phục hồi và tiếp tục kinh doanh không?
-#     - Doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký vì không đúng quy định pháp luật, liệu họ có được phép tái khởi động kinh doanh không?
-#     - Trong trường hợp một doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký do vi phạm quy định, liệu họ có quyền tái lập hoạt động kinh doanh không?
-#     - Khi một công ty bị thu hồi Giấy chứng nhận đăng ký do không tuân thủ quy định, liệu họ có cơ hội khôi phục hoạt động kinh doanh không?
-#     - Trong tình huống doanh nghiệp vi phạm pháp luật và bị thu hồi Giấy chứng nhận đăng ký, liệu họ có thể xin phép để tiếp tục kinh doanh không?
-#     - Nếu doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký vì vi phạm quy định, liệu họ có được quyền phục hồi và hoạt động trở lại không?
-#     - Khi một doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký do không tuân thủ quy định, liệu họ có thể làm thủ tục để tái khởi động kinh doanh không?
-#     - Trong trường hợp doanh nghiệp vi phạm quy định và bị thu hồi Giấy chứng nhận đăng ký, liệu họ có được phép hoạt động trở lại không?
+- intent: inquiry_business_resumption_faq
+  examples: |
+    - Trường hợp doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp sai, không đúng quy định của pháp luật, doanh nghiệp có được quyền quay trở lại hoạt động không?
+    - Trong trường hợp một công ty bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp vì không tuân thủ quy định, liệu họ có thể hoạt động trở lại không?
+    - Khi Giấy chứng nhận đăng ký doanh nghiệp bị thu hồi do vi phạm quy định, doanh nghiệp có cơ hội phục hồi và tiếp tục kinh doanh không?
+    - Doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký vì không đúng quy định pháp luật, liệu họ có được phép tái khởi động kinh doanh không?
+    - Trong trường hợp một doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký do vi phạm quy định, liệu họ có quyền tái lập hoạt động kinh doanh không?
+    - Khi một công ty bị thu hồi Giấy chứng nhận đăng ký do không tuân thủ quy định, liệu họ có cơ hội khôi phục hoạt động kinh doanh không?
+    - Trong tình huống doanh nghiệp vi phạm pháp luật và bị thu hồi Giấy chứng nhận đăng ký, liệu họ có thể xin phép để tiếp tục kinh doanh không?
+    - Nếu doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký vì vi phạm quy định, liệu họ có được quyền phục hồi và hoạt động trở lại không?
+    - Khi một doanh nghiệp bị thu hồi Giấy chứng nhận đăng ký do không tuân thủ quy định, liệu họ có thể làm thủ tục để tái khởi động kinh doanh không?
+    - Trong trường hợp doanh nghiệp vi phạm quy định và bị thu hồi Giấy chứng nhận đăng ký, liệu họ có được phép hoạt động trở lại không?
 
 # - intent: documents_business_registration
 #   examples: |
