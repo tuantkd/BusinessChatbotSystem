@@ -29,7 +29,8 @@ class ActionBusinessTypes(Action):
 
     def name(self) -> Text:
         # Liệt kê các loại hình doanh nghiệp
-        return "action_list_business_types"
+        # return "action_list_business_types"
+        return "action_lay_danh_sach_business_types"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -61,7 +62,8 @@ class ActionRegisterBusinessTypeStatus(Action):
 
     def name(self) -> Text:
         # Chọn trạng thái của loai hình doanh nghiệp
-        return "action_list_business_type_status"
+        # return "action_list_business_type_status"
+        return "action_lay_danh_sach_trang_thai_cua_loai_hinh_nay"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -69,7 +71,7 @@ class ActionRegisterBusinessTypeStatus(Action):
         
         business_type_name = tracker.get_slot("business_type")
         business_type_status = get_business_type_status(business_type_name)
-        status = [f"- _+st['status_display_full']+_" for st in business_type_status]
+        status = [f"- _{st['status_display_full']}_" for st in business_type_status]
         business_type_status_list = '\n'.join(status)
         
         return [SlotSet("business_type_status_list", business_type_status_list)]
@@ -79,7 +81,8 @@ class ActionListBusinessProcessSteps(Action):
 
     def name(self) -> Text:
         # Danh sách các bước đăng ký doanh nghiệp
-        return "action_list_business_procedure_steps"
+        # return "action_list_business_procedure_steps"
+        return "action_dua_ra_cac_thu_tuc_cua_cong_ty"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,

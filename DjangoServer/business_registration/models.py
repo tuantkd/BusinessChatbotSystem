@@ -6,6 +6,7 @@ from django.forms import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 class BusinessStatus(models.TextChoices):
+
     NEWLY_ESTABLISHED = 'NE', 'Mới thành lập'
     OPERATING = 'OP', 'Đang hoạt động'
     DISSOLVING = 'DI', 'Đang giải thể'
