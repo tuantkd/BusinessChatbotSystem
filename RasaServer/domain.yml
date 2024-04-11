@@ -347,7 +347,7 @@ actions:
   - action_list_business_procedure_steps
   - action_business_procedure_step_description
   - action_list_business_type_status
-  - action_default_fallback
+  # - action_default_fallback
 
 slots:
   # Slot for the business type
@@ -381,6 +381,7 @@ slots:
   # Slot check if the business type has process steps
   has_process_steps:
     type: bool
+    influence_conversation: true
     mappings:
       - type: custom
         value: false
@@ -401,6 +402,7 @@ slots:
 
   has_process_step_description:
     type: bool
+    influence_conversation: true
     mappings:
       - type: custom
         value: false
@@ -411,6 +413,11 @@ slots:
       - type: custom
         value: ""
 
+  business_type_status_list:
+    type: text
+    mappings:
+      - type: custom
+        value: ""
 
 session_config:
   session_expiration_time: 60

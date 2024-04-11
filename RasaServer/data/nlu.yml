@@ -263,6 +263,7 @@ nlu:
     - Có thể giúp tôi thủ tục đăng ký doanh nghiệp?
     - Hướng dẫn thủ tục đăng ký kinh doanh cho người mới bắt đầu?
     - Hướng dẫn thủ tục đăng ký doanh nghiệp
+    - Thủ tục đăng ký doanh nghiệp cần thực hiện những gì?
 
 - intent: choose_business_type
   examples: |
@@ -286,6 +287,15 @@ nlu:
     - Tôi muốn biết các bước để đăng ký [Hộ kinh doanh cá thể](business_type)
     - Tôi muốn tìm hiểu về các bước đăng ký [Công Ty Cổ Phần](business_type) và so sánh với các loại hình khác
     - Tôi muốn biết các điều kiện và bước thực hiện để mở [Doanh Nghiệp Tư Nhân](business_type)
+    - [Doanh Nghiệp Tư Nhân](business_type)
+    - [Công Ty TNHH Một Thành Viên](business_type)
+    - [Công Ty TNHH Hai Thành Viên Trở Lên](business_type)
+    - [Công Ty Hợp Danh](business_type)
+    - [Chi nhánh - Văn phòng đại diện](business_type)
+    - [Địa điểm kinh doanh](business_type)
+    - [Tổ chức lao động nghiệp](business_type)
+    - [Hộ kinh doanh](business_type)
+    - [Công Ty Cổ Phần](business_type)
 
 - lookup: business_type_lookup
   examples: |
@@ -350,6 +360,7 @@ nlu:
     - Tôi muốn được tư vấn về bước [Chuẩn bị hồ sơ](process_step)
     - Cho tôi hướng dẫn về bước [Nhận kết quả](process_step)
     - Tôi đã sẵn sàng cho bước [Nộp hồ sơ](process_step), tôi cần đến đâu?
+    - Tôi muốn xem hướng dẫn cho bước [Chuẩn bị hồ sơ](process_step) đăng ký kinh doanh
 
 
 

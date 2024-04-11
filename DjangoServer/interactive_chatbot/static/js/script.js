@@ -36,7 +36,11 @@ get_user();
 function enableSubmitButton() {
     const nameInput = document.getElementById("nameInput");
     const submitButton = document.getElementById("submitButton");
-    
+    nameInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            nameInput.disabled = true;
+        }
+    });
     if (nameInput.value !== "") {
         submitButton.disabled = false;
     } else {
