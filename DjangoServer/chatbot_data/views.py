@@ -1142,6 +1142,36 @@ class TrainingView(View):
             'rawData': raw_data
         }
         return render(request, self.template_name, context)
+    
+class TestView(View):
+    template_name = 'test/test.html'
+
+    def get(self, request, *args, **kwargs):
+        bots = Bot.objects.all()
+        bot_id = self.kwargs.get('bot_id') 
+        selected_bot = get_object_or_404(Bot, pk=bot_id) if bot_id else None
+        context = {
+            'botList': bots,
+            'selectedBot': selected_bot,
+        }
+        return render(request, self.template_name, context)
+    
+    def get_bot_response(bot, user_say):
+        # Implement the logic to generate a response from the bot based on the user input
+        # Return the generated response
+        pass
+
+    def post(self, request, *args, **kwargs):
+        try:
+            data = json.loads(request.body)
+            bot_id = data.get('bot_id')
+            user_say = data.get('user_say')
+            bot = Bot.objects.get(id=bot_id)
+            response = get_bot_response(bot, user_say)
+            return JsonResponse({'response': response}, status=200)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+        
 
 def get_training_data(bot_id):
     # replace with your actual logic for loading training data
