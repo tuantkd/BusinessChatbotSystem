@@ -30,7 +30,7 @@ intents:
   - inquiry_business_resumption_faq
   # - documents_business_registration
   - how_many_business_types
-  # - choose_business_process_step
+  # - choose_business_procedure_step
   # - choose_business_status
   - business_registration_proccess_step_1
   - business_registration_proccess_step_2
@@ -82,17 +82,17 @@ responses:
   # Quy trình đăng ký doanh nghiệp:
   utter_business_registration_proccess:
   - text: |
-      Quy trình đăng ký doanh nghiệp bao gồm các bước sau:\n
-        - _Xác định loại hình doanh nghiệp_\n
-        - _Chọn tên doanh nghiệp_\n
-        - _Lập hồ sơ đăng ký_\n
-        - _Nộp hồ sơ_\n
+      Quy trình đăng ký doanh nghiệp bao gồm các bước sau:\n\n
+        - _Xác định loại hình doanh nghiệp_\n\n
+        - _Chọn tên doanh nghiệp_\n\n
+        - _Lập hồ sơ đăng ký_\n\n
+        - _Nộp hồ sơ_\n\n
         - _Thanh toán phí và nhận giấy chứng nhận_
 
   utter_business_registration_proccess_step_1:
   - text: |
-      **Bước 1: Xác định loại hình doanh nghiệp**
-        _Có nhiều loại hình doanh nghiệp khác nhau mà bạn có thể đăng ký như:_
+      **Bước 1: Xác định loại hình doanh nghiệp**\n
+        _Có nhiều loại hình doanh nghiệp khác nhau mà bạn có thể đăng ký như:_\n
         {business_types}
 
   utter_business_registration_proccess_step_2:
@@ -323,14 +323,14 @@ responses:
   utter_danh_sach_cac_buoc_thu_tuc_cua_cong_ty:
     - text: |
         Dưới đây là các bước đăng ký doanh nghiệp **{business_type}** ở trạng thái **{business_status}**:\n
-        {process_steps}\n
+        {procedure_steps}\n
          **{sender_name}** Bạn muốn biết thông tin chi tiết của bước nào?
 
   # utter_business_procedure_step_description:
   utter_thong_tin_chi_tiet_cua_buoc_thu_tuc:
     - text: |
-        Bước đăng ký doanh nghiệp **{business_type}** với trạng thái **{business_status}** là **{process_step}**:\n
-        {process_step_description}
+        Bước đăng ký doanh nghiệp **{business_type}** với trạng thái **{business_status}** là **{procedure_step}**:\n
+        {procedure_step_description}
 
   utter_default_fallback:
     - text: Xin lỗi, tôi không hiểu yêu cầu của bạn.  **{sender_name}** Bạn có thể giải thích rõ hơn không?\n
@@ -347,19 +347,19 @@ responses:
         Xin lỗi **{sender_name}**, không có thông tin về trạng thái của loại hình doanh nghiệp **{business_type}**. Bạn vui lòng chọn trạng thái của loại hình doanh nghiệp trong danh sách sau:\n
         {business_type_status_list}
 
-  utter_no_process_step_selected:
+  utter_no_procedure_step_selected:
     - text: |
         Xin lỗi **{sender_name}**, không có thông tin về bước đăng ký doanh nghiệp **{business_type}** ở trạng thái **{business_status}**. Bạn vui lòng chọn bước đăng ký doanh nghiệp trong danh sách sau:\n
-        {process_steps}
+        {procedure_steps}
 
-  # utter_no_business_process_step_description:
-  #   - text: Xin lỗi, không có thông tin về bước đăng ký doanh nghiệp **{business_type}** ở trạng thái **{business_status} ỏ bước **{process_step}**
+  # utter_no_business_procedure_step_description:
+  #   - text: Xin lỗi, không có thông tin về bước đăng ký doanh nghiệp **{business_type}** ở trạng thái **{business_status} ỏ bước **{procedure_step}**
 
     
 entities:
   - business_type
   - business_status
-  - process_step
+  - procedure_step
   - user_request
   # - industry_name
 
@@ -389,6 +389,13 @@ slots:
     mappings:
       - type: from_entity
         entity: business_type
+
+  procedure_step:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: procedure_step
 
   business_types:
     type: text
@@ -425,7 +432,7 @@ slots:
         value: "Bạn"
 
   # # Slot check if the business type has process steps
-  has_process_steps:
+  has_procedure_steps:
     type: bool
     influence_conversation: true
     mappings:
@@ -433,20 +440,20 @@ slots:
         value: false
 
   # Slot for the process step description
-  process_steps:
+  procedure_steps:
     type: text
     mappings:
       - type: custom
         value: ""
 
   # Slot for the process step description
-  process_step_description:
+  procedure_step_description:
     type: text
     mappings:
       - type: custom
         value: ""
 
-  has_process_step_description:
+  has_procedure_step_description:
     type: bool
     influence_conversation: true
     mappings:
@@ -467,18 +474,14 @@ slots:
       - type: custom
         value: false
 
-  has_process_step:
+  has_procedure_step:
     type: bool
     influence_conversation: true
     mappings:
       - type: custom
         value: false
         
-  process_step:
-    type: text
-    mappings:
-      - type: from_entity
-        entity: process_step
+  
 
 session_config:
   session_expiration_time: 60

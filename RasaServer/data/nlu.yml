@@ -47,24 +47,25 @@ nlu:
 
 - intent: dang_ky_doanh_nghiep
   examples: |
-    - Tôi cần [đăng ký doanh nghiệp](user_request)
-    - Quy trình [đăng ký doanh nghiệp](user_request) như thế nào?
-    - Làm thế nào để [đăng ký doanh nghiệp](user_request)?
-    - Cần phải làm gì để [đăng ký doanh nghiệp](user_request)?
+    - Tôi cần [thủ tục đăng ký doanh nghiệp](user_request)
+    - Các [thủ tục đăng ký doanh nghiệp](user_request) như thế nào?
+    - [Thủ tục đăng ký doanh nghiệp](user_request)?
+    - [Thủ tục đăng ký doanh nghiệp](user_request) như thế nào?
     - Hướng dẫn [đăng ký doanh nghiệp](user_request)
-    - [Đăng ký doanh nghiệp](user_request) cần những gì?
-    - [Đăng ký doanh nghiệp](user_request) cần những hồ sơ gì?
-    - [Đăng ký doanh nghiệp](user_request) cần những thủ tục gì?
-    - [Đăng ký doanh nghiệp](user_request) cần những bước gì?
-    - [Đăng ký doanh nghiệp](user_request) cần những bước thực hiện gì?
-    - Các bước [đăng ký doanh nghiệp](user_request)
-    - Các bước cần thực hiện để [đăng ký kinh doanh](user_request)
-    - Quy trình [đăng ký doanh nghiệp](user_request) như thế nào
-    - Quy trình [đăng ký kinh doanh](user_request) như thế nào
+    - [Thủ tục đăng ký doanh nghiệp](user_request) cần những gì?
+    - [thủ tục đăng ký doanh nghiệp](user_request) cần những hồ sơ gì?
+    - [Thủ tục đăng ký doanh nghiệp](user_request) cần những thủ tục gì?
+    - [Thủ tục đăng ký doanh nghiệp](user_request) cần những bước gì?
+    - [Thủ tục đăng ký doanh nghiệp](user_request) cần những bước thực hiện gì?
+    - Các bước [thủ tục đăng ký doanh nghiệp](user_request)
+    - Các bước cần thực hiện để [thủ tục đăng ký kinh doanh](user_request)
+    - Thủ tục [thủ tục đăng ký doanh nghiệp](user_request) như thế nào
+    - Thủ tục [thủ tục đăng ký kinh doanh](user_request) như thế nào
+    - Tôi muốn [thủ tục đăng ký doanh nghiệp](user_request)
     
-- synonym: Đăng ký doanh nghiệp
+- synonym: Thủ tục đăng ký doanh nghiệp
   examples: |
-    - Đăng ký kinh doanh
+    - thủ tục đăng ký kinh doanh
 
 - intent: chon_loai_hinh_doanh_nghiep
   examples: |
@@ -212,7 +213,6 @@ nlu:
     - Bước nào cần thiết để thành lập một công ty?
     - Các bước đăng ký doanh nghiệp là gì?
     - Làm thế nào để đăng ký một công ty?
-    - Quy trình đăng ký doanh nghiệp như thế nào?
 
 - intent: business_registration_proccess_step_1
   examples: |
@@ -253,8 +253,6 @@ nlu:
     - Bước 3
     - Bước thứ ba
     - Bước ba
-    - Lập hồ sơ đăng ký
-    - Chuẩn bị hồ sơ đăng ký
     - Làm hồ sơ đăng ký
     - Lập hồ sơ
     - Thiêt lập hồ sơ
@@ -345,8 +343,6 @@ nlu:
     - Đăng ký ở đâu?
     - Cơ quan nào tiếp nhận hồ sơ đăng ký?
 
-
-
 - intent: business_registration_timeframe
   examples: |
     - Quy trình đăng ký doanh nghiệp mất bao lâu?
@@ -399,114 +395,6 @@ nlu:
     - Tôi có thể làm gì để đảm bảo tôi được hỗ trợ pháp lý đầy đủ khi mở doanh nghiệp?
     - Có những dịch vụ nào cung cấp hỗ trợ pháp lý cho doanh nghiệp mới?
     - Làm thế nào để tìm kiếm nguồn hỗ trợ pháp lý chất lượng khi đăng ký doanh nghiệp?
-
-# - intent: register_business_procedure
-#   examples: |
-#     - Thủ tục đăng ký doanh nghiệp như thế nào?
-#     - Bước phải thực hiện khi muốn đăng ký kinh doanh là gì?
-#     - Có thể giúp tôi thủ tục đăng ký doanh nghiệp?
-#     - Hướng dẫn thủ tục đăng ký kinh doanh cho người mới bắt đầu?
-#     - Hướng dẫn thủ tục đăng ký doanh nghiệp
-#     - Thủ tục đăng ký doanh nghiệp cần thực hiện những gì?
-
-# - intent: choose_business_type
-#   examples: |
-#     - Tôi muốn biết về các bước đăng ký [Công Ty Cổ Phần](business_type)
-#     - Tôi muốn biết về các bước thực hiện đăng ký [Doanh Nghiệp Tư Nhân](business_type)
-#     - Tôi lựa chọn loại hình [Công Ty TNHH Một Thành Viên](business_type), cần làm những gì?
-#     - Tôi muốn biết về các bước để thành lập [Công Ty TNHH Hai Thành Viên Trở Lên](business_type)
-#     - Tôi muốn biết các bước để đăng ký [Công Ty Hợp Danh](business_type)
-#     - Tôi muốn biết về các thủ tục mở [Chi nhánh - Văn phòng đại diện](business_type)
-#     - Tôi lựa chọn mở [Địa điểm kinh doanh](business_type), cần những gì?
-#     - Tôi muốn biết quy trình đăng ký [Tổ chức lao động nghiệp](business_type)
-#     - Tôi lựa chọn loại hình [Hộ kinh doanh](business_type), quy trình đăng ký ra sao?
-#     - Tôi muốn biết các bước để thành lập [Công Ty Cổ Phần mới](business_type)
-#     - Tôi lựa chọn [Doanh Nghiệp Tư Nhân](business_type), quy định cụ thể là gì?
-#     - Tôi muốn biết quy trình cần thiết để đăng ký [Công Ty TNHH Một Thành Viên](business_type)
-#     - Tôi muốn biết các bước để thành lập [Công Ty TNHH Hai Thành Viên Trở Lên](business_type)
-#     - Tôi muốn biết quy trình đăng ký [Công Ty Hợp Danh](business_type) như thế nào
-#     - Tôi muốn hỏi về các bước để mở [Chi nhánh hoặc Văn phòng đại diện](business_type)
-#     - Tôi muốn tìm hiểu về quy trình đăng ký [Địa điểm kinh doanh](business_type)
-#     - Tôi lựa chọn loại hình [Tổ chức lao động nghiệp](business_type), cần chuẩn bị những gì?
-#     - Tôi muốn biết các bước để đăng ký [Hộ kinh doanh cá thể](business_type)
-#     - Tôi muốn tìm hiểu về các bước đăng ký [Công Ty Cổ Phần](business_type) và so sánh với các loại hình khác
-#     - Tôi muốn biết các điều kiện và bước thực hiện để mở [Doanh Nghiệp Tư Nhân](business_type)
-#     - [Doanh Nghiệp Tư Nhân](business_type)
-#     - [Công Ty TNHH Một Thành Viên](business_type)
-#     - [Công Ty TNHH Hai Thành Viên Trở Lên](business_type)
-#     - [Công Ty Hợp Danh](business_type)
-#     - [Chi nhánh - Văn phòng đại diện](business_type)
-#     - [Địa điểm kinh doanh](business_type)
-#     - [Tổ chức lao động nghiệp](business_type)
-#     - [Hộ kinh doanh](business_type)
-#     - [Công Ty Cổ Phần](business_type)
-
-# - lookup: business_type_lookup
-#   examples: |
-#     - data_aug/business_types.txt
-
-# - intent: choose_business_status
-#   examples: |
-#     - Tôi muốn bắt đầu quy trình [Thành lập mới](business_status) doanh nghiệp.
-#     - Làm thế nào để tôi có thể [Đăng ký thay đổi](business_status) thông tin doanh nghiệp?
-#     - Tôi cần tư vấn về cách thức [Thông báo thay đổi](business_status) pháp lý cho công ty.
-#     - Tôi đang cần hỗ trợ về việc [Tạm ngừng](business_status) hoạt động kinh doanh.
-#     - Quy trình [Giải thể](business_status) doanh nghiệp diễn ra như thế nào?
-#     - Tôi cần thông tin về [Trường hợp khác](business_status) trong việc đăng ký doanh nghiệp.
-#     - Tôi muốn biết nơi nào cung cấp [Văn bản pháp luật](business_status) liên quan đến doanh nghiệp.
-#     - Tôi muốn biết về các [Trường hợp khác](business_status) khi đăng ký doanh nghiệp.
-#     - Làm sao để tôi xử lý tình trạng [Chấm dứt hoạt động](business_status) của công ty?
-#     - Tôi muốn hiểu rõ về quy trình [Tạm ngừng kinh doanh - tiếp tục kinh doanh trước thời hạn](business_status).
-#     - Tôi cần hướng dẫn về việc [Chia doanh nghiệp](business_status) sau khi tách khỏi công ty mẹ.
-#     - Tôi muốn biết các bước cần thiết để [Tách doanh nghiệp](business_status).
-#     - Tôi đang tìm hiểu về cách thức [Hợp nhất doanh nghiệp](business_status) với một công ty khác.
-#     - Tôi cần biết các thủ tục [Chuyển đổi loại hình doanh nghiệp](business_status).
-#     - Tôi muốn đăng ký một [Địa điểm kinh doanh](business_status) mới.
-#     - Tôi quan tâm đến việc mở một [Doanh nghiệp tư nhân](business_status) mới.
-#     - Tôi cần thông tin về việc thành lập [Công ty TNHH 1 TV](business_status).
-#     - Tôi đang cân nhắc về việc mở [Công ty TNHH 2 TV](business_status) và muốn biết các quy định.
-#     - Tôi muốn biết các yêu cầu pháp lý khi mở một [Công ty Cổ phần](business_status).
-#     - Tôi muốn tìm hiểu về quy định mới trong việc [Đăng ký thay đổi](business_status) ngành nghề kinh doanh.
-#     - Tôi cần được hướng dẫn khi [Giải thể](business_status) một chi nhánh của công ty.
-#     - Làm thế nào để tôi có thể [Chấm dứt hoạt động](business_status) một cửa hàng?
-#     - Tôi muốn biết các bước để [Tạm ngừng](business_status) doanh nghiệp theo quy định mới nhất.
-#     - Tôi cần tư vấn để [Hợp nhất doanh nghiệp](business_status) và mở rộng hoạt động kinh doanh.
-#     - Tôi muốn hiểu về cách thức [Chuyển đổi loại hình doanh nghiệp](business_status) từ TNHH sang Cổ phần.
-#     - Tôi cần hỗ trợ về việc [Tạm ngừng kinh doanh](business_status) để nâng cấp máy móc.
-#     - Tôi muốn tìm hiểu thêm về các [Trường hợp khác](business_status) của quy định đăng ký kinh doanh.
-#     - Tôi cần hướng dẫn cụ thể về việc [Thông báo thay đổi](business_status) địa chỉ kinh doanh.
-#     - Tôi muốn biết về quy định liên quan đến [Văn bản pháp luật](business_status) cần thiết cho việc chuyển đổi loại hình doanh nghiệp.
-#     - Tôi đang xem xét việc [Chia doanh nghiệp](business_status) để phân chia tài sản.
-
-# - lookup: business_status_lookup
-#   examples: |
-#     - data_aug/business_status.txt
-
-# - intent: choose_business_process_step
-#   examples: |
-#     - Tôi muốn xem bước [Nộp hồ sơ](process_step)
-#     - Tôi muốn biết bước [Chuẩn bị hồ sơ](process_step)
-#     - Cho tôi nội dung bước để [Nhận kết quả](process_step) của quy trình đăng ký
-#     - Tôi muốn xem hướng dẫn cho bước [Nộp hồ sơ](process_step) đăng ký kinh doanh
-#     - Cho tôi nội dung các giấy tờ cần thiết cho bước [Chuẩn bị hồ sơ](process_step)
-#     - Tôi đã hoàn tất bước [Chuẩn bị hồ sơ](process_step), tiếp theo là gì?
-#     - Tôi muốn biết bước để [Nhận kết quả](process_step)
-#     - Tôi cần hỗ trợ với bước [Nộp hồ sơ](process_step) doanh nghiệp
-#     - Cho tôi biết nội dung bước [Chuẩn bị hồ sơ](process_step)
-#     - Tôi đã [Nộp hồ sơ](process_step), bước tiếp theo là gì?
-#     - Tôi muốn xem các bước để [Nhận kết quả](process_step)
-#     - Cho tôi nội dung bước [Chuẩn bị hồ sơ](process_step)
-#     - Tôi muốn biết quy trình cụ thể cho bước [Nộp hồ sơ](process_step)
-#     - Tôi muốn xem thời gian cần thiết cho bước [Nhận kết quả](process_step)
-#     - Tôi đã hoàn thành bước [Chuẩn bị hồ sơ](process_step), bước tiếp theo là gì?
-#     - Tôi muốn nhanh chóng xem bước [Nhận kết quả](process_step)
-#     - Cho tôi biết những lưu ý cho bước [Nộp hồ sơ](process_step)
-#     - Tôi muốn được tư vấn về bước [Chuẩn bị hồ sơ](process_step)
-#     - Cho tôi hướng dẫn về bước [Nhận kết quả](process_step)
-#     - Tôi đã sẵn sàng cho bước [Nộp hồ sơ](process_step), tôi cần đến đâu?
-#     - Tôi muốn xem hướng dẫn cho bước [Chuẩn bị hồ sơ](process_step) đăng ký kinh doanh
-
-
 
 - intent: regarding_reorganization_dissolution_bankruptcy
   examples: |

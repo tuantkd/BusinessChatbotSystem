@@ -1,6 +1,6 @@
 from typing import Any, Text, Dict, List
 from .utils import cleaned_text, get_json
-from .api_operations import get_business_process_step, get_business_type_status, get_business_types, get_senders
+from .api_operations import get_business_procedure_step, get_business_type_status, get_business_types, get_senders
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
@@ -99,13 +99,13 @@ class ActionListBusinessProcessSteps(Action):
         if business_status is None:
             return [SlotSet("has_business_status", False)]
 
-        business_process_steps = get_business_process_step(business_type=business_type, business_type_status=business_status)
-        has_process_steps = True
-        if len(business_process_steps) == 0:
-            has_process_steps = False
-        process_steps = [step["step_name"] for step in business_process_steps]
-        process_steps_formatted = '\n'.join([f"- _{step}_" for step in process_steps])
-        return [SlotSet("has_process_steps", has_process_steps), SlotSet("process_steps", process_steps_formatted)]
+        business_procedure_steps = get_business_procedure_step(business_type=business_type, business_type_status=business_status)
+        has_procedure_steps = True
+        if len(business_procedure_steps) == 0:
+            has_procedure_steps = False
+        procedure_steps = [step["step_name"] for step in business_procedure_steps]
+        procedure_steps_formatted = '\n'.join([f"- _{step}_" for step in procedure_steps])
+        return [SlotSet("has_procedure_steps", has_procedure_steps), SlotSet("procedure_steps", procedure_steps_formatted)]
 
 class ActionBusinessProcessStepDescription(Action):
     
@@ -120,25 +120,25 @@ class ActionBusinessProcessStepDescription(Action):
             
             business_type = tracker.get_slot("business_type")
             business_status = tracker.get_slot("business_status")
-            process_step = tracker.get_slot("process_step")
+            procedure_step = tracker.get_slot("procedure_step")
             
             if business_type is None:
                 return [SlotSet("has_business_type", False)]
             if business_status is None:
                 return [SlotSet("has_business_status", False)]
-            if process_step is None:
-                return [SlotSet("has_process_step", False)]
+            if procedure_step is None:
+                return [SlotSet("has_procedure_step", False)]
             
-            process_step_description = get_business_process_step(step_name=process_step, business_type=business_type, business_type_status=business_status)
-            has_process_step_description = True
-            if len(process_step_description) == 0:
-                has_process_step_description = False
+            procedure_step_description = get_business_procedure_step(step_name=procedure_step, business_type=business_type, business_type_status=business_status)
+            has_procedure_step_description = True
+            if len(procedure_step_description) == 0:
+                has_procedure_step_description = False
             
-            return [SlotSet("has_process_step_description", has_process_step_description),
-                    SlotSet("process_step_description", process_step_description[0]['step_description']),
+            return [SlotSet("has_procedure_step_description", has_procedure_step_description),
+                    SlotSet("procedure_step_description", procedure_step_description[0]['step_description']),
                     SlotSet("has_business_type", True),
                     SlotSet("has_business_status", True),
-                    SlotSet("has_process_step", True)]
+                    SlotSet("has_procedure_step", True)]
 class ActionLookupBusinessLines(Action):
     
     def name(self) -> Text:

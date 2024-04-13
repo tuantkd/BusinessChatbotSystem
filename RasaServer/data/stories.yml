@@ -16,6 +16,7 @@ stories:
   - intent: business_registration_proccess
   - action: utter_business_registration_proccess
   - intent: business_registration_proccess_step_1
+  - action: action_lay_danh_sach_business_types
   - action: utter_business_registration_proccess_step_1
 
 - story: Hỏi về quy trình đăng ký kinh doanh (Bước 2)
@@ -50,11 +51,6 @@ stories:
   steps:
   - intent: registration_requirements
   - action: utter_registration_requirements
-
-- story: Chọn tên doanh nghiệp
-  steps:
-  - intent: business_name_selection
-  - action: utter_business_name_selection
 
 - story: Hỏi địa điểm đăng ký kinh doanh
   steps:
@@ -141,94 +137,36 @@ stories:
   steps:
     - intent: dang_ky_doanh_nghiep
     - action: action_lay_danh_sach_business_types
-      # slot_was_set:
-      #   business_types: ""
     - action: utter_danh_sach_loai_hinh_doanh_nghiep
-    - intent: chon_loai_hinh_doanh_nghiep
-    - action: action_lay_danh_sach_trang_thai_cua_loai_hinh_nay
-    - action: utter_danh_sach_trang_trang_doanh_nghiep_cua_loai_hinh_nay
-    - intent: chon_trang_thai_doanh_nghiep
-    - action: action_dua_ra_cac_thu_tuc_cua_cong_ty
-    - action: utter_danh_sach_cac_buoc_thu_tuc_cua_cong_ty
-    - intent: chon_buoc_thu_tuc
-    - action: action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc
-    - action: utter_thong_tin_chi_tiet_cua_buoc_thu_tuc
 
-- story: Chọn loại hình doanh nghiệp
-  steps:
     - intent: chon_loai_hinh_doanh_nghiep
     - action: action_lay_danh_sach_trang_thai_cua_loai_hinh_nay
     - action: utter_danh_sach_trang_trang_doanh_nghiep_cua_loai_hinh_nay
 
-- story: Chọn trạng thái doanh nghiệp nếu đã chọn loại hình
-  steps:
     - intent: chon_trang_thai_doanh_nghiep
     - action: action_dua_ra_cac_thu_tuc_cua_cong_ty
-    - slot_was_set:
-        - has_business_type: true
     - action: utter_danh_sach_cac_buoc_thu_tuc_cua_cong_ty
-      
-- story: Chọn trạng thái doanh nghiệp nếu chưa chọn loại hình
+
+    - intent: chon_buoc_thu_tuc
+    - action: action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc
+    - action: utter_thong_tin_chi_tiet_cua_buoc_thu_tuc
+
+
+- story: Chọn trạng thái doanh nghiệP
+  steps:
+    - intent: chon_loai_hinh_doanh_nghiep
+    - action: action_lay_danh_sach_trang_thai_cua_loai_hinh_nay
+    - action: utter_danh_sach_trang_trang_doanh_nghiep_cua_loai_hinh_nay
+
+- story: Chọn bước thủ tục cần xem
   steps:
     - intent: chon_trang_thai_doanh_nghiep
     - action: action_dua_ra_cac_thu_tuc_cua_cong_ty
-    - slot_was_set:
-        - has_business_type: false
-    - action: utter_no_business_type_selected
+    - action: utter_danh_sach_cac_buoc_thu_tuc_cua_cong_ty
 
-- story: Chọn bước thủ tục nếu đã chọn loại hình và trạng thái
+
+- story: Xem chi tiếp bước thủ tục đã chọn
   steps:
     - intent: chon_buoc_thu_tuc
     - action: action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc
-    - slot_was_set:
-        - has_business_type: true
-        - has_business_status: true
     - action: utter_thong_tin_chi_tiet_cua_buoc_thu_tuc
-
-- story: Chọn bước thủ tục nếu chưa chọn loại hình
-  steps:
-    - intent: chon_buoc_thu_tuc
-    - action: action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc
-    - slot_was_set:
-        - has_business_type: false
-    - action: utter_no_business_type_selected
-
-- story: Chọn bước thủ tục nếu chưa chọn trạng thái
-  steps:
-    - intent: chon_buoc_thu_tuc
-    - action: action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc
-    - slot_was_set:
-        - has_business_status: false
-    - action: utter_no_business_status_selected
-
-
-- story: Đăng ký doanh nghiệp hiện tại cần những gì? nếu đã chọn loại hình, trạng thái và bước thủ tục
-  steps:
-    - intent: hoi_thu_tuc_dang_ky_doanh_nghiep_hien_tai
-    - slot_was_set:
-        - has_business_type: true
-        - has_business_status: true
-        - has_process_step: true
-    - action: utter_thong_tin_chi_tiet_cua_buoc_thu_tuc
-
-- story: Đăng ký doanh nghiệp hiện tại cần những gì? nếu chưa chọn loại hình
-  steps:
-    - intent: hoi_thu_tuc_dang_ky_doanh_nghiep_hien_tai
-    - slot_was_set:
-        - has_business_type: false
-    - action: utter_no_business_type_selected
-
-- story: Đăng ký doanh nghiệp hiện tại cần những gì? nếu chưa chọn trạng thái
-  steps:
-    - intent: hoi_thu_tuc_dang_ky_doanh_nghiep_hien_tai
-    - slot_was_set:
-        - has_business_status: false
-    - action: utter_no_business_status_selected
-
-- story: Đăng ký doanh nghiệp hiện tại cần những gì? nếu chưa chọn bước thủ tục
-  steps:
-    - intent: hoi_thu_tuc_dang_ky_doanh_nghiep_hien_tai
-    - slot_was_set:
-        - has_process_step: false
-    - action: utter_no_process_step_selected
-

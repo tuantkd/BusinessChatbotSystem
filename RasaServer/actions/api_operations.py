@@ -6,7 +6,7 @@ DJ_BASE_URL = "http://localhost:8000"
 SENDER_API = f"{DJ_BASE_URL}/api/senders/"
 BUSINESS_TYPE_STATUS_API = f"{DJ_BASE_URL}/api/business_type_status/"
 BUSINESS_TYPES_API = f"{DJ_BASE_URL}/api/business_type/"
-BUSINESS_PROCESS_STEP_API = f"{DJ_BASE_URL}/api/business_process_step/"
+BUSINESS_PROCEDURE_STEP_API = f"{DJ_BASE_URL}/api/business_procedure_step/"
 BUSINESS_INDUSTRY_API = f"{DJ_BASE_URL}/api/business_industry/"
 BUSINESS_ACTIVITY_FIELD_API = f"{DJ_BASE_URL}/api/business_activity_field/"
 LAWS_API = f"{DJ_BASE_URL}/api/document_laws/"
@@ -44,7 +44,7 @@ def get_business_type_status(business_type=None, business_type_status=None):
         return []
     return response.json()
 
-def get_business_process_step(step_name=None, business_type=None, business_type_status=None):
+def get_business_procedure_step(step_name=None, business_type=None, business_type_status=None):
     params = []
     if step_name:
         params += [f"step_name={step_name}"]
@@ -54,7 +54,7 @@ def get_business_process_step(step_name=None, business_type=None, business_type_
         params += [f"status={business_type_status}"]
     query_params = "&".join(params)
 
-    response = requests.get(f"{BUSINESS_PROCESS_STEP_API}?{query_params}")
+    response = requests.get(f"{BUSINESS_PROCEDURE_STEP_API}?{query_params}")
     if response.status_code != 200:
         return []
     return response.json()
