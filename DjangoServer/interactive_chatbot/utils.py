@@ -55,6 +55,8 @@ def markdown_to_html(text):
         html_table += '</table>'
         text = text.replace('\n'.join(table), html_table)
 
-    
+    # \n -> <br>
+    text = text.replace('\\n', '<br>')
+
 
     return text

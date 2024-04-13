@@ -70,6 +70,9 @@ class ActionRegisterBusinessTypeStatus(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         business_type_name = tracker.get_slot("business_type")
+        if business_type_name is None:
+            return [SlotSet("has_business_type", False)]
+        
         business_type_status = get_business_type_status(business_type_name)
         status = [f"- _{st['status_display_full']}_" for st in business_type_status]
         business_type_status_list = '\n'.join(status)
@@ -90,6 +93,11 @@ class ActionListBusinessProcessSteps(Action):
         
         business_type = tracker.get_slot("business_type")
         business_status = tracker.get_slot("business_status")
+
+        if business_type is None:
+            return [SlotSet("has_business_type", False)]
+        if business_status is None:
+            return [SlotSet("has_business_status", False)]
 
         business_process_steps = get_business_process_step(business_type=business_type, business_type_status=business_status)
         has_process_steps = True
@@ -114,15 +122,23 @@ class ActionBusinessProcessStepDescription(Action):
             business_status = tracker.get_slot("business_status")
             process_step = tracker.get_slot("process_step")
             
+            if business_type is None:
+                return [SlotSet("has_business_type", False)]
+            if business_status is None:
+                return [SlotSet("has_business_status", False)]
+            if process_step is None:
+                return [SlotSet("has_process_step", False)]
+            
             process_step_description = get_business_process_step(step_name=process_step, business_type=business_type, business_type_status=business_status)
             has_process_step_description = True
             if len(process_step_description) == 0:
                 has_process_step_description = False
             
             return [SlotSet("has_process_step_description", has_process_step_description),
-                    SlotSet("process_step_description", process_step_description[0]['step_description']), 
-                    SlotSet("process_step", process_step)]
-        
+                    SlotSet("process_step_description", process_step_description[0]['step_description']),
+                    SlotSet("has_business_type", True),
+                    SlotSet("has_business_status", True),
+                    SlotSet("has_process_step", True)]
 class ActionLookupBusinessLines(Action):
     
     def name(self) -> Text:
