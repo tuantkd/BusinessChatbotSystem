@@ -57,7 +57,7 @@ class BusinessStatus(models.TextChoices):
 class Business(models.Model):
     class Meta:
         verbose_name = _("Business")
-        verbose_name_plural = _("Businesses")
+        verbose_name_plural = _("Doanh nghiệp")
 
     def validate_multiple_of_1000(value):
         if value % 1000 != 0:
