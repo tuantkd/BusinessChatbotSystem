@@ -24,4 +24,5 @@ urlpatterns = [
     path('chat/', include('interactive_chatbot.urls')),
     path('chatbot/', include('chatbot_data.urls')),
     path('api/', include('api.urls')),
+    path('search-statistics/', include('search_statistics.urls')),
 ]

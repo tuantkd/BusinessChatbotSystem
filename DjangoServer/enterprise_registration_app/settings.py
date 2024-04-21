@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'interactive_chatbot',
     'rest_framework',
     "api",
+    "search_statistics",
 ]
 
 MIDDLEWARE = [

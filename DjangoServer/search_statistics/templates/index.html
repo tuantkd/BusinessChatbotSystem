@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Django App</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Welcome to my Django App!</h1>
+    <h1>Items</h1>
+    <ul>
+        {% for item in items %}
+            <li>{{ item.id }} - {{ item.type_description }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
