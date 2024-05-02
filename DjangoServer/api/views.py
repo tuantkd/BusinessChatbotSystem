@@ -4,8 +4,8 @@ from rest_framework import generics
 
 from legal_documents.models import Circulars, Decisions, Decrees, Laws
 from chatbot_data.models import ChatUser
-from business_registration.models import ActivityField, BusinessProcessStep, BusinessStatus, BusinessType, BusinessTypeStatus, Industry
-from .serializers import ActivityFieldSerializer, BusinessProcessStepSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer, IndustrySerializer, LawsSerializer
+from business_registration.models import ActivityField, Business, BusinessProcessStep, BusinessStatus, BusinessType, BusinessTypeStatus, Industry
+from .serializers import ActivityFieldSerializer, BusinessProcessStepSerializer, BusinessSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer, IndustrySerializer, LawsSerializer
 
 class SenderListView(generics.ListAPIView):
     serializer_class = ChatUserSerializer
@@ -197,4 +197,12 @@ class DecisionsListView(generics.ListAPIView):
         if decision_name is not None:
             queryset = queryset.filter(decision_name__exact=decision_name)
 
+        return queryset
+    
+
+class BusinessListView(generics.ListAPIView):
+    serializer_class = BusinessSerializer
+
+    def get_queryset(self):
+        queryset = Business.objects.all()
         return queryset

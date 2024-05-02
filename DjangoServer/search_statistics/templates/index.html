@@ -1,84 +1,312 @@
-<!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
-    <title>Gis Map</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>
+      ArcGIS Maps
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      href="https://js.arcgis.com/4.29/esri/themes/light/main.css"
     />
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://js.arcgis.com/4.29/"></script>
+    <script>
+      require([
+        "esri/config",
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/Graphic",
+        "esri/PopupTemplate",
+        "esri/widgets/Popup",
+      ], function (esriConfig, Map, MapView, Graphic, PopupTemplate) {
+        esriConfig.apiKey =
+          "AAPK8e60139ca8174a0daaeb2819e88c33d52MZ7rrmtyYuTBEqFpTABF6YUrXY2Zej4NvjJAtQogZR2f8Hk2z59TBbwaXGnjoNt";
+
+        // Create a new map instance
+        const map = new Map({
+          basemap: "arcgis/navigation",
+        });
+
+        // Create a new MapView instance
+        var view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [105.1524, 9.1762],
+          zoom: 12,
+        });
+
+        // Create a graphic object with the specified geometry
+        var graphic = new Graphic({
+          geometry: {
+            type: "point",
+            longitude: -74.006,
+            latitude: 40.7128,
+          },
+          symbol: {
+            type: "picture-marker",
+            url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
+            width: "40px",
+            height: "40px",
+            outline: {
+              color: "#ffffff",
+              width: "30px",
+            },
+          },
+          popupTemplate: new PopupTemplate({
+            title: "Sample Popup AAAAAA",
+            content:
+              "This is a sample popup content Lon" +
+              -74.006 +
+              "<br>Lat: " +
+              40.7128,
+          }),
+        });
+
+        // Add the graphic to the map's graphics layer
+        view.graphics.add(graphic);
+
+        // Create a graphic object with the specified geometry
+        var graphic1 = new Graphic({
+          geometry: {
+            type: "point",
+            longitude: -74.009,
+            latitude: 40.8128,
+          },
+          symbol: {
+            type: "picture-marker",
+            url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
+            width: "40px",
+            height: "40px",
+            outline: {
+              color: "#ffffff",
+              width: "30px",
+            },
+          },
+          popupTemplate: new PopupTemplate({
+            title: "Sample Popup AAAAAA",
+            content:
+              "This is a sample popup content Lon" +
+              -74.006 +
+              "<br>Lat: " +
+              40.7128,
+          }),
+        });
+
+        // Add the graphic to the map's graphics layer
+        view.graphics.add(graphic1);
+
+        //view.when(function(event) {
+        // Open the popup when the view is ready
+        //view.openPopup({
+        //title: graphic1.popupTemplate.title,
+        //content: graphic1.popupTemplate.content,
+        //location: graphic1.geometry,
+        //});
+
+        //view.openPopup({
+        //title: graphic.popupTemplate.title,
+        //content: graphic.popupTemplate.content,
+        //location: graphic.geometry,
+        //});
+        //});
+      });
+    </script>
   </head>
   <body>
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <div class="container">
-        <a class="navbar-brand" href="#"
-          >Tìm kiếm, thống kê, biểu đồ doanh nghiệp</a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="btn btn-info" href="http://127.0.0.1:8000/admin/business_registration/business/">Back to </a>
-            </li>
-          </ul>
+    <header class="header">
+      <nav class="nav__container">
+        <div class="nav__logo">
+          <h1 class="logo">ArcGIS Maps, Thống kê, biểu đồ doanh nghiệp</h1>
         </div>
-      </div>
-    </nav>
-    <div class="container" style="border: 1px solid #F0F0F0;border-radius: 5px;padding: 0;">
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist" style="margin-top: 2px">
-        <li class="nav-item">
-          <a class="nav-link active" data-toggle="tab" href="#home">Tìm kiếm</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#menu1">Thống kê</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#menu2">Biểu đò</a>
-        </li>
-      </ul>
+        <a
+          href="http://127.0.0.1:8000/admin/business_registration/business/"
+          class="btn btn--primary"
+          >Back to</a
+        >
+      </nav>
+    </header>
 
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div id="home" class="container tab-pane active">
-          <br />
-          <h3>HOME</h3>
+    <div class="tabset">
+      <!-- Tab 1 -->
+      <input
+        type="radio"
+        name="tabset"
+        id="tab1"
+        aria-controls="search"
+        checked
+      />
+      <label for="tab1">Tìm kiếm</label>
+      <!-- Tab 2 -->
+      <input type="radio" name="tabset" id="tab2" aria-controls="statistical" />
+      <label for="tab2">Thống kê</label>
+      <!-- Tab 3 -->
+      <input type="radio" name="tabset" id="tab3" aria-controls="chart" />
+      <label for="tab3">Biểu đồ</label>
+
+      <div class="tab-panels">
+        <section id="search" class="tab-panel">
+          <form autocomplete="off">
+            <div class="autocomplete">
+              <input id="myInput" type="text" name="myCountry" placeholder="Tìm kiếm doanh nghiệp...">
+            </div>
+            <input type="submit" value="Tìm kiếm">
+          </form>
+
+          <div id="viewDiv"></div>
+        </section>
+        <section id="statistical" class="tab-panel">
+          <h2>6B. Rauchbier</h2>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            <strong>Overall Impression:</strong> An elegant, malty German amber
+            lager with a balanced, complementary beechwood smoke character.
+            Toasty-rich malt in aroma and flavor, restrained bitterness, low to
+            high smoke flavor, clean fermentation profile, and an attenuated
+            finish are characteristic.
           </p>
-        </div>
-        <div id="menu1" class="container tab-pane fade">
-          <br />
-          <h3>Menu 1</h3>
           <p>
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat.
+            <strong>History:</strong> A historical specialty of the city of
+            Bamberg, in the Franconian region of Bavaria in Germany.
+            Beechwood-smoked malt is used to make a Märzen-style amber lager.
+            The smoke character of the malt varies by maltster; some breweries
+            produce their own smoked malt (rauchmalz).
           </p>
-        </div>
-        <div id="menu2" class="container tab-pane fade">
-          <br />
-          <h3>Menu 2</h3>
+        </section>
+        <section id="chart" class="tab-panel">
+          <h2>6C. Dunkles Bock</h2>
           <p>
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            accusantium doloremque laudantium, totam rem aperiam.
+            <strong>Overall Impression:</strong> A dark, strong, malty German
+            lager beer that emphasizes the malty-rich and somewhat toasty
+            qualities of continental malts without being sweet in the finish.
           </p>
-        </div>
+          <p>
+            <strong>History:</strong> Originated in the Northern German city of
+            Einbeck, which was a brewing center and popular exporter in the days
+            of the Hanseatic League (14th to 17th century). Recreated in Munich
+            starting in the 17th century. The name “bock” is based on a
+            corruption of the name “Einbeck” in the Bavarian dialect, and was
+            thus only used after the beer came to Munich. “Bock” also means
+            “Ram” in German, and is often used in logos and advertisements.
+          </p>
+        </section>
       </div>
     </div>
+
+    <script>
+      function autocomplete(inp, arr) {
+        /*the autocomplete function takes two arguments,
+        the text field element and an array of possible autocompleted values:*/
+        var currentFocus;
+        /*execute a function when someone writes in the text field:*/
+        inp.addEventListener("input", function (e) {
+          var a,
+            b,
+            i,
+            val = this.value;
+          /*close any already open lists of autocompleted values*/
+          closeAllLists();
+          if (!val) {
+            return false;
+          }
+          currentFocus = -1;
+          /*create a DIV element that will contain the items (values):*/
+          a = document.createElement("DIV");
+          a.setAttribute("id", this.id + "autocomplete-list");
+          a.setAttribute("class", "autocomplete-items");
+          /*append the DIV element as a child of the autocomplete container:*/
+          this.parentNode.appendChild(a);
+          /*for each item in the array...*/
+          for (i = 0; i < arr.length; i++) {
+            /*check if the item starts with the same letters as the text field value:*/
+            if (
+              arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()
+            ) {
+              /*create a DIV element for each matching element:*/
+              b = document.createElement("DIV");
+              /*make the matching letters bold:*/
+              b.innerHTML =
+                "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+              b.innerHTML += arr[i].substr(val.length);
+              /*insert a input field that will hold the current array item's value:*/
+              b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+              /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function (e) {
+                /*insert the value for the autocomplete text field:*/
+                inp.value = this.getElementsByTagName("input")[0].value;
+                /*close the list of autocompleted values,
+                    (or any other open lists of autocompleted values:*/
+                closeAllLists();
+              });
+              a.appendChild(b);
+            }
+          }
+        });
+        /*execute a function presses a key on the keyboard:*/
+        inp.addEventListener("keydown", function (e) {
+          var x = document.getElementById(this.id + "autocomplete-list");
+          if (x) x = x.getElementsByTagName("div");
+          if (e.keyCode == 40) {
+            /*If the arrow DOWN key is pressed,
+              increase the currentFocus variable:*/
+            currentFocus++;
+            /*and and make the current item more visible:*/
+            addActive(x);
+          } else if (e.keyCode == 38) {
+            //up
+            /*If the arrow UP key is pressed,
+              decrease the currentFocus variable:*/
+            currentFocus--;
+            /*and and make the current item more visible:*/
+            addActive(x);
+          } else if (e.keyCode == 13) {
+            /*If the ENTER key is pressed, prevent the form from being submitted,*/
+            e.preventDefault();
+            if (currentFocus > -1) {
+              /*and simulate a click on the "active" item:*/
+              if (x) x[currentFocus].click();
+            }
+          }
+        });
+        function addActive(x) {
+          /*a function to classify an item as "active":*/
+          if (!x) return false;
+          /*start by removing the "active" class on all items:*/
+          removeActive(x);
+          if (currentFocus >= x.length) currentFocus = 0;
+          if (currentFocus < 0) currentFocus = x.length - 1;
+          /*add class "autocomplete-active":*/
+          x[currentFocus].classList.add("autocomplete-active");
+        }
+        function removeActive(x) {
+          /*a function to remove the "active" class from all autocomplete items:*/
+          for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+          }
+        }
+        function closeAllLists(elmnt) {
+          /*close all autocomplete lists in the document,
+          except the one passed as an argument:*/
+          var x = document.getElementsByClassName("autocomplete-items");
+          for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+              x[i].parentNode.removeChild(x[i]);
+            }
+          }
+        }
+        /*execute a function when someone clicks in the document:*/
+        document.addEventListener("click", function (e) {
+          closeAllLists(e.target);
+        });
+      }
+
+      var businessAll = {{ items|safe }};
+      console.log(businessAll);
+      const businessFilters = businessAll.map(obj => obj.company_name);
+      autocomplete(document.getElementById("myInput"), businessFilters);
+    </script>
   </body>
 </html>
