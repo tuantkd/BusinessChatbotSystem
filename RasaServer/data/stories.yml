@@ -17,7 +17,6 @@ stories:
   - action: utter_business_registration_proccess
   - intent: business_registration_proccess_step_1
   - action: action_lay_danh_sach_business_types
-  - action: utter_business_registration_proccess_step_1
 
 - story: Hỏi về quy trình đăng ký kinh doanh (Bước 2)
   steps:
@@ -131,13 +130,11 @@ stories:
   steps:
   - intent: how_many_business_types
   - action: action_lay_danh_sach_business_types
-  - action: utter_danh_sach_loai_hinh_doanh_nghiep
 
 - story: Đăng ký doanh nghiệp
   steps:
     - intent: dang_ky_doanh_nghiep
     - action: action_lay_danh_sach_business_types
-    - action: utter_danh_sach_loai_hinh_doanh_nghiep
 
     - intent: chon_loai_hinh_doanh_nghiep
     - action: action_lay_danh_sach_trang_thai_cua_loai_hinh_nay

@@ -45,13 +45,29 @@ class ChatbotView(View):
     def get(self, request, *args, **kwargs):
         sender_id = kwargs.get('sender_id')
         chat_user = ChatUser.objects.filter(sender_id=sender_id).first()
-        if sender_id and not chat_user:
-            return redirect('chatbot')
+        if not sender_id and not chat_user:
+            return render(request, self.template_name, {'error': 'Sender not found'})
         history = History.objects.filter(sender_id=sender_id).order_by('timestamp')
         history = [{'user_say': h.user_say, 
                     'response': markdown_to_html(h.response), 
                     'timestamp': h.timestamp,
                     } for h in history]
+        if len(history) == 0:
+            chatlog_id = uuid.uuid4().hex
+            data = {"message": "/session_start", "sender": sender_id, "metadata": {"chatlog_id": chatlog_id, "sender_name": chat_user.sender_name}}
+            response = requests.post(RASA_WEBHOOKS_ENDPOINT, json=data)
+        
+            if response.status_code != 200:
+                return JsonResponse({'error': 'Rasa server error'}, status=500)
+            response_data = response.json()
+            response_text = 'Xin lỗi, tôi không hiểu câu hỏi của bạn'
+            if len(response_data) > 0:
+                response_text = response_data[0].get('text', '')
+            save_conversation(sender_id, "Bắt đầu", response_text)
+            history = [
+                
+            ]
+
         return render(request, self.template_name, {'chat_user': chat_user, 'chat_history': history})
     
     def post(self, request, format=None):
@@ -90,18 +106,7 @@ class InitChatView(View):
     def post(self, request, format=None):
         sender_name = request.POST.get('senderName')
         sender_id = uuid.uuid4().hex
-        chatlog_id = uuid.uuid4().hex
         ChatUser.objects.create(sender_id=sender_id, sender_name=sender_name)
-        data = {"message": "/session_start", "sender": sender_id, "metadata": {"chatlog_id": chatlog_id, "sender_name": sender_name}}
-        response = requests.post(RASA_WEBHOOKS_ENDPOINT, json=data)
-        
-        if response.status_code != 200:
-            return JsonResponse({'error': 'Rasa server error'}, status=500)
-        response_data = response.json()
-        response_text = 'Xin lỗi, tôi không hiểu câu hỏi của bạn'
-        if len(response_data) > 0:
-            response_text = response_data[0].get('text', '')
-        save_conversation(sender_id, "Bắt đầu", response_text)
         return redirect('chatbot', sender_id=sender_id)
     
 def get_current_user(request, *args, **kwargs):

@@ -3,6 +3,8 @@ from . import views
 
 urlpatterns = [
     path('senders/', views.SenderListView.as_view(), name='senders'),
+    # requests.get(f"{SENDER_API}{sender_id}/history/")
+    re_path(r'^senders/(?P<sender_id>\w+)/history/$', views.SenderHistoryListView.as_view(), name='sender_history'),
     path('business_type_status/', views.BusinessTypeStatusListView.as_view(), name='business_type_status'),
     path('business_type/', views.BusinessTypeListView.as_view(), name='business_type'),
     path('business_procedure_step/', views.BusinessProcessStepListView.as_view(), name='business_procedure_step'),

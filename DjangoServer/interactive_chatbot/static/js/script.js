@@ -7,13 +7,38 @@ const PERSON_IMG = "/static/icons/user.png";
 const BOT_NAME = "BIZGREG";
 let  senderName = "Guest";
 const BOT_MSGS = [];
-const paths  = window.location.pathname.split('/');
-if (paths.length > 2) {
-    senderId = paths[2];
+
+function getSenderIdFromUrl() {
+    const paths  = window.location.pathname.split('/');
+    if (paths.length > 2) {
+        return paths[2];
+    }
+    return null;
 }
+
+function getSenderIdFromLocalStorage() {
+    return localStorage.getItem('senderId');
+}
+
 // If not, create a new one and save it to localStorage
 function get_user() {
-   
+    senderId = getSenderIdFromUrl();
+    if (senderId === null || senderId === "") {
+        senderId = getSenderIdFromLocalStorage();
+        if (senderId !== null && senderId !== "") {
+            // navigate to the new url
+            window.location.replace(`/chat/${senderId}`);
+        }
+        else {
+            // clear the local storage
+            localStorage.clear();
+            return;
+        }
+    }
+    else {
+        localStorage.setItem('senderId', senderId);
+    } 
+
     csrf_token = getCookie('csrftoken');
     fetch(`/chat/get_current_user/${senderId}`, {
         method: 'GET',

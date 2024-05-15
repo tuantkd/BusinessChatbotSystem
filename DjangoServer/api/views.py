@@ -3,9 +3,9 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework import generics
 
 from legal_documents.models import Circulars, Decisions, Decrees, Laws
-from chatbot_data.models import ChatUser
+from chatbot_data.models import ChatUser, History
 from business_registration.models import ActivityField, BusinessProcessStep, BusinessStatus, BusinessType, BusinessTypeStatus, Industry
-from .serializers import ActivityFieldSerializer, BusinessProcessStepSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer, IndustrySerializer, LawsSerializer
+from .serializers import ActivityFieldSerializer, BusinessProcessStepSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer, HistorySerializer, IndustrySerializer, LawsSerializer
 
 class SenderListView(generics.ListAPIView):
     serializer_class = ChatUserSerializer
@@ -23,6 +23,13 @@ class SenderListView(generics.ListAPIView):
 
         return queryset
     
+class SenderHistoryListView(generics.ListAPIView):
+    serializer_class = HistorySerializer
+
+    def get_queryset(self):
+        sender_id = self.kwargs['sender_id']
+        queryset = History.objects.filter(sender_id=sender_id)
+        return queryset
 class BusinessTypeStatusListView(generics.ListAPIView):
     serializer_class = BusinessTypeStatusSerializer
 

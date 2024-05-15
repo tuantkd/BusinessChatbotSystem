@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from legal_documents.models import Circulars, Decisions, Decrees, Laws
-from chatbot_data.models import ChatUser
+from chatbot_data.models import ChatUser, History
 from business_registration.models import ActivityField, BusinessProcessStep, BusinessType, BusinessTypeStatus, Industry
 
 class ChatUserSerializer(serializers.ModelSerializer):
@@ -9,6 +9,11 @@ class ChatUserSerializer(serializers.ModelSerializer):
         model = ChatUser
         fields = ['id', 'sender_name', 'sender_id']
         
+class HistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = History
+        fields = ['id', 'intent', 'entities', 'user_say', 'confidence', 'timestamp', 'response', 'sender_id', 'slot_values', 'intent_ranking']
+
 class BusinessTypeStatusSerializer(serializers.ModelSerializer):
     status_display_full = serializers.CharField(source='get_status_display_full', read_only=True)
 

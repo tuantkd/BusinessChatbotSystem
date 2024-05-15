@@ -1,6 +1,7 @@
+import json
 from typing import Any, Text, Dict, List
 from .utils import cleaned_text, get_json
-from .api_operations import get_business_procedure_step, get_business_type_status, get_business_types, get_senders
+from .api_operations import get_business_procedure_step, get_business_type_status, get_business_types, get_history, get_senders
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
@@ -14,16 +15,27 @@ class ActionWelcome(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: DomainDict) -> List[Dict[Text, Any]]:
-        
+
         sender_id = tracker.sender_id
         sender = get_senders(sender_id=sender_id)
-        sender_name = "Bạn"
+        history = get_history(sender_id=sender_id)
+        events = []
+        if len(history) == 0:
+            sender_name = "Bạn"
 
-        if len(sender) > 0:
-            sender_name = sender[0]['sender_name']
+            if len(sender) > 0:
+                sender_name = sender[0]['sender_name']
+            events.append(SlotSet("sender_name", sender_name))
+        else:
+            history = sorted(history, key=lambda x: x['timestamp'])
+            history_lastest = history[-1]
+            slot_values = json.loads(history_lastest['slot_values'].replace("'", "\"").replace("None", "null").replace("True", "true").replace("False", "false"))
+            
+            for slot, value in slot_values.items():
+                events.append(SlotSet(slot, value))
 
         dispatcher.utter_message(response="utter_welcome", sender_name=sender_name)
-        return [SlotSet("sender_name", sender_name)]
+        return [events]
     
 class ActionBusinessTypes(Action):
 
@@ -36,9 +48,30 @@ class ActionBusinessTypes(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
+        sender_name = tracker.get_slot("sender_name")
+        if sender_name is None:
+            sender_name = "Bạn"
+
         business_types = get_business_types()
-        type_names = [f"- _{business_type['type_description']}_" for business_type in business_types]
+        type_names = [f"- {index+1}. _{business_type['type_description']}_" for index, business_type in enumerate(business_types)]
         type_names_formatted = '\n'.join(type_names)
+        buttons = [{"title": f"{index+1}", "payload": f"/business_type{{\"business_type\": \"{business_type['type_description']}\"}}"} for index, business_type in enumerate(business_types)]
+        
+        text = f"""
+        Để đăng ký doanh nghiệp, bạn cần thực hiện các bước sau:\n
+        Bước đầu tiên bạn chọn Loại hình doanh nghiệp mà bạn muốn đăng ký. \n
+        Đây có nhiều loại hình doanh nghiệp:\n
+        {type_names_formatted}\n
+        **{sender_name}** Bạn chọn loại hình doanh nghiệp nào?
+        """
+        message_json = {
+            "type": "quick_replies",
+            "content": {
+                "title": text,
+                "buttons": buttons
+            },
+        }
+        dispatcher.utter_message(json_message=message_json)
 
         return [SlotSet("business_types", type_names_formatted)]
 
@@ -55,6 +88,7 @@ class ActionRegisterBusinessProcedure(Action):
         business_types = get_business_types()
         type_names = [f"- _{business_type['type_description']}_" for business_type in business_types]
         type_names_formatted = '\n'.join(type_names)
+        
         
         return [SlotSet("business_types", type_names_formatted)]
     
@@ -133,7 +167,6 @@ class ActionBusinessProcessStepDescription(Action):
             has_procedure_step_description = True
             if len(procedure_step_description) == 0:
                 has_procedure_step_description = False
-            
             return [SlotSet("has_procedure_step_description", has_procedure_step_description),
                     SlotSet("procedure_step_description", procedure_step_description[0]['step_description']),
                     SlotSet("has_business_type", True),

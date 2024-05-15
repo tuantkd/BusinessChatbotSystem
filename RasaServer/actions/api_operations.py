@@ -26,6 +26,12 @@ def get_senders(sender_id=None, sender_name=None):
         return None
     return response.json()
 
+def get_history(sender_id=None):
+    response = requests.get(f"{SENDER_API}{sender_id}/history/")
+    if response.status_code != 200:
+        return None
+    return response.json()
+
 def get_business_types():
     response = requests.get(BUSINESS_TYPES_API)
     if response.status_code != 200:
