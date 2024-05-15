@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from legal_documents.models import Circulars, Decisions, Decrees, Laws
 from chatbot_data.models import ChatUser
-from business_registration.models import ActivityField, Business, BusinessProcessStep, BusinessType, BusinessTypeStatus, Industry
+from business_registration.models import ActivityField, Business, BusinessProcessStep, BusinessType, BusinessTypeStatus, Industry, LegalRepresentative
 
 class ChatUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -73,4 +73,23 @@ class BusinessSerializer(serializers.ModelSerializer):
             'address',
             'latitude',
             'longitude'
+        ]
+
+class LegalrepresentativeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LegalRepresentative
+        fields = [
+            'id',
+            'name',
+            'position',
+            'contact_address',
+            'dob',
+            'ethnicity',
+            'gender',
+            'id_issuance_date',
+            'id_issuance_place',
+            'id_number',
+            'id_type',
+            'nationality',
+            'residence_address'
         ]

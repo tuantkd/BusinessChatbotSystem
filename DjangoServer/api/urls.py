@@ -13,4 +13,5 @@ urlpatterns = [
     path('document_decrees/', views.DecreesListView.as_view(), name='decrees'),
     path('document_circulars/', views.CircularsListView.as_view(), name='circulars'),
     path('document_decisions/', views.DecisionsListView.as_view(), name='decisions'),
+    path('legalrepresentative/', views.LegalrepresentativeListView.as_view(), name='legalrepresentative'),
 ]

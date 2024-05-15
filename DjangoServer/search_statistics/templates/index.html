@@ -6,10 +6,12 @@
       name="viewport"
       content="initial-scale=1, maximum-scale=1, user-scalable=no"
     />
-    <title>
-      ArcGIS Maps
-    </title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <title>ArcGIS Maps</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
     <link
       rel="stylesheet"
       href="https://js.arcgis.com/4.29/esri/themes/light/main.css"
@@ -37,68 +39,68 @@
           container: "viewDiv",
           map: map,
           center: [105.1524, 9.1762],
-          zoom: 12,
+          zoom: 5,
         });
+
+        var data = {{ items|safe }};
+        const business = data.business;
+        for (let i = 0; i < business.length; i++) {
+          view.graphics.add(
+            new Graphic({
+              geometry: {
+                type: "point",
+                longitude: business[i].longitude,
+                latitude: business[i].latitude,
+              },
+              symbol: {
+                type: "picture-marker",
+                url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
+                width: "40px",
+                height: "40px",
+                outline: {
+                  color: "#ffffff",
+                  width: "30px",
+                },
+              },
+              popupTemplate: new PopupTemplate({
+                title: business[i].company_name,
+                content:
+                  "<p>" + business[i].address + "</p>" +
+                  "<p>Kinh độ: " + business[i].longitude + ", Vĩ độ: " + business[i].latitude + "</p>",
+              }),
+            })
+          );
+        }
 
         // Create a graphic object with the specified geometry
-        var graphic = new Graphic({
-          geometry: {
-            type: "point",
-            longitude: -74.006,
-            latitude: 40.7128,
-          },
-          symbol: {
-            type: "picture-marker",
-            url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
-            width: "40px",
-            height: "40px",
-            outline: {
-              color: "#ffffff",
-              width: "30px",
-            },
-          },
-          popupTemplate: new PopupTemplate({
-            title: "Sample Popup AAAAAA",
-            content:
-              "This is a sample popup content Lon" +
-              -74.006 +
-              "<br>Lat: " +
-              40.7128,
-          }),
-        });
+        //var graphic1 = new Graphic({
+        //  geometry: {
+        //    type: "point",
+        //    longitude: -74.009,
+        //    latitude: 40.8128,
+        //  },
+        //  symbol: {
+        //    type: "picture-marker",
+        //    url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
+        //    width: "40px",
+        //    height: "40px",
+        //    outline: {
+        //      color: "#ffffff",
+        //      width: "30px",
+        //    },
+        //  },
+        //  popupTemplate: new PopupTemplate({
+        //    title: "Sample Popup AAAAAA",
+        //    content:
+        //      "This is a sample popup content Lon" +
+        //      -74.006 +
+        //      "<br>Lat: " +
+        //      40.7128,
+        //  }),
+        //});
 
         // Add the graphic to the map's graphics layer
-        view.graphics.add(graphic);
-
-        // Create a graphic object with the specified geometry
-        var graphic1 = new Graphic({
-          geometry: {
-            type: "point",
-            longitude: -74.009,
-            latitude: 40.8128,
-          },
-          symbol: {
-            type: "picture-marker",
-            url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
-            width: "40px",
-            height: "40px",
-            outline: {
-              color: "#ffffff",
-              width: "30px",
-            },
-          },
-          popupTemplate: new PopupTemplate({
-            title: "Sample Popup AAAAAA",
-            content:
-              "This is a sample popup content Lon" +
-              -74.006 +
-              "<br>Lat: " +
-              40.7128,
-          }),
-        });
-
-        // Add the graphic to the map's graphics layer
-        view.graphics.add(graphic1);
+        //view.graphics.add(graphic1);
 
         //view.when(function(event) {
         // Open the popup when the view is ready
@@ -126,7 +128,7 @@
         <a
           href="http://127.0.0.1:8000/admin/business_registration/business/"
           class="btn btn--primary"
-          >Back to</a
+          >Back to Admin</a
         >
       </nav>
     </header>
@@ -152,12 +154,24 @@
         <section id="search" class="tab-panel">
           <form autocomplete="off">
             <div class="autocomplete">
-              <input id="myInput" type="text" name="myCountry" placeholder="Tìm kiếm doanh nghiệp...">
+              <input
+                id="myInput"
+                type="text"
+                name="myCountry"
+                placeholder="Tìm kiếm doanh nghiệp..."
+              />
             </div>
-            <input type="submit" value="Tìm kiếm">
+            <input type="button" id="myButton" value="Tìm kiếm" />
           </form>
 
-          <div id="viewDiv"></div>
+          <div class="grid-layout">
+            <div class="grid-content">
+              <div id="viewDiv"></div>
+            </div>
+            <div class="grid-sidebar">
+              <div id="output">THÔNG TIN DOANH NGHIỆP</div>
+            </div>
+          </div>
         </section>
         <section id="statistical" class="tab-panel">
           <h2>6B. Rauchbier</h2>
@@ -197,116 +211,215 @@
     </div>
 
     <script>
-      function autocomplete(inp, arr) {
-        /*the autocomplete function takes two arguments,
-        the text field element and an array of possible autocompleted values:*/
-        var currentFocus;
-        /*execute a function when someone writes in the text field:*/
-        inp.addEventListener("input", function (e) {
-          var a,
-            b,
-            i,
-            val = this.value;
-          /*close any already open lists of autocompleted values*/
-          closeAllLists();
-          if (!val) {
-            return false;
+        function autocomplete(inp, arr) {
+          /*the autocomplete function takes two arguments,
+          the text field element and an array of possible autocompleted values:*/
+          var currentFocus;
+          /*execute a function when someone writes in the text field:*/
+          inp.addEventListener("input", function (e) {
+            var a,
+              b,
+              i,
+              val = this.value;
+            /*close any already open lists of autocompleted values*/
+            closeAllLists();
+            if (!val) {
+              return false;
+            }
+            currentFocus = -1;
+            /*create a DIV element that will contain the items (values):*/
+            a = document.createElement("DIV");
+            a.setAttribute("id", this.id + "autocomplete-list");
+            a.setAttribute("class", "autocomplete-items");
+            /*append the DIV element as a child of the autocomplete container:*/
+            this.parentNode.appendChild(a);
+            /*for each item in the array...*/
+            for (i = 0; i < arr.length; i++) {
+              /*check if the item starts with the same letters as the text field value:*/
+              if (
+                arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()
+              ) {
+                /*create a DIV element for each matching element:*/
+                b = document.createElement("DIV");
+                /*make the matching letters bold:*/
+                b.innerHTML =
+                  "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substr(val.length);
+                /*insert a input field that will hold the current array item's value:*/
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                /*execute a function when someone clicks on the item value (DIV element):*/
+                b.addEventListener("click", function (e) {
+                  /*insert the value for the autocomplete text field:*/
+                  inp.value = this.getElementsByTagName("input")[0].value;
+                  /*close the list of autocompleted values,
+                      (or any other open lists of autocompleted values:*/
+                  closeAllLists();
+                });
+                a.appendChild(b);
+              }
+            }
+          });
+          /*execute a function presses a key on the keyboard:*/
+          inp.addEventListener("keydown", function (e) {
+            var x = document.getElementById(this.id + "autocomplete-list");
+            if (x) x = x.getElementsByTagName("div");
+            if (e.keyCode == 40) {
+              /*If the arrow DOWN key is pressed,
+                increase the currentFocus variable:*/
+              currentFocus++;
+              /*and and make the current item more visible:*/
+              addActive(x);
+            } else if (e.keyCode == 38) {
+              //up
+              /*If the arrow UP key is pressed,
+                decrease the currentFocus variable:*/
+              currentFocus--;
+              /*and and make the current item more visible:*/
+              addActive(x);
+            } else if (e.keyCode == 13) {
+              /*If the ENTER key is pressed, prevent the form from being submitted,*/
+              e.preventDefault();
+              if (currentFocus > -1) {
+                /*and simulate a click on the "active" item:*/
+                if (x) x[currentFocus].click();
+              }
+            }
+          });
+          function addActive(x) {
+            /*a function to classify an item as "active":*/
+            if (!x) return false;
+            /*start by removing the "active" class on all items:*/
+            removeActive(x);
+            if (currentFocus >= x.length) currentFocus = 0;
+            if (currentFocus < 0) currentFocus = x.length - 1;
+            /*add class "autocomplete-active":*/
+            x[currentFocus].classList.add("autocomplete-active");
           }
-          currentFocus = -1;
-          /*create a DIV element that will contain the items (values):*/
-          a = document.createElement("DIV");
-          a.setAttribute("id", this.id + "autocomplete-list");
-          a.setAttribute("class", "autocomplete-items");
-          /*append the DIV element as a child of the autocomplete container:*/
-          this.parentNode.appendChild(a);
-          /*for each item in the array...*/
-          for (i = 0; i < arr.length; i++) {
-            /*check if the item starts with the same letters as the text field value:*/
-            if (
-              arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()
-            ) {
-              /*create a DIV element for each matching element:*/
-              b = document.createElement("DIV");
-              /*make the matching letters bold:*/
-              b.innerHTML =
-                "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-              b.innerHTML += arr[i].substr(val.length);
-              /*insert a input field that will hold the current array item's value:*/
-              b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-              /*execute a function when someone clicks on the item value (DIV element):*/
-              b.addEventListener("click", function (e) {
-                /*insert the value for the autocomplete text field:*/
-                inp.value = this.getElementsByTagName("input")[0].value;
-                /*close the list of autocompleted values,
-                    (or any other open lists of autocompleted values:*/
-                closeAllLists();
-              });
-              a.appendChild(b);
+          function removeActive(x) {
+            /*a function to remove the "active" class from all autocomplete items:*/
+            for (var i = 0; i < x.length; i++) {
+              x[i].classList.remove("autocomplete-active");
             }
           }
-        });
-        /*execute a function presses a key on the keyboard:*/
-        inp.addEventListener("keydown", function (e) {
-          var x = document.getElementById(this.id + "autocomplete-list");
-          if (x) x = x.getElementsByTagName("div");
-          if (e.keyCode == 40) {
-            /*If the arrow DOWN key is pressed,
-              increase the currentFocus variable:*/
-            currentFocus++;
-            /*and and make the current item more visible:*/
-            addActive(x);
-          } else if (e.keyCode == 38) {
-            //up
-            /*If the arrow UP key is pressed,
-              decrease the currentFocus variable:*/
-            currentFocus--;
-            /*and and make the current item more visible:*/
-            addActive(x);
-          } else if (e.keyCode == 13) {
-            /*If the ENTER key is pressed, prevent the form from being submitted,*/
-            e.preventDefault();
-            if (currentFocus > -1) {
-              /*and simulate a click on the "active" item:*/
-              if (x) x[currentFocus].click();
+          function closeAllLists(elmnt) {
+            /*close all autocomplete lists in the document,
+            except the one passed as an argument:*/
+            var x = document.getElementsByClassName("autocomplete-items");
+            for (var i = 0; i < x.length; i++) {
+              if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+              }
             }
           }
-        });
-        function addActive(x) {
-          /*a function to classify an item as "active":*/
-          if (!x) return false;
-          /*start by removing the "active" class on all items:*/
-          removeActive(x);
-          if (currentFocus >= x.length) currentFocus = 0;
-          if (currentFocus < 0) currentFocus = x.length - 1;
-          /*add class "autocomplete-active":*/
-          x[currentFocus].classList.add("autocomplete-active");
+          /*execute a function when someone clicks in the document:*/
+          document.addEventListener("click", function (e) {
+            closeAllLists(e.target);
+          });
         }
-        function removeActive(x) {
-          /*a function to remove the "active" class from all autocomplete items:*/
-          for (var i = 0; i < x.length; i++) {
-            x[i].classList.remove("autocomplete-active");
-          }
-        }
-        function closeAllLists(elmnt) {
-          /*close all autocomplete lists in the document,
-          except the one passed as an argument:*/
-          var x = document.getElementsByClassName("autocomplete-items");
-          for (var i = 0; i < x.length; i++) {
-            if (elmnt != x[i] && elmnt != inp) {
-              x[i].parentNode.removeChild(x[i]);
-            }
-          }
-        }
-        /*execute a function when someone clicks in the document:*/
-        document.addEventListener("click", function (e) {
-          closeAllLists(e.target);
-        });
-      }
 
-      var businessAll = {{ items|safe }};
-      console.log(businessAll);
-      const businessFilters = businessAll.map(obj => obj.company_name);
-      autocomplete(document.getElementById("myInput"), businessFilters);
+        var items = {{ items|safe }};
+        console.log(items)
+        const businessAll = items.business;
+        const businessTypes = items.business_types;
+        const industries = items.industries;
+        const legalRepresentative = items.legalrepresentative;
+        const businessFilters = businessAll.map(obj => obj.company_name);
+        autocomplete(document.getElementById("myInput"), businessFilters);
+
+        document.addEventListener("DOMContentLoaded", function() {
+          const inputField = document.getElementById("myInput");
+          const button = document.getElementById("myButton");
+          const outputDiv = document.getElementById("output");
+
+          button.addEventListener("click", function() {
+            const inputValue = inputField.value;
+            const businessObj = businessAll.find(item => item.company_name === inputValue);
+            const businessTypeObj = businessTypes.find(item => item.id === businessObj.business_type_id);
+            const legalRepresentativeObj = legalRepresentative.find(item => item.id === businessObj.legal_representative_id);
+            const industryObj = industries.find(item => item.id === businessObj.main_industry_id);
+            outputDiv.innerHTML = '';
+
+            const h2NameBusiness = document.createElement("h2");
+            h2NameBusiness.textContent = inputValue;
+
+            const pAddress = document.createElement("p");
+            pAddress.textContent = "Địa chỉ: " + businessObj.address;
+
+            const pCapital = document.createElement("p");
+            pCapital.textContent = "Vốn đầu tư: " + businessObj.capital;
+
+            const pIssuedDate = document.createElement("p");
+            pIssuedDate.textContent = "Ngày thành lập: " + businessObj.issued_date;
+
+            const pTypeDescription = document.createElement("p");
+            pTypeDescription.textContent = "Loại doanh nghiệp: " + businessTypeObj.type_description;
+
+            const pLegalRepresentative = document.createElement("p");
+            pLegalRepresentative.textContent = "Người đại diện pháp lý:";
+
+            const ulElement = document.createElement("ul");
+            const liName = document.createElement("li");
+            liName.textContent = "Họ tên: " + legalRepresentativeObj.name;
+
+            const liPosition = document.createElement("li");
+            liPosition.textContent = "Chức vụ: " + legalRepresentativeObj.position;
+
+            const liContactAddress = document.createElement("li");
+            liContactAddress.textContent = "Địa chỉ liên lạc: " + legalRepresentativeObj.contact_address;
+
+            const liDob = document.createElement("li");
+            liDob.textContent = "Ngày sinh: " + legalRepresentativeObj.dob;
+
+            const liEthnicity = document.createElement("li");
+            liEthnicity.textContent = "Dân tộc: " + legalRepresentativeObj.ethnicity;
+
+            const liGender = document.createElement("li");
+            liGender.textContent = "Giới tính: " + legalRepresentativeObj.gender;
+
+            const liIssuanceDate = document.createElement("li");
+            liIssuanceDate.textContent = "Ngày cấp: " + legalRepresentativeObj.id_issuance_date;
+
+            const liIssuanceplace = document.createElement("li");
+            liIssuanceplace.textContent = "Nơi cấp: " + legalRepresentativeObj.id_issuance_place;
+
+            const liNumber = document.createElement("li");
+            liNumber.textContent = "Mã số: " + legalRepresentativeObj.id_number;
+
+            const liType = document.createElement("li");
+            liType.textContent = "Giấy phép: " + legalRepresentativeObj.id_type;
+
+            const liNationality = document.createElement("li");
+            liNationality.textContent = "Quốc tịch: " + legalRepresentativeObj.nationality;
+
+            const liResidenceAddress = document.createElement("li");
+            liResidenceAddress.textContent = "Địa chỉ cư trú: " + legalRepresentativeObj.residence_address;
+
+            const liActivityName = document.createElement("li");
+            liActivityName.textContent = "Ngành nghề chính: " + industryObj.activity_code + "-" + industryObj.activity_name;
+
+            ulElement.appendChild(liName);
+            ulElement.appendChild(liPosition);
+            ulElement.appendChild(liContactAddress);
+            ulElement.appendChild(liDob);
+            ulElement.appendChild(liEthnicity);
+            ulElement.appendChild(liGender);
+            ulElement.appendChild(liIssuanceDate);
+            ulElement.appendChild(liIssuanceplace);
+            ulElement.appendChild(liNumber);
+            ulElement.appendChild(liType);
+            ulElement.appendChild(liNationality);
+            ulElement.appendChild(liResidenceAddress);
+            ulElement.appendChild(liActivityName);
+
+            outputDiv.appendChild(h2NameBusiness);
+            outputDiv.appendChild(pAddress);
+            outputDiv.appendChild(pCapital);
+            outputDiv.appendChild(pIssuedDate);
+            outputDiv.appendChild(pTypeDescription);
+            outputDiv.appendChild(pLegalRepresentative);
+            outputDiv.appendChild(ulElement);
+          });
+      });
     </script>
   </body>
 </html>

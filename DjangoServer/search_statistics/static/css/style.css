@@ -1,230 +1,233 @@
 #viewDiv {
-    padding: 0;
-    margin: 0;
-    height: 65%;
-    width: 70%;
-  }
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
 
-  .tabset > input[type="radio"] {
-    position: absolute;
-    left: -200vw;
-  }
+.tabset>input[type="radio"] {
+  position: absolute;
+  left: -200vw;
+}
 
-  .tabset .tab-panel {
-    display: none;
-  }
+.tabset .tab-panel {
+  display: none;
+}
 
-  .tab-panels {
-    background: #cedae3;
-  }
+.tab-panels {
+  background: #cedae3;
+}
 
-  .tabset
-    > input:first-child:checked
-    ~ .tab-panels
-    > .tab-panel:first-child,
-  .tabset
-    > input:nth-child(3):checked
-    ~ .tab-panels
-    > .tab-panel:nth-child(2),
-  .tabset
-    > input:nth-child(5):checked
-    ~ .tab-panels
-    > .tab-panel:nth-child(3),
-  .tabset
-    > input:nth-child(7):checked
-    ~ .tab-panels
-    > .tab-panel:nth-child(4),
-  .tabset
-    > input:nth-child(9):checked
-    ~ .tab-panels
-    > .tab-panel:nth-child(5),
-  .tabset
-    > input:nth-child(11):checked
-    ~ .tab-panels
-    > .tab-panel:nth-child(6) {
-    display: block;
-  }
+.tabset>input:first-child:checked~.tab-panels>.tab-panel:first-child,
+.tabset>input:nth-child(3):checked~.tab-panels>.tab-panel:nth-child(2),
+.tabset>input:nth-child(5):checked~.tab-panels>.tab-panel:nth-child(3),
+.tabset>input:nth-child(7):checked~.tab-panels>.tab-panel:nth-child(4),
+.tabset>input:nth-child(9):checked~.tab-panels>.tab-panel:nth-child(5),
+.tabset>input:nth-child(11):checked~.tab-panels>.tab-panel:nth-child(6) {
+  display: block;
+}
 
-  .tabset > label {
-    position: relative;
-    display: inline-block;
-    padding: 15px 15px 25px;
-    border: 1px solid transparent;
-    border-bottom: 0;
-    cursor: pointer;
-    font-weight: 600;
-    color: #06c;
-  }
+.tabset>label {
+  position: relative;
+  display: inline-block;
+  padding: 15px 15px 25px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  cursor: pointer;
+  font-weight: 600;
+  color: #06c;
+}
 
-  .tabset > label::after {
-    content: "";
-    position: absolute;
-    left: 15px;
-    bottom: 10px;
-    width: 22px;
-    height: 4px;
-    background: #8d8d8d;
-  }
+.tabset>label::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  bottom: 10px;
+  width: 22px;
+  height: 4px;
+  background: #8d8d8d;
+}
 
-  input:focus-visible + label {
-    outline: 2px solid rgba(0, 102, 204, 1);
-    border-radius: 3px;
-  }
+input:focus-visible+label {
+  outline: 2px solid rgba(0, 102, 204, 1);
+  border-radius: 3px;
+}
 
-  .tabset > label:hover,
-  .tabset > input:focus + label,
-  .tabset > input:checked + label {
-    color: #06c;
-  }
+.tabset>label:hover,
+.tabset>input:focus+label,
+.tabset>input:checked+label {
+  color: #06c;
+}
 
-  .tabset > label:hover::after,
-  .tabset > input:focus + label::after,
-  .tabset > input:checked + label::after {
-    background: #06c;
-  }
+.tabset>label:hover::after,
+.tabset>input:focus+label::after,
+.tabset>input:checked+label::after {
+  background: #06c;
+}
 
-  .tabset > input:checked + label {
-    border-color: #ccc;
-    border-bottom: 1px solid #fff;
-    margin-bottom: -1px;
-    background: #cedae3;
-  }
+.tabset>input:checked+label {
+  border-color: #ccc;
+  border-bottom: 1px solid #fff;
+  margin-bottom: -1px;
+  background: #cedae3;
+}
 
-  .tab-panel {
-    padding: 16px;
-    border-top: 1px solid #ccc;
-  }
+.tab-panel {
+  padding: 16px;
+  border-top: 1px solid #ccc;
+}
 
-  .tabset {
-    width: 100%;
-    padding: 0 180px;
-    background: white;
-  }
+.tabset {
+  width: 100%;
+  padding: 0 180px;
+  background: white;
+}
 
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: "Roboto", sans-serif;
-    background-color: white;
-  }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: white;
+}
 
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
-  .header {
-    width: 100%;
-    height: 10vh;
-    background-color: #242327;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2em 1em;
-  }
+.header {
+  width: 100%;
+  height: 10vh;
+  background-color: #242327;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2em 1em;
+}
 
-  .nav__container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-  }
+.nav__container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
 
-  .nav__logo {
-    font-size: 2rem;
-    font-weight: bold;
-    letter-spacing: -1px;
-    text-transform: uppercase;
-  }
+.nav__logo {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+}
 
-  .nav__logo .logo {
-    color: white;
-    font-size: 30px;
-  }
+.nav__logo .logo {
+  color: white;
+  font-size: 30px;
+}
 
-  .btn {
-    border: 0;
-    border-radius: 20px;
-    padding: 0.75em 2.25em;
-    font-family: inherit;
-    font-size: 1rem;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .btn--primary {
-    background-color: #4288aa;
-    color: hsla(0, 100%, 100%, 0.8);
-  }
-  .btn--primary:hover {
-    border-radius: 15px;
-    background-color: rgba(66, 136, 170, 0.9);
-  }
+.btn {
+  border: 0;
+  border-radius: 20px;
+  padding: 0.75em 2.25em;
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
 
-  /*the container must be positioned relative:*/
-  .autocomplete {
-    position: relative;
-    display: inline-block;
-    width: 74em;
-  }
+.btn--primary {
+  background-color: #4288aa;
+  color: hsla(0, 100%, 100%, 0.8);
+}
 
-  input {
-    border: 1px solid transparent;
-    background-color: #f1f1f1;
-    padding: 10px;
-    font-size: 16px;
-  }
+.btn--primary:hover {
+  border-radius: 15px;
+  background-color: rgba(66, 136, 170, 0.9);
+}
 
-  input[type="text"] {
-    background-color: #f1f1f1;
-    width: 100%;
-    outline: none;
-    border-radius: 6px 0 0 6px;
-    font-size: 19px;
-  }
+/*the container must be positioned relative:*/
+.autocomplete {
+  position: relative;
+  display: inline-block;
+  width: 74em;
+}
 
-  input[type="submit"] {
-    background-color: DodgerBlue;
-    color: #fff;
-    border-radius: 0 6px 6px 0;
-    font-size: 19px;
-  }
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
 
-  .autocomplete-items {
-    position: absolute;
-    border: 1px solid #d4d4d4;
-    border-bottom: none;
-    border-top: none;
-    z-index: 99;
-    /*position the autocomplete items to be the same width as the container:*/
-    top: 100%;
-    left: 0;
-    right: 0;
-    overflow: auto;
-    height: 300px;
-  }
+input[type="text"] {
+  background-color: #f1f1f1;
+  width: 100%;
+  outline: none;
+  border-radius: 6px 0 0 6px;
+  font-size: 19px;
+}
 
-  .autocomplete-items div {
-    padding: 10px;
-    cursor: pointer;
-    background-color: #fff;
-    border-bottom: 1px solid #d4d4d4;
-  }
+input[type="button"] {
+  background-color: DodgerBlue;
+  color: #fff;
+  border-radius: 0 6px 6px 0;
+  font-size: 19px;
+}
 
-  /*when hovering an item:*/
-  .autocomplete-items div:hover {
-    background-color: #e9e9e9;
-  }
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  height: 300px;
+}
 
-  /*when navigating through the items using the arrow keys:*/
-  .autocomplete-active {
-    background-color: DodgerBlue !important;
-    color: #ffffff;
-  }
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9;
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+
+.grid-layout {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  /* Max. width for 1st column? */
+  grid-template-rows: auto;
+}
+
+.grid-sidebar {
+  background-color: white;
+  padding: 10px;
+  overflow: scroll;
+  height: 80vh;
+}
+
+.grid-content {
+  height: 80vh;
+  width: 100%;
+}

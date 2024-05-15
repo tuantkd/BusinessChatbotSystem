@@ -12,6 +12,7 @@ LAWS_API = f"{DJ_BASE_URL}/api/document_laws/"
 DECREES_API = f"{DJ_BASE_URL}/api/document_decrees/"
 CIRCULARS_API = f"{DJ_BASE_URL}/api/document_circulars/"
 DECISIONS_API = f"{DJ_BASE_URL}/api/document_decisions/"
+LEGAL_REPRESENTATIVE_API = f"{DJ_BASE_URL}/api/legalrepresentative/"
 
 def get_senders(sender_id=None, sender_name=None):
     params = []
@@ -27,6 +28,12 @@ def get_senders(sender_id=None, sender_name=None):
 
 def get_business():
     response = requests.get(BUSINESS_API)
+    if response.status_code != 200:
+        return []
+    return response.json()
+
+def get_legalrepresentative():
+    response = requests.get(LEGAL_REPRESENTATIVE_API)
     if response.status_code != 200:
         return []
     return response.json()
