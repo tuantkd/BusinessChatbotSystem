@@ -4,6 +4,7 @@ DJ_BASE_URL = "http://localhost:8000"
 SENDER_API = f"{DJ_BASE_URL}/api/senders/"
 BUSINESS_TYPE_STATUS_API = f"{DJ_BASE_URL}/api/business_type_status/"
 BUSINESS_TYPES_API = f"{DJ_BASE_URL}/api/business_type/"
+BUSINESS_API = f"{DJ_BASE_URL}/api/business/"
 BUSINESS_PROCEDURE_STEP_API = f"{DJ_BASE_URL}/api/business_procedure_step/"
 BUSINESS_INDUSTRY_API = f"{DJ_BASE_URL}/api/business_industry/"
 BUSINESS_ACTIVITY_FIELD_API = f"{DJ_BASE_URL}/api/business_activity_field/"
@@ -11,6 +12,7 @@ LAWS_API = f"{DJ_BASE_URL}/api/document_laws/"
 DECREES_API = f"{DJ_BASE_URL}/api/document_decrees/"
 CIRCULARS_API = f"{DJ_BASE_URL}/api/document_circulars/"
 DECISIONS_API = f"{DJ_BASE_URL}/api/document_decisions/"
+LEGAL_REPRESENTATIVE_API = f"{DJ_BASE_URL}/api/legalrepresentative/"
 
 def get_senders(sender_id=None, sender_name=None):
     params = []
@@ -22,6 +24,18 @@ def get_senders(sender_id=None, sender_name=None):
     response = requests.get(f"{SENDER_API}?{query_params}")
     if response.status_code != 200:
         return None
+    return response.json()
+
+def get_business():
+    response = requests.get(BUSINESS_API)
+    if response.status_code != 200:
+        return []
+    return response.json()
+
+def get_legalrepresentative():
+    response = requests.get(LEGAL_REPRESENTATIVE_API)
+    if response.status_code != 200:
+        return []
     return response.json()
 
 def get_business_types():

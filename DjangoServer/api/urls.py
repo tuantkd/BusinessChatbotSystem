@@ -7,6 +7,7 @@ urlpatterns = [
     re_path(r'^senders/(?P<sender_id>\w+)/history/$', views.SenderHistoryListView.as_view(), name='sender_history'),
     path('business_type_status/', views.BusinessTypeStatusListView.as_view(), name='business_type_status'),
     path('business_type/', views.BusinessTypeListView.as_view(), name='business_type'),
+    path('business/', views.BusinessListView.as_view(), name='business'),
     path('business_procedure_step/', views.BusinessProcessStepListView.as_view(), name='business_procedure_step'),
     path('business_industry/', views.IndustryListView.as_view(), name='industry'),
     path('business_activity_field/', views.ActivityFieldListView.as_view(), name='activity_field'),
@@ -14,4 +15,5 @@ urlpatterns = [
     path('document_decrees/', views.DecreesListView.as_view(), name='decrees'),
     path('document_circulars/', views.CircularsListView.as_view(), name='circulars'),
     path('document_decisions/', views.DecisionsListView.as_view(), name='decisions'),
+    path('legalrepresentative/', views.LegalrepresentativeListView.as_view(), name='legalrepresentative'),
 ]
