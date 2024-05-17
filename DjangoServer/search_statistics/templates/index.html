@@ -12,112 +12,13 @@
       type="text/css"
       href="{% static 'css/style.css' %}"
     />
+    <link rel = "shortcut icon" sizes = "48x48" href = "{% static 'icon/map.png' %}">
     <link
       rel="stylesheet"
       href="https://js.arcgis.com/4.29/esri/themes/light/main.css"
     />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://js.arcgis.com/4.29/"></script>
-    <script>
-      require([
-        "esri/config",
-        "esri/Map",
-        "esri/views/MapView",
-        "esri/Graphic",
-        "esri/PopupTemplate",
-        "esri/widgets/Popup",
-      ], function (esriConfig, Map, MapView, Graphic, PopupTemplate) {
-        esriConfig.apiKey =
-          "AAPK8e60139ca8174a0daaeb2819e88c33d52MZ7rrmtyYuTBEqFpTABF6YUrXY2Zej4NvjJAtQogZR2f8Hk2z59TBbwaXGnjoNt";
-
-        // Create a new map instance
-        const map = new Map({
-          basemap: "arcgis/navigation",
-        });
-
-        // Create a new MapView instance
-        var view = new MapView({
-          container: "viewDiv",
-          map: map,
-          center: [105.1524, 9.1762],
-          zoom: 5,
-        });
-
-        var data = {{ items|safe }};
-        const business = data.business;
-        for (let i = 0; i < business.length; i++) {
-          view.graphics.add(
-            new Graphic({
-              geometry: {
-                type: "point",
-                longitude: business[i].longitude,
-                latitude: business[i].latitude,
-              },
-              symbol: {
-                type: "picture-marker",
-                url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
-                width: "40px",
-                height: "40px",
-                outline: {
-                  color: "#ffffff",
-                  width: "30px",
-                },
-              },
-              popupTemplate: new PopupTemplate({
-                title: business[i].company_name,
-                content:
-                  "<p>" + business[i].address + "</p>" +
-                  "<p>Kinh độ: " + business[i].longitude + ", Vĩ độ: " + business[i].latitude + "</p>",
-              }),
-            })
-          );
-        }
-
-        // Create a graphic object with the specified geometry
-        //var graphic1 = new Graphic({
-        //  geometry: {
-        //    type: "point",
-        //    longitude: -74.009,
-        //    latitude: 40.8128,
-        //  },
-        //  symbol: {
-        //    type: "picture-marker",
-        //    url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
-        //    width: "40px",
-        //    height: "40px",
-        //    outline: {
-        //      color: "#ffffff",
-        //      width: "30px",
-        //    },
-        //  },
-        //  popupTemplate: new PopupTemplate({
-        //    title: "Sample Popup AAAAAA",
-        //    content:
-        //      "This is a sample popup content Lon" +
-        //      -74.006 +
-        //      "<br>Lat: " +
-        //      40.7128,
-        //  }),
-        //});
-
-        // Add the graphic to the map's graphics layer
-        //view.graphics.add(graphic1);
-
-        //view.when(function(event) {
-        // Open the popup when the view is ready
-        //view.openPopup({
-        //title: graphic1.popupTemplate.title,
-        //content: graphic1.popupTemplate.content,
-        //location: graphic1.geometry,
-        //});
-
-        //view.openPopup({
-        //title: graphic.popupTemplate.title,
-        //content: graphic.popupTemplate.content,
-        //location: graphic.geometry,
-        //});
-        //});
-      });
-    </script>
   </head>
   <body>
     <header class="header">
@@ -160,6 +61,7 @@
                 name="myCountry"
                 placeholder="Tìm kiếm doanh nghiệp..."
               />
+              <i class="fa fa-times" id="close-input"></i>
             </div>
             <input type="button" id="myButton" value="Tìm kiếm" />
           </form>
@@ -169,7 +71,8 @@
               <div id="viewDiv"></div>
             </div>
             <div class="grid-sidebar">
-              <div id="output">THÔNG TIN DOANH NGHIỆP</div>
+              <div class="title-business">THÔNG TIN DOANH NGHIỆP</div>
+              <div id="output"></div>
             </div>
           </div>
         </section>
@@ -211,214 +114,332 @@
     </div>
 
     <script>
-        function autocomplete(inp, arr) {
-          /*the autocomplete function takes two arguments,
-          the text field element and an array of possible autocompleted values:*/
-          var currentFocus;
-          /*execute a function when someone writes in the text field:*/
-          inp.addEventListener("input", function (e) {
-            var a,
-              b,
-              i,
-              val = this.value;
-            /*close any already open lists of autocompleted values*/
-            closeAllLists();
-            if (!val) {
-              return false;
-            }
-            currentFocus = -1;
-            /*create a DIV element that will contain the items (values):*/
-            a = document.createElement("DIV");
-            a.setAttribute("id", this.id + "autocomplete-list");
-            a.setAttribute("class", "autocomplete-items");
-            /*append the DIV element as a child of the autocomplete container:*/
-            this.parentNode.appendChild(a);
-            /*for each item in the array...*/
-            for (i = 0; i < arr.length; i++) {
-              /*check if the item starts with the same letters as the text field value:*/
-              if (
-                arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()
-              ) {
-                /*create a DIV element for each matching element:*/
-                b = document.createElement("DIV");
-                /*make the matching letters bold:*/
-                b.innerHTML =
-                  "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                b.innerHTML += arr[i].substr(val.length);
-                /*insert a input field that will hold the current array item's value:*/
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                /*execute a function when someone clicks on the item value (DIV element):*/
-                b.addEventListener("click", function (e) {
-                  /*insert the value for the autocomplete text field:*/
-                  inp.value = this.getElementsByTagName("input")[0].value;
-                  /*close the list of autocompleted values,
-                      (or any other open lists of autocompleted values:*/
-                  closeAllLists();
-                });
-                a.appendChild(b);
-              }
-            }
-          });
-          /*execute a function presses a key on the keyboard:*/
-          inp.addEventListener("keydown", function (e) {
-            var x = document.getElementById(this.id + "autocomplete-list");
-            if (x) x = x.getElementsByTagName("div");
-            if (e.keyCode == 40) {
-              /*If the arrow DOWN key is pressed,
-                increase the currentFocus variable:*/
-              currentFocus++;
-              /*and and make the current item more visible:*/
-              addActive(x);
-            } else if (e.keyCode == 38) {
-              //up
-              /*If the arrow UP key is pressed,
-                decrease the currentFocus variable:*/
-              currentFocus--;
-              /*and and make the current item more visible:*/
-              addActive(x);
-            } else if (e.keyCode == 13) {
-              /*If the ENTER key is pressed, prevent the form from being submitted,*/
-              e.preventDefault();
-              if (currentFocus > -1) {
-                /*and simulate a click on the "active" item:*/
-                if (x) x[currentFocus].click();
-              }
-            }
-          });
-          function addActive(x) {
-            /*a function to classify an item as "active":*/
-            if (!x) return false;
-            /*start by removing the "active" class on all items:*/
-            removeActive(x);
-            if (currentFocus >= x.length) currentFocus = 0;
-            if (currentFocus < 0) currentFocus = x.length - 1;
-            /*add class "autocomplete-active":*/
-            x[currentFocus].classList.add("autocomplete-active");
+      function autocomplete(inp, arr) {
+        /*the autocomplete function takes two arguments,
+        the text field element and an array of possible autocompleted values:*/
+        var currentFocus;
+        /*execute a function when someone writes in the text field:*/
+        inp.addEventListener("input", function (e) {
+          var a,
+            b,
+            i,
+            val = this.value;
+          /*close any already open lists of autocompleted values*/
+          closeAllLists();
+          if (!val) {
+            return false;
           }
-          function removeActive(x) {
-            /*a function to remove the "active" class from all autocomplete items:*/
-            for (var i = 0; i < x.length; i++) {
-              x[i].classList.remove("autocomplete-active");
+          currentFocus = -1;
+          /*create a DIV element that will contain the items (values):*/
+          a = document.createElement("DIV");
+          a.setAttribute("id", this.id + "autocomplete-list");
+          a.setAttribute("class", "autocomplete-items");
+          /*append the DIV element as a child of the autocomplete container:*/
+          this.parentNode.appendChild(a);
+          /*for each item in the array...*/
+          for (i = 0; i < arr.length; i++) {
+            /*check if the item starts with the same letters as the text field value:*/
+            if (
+              arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()
+            ) {
+              /*create a DIV element for each matching element:*/
+              b = document.createElement("DIV");
+              /*make the matching letters bold:*/
+              b.innerHTML =
+                "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+              b.innerHTML += arr[i].substr(val.length);
+              /*insert a input field that will hold the current array item's value:*/
+              b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+              /*execute a function when someone clicks on the item value (DIV element):*/
+              b.addEventListener("click", function (e) {
+                /*insert the value for the autocomplete text field:*/
+                inp.value = this.getElementsByTagName("input")[0].value;
+                /*close the list of autocompleted values,
+                    (or any other open lists of autocompleted values:*/
+                closeAllLists();
+              });
+              a.appendChild(b);
             }
           }
-          function closeAllLists(elmnt) {
-            /*close all autocomplete lists in the document,
-            except the one passed as an argument:*/
-            var x = document.getElementsByClassName("autocomplete-items");
-            for (var i = 0; i < x.length; i++) {
-              if (elmnt != x[i] && elmnt != inp) {
-                x[i].parentNode.removeChild(x[i]);
-              }
+        });
+        /*execute a function presses a key on the keyboard:*/
+        inp.addEventListener("keydown", function (e) {
+          var x = document.getElementById(this.id + "autocomplete-list");
+          if (x) x = x.getElementsByTagName("div");
+          if (e.keyCode == 40) {
+            /*If the arrow DOWN key is pressed,
+              increase the currentFocus variable:*/
+            currentFocus++;
+            /*and and make the current item more visible:*/
+            addActive(x);
+          } else if (e.keyCode == 38) {
+            //up
+            /*If the arrow UP key is pressed,
+              decrease the currentFocus variable:*/
+            currentFocus--;
+            /*and and make the current item more visible:*/
+            addActive(x);
+          } else if (e.keyCode == 13) {
+            /*If the ENTER key is pressed, prevent the form from being submitted,*/
+            e.preventDefault();
+            if (currentFocus > -1) {
+              /*and simulate a click on the "active" item:*/
+              if (x) x[currentFocus].click();
             }
           }
-          /*execute a function when someone clicks in the document:*/
-          document.addEventListener("click", function (e) {
-            closeAllLists(e.target);
-          });
+        });
+        function addActive(x) {
+          /*a function to classify an item as "active":*/
+          if (!x) return false;
+          /*start by removing the "active" class on all items:*/
+          removeActive(x);
+          if (currentFocus >= x.length) currentFocus = 0;
+          if (currentFocus < 0) currentFocus = x.length - 1;
+          /*add class "autocomplete-active":*/
+          x[currentFocus].classList.add("autocomplete-active");
         }
+        function removeActive(x) {
+          /*a function to remove the "active" class from all autocomplete items:*/
+          for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+          }
+        }
+        function closeAllLists(elmnt) {
+          /*close all autocomplete lists in the document,
+          except the one passed as an argument:*/
+          var x = document.getElementsByClassName("autocomplete-items");
+          for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+              x[i].parentNode.removeChild(x[i]);
+            }
+          }
+        }
+        /*execute a function when someone clicks in the document:*/
+        document.addEventListener("click", function (e) {
+          closeAllLists(e.target);
+        });
+      }
 
-        var items = {{ items|safe }};
-        console.log(items)
-        const businessAll = items.business;
-        const businessTypes = items.business_types;
-        const industries = items.industries;
-        const legalRepresentative = items.legalrepresentative;
-        const businessFilters = businessAll.map(obj => obj.company_name);
-        autocomplete(document.getElementById("myInput"), businessFilters);
+      var items = {{ items|safe }};
+      const businessAll = items.business;
+      const businessTypes = items.business_types;
+      const industries = items.industries;
+      const legalRepresentative = items.legalrepresentative;
+      const businessFilters = businessAll.map(obj => obj.company_name);
+      autocomplete(document.getElementById("myInput"), businessFilters);
 
-        document.addEventListener("DOMContentLoaded", function() {
-          const inputField = document.getElementById("myInput");
-          const button = document.getElementById("myButton");
-          const outputDiv = document.getElementById("output");
+      document.addEventListener("DOMContentLoaded", function() {
+        const inputField = document.getElementById("myInput");
+        const button = document.getElementById("myButton");
+        const closeBtn = document.getElementById("close-input");
+        const outputDiv = document.getElementById("output");
 
-          button.addEventListener("click", function() {
-            const inputValue = inputField.value;
-            const businessObj = businessAll.find(item => item.company_name === inputValue);
-            const businessTypeObj = businessTypes.find(item => item.id === businessObj.business_type_id);
-            const legalRepresentativeObj = legalRepresentative.find(item => item.id === businessObj.legal_representative_id);
-            const industryObj = industries.find(item => item.id === businessObj.main_industry_id);
-            outputDiv.innerHTML = '';
+        closeBtn.addEventListener("click", function() {
+          inputField.value = "";
+        });
 
-            const h2NameBusiness = document.createElement("h2");
-            h2NameBusiness.textContent = inputValue;
+        button.addEventListener("click", function() {
+          const inputValue = inputField.value;
+          const businessObj = businessAll.find(item => item.company_name === inputValue);
+          const businessTypeObj = businessTypes.find(item => item.id === businessObj.business_type_id);
+          const legalRepresentativeObj = legalRepresentative.find(item => item.id === businessObj.legal_representative_id);
+          const industryObj = industries.find(item => item.id === businessObj.main_industry_id);
+          outputDiv.innerHTML = '';
 
-            const pAddress = document.createElement("p");
-            pAddress.textContent = "Địa chỉ: " + businessObj.address;
+          const h2NameBusiness = document.createElement("h2");
+          h2NameBusiness.textContent = inputValue;
 
-            const pCapital = document.createElement("p");
-            pCapital.textContent = "Vốn đầu tư: " + businessObj.capital;
+          const pAddress = document.createElement("p");
+          pAddress.textContent = "Địa chỉ: " + businessObj.address;
 
-            const pIssuedDate = document.createElement("p");
-            pIssuedDate.textContent = "Ngày thành lập: " + businessObj.issued_date;
+          const pCapital = document.createElement("p");
+          pCapital.textContent = "Vốn đầu tư: " + businessObj.capital;
 
-            const pTypeDescription = document.createElement("p");
-            pTypeDescription.textContent = "Loại doanh nghiệp: " + businessTypeObj.type_description;
+          const pIssuedDate = document.createElement("p");
+          pIssuedDate.textContent = "Ngày thành lập: " + businessObj.issued_date;
 
-            const pLegalRepresentative = document.createElement("p");
-            pLegalRepresentative.textContent = "Người đại diện pháp lý:";
+          const pTypeDescription = document.createElement("p");
+          pTypeDescription.textContent = "Loại doanh nghiệp: " + businessTypeObj.type_description;
 
-            const ulElement = document.createElement("ul");
-            const liName = document.createElement("li");
-            liName.textContent = "Họ tên: " + legalRepresentativeObj.name;
+          const pLegalRepresentative = document.createElement("p");
+          pLegalRepresentative.textContent = "Người đại diện pháp lý:";
 
-            const liPosition = document.createElement("li");
-            liPosition.textContent = "Chức vụ: " + legalRepresentativeObj.position;
+          const ulElement = document.createElement("ul");
+          const liName = document.createElement("li");
+          liName.textContent = "Họ tên: " + legalRepresentativeObj.name;
 
-            const liContactAddress = document.createElement("li");
-            liContactAddress.textContent = "Địa chỉ liên lạc: " + legalRepresentativeObj.contact_address;
+          const liPosition = document.createElement("li");
+          liPosition.textContent = "Chức vụ: " + legalRepresentativeObj.position;
 
-            const liDob = document.createElement("li");
-            liDob.textContent = "Ngày sinh: " + legalRepresentativeObj.dob;
+          const liContactAddress = document.createElement("li");
+          liContactAddress.textContent = "Địa chỉ liên lạc: " + legalRepresentativeObj.contact_address;
 
-            const liEthnicity = document.createElement("li");
-            liEthnicity.textContent = "Dân tộc: " + legalRepresentativeObj.ethnicity;
+          const liDob = document.createElement("li");
+          liDob.textContent = "Ngày sinh: " + legalRepresentativeObj.dob;
 
-            const liGender = document.createElement("li");
-            liGender.textContent = "Giới tính: " + legalRepresentativeObj.gender;
+          const liEthnicity = document.createElement("li");
+          liEthnicity.textContent = "Dân tộc: " + legalRepresentativeObj.ethnicity;
 
-            const liIssuanceDate = document.createElement("li");
-            liIssuanceDate.textContent = "Ngày cấp: " + legalRepresentativeObj.id_issuance_date;
+          const liGender = document.createElement("li");
+          liGender.textContent = "Giới tính: " + legalRepresentativeObj.gender;
 
-            const liIssuanceplace = document.createElement("li");
-            liIssuanceplace.textContent = "Nơi cấp: " + legalRepresentativeObj.id_issuance_place;
+          const liIssuanceDate = document.createElement("li");
+          liIssuanceDate.textContent = "Ngày cấp: " + legalRepresentativeObj.id_issuance_date;
 
-            const liNumber = document.createElement("li");
-            liNumber.textContent = "Mã số: " + legalRepresentativeObj.id_number;
+          const liIssuanceplace = document.createElement("li");
+          liIssuanceplace.textContent = "Nơi cấp: " + legalRepresentativeObj.id_issuance_place;
 
-            const liType = document.createElement("li");
-            liType.textContent = "Giấy phép: " + legalRepresentativeObj.id_type;
+          const liNumber = document.createElement("li");
+          liNumber.textContent = "Mã số: " + legalRepresentativeObj.id_number;
 
-            const liNationality = document.createElement("li");
-            liNationality.textContent = "Quốc tịch: " + legalRepresentativeObj.nationality;
+          const liType = document.createElement("li");
+          liType.textContent = "Giấy phép: " + legalRepresentativeObj.id_type;
 
-            const liResidenceAddress = document.createElement("li");
-            liResidenceAddress.textContent = "Địa chỉ cư trú: " + legalRepresentativeObj.residence_address;
+          const liNationality = document.createElement("li");
+          liNationality.textContent = "Quốc tịch: " + legalRepresentativeObj.nationality;
 
-            const liActivityName = document.createElement("li");
-            liActivityName.textContent = "Ngành nghề chính: " + industryObj.activity_code + "-" + industryObj.activity_name;
+          const liResidenceAddress = document.createElement("li");
+          liResidenceAddress.textContent = "Địa chỉ cư trú: " + legalRepresentativeObj.residence_address;
 
-            ulElement.appendChild(liName);
-            ulElement.appendChild(liPosition);
-            ulElement.appendChild(liContactAddress);
-            ulElement.appendChild(liDob);
-            ulElement.appendChild(liEthnicity);
-            ulElement.appendChild(liGender);
-            ulElement.appendChild(liIssuanceDate);
-            ulElement.appendChild(liIssuanceplace);
-            ulElement.appendChild(liNumber);
-            ulElement.appendChild(liType);
-            ulElement.appendChild(liNationality);
-            ulElement.appendChild(liResidenceAddress);
-            ulElement.appendChild(liActivityName);
+          const liActivityName = document.createElement("li");
+          liActivityName.textContent = "Ngành nghề chính: " + industryObj.activity_code + "-" + industryObj.activity_name;
 
-            outputDiv.appendChild(h2NameBusiness);
-            outputDiv.appendChild(pAddress);
-            outputDiv.appendChild(pCapital);
-            outputDiv.appendChild(pIssuedDate);
-            outputDiv.appendChild(pTypeDescription);
-            outputDiv.appendChild(pLegalRepresentative);
-            outputDiv.appendChild(ulElement);
+          ulElement.appendChild(liName);
+          ulElement.appendChild(liPosition);
+          ulElement.appendChild(liContactAddress);
+          ulElement.appendChild(liDob);
+          ulElement.appendChild(liEthnicity);
+          ulElement.appendChild(liGender);
+          ulElement.appendChild(liIssuanceDate);
+          ulElement.appendChild(liIssuanceplace);
+          ulElement.appendChild(liNumber);
+          ulElement.appendChild(liType);
+          ulElement.appendChild(liNationality);
+          ulElement.appendChild(liResidenceAddress);
+          ulElement.appendChild(liActivityName);
+
+          outputDiv.appendChild(h2NameBusiness);
+          outputDiv.appendChild(pAddress);
+          outputDiv.appendChild(pCapital);
+          outputDiv.appendChild(pIssuedDate);
+          outputDiv.appendChild(pTypeDescription);
+          outputDiv.appendChild(pLegalRepresentative);
+          outputDiv.appendChild(ulElement);
+
+          require([
+            "esri/config",
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/Graphic",
+            "esri/PopupTemplate",
+            "esri/widgets/Popup",
+          ], function (esriConfig, Map, MapView, Graphic, PopupTemplate) {
+            esriConfig.apiKey =
+              "AAPK8e60139ca8174a0daaeb2819e88c33d52MZ7rrmtyYuTBEqFpTABF6YUrXY2Zej4NvjJAtQogZR2f8Hk2z59TBbwaXGnjoNt";
+
+            const map = new Map({
+              basemap: "arcgis/navigation",
+            });
+
+            var view = new MapView({
+              container: "viewDiv",
+              map: map,
+              center: [105.1524, 9.1762],
+              zoom: 5,
+            });
+
+            var graphic = new Graphic({
+              geometry: {
+                type: "point",
+                longitude: businessObj.longitude,
+                latitude: businessObj.latitude,
+              },
+              symbol: {
+                type: "picture-marker",
+                url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
+                width: "40px",
+                height: "40px",
+                outline: {
+                  color: "#ffffff",
+                  width: "30px",
+                },
+              },
+              popupTemplate: new PopupTemplate({
+                title: businessObj.company_name,
+                content:
+                  "<p>" + businessObj.address + "</p>" +
+                  "<p>Kinh độ: " + businessObj.longitude + 
+                  ", Vĩ độ: " + businessObj.latitude + "</p>",
+              }),
+            });
+
+            view.graphics.add(graphic);
+
+            view.when(function(event) {
+              view.center = [businessObj.longitude, businessObj.latitude];
+              view.openPopup({
+                title: graphic.popupTemplate.title,
+                content: graphic.popupTemplate.content,
+                location: graphic.geometry,
+              });
+            });
+            
           });
+
+        });
+      });
+
+      require([
+        "esri/config",
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/Graphic",
+        "esri/PopupTemplate",
+        "esri/widgets/Popup",
+      ], function (esriConfig, Map, MapView, Graphic, PopupTemplate) {
+        esriConfig.apiKey =
+          "AAPK8e60139ca8174a0daaeb2819e88c33d52MZ7rrmtyYuTBEqFpTABF6YUrXY2Zej4NvjJAtQogZR2f8Hk2z59TBbwaXGnjoNt";
+
+        // Create a new map instance
+        const map = new Map({
+          basemap: "arcgis/navigation",
+        });
+
+        // Create a new MapView instance
+        var view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [105.1524, 9.1762],
+          zoom: 5,
+        });
+
+        for (let i = 0; i < businessAll.length; i++) {
+          view.graphics.add(
+            new Graphic({
+              geometry: {
+                type: "point",
+                longitude: businessAll[i].longitude,
+                latitude: businessAll[i].latitude,
+              },
+              symbol: {
+                type: "picture-marker",
+                url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
+                width: "40px",
+                height: "40px",
+                outline: {
+                  color: "#ffffff",
+                  width: "30px",
+                },
+              },
+              popupTemplate: new PopupTemplate({
+                title: businessAll[i].company_name,
+                content:
+                  "<p>" + businessAll[i].address + "</p>" +
+                  "<p>Kinh độ: " + businessAll[i].longitude + ", Vĩ độ: " + businessAll[i].latitude + "</p>",
+              }),
+            })
+          );
+        }
       });
     </script>
   </body>

@@ -156,7 +156,7 @@ a {
 .autocomplete {
   position: relative;
   display: inline-block;
-  width: 74em;
+  width: 93%;
 }
 
 input {
@@ -179,6 +179,7 @@ input[type="button"] {
   color: #fff;
   border-radius: 0 6px 6px 0;
   font-size: 19px;
+  position: absolute;
 }
 
 .autocomplete-items {
@@ -223,11 +224,25 @@ input[type="button"] {
 .grid-sidebar {
   background-color: white;
   padding: 10px;
-  overflow: scroll;
+  overflow-y: scroll;
   height: 80vh;
 }
 
 .grid-content {
   height: 80vh;
   width: 100%;
+}
+
+#close-input {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 25px;
+  cursor: pointer;
+  color: gray;
+}
+
+.title-business {
+  text-align: center;
+  font-weight: bold;
 }
