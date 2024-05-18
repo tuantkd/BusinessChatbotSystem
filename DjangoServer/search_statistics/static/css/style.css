@@ -246,3 +246,98 @@ input[type="button"] {
   text-align: center;
   font-weight: bold;
 }
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.styled-select {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+}
+
+.styled-select,
+.styled-select select {
+  background-color: white;
+  width: 100%;
+}
+
+select:focus {
+  outline: none;
+}
+
+.styled-select select {
+  height: 34px;
+  padding: 5px 0 5px 5px;
+  background: transparent;
+  border: none;
+  width: 100%;
+}
+
+@-moz-document url-prefix() {
+  .styled-select select {
+    width: 110%;
+  }
+}
+
+.fa-sort-desc {
+  position: absolute;
+  top: 5px;
+  right: 12px;
+  font-size: 24px;
+}
+
+.fa-sort-down:before,
+.fa-sort-desc:before {
+  content: "" !important;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+_:-o-prefocus,
+.selector {
+  .styled-select {
+    background: none;
+  }
+}
+
+table {
+  width: 98.5%;
+  margin: 0 auto;
+  color: #333;
+  background: white;
+  border: 1px solid grey;
+  font-size: 12pt;
+  border-collapse: collapse;
+}
+
+table thead th,
+table tfoot th {
+  color: #777;
+  background: rgba(0, 0, 0, .1);
+}
+
+table caption {
+  padding: .5em;
+}
+
+table th,
+table td {
+  padding: .5em;
+  border: 1px solid lightgrey;
+}
