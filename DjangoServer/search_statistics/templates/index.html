@@ -12,12 +12,19 @@
       type="text/css"
       href="{% static 'css/style.css' %}"
     />
-    <link rel = "shortcut icon" sizes = "48x48" href = "{% static 'icon/map.png' %}">
+    <link
+      rel="shortcut icon"
+      sizes="48x48"
+      href="{% static 'icon/map.png' %}"
+    />
     <link
       rel="stylesheet"
       href="https://js.arcgis.com/4.29/esri/themes/light/main.css"
     />
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
     <script src="https://js.arcgis.com/4.29/"></script>
   </head>
   <body>
@@ -77,21 +84,36 @@
           </div>
         </section>
         <section id="statistical" class="tab-panel">
-          <h2>6B. Rauchbier</h2>
-          <p>
-            <strong>Overall Impression:</strong> An elegant, malty German amber
-            lager with a balanced, complementary beechwood smoke character.
-            Toasty-rich malt in aroma and flavor, restrained bitterness, low to
-            high smoke flavor, clean fermentation profile, and an attenuated
-            finish are characteristic.
-          </p>
-          <p>
-            <strong>History:</strong> A historical specialty of the city of
-            Bamberg, in the Franconian region of Bavaria in Germany.
-            Beechwood-smoked malt is used to make a Märzen-style amber lager.
-            The smoke character of the malt varies by maltster; some breweries
-            produce their own smoked malt (rauchmalz).
-          </p>
+          <div class="row">
+            <div class="column">
+              <label for="district">Quận/Huyện:</label><br />
+              <div class="styled-select">
+                <select id="district"></select>
+                <span class="fa fa-sort-desc"></span>
+              </div>
+            </div>
+
+            {% comment %} <div class="column">
+              <label for="business">Các doanh nghiệp:</label><br />
+              <div class="styled-select">
+                <select id="business"></select>
+                <span class="fa fa-sort-desc"></span>
+              </div>
+            </div> {% endcomment %}
+          </div>
+
+          <div style="overflow-x: auto">
+            <table id="myTable">
+              <thead>
+                <tr>
+                  <!-- Table Headers will be dynamically added here -->
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table Data will be dynamically added here -->
+              </tbody>
+            </table>
+          </div>
         </section>
         <section id="chart" class="tab-panel">
           <h2>6C. Dunkles Bock</h2>
@@ -220,13 +242,68 @@
         });
       }
 
+      function populateSelect(data, selectElement) {
+        selectElement.innerHTML = '';
+        data.forEach(item => {
+          const option = document.createElement('option');
+          option.value = item.value;
+          option.textContent = item.text;
+          selectElement.appendChild(option);
+        });
+      }
+
+      function populateTable(data) {
+        // Create table headers
+        const headers = Object.keys(data[0]);
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header.charAt(0).toUpperCase() + header.slice(1);
+            tableHeader.appendChild(th);
+        });
+      
+        // Create table rows and cells
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            headers.forEach(header => {
+                const cell = document.createElement('td');
+                cell.textContent = item[header];
+                row.appendChild(cell);
+            });
+            tableBody.appendChild(row);
+        });
+      }
+
       var items = {{ items|safe }};
+      console.log(items);
       const businessAll = items.business;
       const businessTypes = items.business_types;
       const industries = items.industries;
       const legalRepresentative = items.legalrepresentative;
+      const district = items.district;
+      const address = items.address;
+
+      // search gis map
       const businessFilters = businessAll.map(obj => obj.company_name);
       autocomplete(document.getElementById("myInput"), businessFilters);
+
+      // search select
+      const districtFilters = district.filter(item => item.province_id === 96);
+      const districtMap = districtFilters.map(item => {
+        return { value: item.code, text: item.full_name };
+      });
+      const selectElement = document.getElementById('district');
+      populateSelect(districtMap, selectElement);
+
+      // filter table
+      const data = [
+      { id: 1, name: 'John', age: 28, profession: 'Developer' },
+      { id: 2, name: 'Jane', age: 32, profession: 'Designer' },
+      { id: 3, name: 'Mike', age: 25, profession: 'Manager' }
+      ];
+      const table = document.getElementById('myTable');
+      const tableHeader = table.querySelector('thead tr');
+      const tableBody = table.querySelector('tbody');
+      populateTable(data);
 
       document.addEventListener("DOMContentLoaded", function() {
         const inputField = document.getElementById("myInput");
@@ -253,7 +330,7 @@
           pAddress.textContent = "Địa chỉ: " + businessObj.address;
 
           const pCapital = document.createElement("p");
-          pCapital.textContent = "Vốn đầu tư: " + businessObj.capital;
+          pCapital.textContent = "Vốn đầu tư: " + businessObj.capital.toFixed(2);
 
           const pIssuedDate = document.createElement("p");
           pIssuedDate.textContent = "Ngày thành lập: " + businessObj.issued_date;
@@ -368,7 +445,7 @@
                 title: businessObj.company_name,
                 content:
                   "<p>" + businessObj.address + "</p>" +
-                  "<p>Kinh độ: " + businessObj.longitude + 
+                  "<p>Kinh độ: " + businessObj.longitude +
                   ", Vĩ độ: " + businessObj.latitude + "</p>",
               }),
             });
@@ -383,7 +460,7 @@
                 location: graphic.geometry,
               });
             });
-            
+
           });
 
         });

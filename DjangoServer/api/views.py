@@ -6,6 +6,9 @@ from legal_documents.models import Circulars, Decisions, Decrees, Laws
 from chatbot_data.models import ChatUser, History
 from business_registration.models import ActivityField, Business, BusinessProcessStep, BusinessStatus, BusinessType, BusinessTypeStatus, Industry, LegalRepresentative
 from .serializers import ActivityFieldSerializer, BusinessProcessStepSerializer, BusinessSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer, HistorySerializer, IndustrySerializer, LawsSerializer, LegalrepresentativeSerializer
+from chatbot_data.models import ChatUser
+from business_registration.models import ActivityField, Address, Business, BusinessProcessStep, BusinessStatus, BusinessType, BusinessTypeStatus, District, Industry, LegalRepresentative, Province, Ward
+from .serializers import ActivityFieldSerializer, AddressSerializer, BusinessProcessStepSerializer, BusinessSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer, DistrictSerializer, IndustrySerializer, LawsSerializer, LegalrepresentativeSerializer, ProvinceSerializer, WardSerializer
 
 class SenderListView(generics.ListAPIView):
     serializer_class = ChatUserSerializer
@@ -219,4 +222,32 @@ class LegalrepresentativeListView(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = LegalRepresentative.objects.all()
+        return queryset
+
+class ProvinceListView(generics.ListAPIView):
+    serializer_class = ProvinceSerializer
+
+    def get_queryset(self):
+        queryset = Province.objects.all()
+        return queryset
+
+class DistrictListView(generics.ListAPIView):
+    serializer_class = DistrictSerializer
+
+    def get_queryset(self):
+        queryset = District.objects.all()
+        return queryset
+
+class WardListView(generics.ListAPIView):
+    serializer_class = WardSerializer
+
+    def get_queryset(self):
+        queryset = Ward.objects.all()
+        return queryset
+
+class AddressListView(generics.ListAPIView):
+    serializer_class = AddressSerializer
+
+    def get_queryset(self):
+        queryset = Address.objects.all()
         return queryset
