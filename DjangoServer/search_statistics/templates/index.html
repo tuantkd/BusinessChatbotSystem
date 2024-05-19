@@ -2,29 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="initial-scale=1, maximum-scale=1, user-scalable=no"
-    />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
     <title>ArcGIS Maps</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/style.css' %}"
-    />
-    <link
-      rel="shortcut icon"
-      sizes="48x48"
-      href="{% static 'icon/map.png' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="https://js.arcgis.com/4.29/esri/themes/light/main.css"
-    />
-    <link
-      href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    <link rel="shortcut icon" sizes="48x48" href="{% static 'icon/map.png' %}"/>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css"/>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <script src="https://js.arcgis.com/4.29/"></script>
   </head>
   <body>
@@ -33,30 +16,31 @@
         <div class="nav__logo">
           <h1 class="logo">ArcGIS Maps, Thống kê, biểu đồ doanh nghiệp</h1>
         </div>
-        <a
-          href="http://127.0.0.1:8000/admin/business_registration/business/"
-          class="btn btn--primary"
-          >Back to Admin</a
-        >
+        <a href="http://127.0.0.1:8000/admin/business_registration/business/" class="btn btn--primary">Back to Admin</a>
       </nav>
     </header>
 
     <div class="tabset">
       <!-- Tab 1 -->
-      <input
-        type="radio"
-        name="tabset"
-        id="tab1"
-        aria-controls="search"
-        checked
-      />
-      <label for="tab1">Tìm kiếm</label>
+      <input type="radio" name="tabset" id="tab1" aria-controls="search" checked/>
+      <label for="tab1">
+        <a href="http://127.0.0.1:8000/search-statistics/">Tìm kiếm</a>
+      </label>
+      <!-- /Tab 1 -->
+
       <!-- Tab 2 -->
-      <input type="radio" name="tabset" id="tab2" aria-controls="statistical" />
-      <label for="tab2">Thống kê</label>
+      <input type="radio" name="tabset"/>
+      <label for="tab2">
+        <a href="http://127.0.0.1:8000/search-statistics/statistical/">Thống kê</a>
+      </label>
+      <!-- /Tab 2 -->
+
       <!-- Tab 3 -->
-      <input type="radio" name="tabset" id="tab3" aria-controls="chart" />
-      <label for="tab3">Biểu đồ</label>
+      <input type="radio" name="tabset"/>
+      <label for="tab3">
+        <a href="http://127.0.0.1:8000/search-statistics/chart/">Biểu đồ</a>
+      </label>
+      <!-- /Tab 3 -->
 
       <div class="tab-panels">
         <section id="search" class="tab-panel">
@@ -69,8 +53,8 @@
                 placeholder="Tìm kiếm doanh nghiệp..."
               />
               <i class="fa fa-times" id="close-input"></i>
+              <input type="button" id="myButton" value="Tìm kiếm" />
             </div>
-            <input type="button" id="myButton" value="Tìm kiếm" />
           </form>
 
           <div class="grid-layout">
@@ -83,59 +67,14 @@
             </div>
           </div>
         </section>
-        <section id="statistical" class="tab-panel">
-          <div class="row">
-            <div class="column">
-              <label for="district">Quận/Huyện:</label><br />
-              <div class="styled-select">
-                <select id="district"></select>
-                <span class="fa fa-sort-desc"></span>
-              </div>
-            </div>
-
-            {% comment %} <div class="column">
-              <label for="business">Các doanh nghiệp:</label><br />
-              <div class="styled-select">
-                <select id="business"></select>
-                <span class="fa fa-sort-desc"></span>
-              </div>
-            </div> {% endcomment %}
-          </div>
-
-          <div style="overflow-x: auto">
-            <table id="myTable">
-              <thead>
-                <tr>
-                  <!-- Table Headers will be dynamically added here -->
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Table Data will be dynamically added here -->
-              </tbody>
-            </table>
-          </div>
-        </section>
-        <section id="chart" class="tab-panel">
-          <h2>6C. Dunkles Bock</h2>
-          <p>
-            <strong>Overall Impression:</strong> A dark, strong, malty German
-            lager beer that emphasizes the malty-rich and somewhat toasty
-            qualities of continental malts without being sweet in the finish.
-          </p>
-          <p>
-            <strong>History:</strong> Originated in the Northern German city of
-            Einbeck, which was a brewing center and popular exporter in the days
-            of the Hanseatic League (14th to 17th century). Recreated in Munich
-            starting in the 17th century. The name “bock” is based on a
-            corruption of the name “Einbeck” in the Bavarian dialect, and was
-            thus only used after the beer came to Munich. “Bock” also means
-            “Ram” in German, and is often used in logos and advertisements.
-          </p>
-        </section>
       </div>
     </div>
 
     <script>
+      const formatVND = (amount) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+      };
+
       function autocomplete(inp, arr) {
         /*the autocomplete function takes two arguments,
         the text field element and an array of possible autocompleted values:*/
@@ -242,38 +181,8 @@
         });
       }
 
-      function populateSelect(data, selectElement) {
-        selectElement.innerHTML = '';
-        data.forEach(item => {
-          const option = document.createElement('option');
-          option.value = item.value;
-          option.textContent = item.text;
-          selectElement.appendChild(option);
-        });
-      }
-
-      function populateTable(data) {
-        // Create table headers
-        const headers = Object.keys(data[0]);
-        headers.forEach(header => {
-            const th = document.createElement('th');
-            th.textContent = header.charAt(0).toUpperCase() + header.slice(1);
-            tableHeader.appendChild(th);
-        });
-      
-        // Create table rows and cells
-        data.forEach(item => {
-            const row = document.createElement('tr');
-            headers.forEach(header => {
-                const cell = document.createElement('td');
-                cell.textContent = item[header];
-                row.appendChild(cell);
-            });
-            tableBody.appendChild(row);
-        });
-      }
-
       var items = {{ items|safe }};
+      localStorage.setItem("dataBusiness", JSON.stringify(items));
       console.log(items);
       const businessAll = items.business;
       const businessTypes = items.business_types;
@@ -282,29 +191,13 @@
       const district = items.district;
       const address = items.address;
 
-      // search gis map
+      // Search gis map
+      // ---------------------------------------------------------------
       const businessFilters = businessAll.map(obj => obj.company_name);
       autocomplete(document.getElementById("myInput"), businessFilters);
+      // ---------------------------------------------------------------
 
-      // search select
-      const districtFilters = district.filter(item => item.province_id === 96);
-      const districtMap = districtFilters.map(item => {
-        return { value: item.code, text: item.full_name };
-      });
-      const selectElement = document.getElementById('district');
-      populateSelect(districtMap, selectElement);
-
-      // filter table
-      const data = [
-      { id: 1, name: 'John', age: 28, profession: 'Developer' },
-      { id: 2, name: 'Jane', age: 32, profession: 'Designer' },
-      { id: 3, name: 'Mike', age: 25, profession: 'Manager' }
-      ];
-      const table = document.getElementById('myTable');
-      const tableHeader = table.querySelector('thead tr');
-      const tableBody = table.querySelector('tbody');
-      populateTable(data);
-
+      // ------------------------------------------------------------------------------------------------------------------
       document.addEventListener("DOMContentLoaded", function() {
         const inputField = document.getElementById("myInput");
         const button = document.getElementById("myButton");
@@ -330,7 +223,7 @@
           pAddress.textContent = "Địa chỉ: " + businessObj.address;
 
           const pCapital = document.createElement("p");
-          pCapital.textContent = "Vốn đầu tư: " + businessObj.capital.toFixed(2);
+          pCapital.textContent = "Vốn đầu tư: " + formatVND(businessObj.capital);
 
           const pIssuedDate = document.createElement("p");
           pIssuedDate.textContent = "Ngày thành lập: " + businessObj.issued_date;
@@ -465,7 +358,9 @@
 
         });
       });
+      // ------------------------------------------------------------------------------------------------------------------
 
+      // --------------------------------------------------------------------------------------------------
       require([
         "esri/config",
         "esri/Map",
@@ -518,6 +413,7 @@
           );
         }
       });
+      // --------------------------------------------------------------------------------------------------
     </script>
   </body>
 </html>

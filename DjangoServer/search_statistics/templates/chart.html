@@ -1,0 +1,389 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>ArcGIS Maps</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="48x48"
+      href="{% static 'icon/map.png' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.29/esri/themes/light/main.css"
+    />
+    <link
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav__container">
+        <div class="nav__logo">
+          <h1 class="logo">ArcGIS Maps, Thống kê, biểu đồ doanh nghiệp</h1>
+        </div>
+        <a
+          href="http://127.0.0.1:8000/admin/business_registration/business/"
+          class="btn btn--primary"
+          >Back to Admin</a
+        >
+      </nav>
+    </header>
+
+    <div class="tabset">
+      <!-- Tab 1 -->
+      <input type="radio" name="tabset" />
+      <label for="tab1">
+        <a href="http://127.0.0.1:8000/search-statistics/">Tìm kiếm</a>
+      </label>
+      <!-- /Tab 1 -->
+
+      <!-- Tab 2 -->
+      <input type="radio" name="tabset" />
+      <label for="tab2">
+        <a href="http://127.0.0.1:8000/search-statistics/statistical/"
+          >Thống kê</a
+        >
+      </label>
+      <!-- /Tab 2 -->
+
+      <!-- Tab 3 -->
+      <input
+        type="radio"
+        name="tabset"
+        id="tab3"
+        aria-controls="chart"
+        checked
+      />
+      <label for="tab3">
+        <a href="http://127.0.0.1:8000/search-statistics/chart/">Biểu đồ</a>
+      </label>
+      <!-- /Tab 3 -->
+
+      <div class="tab-panels">
+        <section id="chart" class="tab-panel">
+          <div class="row">
+            <div class="column">
+              <label for="district">Quận/Huyện:</label><br />
+              <div class="styled-select">
+                <select id="district"></select>
+                <span class="fa fa-sort-desc"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="column">
+              <div id="textMessage"></div>
+              <div id="showChart">
+                <canvas id="myChart" style="width: 100%; max-width: 600px"></canvas>
+              </div>
+            </div>
+            <div class="column">
+              <div id="chartData"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      var retrievedObject = localStorage.getItem("dataBusiness");
+      var items = JSON.parse(retrievedObject);
+      const businessAll = items.business;
+      const businessTypes = items.business_types;
+      const industries = items.industries;
+      const legalRepresentative = items.legalrepresentative;
+      const district = items.district;
+      const address = items.address;
+
+      var xValues = [];
+      var yValues = [];
+      var barColors = [];
+
+      // ----------------------------------------------------------------------
+      // Search select
+      const formatVND = (amount) => {
+        return new Intl.NumberFormat("vi-VN", {
+          style: "currency",
+          currency: "VND",
+        }).format(amount);
+      };
+
+      function populateSelect(data, selectElement) {
+        selectElement.innerHTML = "";
+        data.forEach((item) => {
+          const option = document.createElement("option");
+          option.value = item.value;
+          option.textContent = item.text;
+          selectElement.appendChild(option);
+        });
+      }
+
+      const districtFilters = district.filter(
+        (item) => item.province_id === 96
+      );
+      const districtMap = districtFilters.map((item) => {
+        return { value: item.code, text: item.full_name };
+      });
+      const selectElement = document.getElementById("district");
+      districtMap.unshift({ value: "", text: "--- Tất cả Quận/Huyện ---" });
+      populateSelect(districtMap, selectElement);
+      // ----------------------------------------------------------------------
+
+      // ----------------------------------------------------------------------
+      //Filter data for chart
+      function showBusinessByDistrict(districtId, districtName) {
+        const addressFilters = address.filter(
+          (address) => address.district_id === Number(districtId)
+        );
+        const businessFilters = new Array();
+
+        if (addressFilters.length > 0) {
+          addressFilters.forEach(function (addFilter, index) {
+            const businessFilterByAddress = businessAll.filter(
+              (item) => item.headquarters_address_id === addFilter.id
+            );
+            if (businessFilterByAddress.length > 0) {
+              const businessMap = businessFilterByAddress.map((item) => {
+                const businessTypeObj = businessTypes.find(
+                  (businessType) => businessType.id === item.business_type_id
+                );
+                const legalRepresentativeObj = legalRepresentative.find(
+                  (legal) => legal.id === item.legal_representative_id
+                );
+                const industryObj = industries.find(
+                  (industry) => industry.id === item.main_industry_id
+                );
+                return {
+                  business_code: item.business_code,
+                  company_name: item.company_name,
+                  capital: formatVND(item.capital),
+                  business_type: businessTypeObj.type_description,
+                  issued_date: item.issued_date,
+                  legal_pepresentative: legalRepresentativeObj.name,
+                  industry: `${industryObj.activity_code}-${industryObj.activity_name}`,
+                };
+              });
+              businessFilters.push(...businessMap);
+            }
+          });
+        }
+
+        return {
+          title: `${districtName} có (${businessFilters.length}) doanh nghiệp:`,
+          data: businessFilters,
+        };
+      }
+
+      //Show all district
+      districtMap.forEach(function (district, index) {
+        const addressFilters = address.filter(
+          (address) => address.district_id === district.value
+        );
+        const businessFilters = new Array();
+
+        if (addressFilters.length > 0) {
+          addressFilters.forEach(function (addFilter, index) {
+            const businessFilterByAddress = businessAll.filter(
+              (item) => item.headquarters_address_id === addFilter.id
+            );
+            if (businessFilterByAddress.length > 0) {
+              const businessMap = businessFilterByAddress.map((item) => {
+                const businessTypeObj = businessTypes.find(
+                  (businessType) => businessType.id === item.business_type_id
+                );
+                const legalRepresentativeObj = legalRepresentative.find(
+                  (legal) => legal.id === item.legal_representative_id
+                );
+                const industryObj = industries.find(
+                  (industry) => industry.id === item.main_industry_id
+                );
+                return {
+                  business_code: item.business_code,
+                  company_name: item.company_name,
+                  capital: formatVND(item.capital),
+                  business_type: businessTypeObj.type_description,
+                  issued_date: item.issued_date,
+                  legal_pepresentative: legalRepresentativeObj.name,
+                  industry: `${industryObj.activity_code}-${industryObj.activity_name}`,
+                };
+              });
+              businessFilters.push(...businessMap);
+            }
+          });
+        }
+
+        if (businessFilters.length > 0) {
+          let data = {
+            title: `${district.text} có (${businessFilters.length}) doanh nghiệp:`,
+            data: businessFilters,
+          };
+          xValues.push(`${district.value}-${district.text}`);
+          yValues.push(businessFilters.length);
+          barColors.push("blue");
+        }
+      });
+      // ----------------------------------------------------------------------
+
+      // ----------------------------------------------------------------------
+      // Select change
+      document.addEventListener("DOMContentLoaded", function () {
+        const districtSelector = document.getElementById("district");
+        districtSelector.addEventListener("change", function (item) {
+          
+          document.getElementById("chartData").innerHTML = "";
+          const textMessage = document.getElementById("textMessage");
+          textMessage.innerHTML = "";
+          const showChartDiv = document.getElementById("showChart");
+          showChartDiv.innerHTML = "";
+          
+          const xValues = [];
+          const yValues = [];
+          const barColors = [];
+          const districtId = this.value;
+
+          if (districtId === "") {
+
+            const canvas = document.createElement('canvas');
+            canvas.id = 'myChart';
+            canvas.style.width = '100%';
+            canvas.style.maxWidth = '600px';
+            showChartDiv.appendChild(canvas);
+            chartDataAll();
+
+          } else {
+
+            const businessTypeObj = districtMap.find((district) => district.value === Number(districtId));
+            const business = showBusinessByDistrict(districtId, "");
+            if (business.data.length > 0) {
+              const canvas = document.createElement('canvas');
+              canvas.id = 'myChart';
+              canvas.style.width = '100%';
+              canvas.style.maxWidth = '600px';
+              showChartDiv.appendChild(canvas);
+
+              xValues.push(`${businessTypeObj.value}-${businessTypeObj.text}`);
+              yValues.push(business.data.length);
+              barColors.push("blue");
+
+              new Chart("myChart", {
+                type: "bar",
+                data: {
+                  labels: xValues,
+                  datasets: [
+                    {
+                      backgroundColor: barColors,
+                      data: yValues,
+                    },
+                  ],
+                },
+                options: {
+                  responsive: true,
+                  legend: { display: false },
+                  scales: {
+                    y: {
+                      beginAtZero: true,
+                    },
+                  },
+                  title: {
+                    display: true,
+                    text: `Biểu đồ doanh nghiệp của ${businessTypeObj.text}`,
+                  },
+                  onClick: (evt, item) => {
+                    if (item.length > 0) {
+                      const index = item[0]._index;
+                      const category = xValues[index];
+                      const count = yValues[index];
+                      const chartDataDiv = document.getElementById("chartData");
+                      chartDataDiv.innerHTML = `<h3>Quận/Huyện: ${category}</h3><p>Số lượng doanh nghiệp: ${count}</p><h4>Các tên doanh nghiệp:</h4><ul id="businessList"></ul>`;
+
+                      const categoryArr = category.split("-");
+                      const business = showBusinessByDistrict(
+                        categoryArr[0],
+                        categoryArr[1]
+                      );
+                      const ul = document.getElementById("businessList");
+                      business.data.forEach((item) => {
+                        const li = document.createElement("li");
+                        li.textContent = item.company_name;
+                        ul.appendChild(li);
+                      });
+                    }
+                  },
+                },
+              });
+            } else {
+              textMessage.innerHTML = "<h3>Không có dữ liệu biểu thị biểu đồ</h3>";
+            }
+
+          }
+        });
+      });
+      // ----------------------------------------------------------------------
+
+      // ----------------------------------------------------------------------
+      function chartDataAll(){
+        new Chart("myChart", {
+          type: "bar",
+          data: {
+            labels: xValues,
+            datasets: [
+              {
+                backgroundColor: barColors,
+                data: yValues,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            legend: { display: false },
+            scales: {
+              y: {
+                beginAtZero: true,
+              },
+            },
+            title: {
+              display: true,
+              text: "Biểu đồ doanh nghiệp các Quận/Huyện",
+            },
+            onClick: (evt, item) => {
+              if (item.length > 0) {
+                const index = item[0]._index;
+                const category = xValues[index];
+                const count = yValues[index];
+                const chartDataDiv = document.getElementById("chartData");
+                chartDataDiv.innerHTML = `<h3>Quận/Huyện: ${category}</h3><p>Số lượng doanh nghiệp: ${count}</p><h4>Các tên doanh nghiệp:</h4><ul id="businessList"></ul>`;
+
+                const categoryArr = category.split("-");
+                const business = showBusinessByDistrict(
+                  categoryArr[0],
+                  categoryArr[1]
+                );
+                const ul = document.getElementById("businessList");
+                business.data.forEach((item) => {
+                  const li = document.createElement("li");
+                  li.textContent = item.company_name;
+                  ul.appendChild(li);
+                });
+              }
+            },
+          },
+        });
+      }
+      chartDataAll();
+      // ----------------------------------------------------------------------
+    </script>
+  </body>
+</html>

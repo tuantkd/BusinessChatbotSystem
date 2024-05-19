@@ -10,12 +10,8 @@
   left: -200vw;
 }
 
-.tabset .tab-panel {
-  display: none;
-}
-
 .tab-panels {
-  background: #cedae3;
+  background: #def1ff;
 }
 
 .tabset>input:first-child:checked~.tab-panels>.tab-panel:first-child,
@@ -156,7 +152,7 @@ a {
 .autocomplete {
   position: relative;
   display: inline-block;
-  width: 93%;
+  width: 100%;
 }
 
 input {
@@ -170,7 +166,7 @@ input[type="text"] {
   background-color: #f1f1f1;
   width: 100%;
   outline: none;
-  border-radius: 6px 0 0 6px;
+  border-radius: 6px;
   font-size: 19px;
 }
 
@@ -180,6 +176,7 @@ input[type="button"] {
   border-radius: 0 6px 6px 0;
   font-size: 19px;
   position: absolute;
+  right: 0;
 }
 
 .autocomplete-items {
@@ -236,7 +233,7 @@ input[type="button"] {
 #close-input {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 110px;
   font-size: 25px;
   cursor: pointer;
   color: gray;
@@ -318,12 +315,12 @@ _:-o-prefocus,
 
 table {
   width: 98.5%;
-  margin: 0 auto;
   color: #333;
   background: white;
   border: 1px solid grey;
   font-size: 12pt;
   border-collapse: collapse;
+  margin-bottom: 15px;
 }
 
 table thead th,

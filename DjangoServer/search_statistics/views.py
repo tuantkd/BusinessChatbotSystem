@@ -16,3 +16,13 @@ class SearchStatisticsView(TemplateView):
             "address": get_address(),
         }
         return render(request, self.template_name, {'items': items})
+
+class StatisticalView(TemplateView):
+    template_name = 'statistical.html'
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+
+class ChartView(TemplateView):
+    template_name = 'chart.html'
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
