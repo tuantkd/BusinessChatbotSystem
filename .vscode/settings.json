@@ -16,5 +16,10 @@
     },
     "[python]": {
         "editor.defaultFormatter": "mikoz.isort-formatter"
+
+
+    },
+    "[django-html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }

@@ -17,7 +17,7 @@
             "env": {
                 "DJANGO_SETTINGS_MODULE": "enterprise_registration_app.settings"
             },
-            "python": "${workspaceFolder}/DjangoServer/djangoenv/Scripts/python.exe"
+            "python": "${workspaceFolder}/DjangoServer/venv/Scripts/python.exe"
         },
         {
             "name": "Rasa Server",
@@ -37,7 +37,7 @@
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/RasaServer",
-            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
+            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
         },
         {
             "name": "Rasa Action Server",
@@ -52,7 +52,7 @@
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/RasaServer",
-            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
+            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
         },
         {
             "name": "Rasa Train",
@@ -64,7 +64,7 @@
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/RasaServer",
-            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
+            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
         },
         {
             "name": "Rasa Shell",
@@ -79,7 +79,7 @@
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/RasaServer",
-            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
+            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
         },
         {
             "name": "Rasa Interactive",
@@ -94,7 +94,7 @@
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/RasaServer",
-            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
+            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
         },
         {
             "name": "Rasa Data Validate",
@@ -107,7 +107,7 @@
             ],
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/RasaServer",
-            "python": "${workspaceFolder}/RasaServer/rasaenv/Scripts/python.exe"
+            "python": "${workspaceFolder}/RasaServer/venv/Scripts/python.exe"
         },
     ]
 }

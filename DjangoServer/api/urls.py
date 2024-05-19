@@ -18,4 +18,8 @@ urlpatterns = [
     path('legalrepresentative/', views.LegalrepresentativeListView.as_view(), name='legalrepresentative'),
     path('subindustries/', views.SubIndustriesListView.as_view(), name='subindustries'),
     path('industries_by_level/', views.IndustriesByLevelListView.as_view(), name='industries_by_level'),
+    path('province/', views.ProvinceListView.as_view(), name='province'),
+    path('district/', views.DistrictListView.as_view(), name='district'),
+    path('ward/', views.WardListView.as_view(), name='ward'),
+    path('address/', views.AddressListView.as_view(), name='address'),
 ]

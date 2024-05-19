@@ -1,0 +1,275 @@
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>ArcGIS Maps</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    <link rel="shortcut icon" sizes="48x48" href="{% static 'icon/map.png' %}"/>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css"/>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <script src="https://js.arcgis.com/4.29/"></script>
+  </head>
+  <body>
+    <header class="header">
+      <nav class="nav__container">
+        <div class="nav__logo">
+          <h1 class="logo">ArcGIS Maps, Thống kê, biểu đồ doanh nghiệp</h1>
+        </div>
+        <a href="http://127.0.0.1:8000/admin/business_registration/business/" class="btn btn--primary">Back to Admin</a>
+      </nav>
+    </header>
+
+    <div class="tabset">
+      <!-- Tab 1 -->
+      <input type="radio" name="tabset"/>
+      <label for="tab1">
+        <a href="http://127.0.0.1:8000/search-statistics/">Tìm kiếm</a>
+      </label>
+      <!-- /Tab 1 -->
+
+      <!-- Tab 2 -->
+      <input type="radio" name="tabset" id="tab2" aria-controls="statistical" checked/>
+      <label for="tab2">
+        <a href="http://127.0.0.1:8000/search-statistics/statistical/">Thống kê</a>
+      </label>
+      <!-- /Tab 2 -->
+
+      <!-- Tab 3 -->
+      <input type="radio" name="tabset"/>
+      <label for="tab3">
+        <a href="http://127.0.0.1:8000/search-statistics/chart/">Biểu đồ</a>
+      </label>
+      <!-- /Tab 3 -->
+
+      <div class="tab-panels">
+        <section id="statistical" class="tab-panel">
+          <div class="row">
+            <div class="column">
+              <label for="district">Quận/Huyện:</label><br />
+              <div class="styled-select">
+                <select id="district"></select>
+                <span class="fa fa-sort-desc"></span>
+              </div>
+            </div>
+          </div>
+          <div id="countNumberBiss"></div>
+          <div style="overflow-x: auto">
+            <div id="tables-container" style="padding: 11px;"></div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      const formatVND = (amount) => {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+      };
+
+      function populateSelect(data, selectElement) {
+        selectElement.innerHTML = '';
+        data.forEach(item => {
+          const option = document.createElement('option');
+          option.value = item.value;
+          option.textContent = item.text;
+          selectElement.appendChild(option);
+        });
+      }
+
+      function createTables(dataSets) {
+        // Get the container where the tables will be inserted
+        const container = document.getElementById('tables-container');
+
+        // Loop through the datasets array
+        dataSets.forEach(set => {
+          // Create a new table element
+          const table = document.createElement('table');
+
+          // Create the table header
+          const thead = document.createElement('thead');
+          const headerRow = document.createElement('tr');
+
+          // Create and append index
+          const indexTh = document.createElement('th');
+          indexTh.textContent = 'STT';
+          headerRow.appendChild(indexTh);
+
+          Object.keys(set.data[0]).forEach(key => {
+              const th = document.createElement('th');
+              if(key === 'business_code') {
+                th.textContent = 'Mã doanh nghiệp';
+              }
+              if(key === 'company_name') {
+                th.textContent = 'Tên công ty';
+              }
+              if(key === 'capital') {
+                th.textContent = 'Vốn đầu tư';
+              }
+              if(key === 'business_type') {
+                th.textContent = 'Loại hình';
+              }
+              if(key === 'issued_date') {
+                th.textContent = 'Ngày thành lập';
+              }
+              if(key === 'legal_pepresentative') {
+                th.textContent = 'Đại diện';
+              }
+              if(key === 'industry') {
+                th.textContent = 'Ngành nghề';
+              }
+              headerRow.appendChild(th);
+          });
+          thead.appendChild(headerRow);
+          table.appendChild(thead);
+
+          // Create the table body
+          const tbody = document.createElement('tbody');
+          set.data.forEach((item, index) => {
+              const row = document.createElement('tr');
+
+              // Create and append index cell
+              const indexCell = document.createElement('td');
+              indexCell.textContent = index + 1; // Show index starting from 1
+              row.appendChild(indexCell);
+
+              Object.values(item).forEach(text => {
+                  const cell = document.createElement('td');
+                  cell.textContent = text;
+                  row.appendChild(cell);
+              });
+              tbody.appendChild(row);
+          });
+          table.appendChild(tbody);
+
+          // Create title
+          const h4Element = document.createElement('h5');
+          h4Element.textContent = set.title;
+          container.appendChild(h4Element);
+
+          // Append the table to the container
+          container.appendChild(table);
+        });
+      }
+
+      var retrievedObject = localStorage.getItem('dataBusiness');
+      var items = JSON.parse(retrievedObject);
+      const businessAll = items.business;
+      const businessTypes = items.business_types;
+      const industries = items.industries;
+      const legalRepresentative = items.legalrepresentative;
+      const district = items.district;
+      const address = items.address;
+
+      // Search select
+      // ----------------------------------------------------------------------
+      const districtFilters = district.filter(item => item.province_id === 96);
+      const districtMap = districtFilters.map(item => {
+        return { value: item.code, text: item.full_name };
+      });
+      const selectElement = document.getElementById('district');
+      districtMap.unshift({ value: "", text: "--- Tất cả Quận/Huyện ---" });
+      populateSelect(districtMap, selectElement);
+      // ----------------------------------------------------------------------
+
+      //Show filter all
+      // -----------------------------------------------------------------------------------------------
+      function showBusinessStatistical() {
+        const dataBusiness = new Array();
+        districtMap.forEach(function(district, index) {
+          const addressFilters = address.filter(address => address.district_id === district.value);
+          const businessFilters = new Array();
+
+          if (addressFilters.length > 0) {
+            addressFilters.forEach(function(addFilter, index) {
+              const businessFilterByAddress = businessAll.filter(item => item.headquarters_address_id === addFilter.id);
+              if (businessFilterByAddress.length > 0) {
+                const businessMap = businessFilterByAddress.map(item => {
+                  const businessTypeObj = businessTypes.find(businessType => businessType.id === item.business_type_id);
+                  const legalRepresentativeObj = legalRepresentative.find(legal => legal.id === item.legal_representative_id);
+                  const industryObj = industries.find(industry => industry.id === item.main_industry_id);
+                  return {
+                    business_code: item.business_code,
+                    company_name: item.company_name,
+                    capital: formatVND(item.capital),
+                    business_type: businessTypeObj.type_description,
+                    issued_date: item.issued_date,
+                    legal_pepresentative: legalRepresentativeObj.name,
+                    industry: `${industryObj.activity_code}-${industryObj.activity_name}`
+                  };
+                });
+                businessFilters.push(...businessMap);
+              }
+            });
+          }
+
+          if (businessFilters.length > 0) {
+            let data = {
+              title: `${district.text} có (${businessFilters.length}) doanh nghiệp:`,
+              data: businessFilters
+            };
+            dataBusiness.push(data);
+          }
+        });
+        createTables(dataBusiness);
+      }
+      showBusinessStatistical();
+      // -----------------------------------------------------------------------------------------------
+
+      // Filter table count business and show information
+      // -----------------------------------------------------------------------------------------------
+      document.addEventListener('DOMContentLoaded', function() {
+        const districtSelector = document.getElementById("district");
+        districtSelector.addEventListener("change", function() {
+          const tablesRemove = document.getElementById('tables-container');
+          if (tablesRemove) {
+            tablesRemove.innerHTML = "";
+          }
+
+          const districtId = this.value;
+          if (districtId === "") {
+            showBusinessStatistical();
+          } else {
+            const businessFilters = new Array();
+            const districtObj = districtMap.find(item => item.value === Number(districtId));
+            const addressFilters = address.filter(address => address.district_id === districtObj.value);
+            
+            if (addressFilters.length > 0) {
+              addressFilters.forEach(function(addFilter, index) {
+                const businessFilterByAddress = businessAll.filter(item => item.headquarters_address_id === addFilter.id);
+                if (businessFilterByAddress.length > 0) {
+                  const businessMap = businessFilterByAddress.map(item => {
+                    const businessTypeObj = businessTypes.find(businessType => businessType.id === item.business_type_id);
+                    const legalRepresentativeObj = legalRepresentative.find(legal => legal.id === item.legal_representative_id);
+                    const industryObj = industries.find(industry => industry.id === item.main_industry_id);
+                    return {
+                      business_code: item.business_code,
+                      company_name: item.company_name,
+                      capital: formatVND(item.capital),
+                      business_type: businessTypeObj.type_description,
+                      issued_date: item.issued_date,
+                      legal_pepresentative: legalRepresentativeObj.name,
+                      industry: `${industryObj.activity_code}-${industryObj.activity_name}`
+                    };
+                  });
+                  businessFilters.push(...businessMap);
+                }
+              });
+            }
+
+            if (businessFilters.length > 0) {
+              let data = {
+                title: `${districtObj.text} có (${businessFilters.length}) doanh nghiệp:`,
+                data: businessFilters
+              };
+              createTables([data]);
+            } else {
+              const h3 = document.createElement("h3");
+              h3.textContent = "Không có dữ liệu thống kê";
+              tablesRemove.appendChild(h3);
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -13,6 +13,10 @@ DECREES_API = f"{DJ_BASE_URL}/api/document_decrees/"
 CIRCULARS_API = f"{DJ_BASE_URL}/api/document_circulars/"
 DECISIONS_API = f"{DJ_BASE_URL}/api/document_decisions/"
 LEGAL_REPRESENTATIVE_API = f"{DJ_BASE_URL}/api/legalrepresentative/"
+PROVINCE_API = f"{DJ_BASE_URL}/api/province/"
+DISTRICT_API = f"{DJ_BASE_URL}/api/district/"
+WARD_API = f"{DJ_BASE_URL}/api/ward/"
+ADDRESS_API = f"{DJ_BASE_URL}/api/address/"
 
 def get_senders(sender_id=None, sender_name=None):
     params = []
@@ -24,6 +28,30 @@ def get_senders(sender_id=None, sender_name=None):
     response = requests.get(f"{SENDER_API}?{query_params}")
     if response.status_code != 200:
         return None
+    return response.json()
+
+def get_province():
+    response = requests.get(PROVINCE_API)
+    if response.status_code != 200:
+        return []
+    return response.json()
+
+def get_district():
+    response = requests.get(DISTRICT_API)
+    if response.status_code != 200:
+        return []
+    return response.json()
+
+def get_ward():
+    response = requests.get(WARD_API)
+    if response.status_code != 200:
+        return []
+    return response.json()
+
+def get_address():
+    response = requests.get(ADDRESS_API)
+    if response.status_code != 200:
+        return []
     return response.json()
 
 def get_business():
