@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'test' %}">Test List</a></li>
+    <li class="breadcrumb-item active">Test Result</li>
+</ol>
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Test Intents</strong>
+                    </div>
+                    <div class="card-block">
+                        <form id="rename-form" method="post" action="{% url 'rename_test' test.id %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="test_name">Rename Test</label>
+                                <input type="text" class="form-control" id="test_name" name="test_name" value="{{ test.name }}" required>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i> Rename</button>
+                        </form>
+                        <button id="retest-button" class="btn btn-sm btn-secondary mt-2"><i class="fa fa-refresh"></i> Re-Test</button>
+                    </div>
+                </div>
+                <div id="loading" class="mt-4" style="display: none;">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+                {% if test_result %}
+                    <div id="result"></div>
+                    <div id="entityResult"></div>
+                    <script id="resultData" type="application/json">
+                        {{ test_result|safe }}
+                    </script>
+                    <div class="mt-4">
+                        <h3>Charts</h3>
+                    {% if test_result.chart1_path %}
+                        <img src="{% static test_result.chart1_path %}" alt="Confidence Chart" class="img-fluid">
+                    {% endif %}
+                    {% if test_result.chart2_path %}
+                        <img src="{% static test_result.chart2_path %}" alt="Confusion Matrix" class="img-fluid mt-4">
+                    {% endif %}
+                    </div>
+                {% else %}
+                    <div id="result" class="mt-4">
+                        <p>No test results found. Please re-test to generate results.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/test_result.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        {% if test_result %}
+            let text = document.getElementById('resultData').textContent;
+            // Preprocess the text
+            text = text.replace(/'/g, '"')
+                       .replace(/None/g, 'null')
+                       .replace(/True/g, 'true')
+                       .replace(/False/g, 'false');
+
+            // Parse the text as JSON
+            const data = JSON.parse(text);
+            displayResults(data);
+            displayEntityResults(data);
+        {% endif %}
+
+        $('#retest-button').on('click', function() {
+            const testId = {{ test.id }};
+            $('#loading').show();  // Show loading spinner
+            $('button').prop('disabled', true);  // Disable buttons
+            $.ajax({
+                url: '{% url "retest" test.id %}',
+                type: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+                    // Update the result section with new data
+                    document.getElementById('resultData').textContent = JSON.stringify(data.test_result);
+                    displayResults();
+                    $('#loading').hide();  // Hide loading spinner
+                    $('button').prop('disabled', false);  // Enable buttons
+                    location.reload(); 
+                },
+                error: function(error) {
+                    $('#loading').hide();  // Hide loading spinner
+                    $('button').prop('disabled', false);  // Enable buttons
+                    console.error('Error re-testing:', error);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

@@ -1,10 +1,14 @@
 from datetime import datetime, timezone
 import json
 import os
-import pdb
+import matplotlib.pyplot as plt
+import matplotlib
+
+matplotlib.use('Agg') 
+import seaborn as sns
+import numpy as np
 import re
 import zipfile
-from django.core import serializers
 import time
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import FileResponse, HttpResponse, HttpResponseServerError, JsonResponse
@@ -12,14 +16,16 @@ from django.views import View
 from django.views.generic.base import TemplateView
 import requests
 from rest_framework.renderers import JSONRenderer
+from django.apps import apps
+from enterprise_registration_app import settings
 from .serializers import ExpressionParameterSerializer, LookupVariantSerializer, RegexVariantSerializer, ResponseSerializer, SynonymVariantSerializer
-from .models import Bot, Action, ChatUser, Entity, Expression, ExpressionParameter, History, Intent, Lookup, LookupVariant, Regex, RegexVariant, Response, Rule, Story, ModelModel, Conversation, Synonym, SynonymVariant
+from .models import Bot, Action, ChatUser, Entity, Expression, ExpressionParameter, History, Intent, Lookup, LookupVariant, Regex, RegexVariant, Response, Rule, Story, ModelModel, Conversation, Synonym, SynonymVariant, Test, TestResult
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import BotForm, ImportBotForm, ActionForm, IntentForm, LookupForm, RegexForm, ResponseForm, RuleForm, StoryForm, EntityForm, SynonymForm
 from django.shortcuts import redirect
 from django.contrib import messages
-from enterprise_registration_app.settings import RASA_PREDICT_URL, RASA_TRAINING_URL
+from enterprise_registration_app.settings import RASA_PREDICT_URL, RASA_TEST_INTENTS_ENDPOINT, RASA_TEST_STORIES_ENDPOINT, RASA_TRAINING_URL
 import yaml
 from django.db import transaction
 from django.core.paginator import Paginator
@@ -27,6 +33,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.utils.decorators import method_decorator
+from django.core.files.storage import FileSystemStorage
 
 class DashboardView(TemplateView):
     template_name = 'dashboard/dashboard.html'
@@ -1143,35 +1150,6 @@ class TrainingView(View):
         }
         return render(request, self.template_name, context)
     
-class TestView(View):
-    template_name = 'test/test.html'
-
-    def get(self, request, *args, **kwargs):
-        bots = Bot.objects.all()
-        bot_id = self.kwargs.get('bot_id') 
-        selected_bot = get_object_or_404(Bot, pk=bot_id) if bot_id else None
-        context = {
-            'botList': bots,
-            'selectedBot': selected_bot,
-        }
-        return render(request, self.template_name, context)
-    
-    def get_bot_response(bot, user_say):
-        # Implement the logic to generate a response from the bot based on the user input
-        # Return the generated response
-        pass
-
-    def post(self, request, *args, **kwargs):
-        try:
-            data = json.loads(request.body)
-            bot_id = data.get('bot_id')
-            user_say = data.get('user_say')
-            bot = Bot.objects.get(id=bot_id)
-            response = get_bot_response(bot, user_say)
-            return JsonResponse({'response': response}, status=200)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-        
 
 def get_training_data(bot_id):
     # replace with your actual logic for loading training data
@@ -1664,3 +1642,286 @@ class EditResponseView(View):
             form.save()
             return redirect('responses', bot_id=bot_id)
         return render(request, self.template_name, {'form': form, 'bot_id': bot_id, 'response_id': response_id})
+    
+def generate_charts(result_data):
+        # Get the static directory path of the current app
+        app_config = apps.get_app_config('chatbot_data')
+        static_dir = os.path.join(app_config.path, 'static', app_config.label, 'images')
+
+        # Ensure the directory exists
+        os.makedirs(static_dir, exist_ok=True)
+
+        # Generate the confidence chart
+        predictions = result_data['intent_evaluation']['predictions']
+        correct_confidences = [p['confidence'] for p in predictions if p['intent'] == p['predicted']]
+        incorrect_confidences = [p['confidence'] for p in predictions if p['intent'] != p['predicted']]
+
+        plt.figure(figsize=(10, 6))
+        plt.hist([correct_confidences, incorrect_confidences], bins=np.linspace(0, 1, 20), stacked=True, label=['Câu dự đoán đúng', 'Câu dự đoán sai'], color=['#00bfff', '#8b0000'])
+        plt.xlabel('Độ tin cậy (Confidence)')
+        plt.ylabel('Số câu mẫu')
+        plt.legend()
+        datetime_name = datetime.now().strftime('%Y%m%d%H%M%S')
+        chart1_path = os.path.join(static_dir, f'chart1_{datetime_name}.png')
+        plt.savefig(chart1_path)
+        plt.close()
+
+        # Generate the confusion matrix
+        report = result_data['intent_evaluation']['report']
+        labels = [key for key in report.keys() if isinstance(report[key], dict)]  # Ensure only keys with dictionary values
+        confusion_matrix = np.zeros((len(labels), len(labels)))
+
+        for i, label in enumerate(labels):
+            for j, predicted_label in enumerate(labels):
+                confusion_matrix[i, j] = report[label].get('confused_with', {}).get(predicted_label, 0)
+
+        plt.figure(figsize=(8, 8))
+        sns.heatmap(confusion_matrix, annot=True, fmt='g', xticklabels=labels, yticklabels=labels, cmap='Blues')
+        plt.xlabel('Nhận dự đoán')
+        plt.ylabel('Nhận đúng')
+        chart2_path = os.path.join(static_dir, f'chart2_{datetime_name}.png')
+        plt.savefig(chart2_path)
+        plt.close()
+
+        # Return the relative paths for use in the template
+        return (
+            os.path.join(app_config.label, 'images', f'chart1_{datetime_name}.png'),
+            os.path.join(app_config.label, 'images', f'chart2_{datetime_name}.png')
+        )
+class TestListView(View):
+    template_name = 'test/test_list.html'
+
+    def get(self, request, *args, **kwargs):
+        tests = Test.objects.all()
+        return render(request, self.template_name, {'tests': tests})
+
+    def post(self, request, *args, **kwargs):
+        if 'file' in request.FILES:
+            file = request.FILES['file']
+            fs = FileSystemStorage()
+            filename = fs.save(file.name, file)
+            file_path = fs.path(filename)
+
+            with open(file_path, 'r', encoding='utf-8') as f:
+                yaml_data = f.read()
+
+            # Create a new Test instance
+            test = Test(content=yaml_data)
+            test.save()
+
+            # Make a request to the Rasa server
+            response = requests.post(RASA_TEST_INTENTS_ENDPOINT, data=yaml_data, headers={'Content-Type': 'application/x-yaml'})
+
+            if response.status_code == 200:
+                result_data = response.json()
+                # Create a new TestResult instance
+                test_result = TestResult(test=test, result=result_data)
+                test_result.save()
+                return JsonResponse({'test_id': test.id}, safe=False)
+            else:
+                return JsonResponse({'error': 'Failed to test intents'}, status=response.status_code)
+        else:
+            return JsonResponse({'error': 'No file uploaded'}, status=400)
+
+class TestView(View):
+    template_name = 'test/test.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
+    
+    def post(self, request):
+        if 'file' in request.FILES:
+            file = request.FILES['file']
+            fs = FileSystemStorage()
+            filename = fs.save(file.name, file)
+            file_path = fs.path(filename)
+
+            with open(file_path, 'r', encoding='utf-8') as f:
+                yaml_data = f.read()
+
+            # Create a new Test instance
+            test = Test(content=yaml_data, type='intent')
+            test.save()
+
+            # Make a request to the Rasa server
+            response = requests.post(RASA_TEST_INTENTS_ENDPOINT, data=yaml_data, headers={'Content-Type': 'application/x-yaml'})
+
+            if response.status_code == 200:
+                result_data = response.json()
+                # Create a new TestResult instance
+                chart1_path, chart2_path = generate_charts(result_data)
+                test_result = TestResult(test=test, result=result_data, chart1_path=chart1_path, chart2_path=chart2_path)
+                test_result.save()
+                return JsonResponse(result_data, safe=False)
+            else:
+                return JsonResponse({'error': 'Failed to test intents'}, status=response.status_code)
+        else:
+            return JsonResponse({'error': 'No file uploaded'}, status=400)
+
+
+class TestResultView(View):
+    template_name = 'test/test_result.html'
+
+    def get(self, request, test_id, *args, **kwargs):
+        test = get_object_or_404(Test, pk=test_id)
+        try:
+            test_result = TestResult.objects.get(test=test)
+            result_data = test_result.result
+        except TestResult.DoesNotExist:
+            result_data = None
+        if result_data:
+            result_data['chart1_path'] = test_result.chart1_path
+            result_data['chart2_path'] = test_result.chart2_path
+
+        return render(request, self.template_name, {'test': test, 'test_result': result_data})
+
+class RetestView(View):
+    def post(self, request, test_id):
+        test = get_object_or_404(Test, pk=test_id)
+        response = requests.post(RASA_TEST_INTENTS_ENDPOINT, data=test.content, headers={'Content-Type': 'application/x-yaml'})
+
+        if response.status_code == 200:
+            result_data = response.json()
+            
+            chart1_path, chart2_path = generate_charts(result_data)
+            test_result, created = TestResult.objects.update_or_create(
+                test=test,
+                defaults={'result': result_data, 'chart1_path': chart1_path, 'chart2_path': chart2_path}
+            )
+            return JsonResponse({'test_result': result_data}, safe=False)
+        else:
+            return JsonResponse({'error': 'Failed to re-test intents'}, status=response.status_code)
+
+    
+
+class RenameTestView(View):
+    def post(self, request, test_id):
+        test = get_object_or_404(Test, pk=test_id)
+        new_name = request.POST.get('test_name')
+        test.name = new_name
+        test.save()
+        return redirect('test_result', test_id=test_id)
+
+class TestStoryView(View):
+    template_name = 'test/test_list.html'
+
+    def post(self, request, *args, **kwargs):
+        if 'story_file' in request.FILES:
+            file = request.FILES['story_file']
+            fs = FileSystemStorage()
+            filename = fs.save(file.name, file)
+            file_path = fs.path(filename)
+
+            with open(file_path, 'r', encoding='utf-8') as f:
+                yaml_data = f.read()
+
+            response = requests.post(RASA_TEST_STORIES_ENDPOINT, data=yaml_data, headers={'Content-Type': 'application/x-yaml'})
+
+            if response.status_code == 200:
+                test_name = f"Story Test {file.name} - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+                test = Test.objects.create(name=test_name, content=yaml_data, type='story')
+                result_data = response.json()
+                # chart1_path, chart2_path = generate_charts(result_data)
+                TestResult.objects.create(test=test, result=result_data, chart1_path="chart1_path", chart2_path="chart2_path")
+                return redirect('test_result', test_id=test.id)
+            else:
+                return JsonResponse({'error': 'Failed to test stories'}, status=response.status_code)
+        else:
+            return JsonResponse({'error': 'No file uploaded'}, status=400)
+
+
+class DeleteTestView(View):
+    def post(self, request, test_id):
+        test = get_object_or_404(Test, pk=test_id)
+        test.delete()
+        return JsonResponse({'success': True})
+
+def generate_story_charts(result_data):
+    app_config = apps.get_app_config('chatbot_data')
+    static_dir = os.path.join(app_config.path, 'static', app_config.label, 'images')
+    os.makedirs(static_dir, exist_ok=True)
+
+    # Generate confidence chart
+    actions = result_data['actions']
+    correct_confidences = [a['confidence'] for a in actions if a['action'] == a['predicted']]
+    incorrect_confidences = [a['confidence'] for a in actions if a['action'] != a['predicted']]
+
+    plt.figure(figsize=(10, 6))
+    plt.hist([correct_confidences, incorrect_confidences], bins=np.linspace(0, 1, 20), stacked=True, label=['Correct Predictions', 'Incorrect Predictions'], color=['#00bfff', '#8b0000'])
+    plt.xlabel('Confidence')
+    plt.ylabel('Number of Actions')
+    plt.legend()
+    datetime_name = datetime.now().strftime('%Y%m%d%H%M%S')
+    chart1_path = os.path.join(static_dir, f'chart1_story_{datetime_name}.png')
+    plt.savefig(chart1_path)
+    plt.close()
+
+    # Generate confusion matrix
+    report = result_data['report']
+    labels = [key for key in report.keys() if isinstance(report[key], dict)]
+    confusion_matrix = np.zeros((len(labels), len(labels)))
+
+    for i, label in enumerate(labels):
+        for j, predicted_label in enumerate(labels):
+            confusion_matrix[i, j] = report[label].get('confused_with', {}).get(predicted_label, 0)
+
+    plt.figure(figsize=(8, 8))
+    sns.heatmap(confusion_matrix, annot=True, fmt='g', xticklabels=labels, yticklabels=labels, cmap='Blues')
+    plt.xlabel('Predicted')
+    plt.ylabel('True')
+    chart2_path = os.path.join(static_dir, f'chart2_story_{datetime_name}.png')
+    plt.savefig(chart2_path)
+    plt.close()
+
+    return (
+        os.path.join(app_config.label, 'images', f'chart1_story_{datetime_name}.png'),
+        os.path.join(app_config.label, 'images', f'chart2_story_{datetime_name}.png')
+    )
+class TestStoryResultView(View):
+    template_name = 'test/test_story_result.html'
+
+    def get(self, request, test_id, *args, **kwargs):
+        test = get_object_or_404(Test, pk=test_id)
+        try:
+            test_result = TestResult.objects.get(test=test)
+            result_data = test_result.result
+        except TestResult.DoesNotExist:
+            result_data = None
+        
+        if result_data:
+            chart1_path, chart2_path = generate_story_charts(result_data)
+        else:
+            chart1_path, chart2_path = None, None
+        
+        return render(request, self.template_name, {
+            'test': test,
+            'test_result': result_data,
+            'chart1_path': chart1_path,
+            'chart2_path': chart2_path
+        })
+    
+class RenameTestView(View):
+    def post(self, request, test_id, *args, **kwargs):
+        test = get_object_or_404(Test, pk=test_id)
+        new_name = request.POST.get('new_name')
+        if new_name:
+            test.name = new_name
+            test.save()
+        return redirect('test_story_result', test_id=test.id)
+
+class RetestStoryView(View):
+    def post(self, request, test_id, *args, **kwargs):
+        test = get_object_or_404(Test, pk=test_id)
+        
+        response = requests.post(RASA_TEST_STORIES_ENDPOINT, data=test.content, headers={'Content-Type': 'application/x-yaml'})
+        
+        if response.status_code == 200:
+            result_data = response.json()
+            chart1_path, chart2_path = generate_story_charts(result_data)
+            test_result, created = TestResult.objects.update_or_create(
+                test=test,
+                defaults={'result': result_data, 'chart1_path': chart1_path, 'chart2_path': chart2_path}
+            )
+            return redirect('test_story_result', test_id=test.id)
+        else:
+            return JsonResponse({'error': 'Failed to re-test stories'}, status=response.status_code)

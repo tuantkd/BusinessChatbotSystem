@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load my_filters %}
+
+{% block content %}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'test' %}">Test List</a></li>
+    <li class="breadcrumb-item active">Test Story Result</li>
+</ol>
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <h2>Test Story Result</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <strong>Change Test Name</strong>
+                    </div>
+                    <div class="card-body">
+                        <form id="rename-form" action="{% url 'rename_test' test.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="new-name">New Test Name</label>
+                                <input type="text" class="form-control" id="new-name" name="new_name" value="{{ test.name }}" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="rename-button">Change Name</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <strong>Re-Test Story</strong>
+                    </div>
+                    <div class="card-body">
+                        <form id="retest-form" action="{% url 'retest_story' test.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary" id="retest-button">Re-Test Story</button>
+                        </form>
+                    </div>
+                </div>
+
+            {% if test_result %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <strong>Overall Metrics</strong>
+                    </div>
+                    <div class="card-body">
+                        <p>F1 Score: {{ test_result.f1 }}</p>
+                        <p>Accuracy: {{ test_result.report.accuracy }}</p>
+                        <p>Precision: {{ test_result.report|get_key:"weighted avg"|get_key:"precision" }}</p>
+                        <p>Recall: {{ test_result.report|get_key:"weighted avg"|get_key:"recall" }}</p>
+                    </div>
+                </div>
+
+                <h4>Detailed Report</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1 Score</th>
+                            <th>Support</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for action, metrics in test_result.report.items %}
+                        {% if action != "accuracy" and action != "macro avg" and action != "micro avg" and action != "weighted avg" %}    
+                        <tr>
+                                <td>{{ action }}</td>
+                                <td>{{ metrics|get_key:"precision" }}</td>
+                                <td>{{ metrics|get_key:"recall" }}</td>
+                                <td>{{ metrics|get_key:"f1-score" }}</td>
+                                <td>{{ metrics|get_key:"support" }}</td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h4>Action Predictions</h4>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Policy</th>
+                            <th>Predicted</th>
+                            <th>Confidence</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for action in test_result.actions %}
+                        <tr>
+                            <td>{{ action.action }}</td>
+                            <td>{{ action.policy }}</td>
+                            <td>{{ action.predicted }}</td>
+                            <td>{{ action.confidence }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if chart1_path %}
+                    <img src="{% static chart1_path %}" alt="Confidence Chart" class="img-fluid">
+                {% endif %}
+                {% if chart2_path %}
+                    <img src="{% static chart2_path %}" alt="Confusion Matrix" class="img-fluid mt-4">
+                {% endif %}
+                {% else %}
+                <p>No test results found.</p>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Spinner -->
+<div id="loading-spinner" class="d-none" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        function showLoading() {
+            $('#loading-spinner').removeClass('d-none');
+            $('button').prop('disabled', true);
+        }
+
+        function hideLoading() {
+            $('#loading-spinner').addClass('d-none');
+            $('button').prop('disabled', false);
+        }
+
+        $('#rename-form').on('submit', function() {
+            showLoading();
+        });
+
+        $('#retest-form').on('submit', function() {
+            showLoading();
+        });
+
+        $(document).ajaxComplete(function() {
+            hideLoading();
+        });
+    });
+</script>
+{% endblock %}

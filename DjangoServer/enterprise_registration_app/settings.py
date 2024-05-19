@@ -25,6 +25,8 @@ RASA_TRAINING_URL = f'{RASA_SERVER_URL}/model/train'
 # Add more training configurations if needed
 RASA_WEBHOOKS_ENDPOINT = f'{RASA_SERVER_URL}/webhooks/rest/webhook'
 RASA_CONVERSATIONS_ENDPOINT = f'{RASA_SERVER_URL}/conversations/<sender_id>/tracker'
+RASA_TEST_INTENTS_ENDPOINT = f'{RASA_SERVER_URL}/model/test/intents'
+RASA_TEST_STORIES_ENDPOINT = f'{RASA_SERVER_URL}/model/test/stories'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -68,6 +70,7 @@ INSTALLED_APPS = [
     'interactive_chatbot',
     'rest_framework',
     "api",
+    "rasa_api",
     "search_statistics",
 ]
 
@@ -158,9 +161,6 @@ aware_datetime = timezone.make_aware(naive_datetime, timezone.get_default_timezo
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# STATIC_URL = 'chat/static/'
-STATIC_URL = 'static/'
-
 
 STATIC_URL = '/static/'
 # Add this line
@@ -170,6 +170,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'search_statistics', 'static'),
 ]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

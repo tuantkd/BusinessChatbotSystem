@@ -1,62 +1,98 @@
 import re
 
 
-def markdown_to_html(text):
-    # Chuyển đổi văn bản nghiêng
-    text = re.sub(r'_([^_]*?)_', r'<i>\1</i>', text)
+import re
 
-    # Chuyển đổi văn bản đậm
-    text = re.sub(r'\*\*([^\*]*?)\*\*', r'<b>\1</b>', text)
+def is_ul_open(html_lines):
+        ul_count = 0
+        li_count = 0
 
-    # Chuyển đổi văn bản gạch bỏ
-    text = re.sub(r'~~([^~]*?)~~', r'<del>\1</del>', text)
+        for line in reversed(html_lines):
+            if '</ul>' in line:
+                ul_count += 1
+            if '<ul>' in line:
+                ul_count -= 1
+            if '<li>' in line:
+                li_count += 1
+            if '</li>' in line:
+                li_count -= 1
 
-    # Chuyển đổi tiêu đề cấp 1
-    text = re.sub(r'^# ([^\n]*)', r'<h1>\1</h1>', text, flags=re.MULTILINE)
+            # Nếu tìm thấy một <ul> mà chưa bị đóng, trả về True
+            if ul_count < 0:
+                return True
 
-    # Chuyển đổi tiêu đề cấp 2
-    text = re.sub(r'^## ([^\n]*)', r'<h2>\1</h2>', text, flags=re.MULTILINE)
+        return False
 
-    # Chuyển đổi tiêu đề cấp 3
-    text = re.sub(r'^### ([^\n]*)', r'<h3>\1</h3>', text, flags=re.MULTILINE)
+def markdown_to_html(markdown_text):
+    # Tách các dòng văn bản
+    lines = markdown_text.strip().split('\n')
+    
+    html_lines = []
+    in_table = False
 
-    # Chuyển đổi danh sách không thứ tự
-    text = re.sub(r'^- (.*)', r'<ul><li>\1</li></ul>', text, flags=re.MULTILINE)
-
-    # Chuyển đổi danh sách có thứ tự
-    text = re.sub(r'^[0-9]+\. (.*)', r'<ol><li>\1</li></ol>', text, flags=re.MULTILINE)
-
-    # Chuyển đổi liên kết
-    text = re.sub(r'\[(.*?)\]\((.*?)\)', r'<a href="\2">\1</a>', text)
-
-    # Chuyển đổi hình ảnh
-    text = re.sub(r'!\[(.*?)\]\((.*?)\)', r'<img alt="\1" src="\2">', text)
-
-    # Chuyển đổi bảng
-    lines = text.split('\n')
-    table = []
-    is_table = False
     for line in lines:
-        if line.strip() == '':
-            continue
+        line = line.strip()
+
+        # Chuyển đổi in đậm
+        line = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', line)
+
+        # Chuyển đổi in nghiêng với dấu gạch dưới
+        line = re.sub(r'_(.*?)_', r'<em>\1</em>', line)
+
+        # Chuyển đổi bảng
         if line.startswith('|'):
-            is_table = True
-            table.append(line)
-        elif is_table:
-            break
-    if table:
-        html_table = '<table>\n'
-        for row in table:
-            html_table += '  <tr>\n'
-            cells = row.strip('|').split('|')
-            for cell in cells:
-                html_table += f'    <td>{cell.strip()}</td>\n'
-            html_table += '  </tr>\n'
-        html_table += '</table>'
-        text = text.replace('\n'.join(table), html_table)
+            if not in_table:
+                html_lines.append('<table>')
+                in_table = True
+            cells = ''.join([f'<td>{cell.strip()}</td>' for cell in line.split('|') if cell.strip() != ''])
+            html_lines.append(f'<tr>{cells}</tr>')
+        else:
+            if in_table:
+                html_lines.append('</table>')
+                in_table = False
 
-    # \n -> <br>
-    text = text.replace('\\n', '<br>')
+            # Chuyển đổi danh sách không thứ tự
+            if line.startswith('- '):
+                if not is_ul_open(html_lines):
+                    html_lines.append('<ul>')
+                html_lines.append(f'<li>{line[2:]}</li>')
+            else:
+                if is_ul_open(html_lines):
+                    html_lines.append('</ul>')
+                html_lines.append(f'<p>{line}</p>')
 
+    # Đóng thẻ ul nếu còn mở
+    if is_ul_open(html_lines):
+        html_lines.append('</ul>')
 
-    return text
+    # Đóng thẻ table nếu còn mở
+    if in_table:
+        html_lines.append('</table>')
+
+    return '\n'.join(html_lines)
+
+def process_messages(messages):
+    processed_messages = []
+    for message in messages:
+        if 'text' in message:
+            # Chuyển đổi Markdown sang HTML cho tin nhắn dạng văn bản
+            html_content = markdown_to_html(message['text'])
+            processed_messages.append({
+                'text': html_content
+            })
+        elif 'custom' in message:
+            # Xử lý tin nhắn dạng quick replies
+            if message['custom']['type'] == 'quick_replies':
+                quick_replies = message['custom']['content']
+                quick_replies['title'] = markdown_to_html(quick_replies['title'])
+                for button in quick_replies['buttons']:
+                    button['title'] = button['title']
+                    button['description'] = markdown_to_html(button['description'])
+                processed_messages.append({
+                    'type': 'custom',
+                    'custom': {
+                        'type': 'quick_replies',
+                        'content': quick_replies
+                    }
+                })
+    return processed_messages

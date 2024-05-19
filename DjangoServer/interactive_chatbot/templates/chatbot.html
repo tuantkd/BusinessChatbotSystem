@@ -19,7 +19,9 @@
         <div class="icon"><i class="fa fa-commenting"></i></div>
         <div class="text">Trợ lý ảo hỗ trợ đăng ký doanh nghiệp</div>
       </div>
-      <div class="msger-header-options"></div>
+      <div class="msger-header-options">
+        <button id="logoutButton" class="logout-btn">Đăng xuất</button>
+      </div>
     </header>
 
     <main class="msger-chat" style="background-image: url('http://127.0.0.1:8000/static/images/background.jpg');">
@@ -32,20 +34,38 @@
             <div class="msg-info-name">{{ chat_user.sender_name }}</div>
             <div class="msg-info-time">{{ chat.timestamp }}</div>
           </div>
-
           <div class="msg-text">{{ chat.user_say }}</div>
         </div>
       </div>
+
+      {% for response in chat.response %}
       <div class="msg left-msg">
         <div class="msg-img" style="background-image: url('/static/images/bot_avatar.jpg');"></div>
-        <div class="msg-bubble">
-          <div class="msg-info">
-            <div class="msg-info-name">BIZREG</div>
-            <div class="msg-info-time">{{ chat.timestamp }}</div>
+        <div>
+          <div class="msg-bubble mt1">
+            <div class="msg-info">
+              <div class="msg-info-name">BIZREG</div>
+              <div class="msg-info-time">{{ chat.timestamp }}</div>
+            </div>
+            <div class="msg-text">
+                {% if "text" in response %}
+                  <p>{{ response.text|safe }}</p>
+                {% elif "custom" in response %}
+                  <p>{{ response.custom.content.title|safe }}</p>
+                {% endif %}
+            </div>
           </div>
-          <div class="msg-text">{{ chat.response|safe }}</div>
+          {% if  "custom" in response and response.custom.type == "quick_replies" %}
+          <div class="quick-replies">
+            {% for button in response.custom.content.buttons %}
+              <button class="circle-btn" data-description="{{ button.description|safe }}" disabled>{{ button.title|safe }}</button>
+            {% endfor %}
+          </div>
+          {% endif %}
+          
         </div>
       </div>
+      {% endfor %}
       {% endfor %}
       {% else %}
       {% if chat_user.sender_id %}
@@ -56,7 +76,7 @@
             <div class="msg-info-name">BIZREG</div>
             <div class="msg-info-time">{{ chat.timestamp }}</div>
           </div>
-          <div class="msg-text">Xin chào <strong>{{chat_user.sender_name}}</strong>! Tôi là <strong>BIZREG BOT</strong>, trợ lý ảo hỗ trợ đăng ký doanh nghiệp tỉnh Cà Mau. Bạn cần giúp đỡ gì không?</div>
+          <div class="msg-text">Xin chào <strong>{{ chat_user.sender_name }}</strong>! Tôi là <strong>BIZREG BOT</strong>, trợ lý ảo hỗ trợ đăng ký doanh nghiệp tỉnh Cà Mau. Bạn cần giúp đỡ gì không?</div>
         </div>
       </div>
       {% else %}
@@ -71,18 +91,18 @@
           <div class="msg-text">
             <div class="chat-container" id="chatContainer">
               <div class="chat-bot">
-              <p>Chào mừng bạn đến với hệ thống hỗ trợ thông tin doanh nghiệp. Xin hãy cho tôi biết tên của bạn để bắt đầu.</p>
+                <p>Chào mừng bạn đến với hệ thống hỗ trợ thông tin doanh nghiệp. Xin hãy cho tôi biết tên của bạn để bắt đầu.</p>
               </div>
-              </div>
-              <form id="nameForm" class="input-form" method="POST" action="/chat/init_chat">
-                  <input type="hidden" name="csrf_token" value="${ csrf_token }">
-                  <input type="text" id="nameInput" placeholder="Nhập tên của bạn" onchange="enableSubmitButton()" name="senderName" required>
-                  <!-- <button type="submit" id="submitButton" disabled>Bắt đầu</button> -->
-              </form>
+            </div>
+            <form id="nameForm" class="input-form" method="POST" action="/chat/init_chat">
+              <input type="hidden" name="csrf_token" value="${ csrf_token }">
+              <input type="text" id="nameInput" placeholder="Nhập tên của bạn" onchange="enableSubmitButton()" name="senderName" required>
+              <!-- <button type="submit" id="submitButton" disabled>Bắt đầu</button> -->
+            </form>
           </div>
         </div>
       </div>
-       {% endif %}
+      {% endif %}
       {% endif %}
     </main>
     {% if chat_user.sender_id %}

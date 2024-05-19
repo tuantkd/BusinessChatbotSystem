@@ -7,9 +7,9 @@ from django.utils.translation import gettext_lazy as _
 
 class BusinessStatus(models.TextChoices):
 
-    NEWLY_ESTABLISHED = 'NE', 'Mới thành lập'
+    NEWLY_ESTABLISHED = 'NE', 'Thành lập mới'
     OPERATING = 'OP', 'Đang hoạt động'
-    DISSOLVING = 'DI', 'Đang giải thể'
+    DISSOLVING = 'DI', 'Giải thể'
     BANKRUPT = 'BA', 'Đang phá sản'
     NEWLY_REGISTERED = 'NR', 'Đăng ký mới'
     CHANGE_REGISTERED = 'CR', 'Thay đổi đăng ký'
@@ -25,28 +25,7 @@ class BusinessStatus(models.TextChoices):
     MERGER = 'MG', 'Hợp nhất doanh nghiệp'
     BUSINESS_SPLIT = 'BS', 'Chia doanh nghiệp'
     BUSINESS_CONVERSION = 'BC', 'Chuyển đổi loại hình doanh nghiệp'
-    NEW_ESTABLISHMENT = 'NE2', 'Thành lập mới'
-    CHANGE_REGISTRATION = 'CR2', 'Đăng ký thay đổi'
     NOTIFICATION_OF_CHANGE = 'NC', 'Thông báo thay đổi'
-    TEMPORARY_SUSPENSION = 'TS2', 'Tạm ngừng'
-    DISSOLUTION = 'DI2', 'Giải thể'
-    OTHER_CASES_2 = 'OC2', 'Trường hợp khác'
-    LEGAL_DOCUMENT_2 = 'LD2', 'Văn bản pháp luật'
-    TERMINATION_OF_OPERATION_2 = 'TO2', 'Chấm dứt hoạt động'
-    BUSINESS_LOCATION_CHANGE_2 = 'BL2', 'Địa điểm kinh doanh'
-    TERMINATION_OF_OPERATION_3 = 'TO3', 'Chấm dứt hoạt động'
-    TEMPORARY_SUSPENSION_2 = 'TS3', 'Tạm ngừng kinh doanh - tiếp tục kinh doanh trước thời hạn'
-    TERMINATION_OF_OPERATION_4 = 'TO4', 'Chấm dứt hoạt động'
-    BUSINESS_SPLIT_2 = 'BS2', 'Chia doanh nghiệp'
-    BUSINESS_SPLIT_3 = 'BS3', 'Tách doanh nghiệp'
-    MERGER_2 = 'MG2', 'Hợp nhất doanh nghiệp'
-    BUSINESS_CONVERSION_2 = 'BC2', 'Chuyển đổi loại hình doanh nghiệp'
-    BUSINESS_LOCATION_CHANGE_3 = 'BL3', 'Địa điểm kinh doanh'
-    OTHER_CASES_3 = 'OC3', 'Trường hợp khác'
-    LEGAL_DOCUMENT_3 = 'LD3', 'Văn bản pháp luật'
-    PRIVATE_ENTERPRISE_2 = 'PE2', 'Doanh nghiệp tư nhân'
-    LIMITED_PARTNERSHIP_2 = 'LP2', 'Công ty TNHH 2 TV'
-    JOINT_STOCK_COMPANY_2 = 'JS2', 'Công ty Cổ phần'
 
     def get_business_status_value_by_fullname(fullname):
         for value, full_name in BusinessStatus.choices:
@@ -219,23 +198,37 @@ class BusinessProcessStep(models.Model):
 
     def __str__(self):
         return self.step_name
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+
 class Industry(models.Model):
     class Meta:
         verbose_name = _("Industry")
         verbose_name_plural = _("Ngành nghề")
 
-    activity_code = models.IntegerField(_("Activity Code"))  # Mã của ngành nghề kinh doanh
+    level1 = models.CharField(_("Level 1"), max_length=1, blank=True, null=True)
+    level2 = models.CharField(_("Level 2"), max_length=2, blank=True, null=True)
+    level3 = models.CharField(_("Level 3"), max_length=3, blank=True, null=True)
+    level4 = models.CharField(_("Level 4"), max_length=4, blank=True, null=True)
+    level5 = models.CharField(_("Level 5"), max_length=5, blank=True, null=True)
     activity_name = models.CharField(_("Activity Name"), max_length=255)  # Tên của ngành nghề kinh doanh
 
     def __str__(self):
         return self.activity_name
+
+    @property
+    def activity_code(self):
+        # Concatenate non-null levels to form the activity code
+        levels = [self.level1, self.level2, self.level3, self.level4, self.level5]
+        return ''.join(filter(None, levels))
+
 class BusinessIndustry(models.Model):
     class Meta:
         verbose_name = _("Business Industry")
         verbose_name_plural = _("Ngành nghề kinh doanh")
 
     business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name=_("Business"))  # Khóa ngoại đến model Business
-    industry = models.ForeignKey(Industry, on_delete=models.CASCADE, verbose_name=_("Industry"))  # Khóa ngoại đến model Industry
+    industry = models.CharField(_("Industry"), max_length=255)
 
     def __str__(self):
         return f"{self.business}, {self.industry}"

@@ -1,48 +1,97 @@
 import json
-from typing import Any, Text, Dict, List
-from .utils import cleaned_text, get_json
-from .api_operations import get_business_procedure_step, get_business_type_status, get_business_types, get_history, get_senders
+from typing import Any, Dict, List, Text
+
 from rasa_sdk import Action, Tracker
+from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.types import DomainDict
-from rasa_sdk.events import SlotSet
+
+from .api_operations import (get_business_states, get_business_types,
+                             get_history, get_senders, get_step_details, get_subindustries)
+from .utils import cleaned_text, get_closest_activity, get_closest_step, get_first_level_code, get_json
+
 
 class ActionWelcome(Action):
-    
+
     def name(self) -> Text:
         return "action_session_start"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
-            domain: DomainDict) -> List[Dict[Text, Any]]:
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         sender_id = tracker.sender_id
         sender = get_senders(sender_id=sender_id)
         history = get_history(sender_id=sender_id)
         events = []
+        
         if len(history) == 0:
             sender_name = "Bạn"
-
             if len(sender) > 0:
                 sender_name = sender[0]['sender_name']
             events.append(SlotSet("sender_name", sender_name))
         else:
             history = sorted(history, key=lambda x: x['timestamp'])
-            history_lastest = history[-1]
-            slot_values = json.loads(history_lastest['slot_values'].replace("'", "\"").replace("None", "null").replace("True", "true").replace("False", "false"))
-            
-            for slot, value in slot_values.items():
-                events.append(SlotSet(slot, value))
+            history_latest = history[-1]
+            slot_values_str = history_latest['slot_values'].replace("'", "\"").replace("None", "null").replace("True", "true").replace("False", "false")
+
+            try:
+                slot_values = json.loads(slot_values_str)
+                if isinstance(slot_values, list):
+                    for slot_dict in slot_values:
+                        if isinstance(slot_dict, dict) and "name" in slot_dict and "value" in slot_dict:
+                            events.append(SlotSet(slot_dict["name"], slot_dict["value"]))
+                else:
+                    raise ValueError("Slot values should be a list of dictionaries")
+            except json.JSONDecodeError as e:
+                dispatcher.utter_message(text=f"Error parsing slot values: {e}")
+            except ValueError as e:
+                dispatcher.utter_message(text=f"Error: {e}")
 
         dispatcher.utter_message(response="utter_welcome", sender_name=sender_name)
-        return [events]
+        return events
     
-class ActionBusinessTypes(Action):
+
+class ActionDefaultFallback(Action):
 
     def name(self) -> Text:
-        # Liệt kê các loại hình doanh nghiệp
-        # return "action_list_business_types"
-        return "action_lay_danh_sach_business_types"
+        return "action_default_fallback"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        # Lấy intent dự đoán và độ tự tin
+        latest_message = tracker.latest_message
+        intent_ranking = latest_message.get('intent_ranking', [])
+
+        # Kiểm tra độ tự tin lớn nhất của intent
+        if intent_ranking and intent_ranking[0]['confidence'] >= 0.5:
+            top_intents = intent_ranking[:3]  # Lấy 3 intent có độ tự tin cao nhất
+            buttons = []
+
+            for intent in top_intents:
+                intent_name = intent['name']
+                metadata = domain['intents'][intent_name].get('metadata', {})
+                title = metadata.get('title', intent_name)
+                buttons.append({
+                    "title": title,
+                    "payload": f"/{intent_name}"
+                })
+
+            dispatcher.utter_message(
+                text="Tôi không chắc chắn về câu hỏi của bạn. Bạn có thể chọn một trong các tùy chọn sau:",
+                buttons=buttons
+            )
+        else:
+            dispatcher.utter_message(response="utter_default")
+
+        return []
+    
+class ActionListBusinessTypes(Action):
+
+    def name(self) -> Text:
+        return "action_list_business_types"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
@@ -53,13 +102,20 @@ class ActionBusinessTypes(Action):
             sender_name = "Bạn"
 
         business_types = get_business_types()
+        if not business_types:
+            dispatcher.utter_message(text="Không tìm thấy loại hình doanh nghiệp nào.")
+            return []
+
         type_names = [f"- {index+1}. _{business_type['type_description']}_" for index, business_type in enumerate(business_types)]
         type_names_formatted = '\n'.join(type_names)
-        buttons = [{"title": f"{index+1}", "payload": f"/business_type{{\"business_type\": \"{business_type['type_description']}\"}}"} for index, business_type in enumerate(business_types)]
+        buttons = [{"title": f"{index+1}",
+                    "description": f"{business_type['type_description']}",
+                    "payload": f"/business_type{{\"business_type\": \"{business_type['type_description']}\"}}"
+                    } for index, business_type in enumerate(business_types)
+                ]
         
         text = f"""
-        Để đăng ký doanh nghiệp, bạn cần thực hiện các bước sau:\n
-        Bước đầu tiên bạn chọn Loại hình doanh nghiệp mà bạn muốn đăng ký. \n
+        Để đăng ký doanh nghiệp, bước đầu tiên bạn chọn loại hình doanh nghiệp mà bạn muốn đăng ký. \n
         Đây có nhiều loại hình doanh nghiệp:\n
         {type_names_formatted}\n
         **{sender_name}** Bạn chọn loại hình doanh nghiệp nào?
@@ -71,9 +127,10 @@ class ActionBusinessTypes(Action):
                 "buttons": buttons
             },
         }
+
         dispatcher.utter_message(json_message=message_json)
 
-        return [SlotSet("business_types", type_names_formatted)]
+        return []
 
 class ActionRegisterBusinessProcedure(Action):
 
@@ -92,86 +149,202 @@ class ActionRegisterBusinessProcedure(Action):
         
         return [SlotSet("business_types", type_names_formatted)]
     
-class ActionRegisterBusinessTypeStatus(Action):
+class ActionListBusinessStates(Action):
 
     def name(self) -> Text:
-        # Chọn trạng thái của loai hình doanh nghiệp
-        # return "action_list_business_type_status"
-        return "action_lay_danh_sach_trang_thai_cua_loai_hinh_nay"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        business_type_name = tracker.get_slot("business_type")
-        if business_type_name is None:
-            return [SlotSet("has_business_type", False)]
-        
-        business_type_status = get_business_type_status(business_type_name)
-        status = [f"- _{st['status_display_full']}_" for st in business_type_status]
-        business_type_status_list = '\n'.join(status)
-        
-        return [SlotSet("business_type_status_list", business_type_status_list)]
-    
-
-class ActionListBusinessProcessSteps(Action):
-
-    def name(self) -> Text:
-        # Danh sách các bước đăng ký doanh nghiệp
-        # return "action_list_business_procedure_steps"
-        return "action_dua_ra_cac_thu_tuc_cua_cong_ty"
+        return "action_list_business_states"
 
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         business_type = tracker.get_slot("business_type")
-        business_status = tracker.get_slot("business_status")
+        if not business_type:
+            dispatcher.utter_message(text="Vui lòng chọn loại hình doanh nghiệp trước.")
+            return []
 
-        if business_type is None:
-            return [SlotSet("has_business_type", False)]
-        if business_status is None:
-            return [SlotSet("has_business_status", False)]
+        business_states = get_business_states(business_type)
+        if not business_states:
+            dispatcher.utter_message(text=f"Không tìm thấy trạng thái nào cho loại hình doanh nghiệp {business_type}.")
+            return []
 
-        business_procedure_steps = get_business_procedure_step(business_type=business_type, business_type_status=business_status)
-        has_procedure_steps = True
-        if len(business_procedure_steps) == 0:
-            has_procedure_steps = False
-        procedure_steps = [step["step_name"] for step in business_procedure_steps]
-        procedure_steps_formatted = '\n'.join([f"- _{step}_" for step in procedure_steps])
-        return [SlotSet("has_procedure_steps", has_procedure_steps), SlotSet("procedure_steps", procedure_steps_formatted)]
+        state_names = [f"- {index+1}. _{business_state['status_display_full']}_" for index, business_state in enumerate(business_states)]
+        state_names_formatted = '\n'.join(state_names)
+        buttons = [{"title": f"{index+1}",
+                    "description": f"{business_state['status_display_full']}",
+                    "payload": f"/select_business_state{{\"business_state\": \"{business_state['status_display_full']}\"}}"
+                    } for index, business_state in enumerate(business_states)
+                ]
+        
+        text = f"""
+        Bạn đã chọn loại hình doanh nghiệp: **{business_type}** \n
+        Vui lòng chọn trạng thái của doanh nghiệp:\n
+        {state_names_formatted}\n
+        Bạn chọn trạng thái nào?
+        """
+        message_json = {
+            "type": "quick_replies",
+            "content": {
+                "title": text,
+                "buttons": buttons
+            },
+        }
 
-class ActionBusinessProcessStepDescription(Action):
+        dispatcher.utter_message(json_message=message_json)
+
+        return []
+class ActionBusinessStates(Action):
     
-        def name(self) -> Text:
-            # Mô tả bước đăng ký doanh nghiệp
-            # return "action_business_procedure_step_description"
-            return "action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc"
+    def name(self) -> Text:
+        return "action_business_states"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        # Lấy entity loại hình doanh nghiệp
+        entities = tracker.latest_message['entities']
+        business_type = None
+        for entity in entities:
+            if entity['entity'] == 'business_type':
+                business_type = entity['value']
+                break
+        
+        if business_type:
+            # Lấy các trạng thái của loại hình doanh nghiệp
+            business_states = get_business_states(business_type)
+            if business_states:
+                states_list = [state for state in business_states]
+                states_text = ", ".join(states_list)
+                dispatcher.utter_message(text=f"Đây là các trạng thái của loại hình doanh nghiệp {business_type}: {states_text}")
+            else:
+                dispatcher.utter_message(text=f"Không tìm thấy trạng thái nào cho loại hình doanh nghiệp {business_type}.")
+        else:
+            # Lấy danh sách các loại hình doanh nghiệp
+            business_types = get_business_types()
+            if business_types:
+                type_names = [f"- _{business_type['type_description']}_" for business_type in business_types]
+                type_names_formatted = '\n'.join(type_names)
+                buttons = [{"title": f"{index+1}. {business_type}",
+                            "payload": f"/inform{{\"business_type\": \"{business_type}\"}}"
+                            } for index, business_type in enumerate(business_types)]
+                
+                message_json = {
+                    "type": "quick_replies",
+                    "content": {
+                        "title": f"Tùy thuộc vào loại hình doanh nghiệp nào thì sẽ có các trạng thái tương ứng. Sau đây là danh sách các loại hình doanh nghiệp:\n{type_names_formatted}",
+                        "buttons": buttons
+                    },
+                }
+                dispatcher.utter_message(json_message=message_json)
+            else:
+                dispatcher.utter_message(text="Không tìm thấy loại hình doanh nghiệp nào.")
+        
+        return []
+
+class ActionListBusinessSteps(Action):
+
+    def name(self) -> Text:
+        return "action_list_business_steps"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        business_type = tracker.get_slot("business_type")
+        if not business_type:
+            dispatcher.utter_message(text="Vui lòng chọn loại hình doanh nghiệp trước.")
+            return []
+        
+        business_state = tracker.get_slot("business_state")
+        if not business_state:
+            dispatcher.utter_message(text="Vui lòng chọn trạng thái doanh nghiệp trước.")
+            return []
+
+        business_steps = get_step_details(business_type=business_type, business_type_status=business_state)
+        if not business_steps:
+            dispatcher.utter_message(text=f"Không tìm thấy bước hoặc trường hợp nào cho trạng thái **{business_state}** của loại hình doanh nghiệp **{business_type}**.")
+            return []
+
+        step_names = [f"- {index+1}. _{business_step['step_name']}_" for index, business_step in enumerate(business_steps)]
+        step_names_formatted = '\n'.join(step_names)
+        buttons = [{"title": f"{index+1}",
+                    "description": f"{business_step['step_name']}",
+                    "payload": f"/select_business_step{{\"business_step\": \"{business_step['step_name']}\"}}"
+                    } for index, business_step in enumerate(business_steps)
+                ]
+        
+        text = f"""
+        Bạn đã chọn trạng thái doanh nghiệp: **{business_state}** của loại hình doanh nghiệp: **{business_type}**\n
+        Vui lòng chọn bước hoặc trường hợp:\n
+        {step_names_formatted}\n
+        Bạn chọn bước hoặc trường hợp nào?
+        """
+        message_json = {
+            "type": "quick_replies",
+            "content": {
+                "title": text,
+                "buttons": buttons
+            },
+        }
+
+        dispatcher.utter_message(json_message=message_json)
+
+        return []
     
-        def run(self, dispatcher: CollectingDispatcher,
-                tracker: Tracker,
-                domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+class ActionListStepDetails(Action):
+    
+    def name(self) -> Text:
+        return "action_list_step_details"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        last_message = tracker.latest_message.get('text')
+
+        business_type = tracker.get_slot("business_type")
+        if not business_type:
+            dispatcher.utter_message(text="Vui lòng chọn loại hình doanh nghiệp trước.")
+            return []
+
+        business_state = tracker.get_slot("business_state")
+        if not business_state:
+            dispatcher.utter_message(text="Vui lòng chọn trạng thái doanh nghiệp trước.")
+            return []
+        
+        business_step = tracker.get_slot("business_step")
+        process_steps = get_step_details(business_type=business_type, business_type_status=business_state)
+        if not business_step:
+            step_detail = get_closest_step(input_text=last_message, steps=process_steps)
             
-            business_type = tracker.get_slot("business_type")
-            business_status = tracker.get_slot("business_status")
-            procedure_step = tracker.get_slot("procedure_step")
-            
-            if business_type is None:
-                return [SlotSet("has_business_type", False)]
-            if business_status is None:
-                return [SlotSet("has_business_status", False)]
-            if procedure_step is None:
-                return [SlotSet("has_procedure_step", False)]
-            
-            procedure_step_description = get_business_procedure_step(step_name=procedure_step, business_type=business_type, business_type_status=business_status)
-            has_procedure_step_description = True
-            if len(procedure_step_description) == 0:
-                has_procedure_step_description = False
-            return [SlotSet("has_procedure_step_description", has_procedure_step_description),
-                    SlotSet("procedure_step_description", procedure_step_description[0]['step_description']),
-                    SlotSet("has_business_type", True),
-                    SlotSet("has_business_status", True),
-                    SlotSet("has_procedure_step", True)]
+        else:
+            step_detail = get_closest_step(input_text=business_step, steps=process_steps)
+        
+        if not step_detail:
+            dispatcher.utter_message(text=f"Không tìm thấy chi tiết nào cho bước **{business_step}**, trạng thái **{business_state}** của loại hình doanh nghiệp **{business_type}**.")
+            return []
+        business_step = step_detail['step_name']
+        step_details = [step_detail]
+        
+        if not step_details:
+            dispatcher.utter_message(text=f"Không tìm thấy chi tiết nào cho bước **{business_step}**, trạng thái **{business_state}** của loại hình doanh nghiệp **{business_type}**.")
+            return []
+
+        # Construct a single message string
+        details_formatted = '\n'.join([f"{detail['step_description']}" for detail in step_details])
+        
+        text = f"""
+        Bạn đã chọn: **{business_step}** trạng thái: **{business_state}** của loại hình doanh nghiệp: **{business_type}**\n
+        Dưới đây là chi tiết thực hiện:\n
+        {details_formatted}
+        """
+        
+        # Send the entire message as a single string
+        dispatcher.utter_message(text=text.strip())
+
+        return []
+
 class ActionLookupBusinessLines(Action):
     
     def name(self) -> Text:
@@ -208,14 +381,56 @@ class ActionDocumentsBusinessRegistration(Action):
         dispatcher.utter_message(text='')
         return []
 
-class ActionDefaultFallback(Action):
-    
+class ActionListSubIndustries(Action):
+
     def name(self) -> Text:
-        return "action_default_fallback"
-    
+        return "action_list_subindustries"
+
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        
-        dispatcher.utter_message(response="utter_default")
+
+        # Lấy tên ngành cha từ intent hoặc slot
+        industry_name = tracker.get_slot("industry_name")
+
+        # Gọi API để lấy danh sách subindustries
+        if not industry_name:
+            last_message = tracker.latest_message.get('text')
+            activity = get_closest_activity(input_text=last_message, activities=subindustries)
+
+            if not activity:
+                dispatcher.utter_message(text=f"Bạn vui loại chọn lĩnh vực kinh doanh trước.")
+                return []
+
+            industry_name = activity['activity_name']
+
+        subindustries = get_subindustries(industry_name)
+
+        if not subindustries:
+            dispatcher.utter_message(text=f"Không tìm thấy ngành nghề nào thuộc lĩnh vực {industry_name}.")
+            return []
+
+        # Tạo danh sách quick-replies
+        subindustry_names = [f"- {index+1}. _{subindustry['activity_name']} (**MS: {get_first_level_code(subindustry)}**)_" for index, subindustry in enumerate(subindustries)]
+        subindustry_names_formatted = '\n'.join(subindustry_names)
+        buttons = [{"title": f"{index+1}",
+                    "payload": f"/inform{{\"subindustry_name\": \"{subindustry['activity_name']}\"}}"
+                    } for index, subindustry in enumerate(subindustries)
+                ]
+
+        text = f"""
+        Các ngành nghề thuộc lĩnh vực {industry_name} bao gồm:\n
+        {subindustry_names_formatted}\n
+        Bạn chọn ngành nghề nào?
+        """
+        message_json = {
+            "type": "quick_replies",
+            "content": {
+                "title": text,
+                "buttons": buttons
+            },
+        }
+
+        dispatcher.utter_message(json_message=message_json)
+
         return []

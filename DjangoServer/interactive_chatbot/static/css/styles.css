@@ -84,7 +84,7 @@ body {
 
 .msg {
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
     margin-bottom: 10px;
 }
 
@@ -108,6 +108,9 @@ body {
     padding: 15px;
     border-radius: 15px;
     background: var(--left-msg-bg);
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .msg-info {
@@ -193,7 +196,7 @@ body {
     padding: 2px 12px;
     line-height: 35px;
     border: 1px solid;
-    border-radius: 20px;
+    border-radius: 100%;
     text-align: center;
     font-size: 16px;
     text-decoration: none;
@@ -221,28 +224,28 @@ input[disabled] {
 
 .chat-container {
     margin-bottom: 20px;
-  }
-  
-  .chat-bot {
+}
+
+.chat-bot {
     background-color: #f0f0f0;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
-  }
-  
-  .input-form {
+}
+
+.input-form {
     display: flex;
-  }
-  
-  .input-form input[type="text"] {
+}
+
+.input-form input[type="text"] {
     flex: 1;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 5px 0 0 5px;
     outline: none;
-  }
-  
-  .input-form button {
+}
+
+.input-form button {
     padding: 8px 15px;
     background-color: #4CAF50;
     color: white;
@@ -250,9 +253,141 @@ input[disabled] {
     border-radius: 0 5px 5px 0;
     cursor: pointer;
     outline: none;
+}
+
+.input-form button:hover {
+    background-color: #45a049;
+}
+
+.quick-replies {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+    flex-wrap: nowrap;
+    position: relative;
+}
+
+.circle-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 100%;
+    background-color: #45a049;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+
+.circle-btn:hover {
+    background-color: #0056b3;
+}
+
+.circle-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.quick-replies .click-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 100%;
+    background-color: #45a049;
+    color: white;
+    cursor: pointer;
+}
+
+/* .quick-replies .click-btn:hover {
+    background-color: #0056b3;
+} */
+
+.slide-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 24px;
+    color: #333;
+    user-select: none;
+    background: none;
+    border: none;
+}
+
+.prev-btn {
+    left: -30px;
+}
+
+.tooltip {
+    position: absolute;
+    padding: 5px 10px;
+    background-color: #77bd95;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 0.8em;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.click-btn:hover + .tooltip,
+.tooltip:hover {
+    opacity: 1;
+}
+
+.mt1 {
+    margin-top: 1rem;
+}
+
+@keyframes dots {
+    0%, 20% {
+        color: rgba(0,0,0,0);
+        text-shadow:
+            .3em 0 0 rgba(0,0,0,0),
+            .6em 0 0 rgba(0,0,0,0);
+    }
+    40% {
+        color: black;
+        text-shadow:
+            .3em 0 0 rgba(0,0,0,0),
+            .6em 0 0 rgba(0,0,0,0);
+    }
+    60% {
+        text-shadow:
+            .3em 0 0 black,
+            .6em 0 0 rgba(0,0,0,0);
+    }
+    80%, 100% {
+        text-shadow:
+            .3em 0 0 black,
+            .6em 0 0 black;
+    }
+}
+
+.ellipsis::after {
+    content: '...';
+    font-size: 2em; /* Điều chỉnh kích thước font */
+    animation: dots 1s steps(5, end) infinite;
+}
+
+.msger-header-options .logout-btn {
+    background-color: #ff4b4b;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
   }
   
-  .input-form button:hover {
-    background-color: #45a049;
+  .msger-header-options .logout-btn:hover {
+    background-color: #e04343;
   }
   

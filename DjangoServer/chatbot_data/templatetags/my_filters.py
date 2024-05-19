@@ -2,6 +2,8 @@ import datetime
 import json
 from django import template
 
+from enterprise_registration_app import settings
+
 register = template.Library()
 
 @register.filter
@@ -25,3 +27,7 @@ def as_json(data):
 @register.filter
 def length_filtered(queryset, expression_id):
     return len([obj for obj in queryset if obj.expression.id == expression_id])
+
+@register.filter
+def get_key(value, arg):
+    return value.get(arg, '')

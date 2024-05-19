@@ -2,6 +2,8 @@ import json
 import re
 import unicodedata
 from unidecode import unidecode
+from difflib import get_close_matches
+from typing import List, Dict, Union
 
 def filter_duplicate_in_array(array):
   unique_values = []
@@ -89,3 +91,73 @@ def find_text_in_list(text_to_find, list_of_strings):
     if text_to_find in string:
       return True
   return False
+
+def get_closest_step(input_text: str, steps: List[Dict[str, Union[int, str]]], threshold: float = 0.5) -> Union[Dict[str, Union[int, str]], None]:
+    """
+    Trả về bước có tên gần giống nhất với văn bản đầu vào nếu độ khớp của nó vượt qua ngưỡng cho trước, 
+    ngược lại trả về None.
+    
+    Args:
+    - input_text (str): Văn bản đầu vào.
+    - steps (List[Dict[str, Union[int, str]]]): Danh sách các bước với tên và các thông tin liên quan.
+    - threshold (float): Ngưỡng độ khớp tối thiểu để xem xét một bước là phù hợp (mặc định là 0.5).
+    
+    Returns:
+    - (Dict[str, Union[int, str]] | None): Bước có tên gần giống nhất với độ khớp vượt qua ngưỡng, 
+      hoặc None nếu không tìm thấy bước nào phù hợp.
+    """
+    step_names = [step['step_name'] for step in steps]
+    closest_match = get_close_matches(input_text, step_names, n=1, cutoff=threshold)
+    
+    if closest_match:
+        closest_step = next(step for step in steps if step['step_name'] == closest_match[0])
+        return closest_step
+    
+    return None
+
+def get_closest_activity(input_text: str, activities: List[Dict[str, Union[int, str]]], threshold: float = 0.5) -> Union[Dict[str, Union[int, str]], None]:
+    """
+    Trả về ngành nghề có tên gần giống nhất với văn bản đầu vào nếu độ khớp của nó vượt qua ngưỡng cho trước,
+    ngược lại trả về None.
+
+    Args:
+    - input_text (str): Văn bản đầu vào.
+    - activities (List[Dict[str, Union[int, str]]]): Danh sách các ngành nghề với tên và các thông tin liên quan.
+    - threshold (float): Ngưỡng độ khớp tối thiểu để xem xét một ngành nghề là phù hợp (mặc định là 0.5).
+
+    Returns:
+    - (Dict[str, Union[int, str]] | None): Ngành nghề có tên gần giống nhất với độ khớp vượt qua ngưỡng,
+      hoặc None nếu không tìm thấy ngành nghề nào phù hợp.
+    """
+    activity_names = [activity['activity_name'] for activity in activities]
+    closest_match = get_close_matches(input_text, activity_names, n=1, cutoff=threshold)
+    
+    if closest_match:
+        closest_activity = next(activity for activity in activities if activity['activity_name'] == closest_match[0])
+        return closest_activity
+    
+    return None
+
+def get_first_level_code(industry: dict) -> Union[str, None]:
+    """
+    Trả về mã số level đầu tiên của ngành nghề nếu có (xét từ level 1 đến level 5).
+    Nếu không tìm thấy level nào, trả về None.
+
+    Args:
+    - industry (dict): Object ngành nghề chứa thông tin các level.
+
+    Returns:
+    - str | None: Mã số level đầu tiên hoặc None nếu không tìm thấy level nào.
+    """
+    if 'level1' in industry and industry['level1']:
+        return industry['level1']
+    elif 'level2' in industry and industry['level2']:
+        return industry['level2']
+    elif 'level3' in industry and industry['level3']:
+        return industry['level3']
+    elif 'level4' in industry and industry['level4']:
+        return industry['level4']
+    elif 'level5' in industry and industry['level5']:
+        return industry['level5']
+    else:
+        return None

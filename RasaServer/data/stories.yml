@@ -1,169 +1,242 @@
 version: "3.1"
 
 stories:
-- story: Làm thơ cho người dùng
+- story: Quy trình đăng ký doanh nghiệp
   steps:
-  - intent: lam_tho
-  - action: utter_lam_tho
+  - intent: ask_procedure_register_business
+  - action: action_list_business_types
+  - intent: select_business_type
+  - action: action_list_business_states
+  - intent: select_business_state
+  - action: action_list_business_steps
+  - intent: select_business_step
+  - action: action_list_step_details
 
-# - story: Tư vấn quy trình đăng ký
-#   steps:
-#   - intent: inquire_business_registration
-#   - action: utter_inquire_business_registration
 
-- story: Hỏi về quy trình đăng ký kinh doanh (Bước 1)
+- story: hỏi về loại hình doanh nghiệp
   steps:
-  - intent: business_registration_proccess
-  - action: utter_business_registration_proccess
-  - intent: business_registration_proccess_step_1
-  - action: action_lay_danh_sach_business_types
+  - intent: ask_business_type
+  - action: utter_business_type
 
-- story: Hỏi về quy trình đăng ký kinh doanh (Bước 2)
+- story: hỏi về công ty cổ phần
   steps:
-  - intent: business_registration_proccess
-  - action: utter_business_registration_proccess
-  - intent: business_registration_proccess_step_2
-  - action: utter_business_registration_proccess_step_2
+  - intent: ask_joint_stock_company
+  - action: utter_joint_stock_company
 
-- story: Hỏi về quy trình đăng ký kinh doanh (Bước 3)
+- story: hỏi về thành lập mới
   steps:
-  - intent: business_registration_proccess
-  - action: utter_business_registration_proccess
-  - intent: business_registration_proccess_step_3
-  - action: utter_business_registration_proccess_step_3
+  - intent: ask_new_establishment
+  - action: utter_new_establishment
 
-- story: Hỏi về quy trình đăng ký kinh doanh (Bước 4)
+- story: Hỏi về hồ sơ
   steps:
-  - intent: business_registration_proccess
-  - action: utter_business_registration_proccess
-  - intent: business_registration_proccess_step_4
-  - action: utter_business_registration_proccess_step_4
+  - intent: ask_submit_documents
+  - action: action_list_business_types
+  - intent: select_business_type
+    entities:
+      - business_step: "Bước 1: Nộp hồ sơ"
+  - action: action_list_step_details
 
-- story: Hỏi về quy trình đăng ký kinh doanh (Bước 5)
+- story: Chuẩn bị hồ sơ
   steps:
-  - intent: business_registration_proccess
-  - action: utter_business_registration_proccess
-  - intent: business_registration_proccess_step_5
-  - action: utter_business_registration_proccess_step_5
+  - intent: ask_prepare_documents
+  - action: action_list_business_types
+  - intent: select_business_type
+    entities:
+      - business_step: "Bước 2: Chuẩn bị hồ sơ"
+  - action: action_list_step_details
 
-- story: Hỏi hồ sơ đăng ký kinh doanh
+- story: Thời gian nhận kết quả
   steps:
-  - intent: registration_requirements
-  - action: utter_registration_requirements
+  - intent: ask_receive_results
+  - intent: select_business_type
+    entities:
+      - business_step: "Bước 3: Nhận kết quả"
+  - action: action_list_step_details
 
-- story: Hỏi địa điểm đăng ký kinh doanh
+- story: hỏi về đăng ký thay đổi
   steps:
-  - intent: registration_agencies
-  - action: utter_registration_agencies
+  - intent: ask_change_registration
+  - action: utter_change_registration
 
-- story: Hỏi khung thời gian đăng ký
+- story: đăng ký thay đổi địa chỉ trụ sở chính
   steps:
-  - intent: business_registration_timeframe
-  - action: utter_business_registration_timeframe
+  - intent: ask_change_head_office_address
+  - action: utter_change_head_office_address
 
-- story: Các bước sau khi thành lập doanh nghiệp
+- story: đăng ký thay đổi người đại diện
   steps:
-  - intent: post_registration_steps
-  - action: utter_post_registration_steps
+  - intent: ask_change_legal_representative
+  - action: utter_change_legal_representative
 
-- story: Công bố thông tin
+- story: đăng ký đổi tên doanh nghiệp
   steps:
-  - intent: disclosure_requirements
-  - action: utter_disclosure_requirements
+  - intent: ask_change_company_name
+  - action: utter_change_company_name
 
-- story: Đăng ký hỗ trợ pháp lý
+- story: thông báo thay đổi
   steps:
-  - intent: legal_assistance
-  - action: utter_legal_assistance
+  - intent: ask_change_notification
+  - action: utter_change_notification
 
-- story: Về việc giải thể tổ chức lại
+- story: thay đổi cổ đông nhà đầu tư nước ngoài
   steps:
-  - intent: regarding_reorganization_dissolution_bankruptcy
-  - action: utter_regarding_reorganization_dissolution_bankruptcy
+  - intent: ask_change_foreign_investor_shareholder
+  - action: utter_change_foreign_investor_shareholder
 
-- story: Hồ sơ đăng ký kinh doanh
+- story: thay đổi ngành nghề kinh doanh
   steps:
-  - intent: registration_dossier
-  - action: utter_registration_dossier
+  - intent: ask_change_business_sector
+  - action: utter_change_business_sector
 
-- story: Lệ phí đăng ký
+- story: thay đổi nội dung đăng ký thuế
   steps:
-  - intent: business_registration_fees_charges
-  - action: utter_business_registration_fees_charges
+  - intent: ask_change_tax_registration
+  - action: utter_change_tax_registration
 
-- story: Dịch vụ thông tin
+- story: hỏi về tạm ngừng kinh doanh
   steps:
-  - intent: about_information_services
-  - action: utter_about_information_services
+  - intent: ask_temporary_suspension
+  - action: utter_temporary_suspension
 
-# - story: Tra cứu ngành nghề kinh doanh
-#   steps:
-#   - intent: lookup_business_lines
-#   - action: action_lookup_business_lines
-
-- story: FAQ - về việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp
+- story: tạm ngừng kinh doanh đối với doanh nghiệp
   steps:
-  - intent: define_business_registration_certificate_revocation_faq
-  - action: utter_define_business_registration_certificate_revocation_faq
+  - intent: ask_suspend_business
+  - action: utter_suspend_business
 
-- story: FAQ - điều tra nối lại hoạt động kinh doanh
+- story: tiếp tục kinh doanh trước thời hạn
   steps:
-  - intent: inquiry_business_resumption_faq
-  - action: utter_inquiry_business_resumption_faq
+  - intent: ask_resume_business
+  - action: utter_resume_business
 
-- story: FAQ - truy vấn thu hồi giấy chứng nhận đăng ký kinh doanh
+- story: hỏi về giải thể doanh nghiệp
   steps:
-  - intent: query_business_registration_cert_revocation_faq
-  - action: utter_query_business_registration_cert_revocation_faq
+  - intent: ask_dissolve_business
+  - action: utter_dissolve_business
 
-- story: FAQ - hỏi thủ tục truy xuất
+- story: đăng ký giải thể doanh nghiệp
   steps:
-  - intent: inquire_retrieval_procedure_faq
-  - action: utter_inquire_retrieval_procedure_faq
+  - intent: ask_register_dissolution
+  - action: utter_register_dissolution
 
-# - story: Các văn bản về đăng ký kinh doanh
-#   steps:
-#   - intent: documents_business_registration
-#   - action: action_documents_business_registration
-
-- story: Có bao nhiêu loại hình doanh nghiệp
+- story: hủy bỏ nghị quyết quyết định giải thể
   steps:
-  - intent: how_many_business_types
-  - action: action_lay_danh_sach_business_types
+  - intent: ask_cancel_dissolution
+  - action: utter_cancel_dissolution
 
-- story: Đăng ký doanh nghiệp
+- story: hỏi về doanh nghiệp tư nhân
   steps:
-    - intent: dang_ky_doanh_nghiep
-    - action: action_lay_danh_sach_business_types
+  - intent: ask_private_enterprise
+  - action: utter_private_enterprise
 
-    - intent: chon_loai_hinh_doanh_nghiep
-    - action: action_lay_danh_sach_trang_thai_cua_loai_hinh_nay
-    - action: utter_danh_sach_trang_trang_doanh_nghiep_cua_loai_hinh_nay
-
-    - intent: chon_trang_thai_doanh_nghiep
-    - action: action_dua_ra_cac_thu_tuc_cua_cong_ty
-    - action: utter_danh_sach_cac_buoc_thu_tuc_cua_cong_ty
-
-    - intent: chon_buoc_thu_tuc
-    - action: action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc
-    - action: utter_thong_tin_chi_tiet_cua_buoc_thu_tuc
-
-
-- story: Chọn trạng thái doanh nghiệP
+- story: thành lập mới doanh nghiệp tư nhân
   steps:
-    - intent: chon_loai_hinh_doanh_nghiep
-    - action: action_lay_danh_sach_trang_thai_cua_loai_hinh_nay
-    - action: utter_danh_sach_trang_trang_doanh_nghiep_cua_loai_hinh_nay
+  - intent: ask_establish_private_enterprise
+  - action: utter_establish_private_enterprise
 
-- story: Chọn bước thủ tục cần xem
+- story: đăng ký thay đổi doanh nghiệp tư nhân
   steps:
-    - intent: chon_trang_thai_doanh_nghiep
-    - action: action_dua_ra_cac_thu_tuc_cua_cong_ty
-    - action: utter_danh_sach_cac_buoc_thu_tuc_cua_cong_ty
+  - intent: ask_change_private_enterprise
+  - action: utter_change_private_enterprise
 
-
-- story: Xem chi tiếp bước thủ tục đã chọn
+- story: thông báo thay đổi doanh nghiệp tư nhân
   steps:
-    - intent: chon_buoc_thu_tuc
-    - action: action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc
-    - action: utter_thong_tin_chi_tiet_cua_buoc_thu_tuc
+  - intent: ask_notify_change_private_enterprise
+  - action: utter_notify_change_private_enterprise
+
+- story: tạm ngừng doanh nghiệp tư nhân
+  steps:
+  - intent: ask_suspend_private_enterprise
+  - action: utter_suspend_private_enterprise
+
+- story: giải thể doanh nghiệp tư nhân
+  steps:
+  - intent: ask_dissolve_private_enterprise
+  - action: utter_dissolve_private_enterprise
+
+- story: hỏi về công ty TNHH một thành viên
+  steps:
+  - intent: ask_single_member_llc
+  - action: utter_single_member_llc
+
+- story: hỏi về công ty hợp danh
+  steps:
+  - intent: ask_partnership
+  - action: utter_partnership
+
+- story: hỏi về địa điểm kinh doanh
+  steps:
+  - intent: ask_business_location
+  - action: utter_business_location
+
+- story: hỏi về hộ kinh doanh
+  steps:
+  - intent: ask_household_business
+  - action: utter_household_business
+
+- story: hỏi về trạng thái doanh nghiệp
+  steps:
+  - intent: ask_business_status
+  - action: action_business_states
+  - intent: select_business_state
+  - action: action_list_business_steps
+  - intent: select_business_step
+  - action: action_list_step_details
+
+- story: hỏi về các bước thực hiện khi business_state chưa có giá trị
+  steps:
+  - intent: ask_steps
+  - action: action_list_business_types
+  - intent: select_business_type
+  - action: action_list_business_states
+  - intent: select_business_state
+  - action: action_list_business_steps
+  - intent: select_business_step
+  - action: action_list_step_details
+
+- story: hỏi về các bước thực hiện khi business_state đã có giá trị
+  steps:
+  - intent: ask_steps
+  - action: action_list_business_types
+  - intent: select_business_type
+  - slot_was_set:
+    - business_state
+  - action: action_list_business_steps
+  - intent: select_business_step
+  - action: action_list_step_details
+
+- story: hỏi về thời gian
+  steps:
+  - intent: ask_time
+  - action: utter_time
+
+- story: hỏi về lệ phí
+  steps:
+  - intent: ask_fees
+  - action: utter_fees
+
+- story: hỏi về lĩnh vực kinh doanh
+  steps:
+  - intent: ask_business_fields
+  - action: action_list_subindustries
+
+- story: hỏi về ngành nghề kinh doanh
+  steps:
+  - intent: ask_business_sectors
+  - action: action_list_subindustries
+
+- story: hỏi về thủ tục pháp lý
+  steps:
+  - intent: ask_legal_procedures
+  - action: utter_legal_procedures
+
+- story: hỏi về quy trình đăng ký doanh nghiệp
+  steps:
+  - intent: ask_business_registration_process
+  - action: action_list_business_types
+  - intent: select_business_type
+  - action: action_list_business_states
+  - intent: select_business_state
+  - action: action_list_business_steps
+  - intent: select_business_step
+  - action: action_list_step_details

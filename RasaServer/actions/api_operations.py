@@ -1,6 +1,4 @@
 import requests
-# from .db_config import cursor, connection
-# import json
 
 DJ_BASE_URL = "http://localhost:8000"
 SENDER_API = f"{DJ_BASE_URL}/api/senders/"
@@ -13,6 +11,7 @@ LAWS_API = f"{DJ_BASE_URL}/api/document_laws/"
 DECREES_API = f"{DJ_BASE_URL}/api/document_decrees/"
 CIRCULARS_API = f"{DJ_BASE_URL}/api/document_circulars/"
 DECISIONS_API = f"{DJ_BASE_URL}/api/document_decisions/"
+SUBINDUSTRIES_API = f"{DJ_BASE_URL}/api/subindustries/"
 
 def get_senders(sender_id=None, sender_name=None):
     params = []
@@ -38,7 +37,7 @@ def get_business_types():
         return []
     return response.json()
 
-def get_business_type_status(business_type=None, business_type_status=None):
+def get_business_states(business_type=None, business_type_status=None):
     params = []
     if business_type:
         params += [f"business_type_name={business_type}"]
@@ -50,7 +49,7 @@ def get_business_type_status(business_type=None, business_type_status=None):
         return []
     return response.json()
 
-def get_business_procedure_step(step_name=None, business_type=None, business_type_status=None):
+def get_step_details(step_name=None, business_type=None, business_type_status=None):
     params = []
     if step_name:
         params += [f"step_name={step_name}"]
@@ -89,7 +88,7 @@ def get_activity_fields(field_id=None, field_name=None):
     return response.json()
     
 def get_laws(law_id=None, law_name=None):
-    params = ""
+    params = []
     if law_id:
         params += [f"id={law_id}"]
     if law_name:
@@ -132,6 +131,12 @@ def get_decisions(decision_id=None, decision_name=None):
         params += [f"decision_name={decision_name}"]
     query_params = "&".join(params)
     response = requests.get(f"{DECISIONS_API}?{query_params}")
+    if response.status_code != 200:
+        return None
+    return response.json()
+
+def get_subindustries(parent_name):
+    response = requests.get(f"{SUBINDUSTRIES_API}?parent_name={parent_name}")
     if response.status_code != 200:
         return None
     return response.json()

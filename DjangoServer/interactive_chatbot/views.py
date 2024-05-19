@@ -2,7 +2,9 @@ import datetime
 import json
 import uuid
 from django.shortcuts import render
-from .utils import markdown_to_html
+
+from rasa_api.functions import predict_next_action
+from .utils import markdown_to_html, process_messages
 from chatbot_data.models import ChatUser, History
 import requests
 
@@ -25,6 +27,7 @@ def save_conversation(sender_id, user_say, response):
     slot_values = tracker.get('slots', {})
     intent_ranking = tracker.get('latest_message', {}).get('intent_ranking', [])
 
+    next_action = predict_next_action(sender_id)
     saved_slots = []
     for key, value in slot_values.items():
         if value:
@@ -36,9 +39,10 @@ def save_conversation(sender_id, user_say, response):
                         sender_id=tracker.get('sender_id', ''),
                         confidence=last_message.get('intent', {}).get('confidence', 0),
                         user_say=user_say,
-                        response=response,
+                        response=json.dumps(response),
                         intent_ranking=intent_ranking,
-                        timestamp=datetime.datetime.now())
+                        timestamp=datetime.datetime.now(),
+                        next_action=next_action)
     
 class ChatbotView(View):
     template_name = 'chatbot.html'
@@ -49,7 +53,7 @@ class ChatbotView(View):
             return render(request, self.template_name, {'error': 'Sender not found'})
         history = History.objects.filter(sender_id=sender_id).order_by('timestamp')
         history = [{'user_say': h.user_say, 
-                    'response': markdown_to_html(h.response), 
+                    'response': process_messages(json.loads(h.response)), 
                     'timestamp': h.timestamp,
                     } for h in history]
         if len(history) == 0:
@@ -59,11 +63,7 @@ class ChatbotView(View):
         
             if response.status_code != 200:
                 return JsonResponse({'error': 'Rasa server error'}, status=500)
-            response_data = response.json()
-            response_text = 'Xin lỗi, tôi không hiểu câu hỏi của bạn'
-            if len(response_data) > 0:
-                response_text = response_data[0].get('text', '')
-            save_conversation(sender_id, "Bắt đầu", response_text)
+            save_conversation(sender_id, "Bắt đầu", response.json())
             history = [
                 
             ]
@@ -85,17 +85,8 @@ class ChatbotView(View):
             response = requests.post(RASA_WEBHOOKS_ENDPOINT, json=data)
             if response.status_code != 200:
                 return JsonResponse({'error': 'Rasa server error'}, status=500)
-            data_json = response.json()
-            response_text = 'Xin lỗi, tôi không hiểu câu hỏi của bạn'
-            if len(data_json) > 0:
-                # return JsonResponse({'text': 'Xin lỗi, tôi không hiểu câu hỏi của bạn'}, status=200)
-                response_text = data_json[0].get('text', '')
-            save_conversation(sender_id, user_message, response_text)
-            # Return Rasa's response
-            response_data = {
-                "text" : markdown_to_html(response_text),
-            }
-            return JsonResponse(response_data, status=200)
+            save_conversation(sender_id, user_message, response.json())
+            return JsonResponse(response.json(), status=200, safe=False)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
         

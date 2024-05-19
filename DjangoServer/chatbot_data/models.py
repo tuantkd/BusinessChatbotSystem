@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from django.db import models
 from enum import Enum
@@ -127,6 +128,7 @@ class Settings(models.Model):
     setting_name = models.TextField(unique=True)
     setting_value = models.TextField()
 
+
 class History(models.Model):
     intent = models.TextField(null=True, blank=True)
     entities = models.TextField(null=True, blank=True)
@@ -137,9 +139,40 @@ class History(models.Model):
     intent_ranking = models.TextField(null=True, blank=True)
     response = models.TextField(null=True, blank=True)
     timestamp = models.DateTimeField()
-    # bot = models.ForeignKey(Bot, on_delete=models.CASCADE)
+    next_action = models.TextField(null=True, blank=True)  
 
 class ChatUser(models.Model):
     sender_id = models.TextField()
     sender_name = models.TextField()
 
+
+class Test(models.Model):
+    TEST_TYPE_CHOICES = [
+        ('intent', 'Intent Test'),
+        ('story', 'Story Test'),
+    ]
+
+    name = models.CharField(max_length=100, unique=True)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    type = models.CharField(max_length=10, choices=TEST_TYPE_CHOICES)
+
+    def save(self, *args, **kwargs):
+        if not self.name:
+            self.name = f"Test_{datetime.now().strftime('%Y%m%d%H%M%S')}"
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
+class TestResult(models.Model):
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    result = models.JSONField()
+    chart1_path = models.CharField(max_length=255, null=True, blank=True)
+    chart2_path = models.CharField(max_length=255, null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Result for {self.test.name}"

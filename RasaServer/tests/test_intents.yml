@@ -1,0 +1,69 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - Xin chào
+    - Chào bạn
+    - Hello
+    - Hi
+    - Chào anh
+    - Chào chị
+    - Rất vui được gặp bạn
+    - Chào buổi sáng
+    - Chào buổi chiều
+    - Chào buổi tối
+    - Chào mọi người
+    - Xin chào bạn
+    - Rất vui được gặp anh
+    - Rất vui được gặp chị
+    - Hi mọi người
+    - Hello bạn
+    - Hi there
+    - Xin chào tất cả mọi người
+    - Chào bạn, bạn khỏe không?
+
+- intent: goodbye
+  examples: |
+    - Tạm biệt
+    - Hẹn gặp lại
+    - Bye
+    - Chào tạm biệt
+    - Chào tạm biệt bạn
+    - Tạm biệt mọi người
+    - Tạm biệt, hẹn gặp lại
+    - Tạm biệt anh
+    - Tạm biệt chị
+    - Bye bye
+    - Hẹn gặp lại bạn
+    - Hẹn gặp lại mọi người
+    - Chào mọi người, tạm biệt
+    - Rất vui được gặp bạn, tạm biệt
+    - Tạm biệt, chúc bạn một ngày tốt lành
+    - Tạm biệt, chúc bạn cuối tuần vui vẻ
+    - Chào tạm biệt, hẹn gặp lại lần sau
+    - Bye, chúc bạn mọi điều tốt đẹp
+    - Bye, hẹn gặp lại bạn sớm
+    - Chào, hẹn gặp lại bạn vào lần tới
+
+- intent: affirm
+  examples: |
+    - Vâng
+    - Đúng vậy
+    - Chính xác
+    - Tất nhiên
+    - Đồng ý
+    - Phải
+    - Chắc chắn rồi
+    - Dạ
+
+- intent: deny
+  examples: |
+    - Không
+    - Không phải
+    - Không đúng
+    - Không đồng ý
+    - Không chắc
+    - Không, cảm ơn
+
+# Add more intents and examples as needed

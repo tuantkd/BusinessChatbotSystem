@@ -1,488 +1,279 @@
 version: "3.1"
 
 intents:
-  - lam_tho
   - greet
   - goodbye
-  - dang_ky_doanh_nghiep
-  - chon_loai_hinh_doanh_nghiep
-  - chon_trang_thai_doanh_nghiep
-  - hoi_thu_tuc_dang_ky_doanh_nghiep_hien_tai
-  - chon_buoc_thu_tuc
-  - business_registration_proccess
-  - registration_requirements
-  - business_name_selection
-  - registration_agencies
-  - business_registration_timeframe
-  - post_registration_steps
-  - disclosure_requirements
-  - legal_assistance
-  # - register_business_procedure
-  # - choose_business_type
-  - regarding_reorganization_dissolution_bankruptcy
-  - registration_dossier
-  - business_registration_fees_charges
-  - about_information_services
-  # - lookup_business_lines
-  - define_business_registration_certificate_revocation_faq
-  - inquire_retrieval_procedure_faq
-  - query_business_registration_cert_revocation_faq
-  - inquiry_business_resumption_faq
-  # - documents_business_registration
-  - how_many_business_types
-  # - choose_business_procedure_step
-  # - choose_business_status
-  - business_registration_proccess_step_1
-  - business_registration_proccess_step_2
-  - business_registration_proccess_step_3
-  - business_registration_proccess_step_4
-  - business_registration_proccess_step_5
-  # - inquire_business_registration
+  - ask_procedure_register_business
+  - select_business_type
+  - select_business_state
+  - select_business_step
+  - ask_business_type
+  - ask_joint_stock_company
+  - ask_new_establishment
+  - ask_submit_documents
+  - ask_prepare_documents
+  - ask_receive_results
+  - ask_change_registration
+  - ask_change_head_office_address
+  - ask_change_legal_representative
+  - ask_change_company_name
+  - ask_change_notification
+  - ask_change_foreign_investor_shareholder
+  - ask_change_business_sector
+  - ask_change_tax_registration
+  - ask_temporary_suspension
+  - ask_suspend_business
+  - ask_resume_business
+  - ask_dissolve_business
+  - ask_register_dissolution
+  - ask_cancel_dissolution
+  - ask_private_enterprise
+  - ask_establish_private_enterprise
+  - ask_change_private_enterprise
+  - ask_notify_change_private_enterprise
+  - ask_suspend_private_enterprise
+  - ask_dissolve_private_enterprise
+  - ask_single_member_llc
+  - ask_partnership
+  - ask_business_location
+  - ask_household_business
+  - ask_business_status
+  - ask_steps
+  - ask_time
+  - ask_fees
+  - ask_business_fields
+  - ask_business_sectors
+  - ask_legal_procedures
+  - ask_business_registration_process
   
 responses:
-  utter_lam_tho:
-  - text: "Thơ 1"
-  - text: "Thơ 2"
-  - text: "Thơ 3"
-  - text: "Thơ 4"
-  - text: "Thơ 5"
-
   utter_greet:
-  - text: "Xin chào **{sender_name}**! Bạn cần giúp đỡ về điều gì hôm nay?"
-  - text: "Hello **{sender_name}**! Chào mừng bạn đến với dịch vụ của chúng tôi. Có điều gì tôi có thể hỗ trợ?"
-  - text: "Hi **{sender_name}**! Rất vui được gặp bạn. Bạn muốn biết thông tin gì?"
-  - text: "Chào anh/chị! **{sender_name}** cần tôi giúp đỡ về điều gì?"
-  - text: "Xin chào **{sender_name}**! Hãy cho tôi biết bạn cần gì."
-  - text: "Hey **{sender_name}**! Bạn muốn thảo luận về điều gì?"
-  - text: "Gì chưa? **{sender_name}** cần sự hỗ trợ nào?"
-  - text: "Chào **{sender_name}**, có thể giúp gì cho bạn ngày hôm nay?"
-  - text: "Có gì mới không? **{sender_name}** muốn tôi giúp đỡ gì?"
-  - text: "Chào  Send chúc mứng sinh nhật! Bạn có câu hỏi hoặc yêu cầu gì đến dịch vụ của chúng tôi không?"
+    - text: "Xin chào **{sender_name}**! Bạn cần giúp đỡ về điều gì hôm nay? 😊"
+    - text: "Hello **{sender_name}**! Chào mừng bạn đến với dịch vụ của chúng tôi. Có điều gì tôi có thể hỗ trợ? 🤗"
+    - text: "Hi **{sender_name}**! Rất vui được gặp bạn. Bạn muốn biết thông tin gì? 👋"
+    - text: "Chào anh/chị! **{sender_name}** cần tôi giúp đỡ về điều gì? 😊"
+    - text: "Xin chào **{sender_name}**! Hãy cho tôi biết bạn cần gì. 🌟"
+    - text: "Hey **{sender_name}**! Bạn muốn thảo luận về điều gì? 🤔"
+    - text: "Gì chưa? **{sender_name}** cần sự hỗ trợ nào? 💬"
+    - text: "Chào **{sender_name}**, có thể giúp gì cho bạn ngày hôm nay? 🤗"
+    - text: "Có gì mới không? **{sender_name}** muốn tôi giúp đỡ gì? 🌟"
+    - text: "Chào **{sender_name}**, bạn có câu hỏi hoặc yêu cầu gì đến dịch vụ của chúng tôi không? 🤔"
 
   utter_goodbye:
-  - text: "Nếu có bất kỳ câu hỏi nào khác, hãy đặt ra. Chúc bạn một ngày tốt lành!"
-  - text: "Nếu có thêm thắc mắc, hãy liên hệ. Chúc bạn mọi điều tốt lành!"
-  - text: "Nếu cần sự giúp đỡ, đừng ngần ngại liên hệ. Chúc bạn một ngày tốt lành!"
-  - text: "Hãy giữ liên lạc! Chúc bạn mọi điều tốt lành!"
-  - text: "Nếu cần thêm thông tin, đừng ngần ngại liên hệ. Chúc bạn mọi điều tốt lành!"
-  - text: "Nếu có thắc mắc gì, hãy liên hệ. Chúc bạn một ngày tốt lành!"
-  - text: "Nếu có câu hỏi nào, hãy đặt ra. Chúc bạn mọi điều tốt lành!"
-  - text: "Nếu cần giúp đỡ, đừng ngần ngại liên hệ."
-  - text: "Nếu có thêm câu hỏi, đừng ngần ngại hỏi."
-  - text: "Nếu có vấn đề gì, hãy liên hệ. Chúc bạn mọi điều tốt lành!"
+    - text: "Nếu có bất kỳ câu hỏi nào khác, hãy đặt ra. Chúc bạn một ngày tốt lành! 🌞"
+    - text: "Nếu có thêm thắc mắc, hãy liên hệ. Chúc bạn mọi điều tốt lành! 🌟"
+    - text: "Nếu cần sự giúp đỡ, đừng ngần ngại liên hệ. Chúc bạn một ngày tốt lành! 😊"
+    - text: "Hãy giữ liên lạc! Chúc bạn mọi điều tốt lành! 🌞"
+    - text: "Nếu cần thêm thông tin, đừng ngần ngại liên hệ. Chúc bạn mọi điều tốt lành! 🌟"
+    - text: "Nếu có thắc mắc gì, hãy liên hệ. Chúc bạn một ngày tốt lành! 😊"
+    - text: "Nếu có câu hỏi nào, hãy đặt ra. Chúc bạn mọi điều tốt lành! 🌞"
+    - text: "Nếu cần giúp đỡ, đừng ngần ngại liên hệ. 🤗"
+    - text: "Nếu có thêm câu hỏi, đừng ngần ngại hỏi. 💬"
+    - text: "Nếu có vấn đề gì, hãy liên hệ. Chúc bạn mọi điều tốt lành! 🌟"
 
-  # utter_list_business_type_status:
-  utter_danh_sach_trang_trang_doanh_nghiep_cua_loai_hinh_nay:
-  - text: |
-      Tiếp theo hãy chọn loại trạng thái đăng ký doanh nghiệp **{business_type}**: 
-      Các loại trạng thái đăng ký doanh nghiệp bao gồm: 
-      {business_type_status_list}
-       **{sender_name}** Bạn chọn trạng thái nào?
-
-  # Quy trình đăng ký doanh nghiệp:
-  utter_business_registration_proccess:
-  - text: |
-      Quy trình đăng ký doanh nghiệp bao gồm các bước sau:\n\n
-        - _Xác định loại hình doanh nghiệp_\n\n
-        - _Chọn tên doanh nghiệp_\n\n
-        - _Lập hồ sơ đăng ký_\n\n
-        - _Nộp hồ sơ_\n\n
-        - _Thanh toán phí và nhận giấy chứng nhận_
-
-  utter_business_registration_proccess_step_1:
-  - text: |
-      **Bước 1: Xác định loại hình doanh nghiệp**\n
-        _Có nhiều loại hình doanh nghiệp khác nhau mà bạn có thể đăng ký như:_\n
-        {business_types}
-
-  utter_business_registration_proccess_step_2:
-  - text: |
-      **Bước 2: Chọn tên doanh nghiệp**
-        _Để chọn tên cho doanh nghiệp, bạn nên chọn một tên phù hợp và không trùng lặp với các doanh nghiệp khác đã đăng ký._
-
-  utter_business_registration_proccess_step_3:
-  - text: |
-      **Bước 3: Lập hồ sơ đăng ký**\n
-        _Để đăng ký doanh nghiệp, bạn cần chuẩn bị các giấy tờ như :_\n
-        - _Đăng ký kinh doanh_\n
-        - _Giấy phép thành lập_\n
-        - _Thông tin về cổ đông_
-
-  utter_business_registration_proccess_step_4:
-  - text: |
-      **Bước 4: Nộp hồ sơ**
-        _Bạn có thể nộp hồ sơ trực tiếp tại Văn phòng Đăng ký kinh doanh trong khu vực của bạn hoặc nộp trực tuyến qua Cổng thông tin quốc gia về đăng ký doanh nghiệp._\n
-        _Các bước thực hiện nộp hồ sơ:_\n
-        1. _Chuẩn bị hồ sơ_\n
-          - _Tờ khai đăng ký doanh nghiệp_: Sử dụng mẫu theo quy định của Bộ Kế hoạch và Đầu tư.\n
-          - _Dự thảo Điều lệ công ty_: Bao gồm thông tin về công ty, thành viên/cổ đông, vốn điều lệ, quyền và nghĩa vụ của thành viên/cổ đông ...\n
-          - _Giấy đề nghị công bố thông tin đăng ký doanh nghiệp_: Sử dụng mẫu theo quy định.\n
-          - _Giấy ủy quyền_: Nếu nộp hồ sơ qua người đại diện.\n
-          - _Tài liệu chứng thực cá nhân_: Căn cước công dân/hộ chiếu của chủ sở hữu, thành viên/cổ đông, người đại diện.\n
-          - _Vốn điều lệ_: Giấy xác nhận số dư tài khoản tại ngân hàng (nếu góp vốn bằng tiền) hoặc Giấy tờ chứng thực giá trị tài sản góp vốn\n
-        2. _Nộp hồ sơ_\n
-          - _Nộp trực tiếp_: Tại Phòng Đăng ký kinh doanh thuộc Sở Kế hoạch và Đầu tư tỉnh/thành phố nơi doanh nghiệp đặt trụ sở chính.\n
-          - _Nộp trực tuyến_: Qua Cổng thông tin quốc gia về đăng ký doanh nghiệp.\n
-        3. _Xét duyệt hồ sơ_\n
-          - _Thời gian_: Trong vòng 03 ngày làm việc kể từ ngày nhận đủ hồ sơ hợp lệ.\n
-          - _Kết quả_: Cấp Giấy chứng nhận đăng ký doanh nghiệp hoặc thông báo về việc từ chối đăng ký doanh nghiệp.\n
-        4. _Công bố thông tin đăng ký doanh nghiệp_\n
-          - _Doanh nghiệp có trách nhiệm công bố thông tin đăng ký doanh nghiệp trên Cổng thông tin quốc gia về đăng ký doanh nghiệp trong vòng 10 ngày làm việc kể từ ngày nhận được Giấy chứng nhận đăng ký doanh nghiệp._
-
-  utter_business_registration_proccess_step_5:
-  - text: |
-      **Bước 5: Thanh toán phí và nhận giấy chứng nhận**\n
-        _Sau khi hồ sơ được xét duyệt, bạn cần thanh toán phí đăng ký doanh nghiệp và nhận giấy chứng nhận đăng ký doanh nghiệp._\n
-
-  
-  # utter_list_business_types:
-  # - text: "Có nhiều loại hình doanh nghiệp khác nhau như: {entity_business_type} mà bạn có thể đăng ký."
-  
-  utter_registration_requirements:
-  - text: |
-      Đối với quy trình đăng ký doanh nghiệp, bạn cần chuẩn bị các giấy tờ như:\n
-        - _đăng ký kinh doanh_\n
-        - _giấy phép thành lập_\n
-        - _thông tin về cổ đông_
-  
-  utter_business_name_selection:
-  - text: |
-      Để chọn tên cho doanh nghiệp, bạn nên chọn một tên phù hợp và không trùng lặp với các doanh nghiệp khác đã đăng ký.\n
-      Có nhiều cách để chọn tên cho doanh nghiệp của bạn.\n
-      Dưới đây là một số mẹo để chọn tên hay cho doanh nghiệp:\n
-        - _Tên nên ngắn gọn, dễ nhớ và dễ phát âm._\n
-        - _Tên nên có ý nghĩa liên quan đến ngành nghề kinh doanh của bạn._\n
-        - _Tên nên độc đáo và không trùng với tên của các doanh nghiệp khác._\n
-        - _Tên nên dễ dàng đăng ký tên miền và thương hiệu._
-  
-  utter_registration_agencies:
-  - text: |
-      Cơ quan quản lý đăng ký doanh nghiệp có thể là Cơ quan Thuế, Sở Kế hoạch và Đầu tư, hoặc cơ quan tương tự tại địa phương của bạn.\n
-  - text: |
-      **{sender_name}** Bạn có thể đến Văn phòng Đăng ký kinh doanh trong khu vực của bạn để nộp hồ sơ đăng ký doanh nghiệp. \n
-      Địa chỉ cụ thể có thể được tìm thấy trên trang web của cơ quan đăng ký kinh doanh địa phương hoặc thông qua các dịch vụ tư vấn doanh nghiệp.
-
-  utter_business_registration_timeframe:
-  - text: |
-      Thời gian để hoàn thành quy trình đăng ký doanh nghiệp thường phụ thuộc vào quy định địa phương, nhưng thường mất từ vài tuần đến một vài tháng.\n
-  - text: |
-      Thời gian xử lý hồ sơ đăng ký thường mất khoảng 2-4 tuần. \n
-      Tuy nhiên, có thể có biến động tùy thuộc vào quy trình và yêu cầu cụ thể của bạn. \n
-      Hãy kiên nhẫn và theo dõi thông báo.
-  
-  
-  utter_post_registration_steps:
-  - text: |
-      Các bước cần thực hiện sau khi thành lập doanh nghiệp có thể bao gồm:\n
-        1. _Xây dựng kế hoạch kinh doanh chi tiết._\n
-        2. _Đăng ký thuế và các vấn đề liên quan._\n
-        3. _Tìm kiếm và xây dựng đội ngũ nhân sự._\n
-        4. _Xây dựng chiến lược tiếp thị và quảng cáo._\n
-        5. _Quản lý tài chính và kế toán._\n
-        6. _Nghiên cứu thị trường và cạnh tranh._\n
-        7. _Phát triển sản phẩm hoặc dịch vụ._\n
-        8. _Xây dựng mối quan hệ với khách hàng và đối tác._\n
-        9. _Theo dõi và đánh giá hiệu suất kinh doanh._\n
-        10. _Điều chỉnh kế hoạch kinh doanh theo thời gian._
-  
-  utter_disclosure_requirements:
-  - text: |
-      Sau khi bạn đã thành lập doanh nghiệp, bạn cần công bố các thông tin như:\n
-        - _tên công ty_\n
-        - _địa chỉ đăng ký kinh doanh_\n
-        - _mã số thuế_\n
-        - _ngành nghề kinh doanh_\n
-        - _vốn điều lệ_\n
-        - _và các thông tin liên quan đến cơ cấu tổ chức_\n
-        - _thành viên trong công ty_
-
-  utter_legal_assistance:
-  - text: |
-      Để có sự giúp đỡ pháp lý trong quá trình đăng ký doanh nghiệp, bạn có thể tham khảo các nguồn thông tin từ Bộ Tư pháp, các trung tâm hỗ trợ doanh nghiệp, hoặc tìm kiếm sự hỗ trợ từ luật sư và chuyên gia pháp lý.
-  
-
-  # utter_register_business_procedure:
-  # utter_danh_sach_loai_hinh_doanh_nghiep:
-  # - text: |
-  #     Để đăng ký doanh nghiệp, bạn cần thực hiện các bước sau:\n
-  #     Bước đầu tiên bạn chọn Loại hình doanh nghiệp mà bạn muốn đăng ký. \n
-  #     Đây có nhiều loại hình doanh nghiệp:\n
-  #     {business_types}\n
-  #      **{sender_name}** Bạn chọn loại hình doanh nghiệp nào?
-
-  utter_regarding_reorganization_dissolution_bankruptcy:
-  - text: |
-      Khoản 2 Điều 202 Luật Doanh nghiệp năm 2020 quy định công ty trách nhiệm hữu hạn có thể chuyển đổi thành công ty cổ phần theo phương thức sau đây:\n
-        - Chuyển đổi thành công ty cổ phần mà không huy động thêm tổ chức, cá nhân khác cùng góp vốn, không bán phần vốn góp cho tổ chức, cá nhân khác\n
-        - Chuyển đổi thành công ty cổ phần bằng cách huy động thêm tổ chức, cá nhân khác góp vốn\n
-        - Chuyển đổi thành công ty cổ phần bằng cách bán toàn bộ hoặc một phần phần vốn góp cho một hoặc một số tổ chức, cá nhân khác\n
-        - Kết hợp phương thức quy định tại các điểm a, b và c khoản này và các phương thức khác.\n
-
-      Theo quy định tại điểm b khoản 1 Điều 111 Luật Doanh nghiệp năm 2020 thì số lượng cổ đông tối thiểu của công ty cổ phần là 03 cổ đông.\n
-      Do vậy, trường hợp không thể huy động thêm tổ chức, cá nhân khác cùng góp vốn vào công ty, công ty trách nhiệm hữu hạn một thành viên có thể chuyển đổi thành công ty cổ phần bằng cách bán toàn bộ hoặc một phần phần vốn góp cho một hoặc một số tổ chức, cá nhân khác và công ty cổ phần được thành lập trên cơ sở chuyển đổi loại hình doanh nghiệp phải đảm bảo số lượng cổ đông tối thiểu theo quy định tại điểm b khoản 1 Điều 111 Luật Doanh nghiệp năm 2020 nêu trên.
-  
-  utter_registration_dossier:
-  - text: |
-      Theo quy định tại Khoản 1, 5 Điều 14 Nghị định số 78/2015/NĐ-CP ngày 14/9/2015 của Chính phủ về đăng ký doanh nghiệp thì một trong những nhiệm vụ, quyền hạn, trách nhiệm của Phòng Đăng ký kinh doanh cấp tỉnh là Trực tiếp nhận hồ sơ đăng ký doanh nghiệp; xem xét tính hợp lệ của hồ sơ đăng ký doanh nghiệp và cấp hoặc từ chối cấp Giấy chứng nhận đăng ký doanh nghiệp.\n
-      Trực tiếp kiểm tra hoặc đề nghị cơ quan nhà nước có thẩm quyền kiểm tra doanh nghiệp theo nội dung trong hồ sơ đăng ký doanh nghiệp; hướng dẫn cơ quan đăng ký kinh doanh cấp huyện về hồ sơ, trình tự, thủ tục đăng ký hộ kinh doanh; hướng dẫn doanh nghiệp và người thành lập doanh nghiệp về hồ sơ, trình tự, thủ tục đăng ký doanh nghiệp.
-        
-  utter_business_registration_fees_charges:
-  - text: |
-      ### Phí, lệ phí đăng ký doanh nghiệp\n
-
-      **Thứ bảy, 29/11/2014 17:15 GMT+7**\n
-
-      Phí và Lệ phí đăng ký doanh nghiệp hiện nay được điều chỉnh bởi Thông tư số 47/2019/TT-BTC của Bộ Tài chính.\n
-
-      Để biết thêm chi tiết, mời xem Biểu phí, lệ phí đăng ký doanh nghiệp dưới đây:\n
-
-      ### BIỂU PHÍ, LỆ PHÍ ĐĂNG KÝ DOANH NGHIỆP\n
-
-      **(Ban hành kèm theo Thông tư số 47/2019/TT-BTC ngày 05 tháng 8 năm 2019 của Bộ trưởng Bộ Tài chính)**\n
-
-      | STT | Nội dung | Đơn vị tính | Mức thu |\n
-      | --- | --- | --- | --- |\n
-      | 1 | **Lệ phí đăng ký doanh nghiệp** (bao gồm: Cấp mới, cấp lại, thay đổi nội dung Giấy chứng nhận đăng ký doanh nghiệp và Giấy chứng nhận đăng ký hoạt động chi nhánh, văn phòng đại diện, địa điểm kinh doanh của doanh nghiệp) | Đồng/lần | 50.000 |\n
-      | 2 | **Phí cung cấp thông tin doanh nghiệp** | | |\n
-      | a | Cung cấp thông tin Giấy chứng nhận đăng ký doanh nghiệp; Giấy chứng nhận hoạt động chi nhánh, văn phòng đại diện, địa điểm kinh doanh | Đồng/bản | 20.000 |\n
-      | b | Cung cấp thông tin trong hồ sơ đăng ký doanh nghiệp; Cung cấp báo cáo tài chính các loại doanh nghiệp | Đồng/bản | 40.000 |\n
-      | c | Cung cấp báo cáo tổng hợp về doanh nghiệp | Đồng/báo cáo | 150.000 |\n
-      | d | Công bố nội dung đăng ký doanh nghiệp | Đồng/lần | 100.000 |\n
-      | đ | Cung cấp thông tin doanh nghiệp theo tài khoản từ 125 bản/tháng trở lên | Đồng/tháng | 4.500.000 |\n
-
-      **Ghi chú:**\n
-      - Phí cung cấp thông tin doanh nghiệp quy định tại mục 2 Biểu phí, lệ phí đăng ký doanh nghiệp ban hành kèm theo Thông tư số 47/2019/TT-BTC ngày 05 tháng 8 năm 2019 của Bộ trưởng Bộ Tài chính, chỉ áp dụng đối với trường hợp yêu cầu cơ quan đăng ký kinh doanh cung cấp thông tin doanh nghiệp.\n
-      - Cung cấp báo cáo tổng hợp về đăng ký doanh nghiệp bao gồm: Báo cáo tổng hợp về người thành lập, quản lý doanh nghiệp trong 03 năm; Báo cáo tổng hợp về lịch sử doanh nghiệp trong 03 năm; Báo cáo tổng hợp về thông tin đăng ký doanh nghiệp mới nhất; Báo cáo thống kê về danh sách doanh nghiệp; Báo cáo tổng hợp về tình hình tài chính của doanh nghiệp trong 03 năm; Danh sách 100 doanh nghiệp theo yêu cầu; Các sản phẩm thông tin khác được xây dựng trên cơ sở chiết xuất, tổng hợp dữ liệu từ Cơ sở dữ liệu quốc gia về đăng ký doanh nghiệp.\n
-      - Cung cấp thông tin doanh nghiệp theo tài khoản: Là việc cung cấp thông tin doanh nghiệp cho một tài khoản được đăng ký trước tại Trung tâm Hỗ trợ nghiệp vụ đăng ký kinh doanh thuộc Cục Quản lý đăng ký kinh doanh nhằm đáp ứng nhu cầu tìm hiểu, khai thác và tổng hợp thông tin đăng ký doanh nghiệp với số lượng lớn, trong một thời gian dài.
-  
-  utter_about_information_services:
-  - text: |
-      ### Khoản 1 và khoản 2 Điều 33 Luật Doanh nghiệp năm 2020 quy định như sau:\n
-
-        - Tổ chức, cá nhân có quyền đề nghị Cơ quan quản lý nhà nước về đăng ký kinh doanh và Cơ quan đăng ký kinh doanh cung cấp thông tin được lưu giữ trên Hệ thống thông tin quốc gia về đăng ký doanh nghiệp và phải nộp phí theo quy định của pháp luật.\n
-        - Cơ quan quản lý nhà nước về đăng ký kinh doanh và Cơ quan đăng ký kinh doanh có nghĩa vụ cung cấp đầy đủ và kịp thời thông tin theo quy định tại khoản 1 Điều 33 Luật Doanh nghiệp năm 2020.\n
-
-      ### Phí cung cấp thông tin doanh nghiệp quy định tại Mục 2 Biểu phí, lệ phí đăng ký doanh nghiệp ban hành kèm theo Thông tư số 47/2019/TT-BTC ngày 05/8/2019 của Bộ trưởng Bộ Tài chính quy định mức thu, chế độ thu, nộp, quản lý và sử dụng phí cung cấp thông tin doanh nghiệp, lệ phí đăng ký doanh nghiệp, cụ thể như sau:\n
-
-      | STT | Nội dung | Đơn vị tính | Mức thu |\n
-      | --- | --- | --- | --- |\n
-      | 1 | Cung cấp thông tin Giấy chứng nhận đăng ký doanh nghiệp; Giấy chứng nhận hoạt động chi nhánh, văn phòng đại diện, địa điểm kinh doanh | Đồng/bản | 20.000 |\n
-      | 2 | Cung cấp thông tin trong hồ sơ đăng ký doanh nghiệp; Cung cấp báo cáo tài chính các loại doanh nghiệp | Đồng/bản | 40.000 |\n
-      | 3 | Cung cấp báo cáo tổng hợp về doanh nghiệp | Đồng/báo cáo | 150.000 |\n
-      | 4 | Cung cấp thông tin doanh nghiệp theo tài khoản từ 125 bản/tháng trở lên | Đồng/tháng | 4.500.000 |\n
-
-      ### Theo đó:\n
-
-      - Phí cung cấp thông tin doanh nghiệp nêu trên chỉ áp dụng đối với trường hợp yêu cầu cơ quan đăng ký kinh doanh cung cấp thông tin doanh nghiệp.\n
-      - Cung cấp báo cáo tổng hợp về đăng ký doanh nghiệp bao gồm: Báo cáo tổng hợp về người thành lập, quản lý doanh nghiệp trong 03 năm; Báo cáo tổng hợp về lịch sử doanh nghiệp trong 03 năm; Báo cáo tổng hợp về thông tin đăng ký doanh nghiệp mới nhất; Báo cáo thống kê về danh sách doanh nghiệp; Báo cáo tổng hợp về tình hình tài chính của doanh nghiệp trong 03 năm; Danh sách 100 doanh nghiệp theo yêu cầu; Các sản phẩm thông tin khác được xây dựng trên cơ sở chiết xuất, tổng hợp dữ liệu từ Cơ sở dữ liệu quốc gia về đăng ký doanh nghiệp.\n
-      - Cung cấp thông tin doanh nghiệp theo tài khoản: Là việc cung cấp thông tin doanh nghiệp cho một tài khoản được đăng ký trước tại Trung tâm Hỗ trợ nghiệp vụ đăng ký kinh doanh thuộc Cục Quản lý đăng ký kinh doanh nhằm đáp ứng nhu cầu tìm hiểu, khai thác và tổng hợp thông tin đăng ký doanh nghiệp với số lượng lớn, trong một thời gian dài.\n
-
-      Theo quy định tại khoản 4, khoản 5 Thông tư số 47/2019/TT-BTC thì cơ quan nhà nước đề nghị cung cấp thông tin phục vụ quản lý nhà nước được miễn phí cung cấp thông tin doanh nghiệp; doanh nghiệp nhỏ và vừa chuyển đổi từ hộ kinh doanh được miễn phí cung cấp thông tin doanh nghiệp lần đầu.\n
-
-  utter_inquiry_business_resumption_faq:
-  - text: |
-      Theo quy định tại Khoản 1 Điều 64 Nghị định số 78/2015/NĐ-CP ngày 14/9/2015 của Chính phủ về đăng ký doanh nghiệp thì một trong những trường hợp Phòng Đăng ký kinh doanh ra quyết định hủy bỏ quyết định thu hồi Giấy chứng nhận đăng ký doanh nghiệp và khôi phục tình trạng pháp lý của doanh nghiệp trên Hệ thống thông tin quốc gia về đăng ký doanh nghiệp là: "Phòng Đăng ký kinh doanh xác định doanh nghiệp không thuộc trường hợp phải thu hồi Giấy chứng nhận đăng ký doanh nghiệp".\n
-      Căn cứ quy định này, trường hợp doanh nghiệp không vi phạm quy định pháp luật thuộc trường hợp phải thu hồi Giấy chứng nhận đăng ký doanh nghiệp, doanh nghiệp có quyền yêu cầu Phòng đăng ký kinh doanh khôi phục tình trạng pháp lý của doanh nghiệp. Trường hợp cơ quan đăng ký kinh doanh không chấp thuận yêu cầu khôi phục, doanh nghiệp có thể thực hiện quyền khiếu nại hoặc khởi kiện Phòng Đăng ký kinh doanh ra Tòa án hành chính theo quy định của pháp luật. Trường hợp cơ quan đăng ký kinh doanh khôi phục tình trạng pháp lý của doanh nghiệp trên Hệ thống Thông tin quốc gia về đăng ký doanh nghiệp, doanh nghiệp có thể hoạt động trở lại.\n
-      Trường hợp doanh nghiệp ngừng hoạt động trên 1 năm và không thông báo cho cơ quan thuế, cơ quan đăng ký kinh doanh, đã bị Phòng Đăng ký kinh doanh thu hồi Giấy chứng nhận đăng ký doanh nghiệp, đến nay, doanh nghiệp muốn quay trở lại hoạt động không thuộc một trong hai trường hợp doanh nghiệp được khôi phục tình trạng pháp lý quy định tại Điều 64 Nghị định số 78/2015/NĐ-CP.\n
-
-  utter_define_business_registration_certificate_revocation_faq:
-  - text: |
-      Luật Doanh nghiệp và các văn bản hướng dẫn thi hành không nêu khái niệm về thu hồi Giấy chứng nhận đăng ký doanh nghiệp. Tuy nhiên, nếu coi việc cấp Giấy chứng nhận đăng ký doanh nghiệp là "khai sinh" cho doanh nghiệp và doanh nghiệp được phép hoạt động, kinh doanh sản xuất kể từ khi được cấp Giấy chứng nhận đăng ký doanh nghiệp, thì việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp có thể hiểu là "khai tử" doanh nghiệp. Sau khi bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp, doanh nghiệp không được phép kinh doanh theo quy định tại Khoản 3 Điều 17 của Luật Doanh nghiệp.\n
-      Sau khi bị thu hồi Giấy chứng nhận đăng ký doanh nghiệp, doanh nghiệp phải thực hiện thủ tục giải thể theo quy định tại Khoản 6 Điều 63 của Nghị định số 78/2015/NĐ-CP. Doanh nghiệp chấm dứt tồn tại sau khi hoàn tất thủ tục giải thể. Trong trường hợp doanh nghiệp cố ý không thực hiện giải thể, sau 180 ngày, cơ quan đăng ký kinh doanh sẽ cập nhật tình trạng "đã giải thể" trên Hệ thống Thông tin quốc gia về đăng ký doanh nghiệp.
-
-
-  utter_inquire_retrieval_procedure_faq:
-  - text: |
-      Các trường hợp thu hồi Giấy chứng nhận đăng ký doanh nghiệp được quy định tại Khoản 1 Điều 211 Luật Doanh nghiệp và Khoản 26 Điều 1 Luật sửa đổi, bổ sung một số điều của Luật Quản lý thuế cụ thể là:\n
-      1. Nội dung kê khai trong hồ sơ đăng ký doanh nghiệp là giả mạo;\n
-      2. Doanh nghiệp do những người bị cấm thành lập doanh nghiệp theo khoản 2 Điều 18 của Luật này thành lập;\n
-      3. Doanh nghiệp ngừng hoạt động kinh doanh 01 năm mà không thông báo với Cơ quan đăng ký kinh doanh và cơ quan thuế;\n
-      4. Doanh nghiệp không gửi báo cáo theo quy định tại điểm c khoản 1 Điều 209 của Luật này đến Cơ quan đăng ký kinh doanh trong thời hạn 06 tháng, kể từ ngày hết hạn gửi báo cáo hoặc có yêu cầu bằng văn bản;\n
-      5. Trường hợp khác theo quyết định của Tòa án.\n
-      6. Trường hợp doanh nghiệp bị cưỡng chế thi hành quyết định hành chính thuế theo quy định tại Khoản 26 Điều 1 Luật sửa đổi, bổ sung một số điều của Luật Quản lý thuế.\n
-
-      Trình tự, thủ tục thu hồi Giấy chứng nhận đăng ký doanh nghiệp được quy định tại Điều 63 Nghị định số 78/2015/NĐ-CP ngày 14/9/2015 của Chính phủ về đăng ký doanh nghiệp.\n
-
-
-  utter_query_business_registration_cert_revocation_faq:
-  - text: |
-      **Theo quy định tại điểm e khoản 1 Điều 209 Luật Doanh nghiệp** thì một trong những nhiệm vụ, quyền hạn của **Cơ quan đăng ký kinh doanh** là thu hồi Giấy chứng nhận đăng ký doanh nghiệp và yêu cầu doanh nghiệp làm thủ tục giải thể.\n
-
-      Các văn bản quy phạm pháp luật hiện hành không quy định cơ quan khác ngoài cơ quan đăng ký kinh doanh có thẩm quyền thu hồi Giấy chứng nhận đăng ký doanh nghiệp. Do vậy, tính đến nay cơ quan đăng ký kinh doanh là cơ quan duy nhất có thẩm quyền thực hiện việc thu hồi Giấy chứng nhận đăng ký doanh nghiệp.\n
-
-      ||Khoản 4 Điều 5 nghị định số 78/2015/NĐ-CP ngày 14/9/2017 của Chính phủ|| quy định: “Các Bộ, cơ quan ngang Bộ, Hội đồng nhân dân và Ủy ban nhân dân các cấp không được ban hành các quy định về đăng ký doanh nghiệp áp dụng riêng cho ngành hoặc địa phương mình. Những quy định về đăng ký doanh nghiệp do các Bộ, cơ quan ngang Bộ, Hội đồng nhân dân và Ủy ban nhân dân các cấp ban hành trái với quy định tại Khoản này hết hiệu lực thi hành kể từ ngày Nghị định này có hiệu lực”.\n
-          
   utter_welcome:
-    - text: Chào mừng **{sender_name}** đến với hệ thống hỗ trợ đăng ký doanh nghiệp trực tuyển của **tỉnh Cà Mau**. Hãy cho chúng tôi biết bạn cần hỗ trợ về vấn đề gì?
+    - text: "Chào mừng **{sender_name}** đến với hệ thống hỗ trợ đăng ký doanh nghiệp trực tuyến của **tỉnh Cà Mau**. Hãy cho chúng tôi biết bạn cần hỗ trợ về vấn đề gì? 🌟"
+    - text: "Xin chào! **{sender_name}**, hãy để tôi giúp bạn với thủ tục đăng ký doanh nghiệp. 🌟"
+    - text: "Chào mừng **{sender_name}**! Hãy cho chúng tôi biết bạn cần hỗ trợ điều gì hôm nay. 😊"
 
-  # utter_no_business_produre_steps:
-  #   - text: |
-  #       Không có bước đăng ký nào cho loại hình doanh nghiệp **{business_type}** ở trạng thái **{business_status}**
 
-  # utter_list_business_procedure_steps:
-  utter_danh_sach_cac_buoc_thu_tuc_cua_cong_ty:
-    - text: |
-        Dưới đây là các bước đăng ký doanh nghiệp **{business_type}** ở trạng thái **{business_status}**:\n
-        {procedure_steps}\n
-         **{sender_name}** Bạn muốn biết thông tin chi tiết của bước nào?
+  utter_business_type:
+    - text: "Có nhiều loại hình doanh nghiệp như: công ty cổ phần, công ty TNHH, doanh nghiệp tư nhân, công ty hợp danh, và hộ kinh doanh. 📊"
+    - text: "Các loại hình doanh nghiệp bao gồm: công ty cổ phần, công ty TNHH, doanh nghiệp tư nhân, công ty hợp danh, và hộ kinh doanh. 🏢"
+    - text: "Bạn có thể chọn các loại hình doanh nghiệp như: công ty cổ phần, công ty TNHH, doanh nghiệp tư nhân, công ty hợp danh, và hộ kinh doanh. 🏬"
 
-  # utter_business_procedure_step_description:
-  utter_thong_tin_chi_tiet_cua_buoc_thu_tuc:
-    - text: |
-        Bước đăng ký doanh nghiệp **{business_type}** với trạng thái **{business_status}** là **{procedure_step}**:\n
-        {procedure_step_description}
+  utter_joint_stock_company:
+    - text: "Công ty cổ phần là loại hình doanh nghiệp mà vốn điều lệ được chia thành nhiều phần bằng nhau gọi là cổ phần. Các cổ đông chỉ chịu trách nhiệm về các khoản nợ và nghĩa vụ tài sản khác của doanh nghiệp trong phạm vi số vốn đã góp vào doanh nghiệp. 📈"
+    - text: "Công ty cổ phần có vốn điều lệ được chia thành nhiều phần bằng nhau gọi là cổ phần. Các cổ đông chỉ chịu trách nhiệm trong phạm vi số vốn đã góp. 💼"
+    - text: "Loại hình doanh nghiệp công ty cổ phần có vốn điều lệ chia thành các cổ phần. Các cổ đông chỉ chịu trách nhiệm trong phạm vi số vốn đã góp vào doanh nghiệp. 📊"
 
-  utter_default_fallback:
-    - text: Xin lỗi, tôi không hiểu yêu cầu của bạn.  **{sender_name}** Bạn có thể giải thích rõ hơn không?\n
-    - text: Tôi không chắc chắn về yêu cầu của bạn.  **{sender_name}** Bạn có thể nói rõ hơn không?\n
-    - text: Tôi không hiểu yêu cầu của bạn.  **{sender_name}** Bạn có thể giải thích rõ hơn không?
+  utter_new_establishment:
+    - text: "Để thành lập mới doanh nghiệp, bạn cần thực hiện các bước sau: nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả. 🚀"
+    - text: "Thành lập mới doanh nghiệp gồm các bước: nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả từ cơ quan đăng ký kinh doanh. 📑"
+    - text: "Bạn cần thực hiện các bước như nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả để thành lập mới doanh nghiệp. 📝"
 
-  utter_no_business_type_selected:
-    - text: |
-        Xin lỗi **{sender_name}**, không có thông tin về loại hình doanh nghiệp. Bạn vui lòng chọn loại hình doanh nghiệp trong danh sách sau:\n
-        {business_types}
+  utter_change_registration:
+    - text: "Đăng ký thay đổi thông tin doanh nghiệp bao gồm thay đổi địa chỉ trụ sở chính, người đại diện theo pháp luật, tên doanh nghiệp, và các thông tin khác. 📝"
+    - text: "Bạn có thể đăng ký thay đổi thông tin doanh nghiệp như địa chỉ trụ sở chính, người đại diện theo pháp luật, tên doanh nghiệp, và các thông tin khác. 📋"
+    - text: "Đăng ký thay đổi thông tin doanh nghiệp gồm các thay đổi về địa chỉ trụ sở chính, người đại diện theo pháp luật, tên doanh nghiệp, và các thông tin khác. 🏢"
 
-  utter_no_business_status_selected:
-    - text: |
-        Xin lỗi **{sender_name}**, không có thông tin về trạng thái của loại hình doanh nghiệp **{business_type}**. Bạn vui lòng chọn trạng thái của loại hình doanh nghiệp trong danh sách sau:\n
-        {business_type_status_list}
+  utter_change_head_office_address:
+    - text: "Để thay đổi địa chỉ trụ sở chính, bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Thay đổi địa chỉ trụ sở chính yêu cầu nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 🏢"
+    - text: "Bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi địa chỉ trụ sở chính. 📑"
 
-  utter_no_procedure_step_selected:
-    - text: |
-        Xin lỗi **{sender_name}**, không có thông tin về bước đăng ký doanh nghiệp **{business_type}** ở trạng thái **{business_status}**. Bạn vui lòng chọn bước đăng ký doanh nghiệp trong danh sách sau:\n
-        {procedure_steps}
+  utter_change_legal_representative:
+    - text: "Để thay đổi người đại diện theo pháp luật, bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📝"
+    - text: "Thay đổi người đại diện theo pháp luật yêu cầu nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi người đại diện theo pháp luật. 🏢"
 
-  # utter_no_business_procedure_step_description:
-  #   - text: Xin lỗi, không có thông tin về bước đăng ký doanh nghiệp **{business_type}** ở trạng thái **{business_status} ỏ bước **{procedure_step}**
+  utter_change_company_name:
+    - text: "Để thay đổi tên doanh nghiệp, bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Thay đổi tên doanh nghiệp yêu cầu nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📝"
+    - text: "Bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi tên doanh nghiệp. 📄"
 
-    
+  utter_change_notification:
+    - text: "Thông báo thay đổi thông tin doanh nghiệp bao gồm thay đổi cổ đông, ngành nghề kinh doanh, và các thông tin đăng ký thuế. 📋"
+    - text: "Thay đổi thông tin doanh nghiệp gồm thay đổi cổ đông, ngành nghề kinh doanh, và các thông tin đăng ký thuế cần thông báo. 📝"
+    - text: "Bạn cần thông báo thay đổi thông tin doanh nghiệp như thay đổi cổ đông, ngành nghề kinh doanh, và các thông tin đăng ký thuế. 🏢"
+
+  utter_change_foreign_investor_shareholder:
+    - text: "Để thay đổi cổ đông là nhà đầu tư nước ngoài, bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📑"
+    - text: "Thay đổi cổ đông là nhà đầu tư nước ngoài yêu cầu thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 🏢"
+    - text: "Bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi cổ đông là nhà đầu tư nước ngoài. 📝"
+
+  utter_change_business_sector:
+    - text: "Để thay đổi ngành nghề kinh doanh, bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Thay đổi ngành nghề kinh doanh yêu cầu thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📝"
+    - text: "Bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi ngành nghề kinh doanh. 📑"
+
+  utter_change_tax_registration:
+    - text: "Để thay đổi nội dung đăng ký thuế, bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Thay đổi nội dung đăng ký thuế yêu cầu thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 🏢"
+    - text: "Bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi nội dung đăng ký thuế. 📑"
+
+  utter_temporary_suspension:
+    - text: "Thủ tục tạm ngừng kinh doanh bao gồm việc thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh. 📝"
+    - text: "Tạm ngừng kinh doanh cần thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Bạn cần thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh để tạm ngừng kinh doanh. 📑"
+
+  utter_suspend_business:
+    - text: "Để đăng ký tạm ngừng kinh doanh, bạn cần nộp hồ sơ tạm ngừng tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Tạm ngừng kinh doanh yêu cầu nộp hồ sơ tạm ngừng tại cơ quan đăng ký kinh doanh. 📝"
+    - text: "Bạn cần nộp hồ sơ tạm ngừng tại cơ quan đăng ký kinh doanh để đăng ký tạm ngừng kinh doanh. 📄"
+
+  utter_resume_business:
+    - text: "Để tiếp tục kinh doanh trước thời hạn đã thông báo, bạn cần nộp hồ sơ tiếp tục kinh doanh tại cơ quan đăng ký kinh doanh. 📝"
+    - text: "Tiếp tục kinh doanh trước thời hạn yêu cầu nộp hồ sơ tiếp tục kinh doanh tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Bạn cần nộp hồ sơ tiếp tục kinh doanh tại cơ quan đăng ký kinh doanh để tiếp tục kinh doanh trước thời hạn. 📑"
+
+  utter_dissolve_business:
+    - text: "Thủ tục giải thể doanh nghiệp bao gồm việc thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Giải thể doanh nghiệp yêu cầu thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📝"
+    - text: "Bạn cần thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh để giải thể doanh nghiệp. 📑"
+
+  utter_register_dissolution:
+    - text: "Để đăng ký giải thể doanh nghiệp, bạn cần nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Đăng ký giải thể doanh nghiệp yêu cầu nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📝"
+    - text: "Bạn cần nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh để đăng ký giải thể doanh nghiệp. 📄"
+
+  utter_cancel_dissolution:
+    - text: "Để hủy bỏ nghị quyết quyết định giải thể doanh nghiệp, bạn cần nộp hồ sơ hủy bỏ tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Hủy bỏ nghị quyết quyết định giải thể doanh nghiệp yêu cầu nộp hồ sơ hủy bỏ tại cơ quan đăng ký kinh doanh. 📝"
+    - text: "Bạn cần nộp hồ sơ hủy bỏ tại cơ quan đăng ký kinh doanh để hủy bỏ nghị quyết quyết định giải thể doanh nghiệp. 📑"
+
+  utter_private_enterprise:
+    - text: "Doanh nghiệp tư nhân là doanh nghiệp do một cá nhân làm chủ và tự chịu trách nhiệm bằng toàn bộ tài sản của mình về mọi hoạt động của doanh nghiệp. 👤"
+    - text: "Doanh nghiệp tư nhân là loại hình doanh nghiệp mà cá nhân làm chủ và chịu trách nhiệm bằng toàn bộ tài sản của mình. 🏢"
+    - text: "Một cá nhân làm chủ doanh nghiệp tư nhân và chịu trách nhiệm về mọi hoạt động của doanh nghiệp bằng toàn bộ tài sản của mình. 👥"
+
+  utter_establish_private_enterprise:
+    - text: "Để thành lập mới doanh nghiệp tư nhân, bạn cần thực hiện các bước sau: nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả. 🚀"
+    - text: "Thành lập mới doanh nghiệp tư nhân gồm các bước: nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả từ cơ quan đăng ký kinh doanh. 📑"
+    - text: "Bạn cần thực hiện các bước như nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả để thành lập mới doanh nghiệp tư nhân. 📝"
+
+  utter_change_private_enterprise:
+    - text: "Đăng ký thay đổi thông tin doanh nghiệp tư nhân bao gồm thay đổi địa chỉ trụ sở chính, chủ doanh nghiệp, tên doanh nghiệp, và các thông tin khác. 📋"
+    - text: "Bạn có thể đăng ký thay đổi thông tin doanh nghiệp tư nhân như địa chỉ trụ sở chính, chủ doanh nghiệp, tên doanh nghiệp, và các thông tin khác. 📝"
+    - text: "Đăng ký thay đổi thông tin doanh nghiệp tư nhân gồm các thay đổi về địa chỉ trụ sở chính, chủ doanh nghiệp, tên doanh nghiệp, và các thông tin khác. 🏢"
+
+  utter_notify_change_private_enterprise:
+    - text: "Thông báo thay đổi thông tin doanh nghiệp tư nhân bao gồm thay đổi ngành nghề kinh doanh và các thông tin đăng ký thuế. 📋"
+    - text: "Thay đổi thông tin doanh nghiệp tư nhân gồm thay đổi ngành nghề kinh doanh và các thông tin đăng ký thuế cần thông báo. 📝"
+    - text: "Bạn cần thông báo thay đổi thông tin doanh nghiệp tư nhân như thay đổi ngành nghề kinh doanh và các thông tin đăng ký thuế. 🏢"
+
+  utter_suspend_private_enterprise:
+    - text: "Thủ tục tạm ngừng kinh doanh đối với doanh nghiệp tư nhân bao gồm việc thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh. 📝"
+    - text: "Tạm ngừng kinh doanh đối với doanh nghiệp tư nhân cần thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Bạn cần thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh để tạm ngừng kinh doanh doanh nghiệp tư nhân. 📑"
+
+  utter_dissolve_private_enterprise:
+    - text: "Thủ tục giải thể doanh nghiệp tư nhân bao gồm việc thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Giải thể doanh nghiệp tư nhân yêu cầu thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📝"
+    - text: "Bạn cần thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh để giải thể doanh nghiệp tư nhân. 📑"
+
+  utter_single_member_llc:
+    - text: "Công ty TNHH một thành viên là doanh nghiệp do một tổ chức hoặc một cá nhân làm chủ sở hữu và chịu trách nhiệm về các khoản nợ và nghĩa vụ tài sản khác của doanh nghiệp trong phạm vi số vốn điều lệ của công ty. 👥"
+    - text: "Công ty TNHH một thành viên là doanh nghiệp mà một tổ chức hoặc cá nhân làm chủ sở hữu và chịu trách nhiệm trong phạm vi số vốn điều lệ. 🏢"
+    - text: "Doanh nghiệp TNHH một thành viên có chủ sở hữu là một tổ chức hoặc cá nhân và chịu trách nhiệm về các khoản nợ và nghĩa vụ trong phạm vi vốn điều lệ. 📈"
+
+  utter_partnership:
+    - text: "Công ty hợp danh là doanh nghiệp trong đó có ít nhất hai thành viên hợp danh là chủ sở hữu chung của công ty, cùng nhau kinh doanh dưới một tên chung và chịu trách nhiệm bằng toàn bộ tài sản của mình về các nghĩa vụ của công ty. 👥"
+    - text: "Công ty hợp danh có ít nhất hai thành viên hợp danh là chủ sở hữu chung và chịu trách nhiệm bằng toàn bộ tài sản của mình về các nghĩa vụ của công ty. 🏢"
+    - text: "Doanh nghiệp hợp danh có các thành viên hợp danh là chủ sở hữu chung và chịu trách nhiệm bằng toàn bộ tài sản của mình về các nghĩa vụ của công ty. 📈"
+
+  utter_business_location:
+    - text: "Địa điểm kinh doanh là nơi mà doanh nghiệp thực hiện các hoạt động kinh doanh cụ thể. 🏢"
+    - text: "Doanh nghiệp thực hiện các hoạt động kinh doanh cụ thể tại địa điểm kinh doanh. 📍"
+    - text: "Địa điểm kinh doanh là nơi doanh nghiệp thực hiện các hoạt động kinh doanh. 🏬"
+
+  utter_household_business:
+    - text: "Hộ kinh doanh là một loại hình doanh nghiệp do một cá nhân hoặc một nhóm người (gia đình) làm chủ và chịu trách nhiệm bằng toàn bộ tài sản của mình về mọi hoạt động kinh doanh của hộ. 👨‍👩‍👧‍👦"
+    - text: "Hộ kinh doanh do một cá nhân hoặc một nhóm người (gia đình) làm chủ và chịu trách nhiệm bằng toàn bộ tài sản của mình. 🏡"
+    - text: "Một cá nhân hoặc nhóm người (gia đình) làm chủ hộ kinh doanh và chịu trách nhiệm về mọi hoạt động kinh doanh bằng toàn bộ tài sản của mình. 👥"
+
+  utter_time:
+    - text: "Thời gian đăng ký thành lập mới doanh nghiệp thường từ 3 đến 5 ngày làm việc. ⏰"
+    - text: "Thời gian để đăng ký thành lập mới doanh nghiệp thường mất từ 3 đến 5 ngày làm việc. 📅"
+    - text: "Bạn sẽ mất khoảng 3 đến 5 ngày làm việc để đăng ký thành lập mới doanh nghiệp. ⏳"
+
+  utter_fees:
+    - text: "Phí và lệ phí đăng ký doanh nghiệp bao gồm phí nộp hồ sơ và các khoản lệ phí khác theo quy định. 💰"
+    - text: "Bạn cần trả phí và lệ phí đăng ký doanh nghiệp bao gồm phí nộp hồ sơ và các khoản lệ phí khác theo quy định. 💵"
+    - text: "Phí và lệ phí đăng ký doanh nghiệp gồm phí nộp hồ sơ và các khoản lệ phí khác theo quy định. 💸"
+
+  utter_legal_procedures:
+    - text: "Thủ tục pháp lý để thành lập mới doanh nghiệp bao gồm việc chuẩn bị và nộp hồ sơ tại cơ quan đăng ký kinh doanh. 📋"
+    - text: "Bạn cần chuẩn bị và nộp hồ sơ tại cơ quan đăng ký kinh doanh để hoàn thành thủ tục pháp lý thành lập mới doanh nghiệp. 📝"
+    - text: "Thủ tục pháp lý thành lập mới doanh nghiệp gồm việc chuẩn bị và nộp hồ sơ tại cơ quan đăng ký kinh doanh. 📑"
+
+
 entities:
   - business_type
-  - business_status
-  - procedure_step
-  - user_request
-  # - industry_name
-
-actions:
-  # - action_list_business_types
-  - action_lay_danh_sach_business_types
-  - action_lay_danh_sach_trang_thai_cua_loai_hinh_nay
-  - action_dua_ra_cac_thu_tuc_cua_cong_ty
-  - action_dua_ra_thong_tin_chi_tiet_cua_buoc_thu_tuc
-  # - action_list_business_type_in_procedure
-  # - action_choose_business_type
-  # - action_lookup_business_lines
-  # - action_documents_business_registration
-  # - action_welcome
-  - action_session_start
-  # - action_save_business_type_status
-  # - action_list_business_procedure_steps
-  # - action_business_procedure_step_description
-  # - action_list_business_type_status
-  - action_default_fallback
+  - business_state
+  - business_step
+  - business_industry
 
 slots:
-  # Slot for the business type
   business_type:
     type: text
-    influence_conversation: true
     mappings:
       - type: from_entity
         entity: business_type
-
-  procedure_step:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: procedure_step
-
-  business_types:
-    type: text
-    mappings:
-      - type: custom
-        value: ""
-
-  business_type_status_list:
-    type: text
-    mappings:
-      - type: custom
-        value: ""
-
-  # # Slot for the business status
-  business_status:
-    type: text
-    influence_conversation: true
-    mappings:
-      - type: from_entity
-        entity: business_status
         
-  # # Slot for the industry name
-  # industry:
-  #   type: text
-  #   influence_conversation: true
-  #   mappings:
-  #     - type: from_entity
-  #       entity: industry_name
-  # Slot for the process step
+  business_state:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: business_state
+
+  business_step:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: business_step
+
+  business_industry:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: business_industry
+
   sender_name:
     type: text
     mappings:
       - type: custom
         value: "Bạn"
 
-  # # Slot check if the business type has process steps
-  has_procedure_steps:
-    type: bool
-    influence_conversation: true
-    mappings:
-      - type: custom
-        value: false
-
-  # Slot for the process step description
-  procedure_steps:
-    type: text
-    mappings:
-      - type: custom
-        value: ""
-
-  # Slot for the process step description
-  procedure_step_description:
-    type: text
-    mappings:
-      - type: custom
-        value: ""
-
-  has_procedure_step_description:
-    type: bool
-    influence_conversation: true
-    mappings:
-      - type: custom
-        value: false
-
-  has_business_type:
-    type: bool
-    influence_conversation: true
-    mappings:
-      - type: custom
-        value: false
-
-  has_business_status:
-    type: bool
-    influence_conversation: true
-    mappings:
-      - type: custom
-        value: false
-
-  has_procedure_step:
-    type: bool
-    influence_conversation: true
-    mappings:
-      - type: custom
-        value: false
-        
+actions:
+  - action_list_business_types
+  - action_list_business_states
+  - action_list_business_steps
+  - action_list_step_details
+  - action_business_states
+  - action_list_subindustries
+  - action_session_start
   
-
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true

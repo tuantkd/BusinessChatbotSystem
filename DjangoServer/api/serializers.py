@@ -34,7 +34,7 @@ class BusinessProcessStepSerializer(serializers.ModelSerializer):
 class IndustrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Industry
-        fields = ['id', 'activity_code', 'activity_name']
+        fields = '__all__'
 
 class ActivityFieldSerializer(serializers.ModelSerializer):
     class Meta:

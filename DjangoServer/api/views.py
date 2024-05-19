@@ -6,6 +6,7 @@ from legal_documents.models import Circulars, Decisions, Decrees, Laws
 from chatbot_data.models import ChatUser, History
 from business_registration.models import ActivityField, Business, BusinessProcessStep, BusinessStatus, BusinessType, BusinessTypeStatus, Industry, LegalRepresentative
 from .serializers import ActivityFieldSerializer, BusinessProcessStepSerializer, BusinessSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer, HistorySerializer, IndustrySerializer, LawsSerializer, LegalrepresentativeSerializer
+from django.db.models import Q
 
 class SenderListView(generics.ListAPIView):
     serializer_class = ChatUserSerializer
@@ -220,3 +221,67 @@ class LegalrepresentativeListView(generics.ListAPIView):
     def get_queryset(self):
         queryset = LegalRepresentative.objects.all()
         return queryset
+    
+class SubIndustriesListView(generics.ListAPIView):
+    serializer_class = IndustrySerializer
+
+    def get_queryset(self):
+        parent_name = self.request.query_params.get('parent_name', None)
+
+        if parent_name is None:
+            return Industry.objects.all()
+
+        parent_name = parent_name.lower()
+        parent_industries = Industry.objects.filter(activity_name__iexact=parent_name)
+        if not parent_industries.exists():
+            return Industry.objects.none()
+
+        parent_industry = parent_industries.first()
+        queryset = Industry.objects.none()
+
+        # Ưu tiên xét từ level1 đến level5
+        if parent_industry.level1:
+            queryset = Industry.objects.filter(
+                Q(level2__startswith=parent_industry.level1)
+            )
+        elif parent_industry.level2 and not parent_industry.level3:
+            queryset = Industry.objects.filter(
+                Q(level3__startswith=parent_industry.level2)
+            )
+        elif parent_industry.level3 and not parent_industry.level4:
+            queryset = Industry.objects.filter(
+                Q(level4__startswith=parent_industry.level3)
+            )
+        elif parent_industry.level4 and not parent_industry.level5:
+            queryset = Industry.objects.filter(
+                Q(level5__startswith=parent_industry.level4)
+            )
+        elif parent_industry.level5:
+            # Nếu đến level5 rồi thì không còn cấp con nào nữa
+            queryset = Industry.objects.none()
+
+        return queryset
+    
+class IndustriesByLevelListView(generics.ListAPIView):
+    serializer_class = IndustrySerializer
+
+    def get_queryset(self):
+        level = self.request.query_params.get('level', None)
+
+        if level is None:
+            return Industry.objects.none()
+
+        level = level.lower()
+
+        if level == '1':
+            return Industry.objects.filter(level1__isnull=False, level2__isnull=True)
+        elif level == '2':
+            return Industry.objects.filter(level2__isnull=False, level3__isnull=True)
+        elif level == '3':
+            return Industry.objects.filter(level3__isnull=False, level4__isnull=True)
+        elif level == '4':
+            return Industry.objects.filter(level4__isnull=False, level5__isnull=True)
+        elif level == '5':
+            return Industry.objects.filter(level5__isnull=False)
+        else:
+            return Industry.objects.none()

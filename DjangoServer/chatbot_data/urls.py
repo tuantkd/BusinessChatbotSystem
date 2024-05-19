@@ -1,5 +1,8 @@
 from django.urls import path, re_path
+
+from enterprise_registration_app import settings
 from . import views
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.BotsView.as_view(), name='bots'),
@@ -24,7 +27,15 @@ urlpatterns = [
     path('stories', views.StoriesView.as_view(), name='stories'),
     path('training', views.TrainingView.as_view(), name='training'),
     # test
-    path('test', views.TestView.as_view(), name='test'),
+    path('test', views.TestListView.as_view(), name='test'),
+    path('test/result/<int:test_id>/', views.TestResultView.as_view(), name='test_result'),
+    path('test/retest/<int:test_id>/', views.RetestView.as_view(), name='retest'),
+    path('test/rename/<int:test_id>/', views.RenameTestView.as_view(), name='rename_test'),
+    path('test/delete/<int:test_id>/', views.DeleteTestView.as_view(), name='delete_test'),
+    path('test_story/', views.TestStoryView.as_view(), name='test_story'),
+    path('test_story/result/<int:test_id>/', views.TestStoryResultView.as_view(), name='test_story_result'),
+    path('test_story/rename/<int:test_id>/', views.RenameTestView.as_view(), name='rename_test'),
+    path('test_story/retest/<int:test_id>/', views.RetestStoryView.as_view(), name='retest_story'),
     # path('rasa_callback/(?P<model_id>\d+)$', views.rasa_callback, name='rasa_callback'),
     re_path(r'^bot/(?P<bot_id>\d+)$', views.EditBotView.as_view(), name='bot_detail'),
     re_path(r'^bot/(?P<bot_id>\d+)/import$', views.ImportNLUView.as_view(), name='import_bot'),
