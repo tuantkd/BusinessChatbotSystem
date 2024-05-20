@@ -4,15 +4,9 @@ from rest_framework import generics
 
 from legal_documents.models import Circulars, Decisions, Decrees, Laws
 from chatbot_data.models import ChatUser, History
-from business_registration.models import ActivityField, Business, BusinessProcessStep, BusinessStatus, BusinessType, BusinessTypeStatus, Industry, LegalRepresentative
-from .serializers import ActivityFieldSerializer, BusinessProcessStepSerializer, BusinessSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer, HistorySerializer, IndustrySerializer, LawsSerializer, LegalrepresentativeSerializer
-<<<<<<< HEAD
 from django.db.models import Q
-=======
-from chatbot_data.models import ChatUser
 from business_registration.models import ActivityField, Address, Business, BusinessProcessStep, BusinessStatus, BusinessType, BusinessTypeStatus, District, Industry, LegalRepresentative, Province, Ward
-from .serializers import ActivityFieldSerializer, AddressSerializer, BusinessProcessStepSerializer, BusinessSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer, DistrictSerializer, IndustrySerializer, LawsSerializer, LegalrepresentativeSerializer, ProvinceSerializer, WardSerializer
->>>>>>> 3da0c1dc3576f83799832149afcccecd0fe9dbd2
+from .serializers import ActivityFieldSerializer, AddressSerializer, BusinessProcessStepSerializer, BusinessSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer,DistrictSerializer, HistorySerializer, IndustrySerializer, LawsSerializer, LegalrepresentativeSerializer, ProvinceSerializer, WardSerializer
 
 class SenderListView(generics.ListAPIView):
     serializer_class = ChatUserSerializer

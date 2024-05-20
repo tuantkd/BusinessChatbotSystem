@@ -1,0 +1,210 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - Xin chào bạn
+    - Chào cậu
+    - Hello bạn
+    - Hi bạn
+    - Chào cậu
+    - Chào mọi người
+    - Rất vui gặp bạn
+    - Chào ngày mới
+    - Chào chiều nay
+    - Chào buổi tối này
+
+- intent: goodbye
+  examples: |
+    - Tạm biệt nhé
+    - Hẹn gặp sau
+    - Bye bye bạn
+    - Chào nhé
+    - Chào tạm biệt nhé
+    - Tạm biệt tất cả
+    - Chào tạm biệt, hẹn gặp lại
+    - Tạm biệt mọi người nhé
+    - Bye bye mọi người
+    - Tạm biệt và hẹn gặp lại
+
+- intent: ask_procedure_register_business
+  examples: |
+    - Cách [đăng ký doanh nghiệp](business_procedure) là gì?
+    - Hướng dẫn về [thủ tục đăng ký doanh nghiệp](business_procedure)
+    - Tôi muốn biết cách [đăng ký doanh nghiệp](business_procedure)
+    - [Thủ tục đăng ký doanh nghiệp](business_procedure) thế nào?
+    - Làm thế nào để [đăng ký doanh nghiệp](business_procedure)?
+    - [Đăng ký doanh nghiệp](business_procedure) như thế nào?
+    - Cần giấy tờ gì để [đăng ký doanh nghiệp](business_procedure)?
+    - Làm sao để hoàn thành [thủ tục đăng ký doanh nghiệp](business_procedure)?
+    - Yêu cầu cho [thủ tục đăng ký doanh nghiệp](business_procedure) là gì?
+    - Cách thực hiện [đăng ký doanh nghiệp](business_procedure)
+
+- intent: select_business_type
+  examples: |
+    - Loại hình [Công ty cổ phần](business_type) là gì?
+    - Tôi muốn chọn loại hình [Công ty hợp danh](business_type)
+    - Thủ tục cho [Công ty TNHH Một Thành Viên](business_type) là gì?
+    - Loại hình [Địa điểm kinh doanh](business_type) như thế nào?
+    - Hướng dẫn chọn [Hộ kinh doanh](business_type)
+    - Thông tin về [Tổ chức lại doanh nghiệp](business_type)
+    - Tôi muốn tìm hiểu về [Công ty TNHH Một Thành Viên](business_type)
+    - Quy trình đăng ký [Công ty cổ phần](business_type)
+    - Yêu cầu để đăng ký [Công ty hợp danh](business_type)
+    - Tôi cần thông tin về [Địa điểm kinh doanh](business_type)
+
+- intent: select_business_state
+  examples: |
+    - Trạng thái [Chấm dứt hoạt động](business_state) là gì?
+    - Thông tin về trạng thái [Chia doanh nghiệp](business_state)
+    - Tôi muốn biết về trạng thái [Chuyển đổi loại hình doanh nghiệp](business_state)
+    - Hướng dẫn về trạng thái [Đăng ký thay đổi](business_state)
+    - Quy trình [Thay đổi địa điểm kinh doanh](business_state) là gì?
+    - Trạng thái [Giải thể](business_state) có nghĩa là gì?
+    - Các bước để đạt trạng thái [Hợp nhất doanh nghiệp](business_state)
+    - Trạng thái [Tách doanh nghiệp](business_state) là gì?
+    - Tôi muốn biết về trạng thái [Tạm ngừng](business_state)
+    - Thủ tục cho trạng thái [Tạm ngừng kinh doanh](business_state)
+
+- intent: ask_submit_documents
+  examples: |
+    - [Nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) như thế nào?
+    - Thủ tục để [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - Cách [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - [Nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) ở đâu?
+    - Quy trình [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) như thế nào?
+    - Hướng dẫn [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - Làm thế nào để [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - Yêu cầu để [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - Cần giấy tờ gì để [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - Thủ tục hoàn thành [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+
+- intent: ask_prepare_documents
+  examples: |
+    - Hướng dẫn [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - Cách [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - [Chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process) như thế nào?
+    - Yêu cầu để [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - [Chuẩn bị](action) những giấy tờ gì để [đăng ký doanh nghiệp](submission_process)?
+    - Làm sao để [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - Quy trình [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - Cần làm gì để [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - [Chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process) có khó không?
+    - Các bước để [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+
+- intent: ask_receive_results
+  examples: |
+    - Cách [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)
+    - [Nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) như thế nào?
+    - Thời gian để [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)
+    - Quy trình [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) là gì?
+    - Hướng dẫn về việc [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)
+    - Tôi cần làm gì để [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)?
+    - [Nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) có khó không?
+    - Các bước để [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)
+    - [Nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) cần giấy tờ gì?
+    - Làm sao để [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)?
+
+- intent: ask_business_status
+  examples: |
+    - Các [trạng thái](business_status) của doanh nghiệp là gì?
+    - Doanh nghiệp có các [trạng thái](business_status) nào?
+    - Danh sách [trạng thái](business_status) của doanh nghiệp
+    - [Trạng thái](business_status) doanh nghiệp là gì?
+    - Các [trạng thái](business_status) trong kinh doanh
+    - Hỏi về các [trạng thái](business_status) doanh nghiệp
+    - Các [trạng thái](business_status) khác nhau của doanh nghiệp
+    - [Trạng thái](business_status) doanh nghiệp bao gồm gì?
+    - Các loại [trạng thái](business_status) trong doanh nghiệp
+    - [Trạng thái](business_status) hiện tại của doanh nghiệp là gì?
+
+- intent: ask_steps
+  examples: |
+    - Các [bước](steps) để [đăng ký doanh nghiệp](registration_process) là gì?
+    - Hướng dẫn các [bước](steps) để [thực hiện](action) [đăng ký doanh nghiệp](registration_process)
+    - [Đăng ký doanh nghiệp](registration_process) cần những [bước](steps) nào?
+    - Quy trình các [bước](steps) [đăng ký doanh nghiệp](registration_process)
+    - Cần làm gì để [thực hiện](action) [đăng ký doanh nghiệp](registration_process)?
+    - [Thực hiện](action) [đăng ký doanh nghiệp](registration_process) như thế nào?
+    - Các [bước](steps) để hoàn thành [đăng ký doanh nghiệp](registration_process)
+    - Hướng dẫn các [bước](steps) [thực hiện](action) [đăng ký doanh nghiệp](registration_process)
+    - Quy trình các [bước](steps) để [đăng ký doanh nghiệp](registration_process)
+    - Làm sao để biết các [bước](steps) [đăng ký doanh nghiệp](registration_process)?
+
+- intent: ask_time
+  examples: |
+    - Thời gian để [đăng ký doanh nghiệp](registration_process) là bao lâu?
+    - [Đăng ký doanh nghiệp](registration_process) mất bao nhiêu [thời gian](time)?
+    - Hỏi về [thời gian](time) [đăng ký doanh nghiệp](registration_process)
+    - [Thời gian](time) để hoàn thành [đăng ký doanh nghiệp](registration_process)
+    - [Đăng ký doanh nghiệp](registration_process) mất bao nhiêu [thời gian](time)?
+    - [Thời gian](time) để [đăng ký doanh nghiệp](registration_process)
+    - Bao lâu để [đăng ký doanh nghiệp](registration_process)?
+    - Cần bao nhiêu [thời gian](time) để [đăng ký doanh nghiệp](registration_process)?
+    - Thời gian cho [đăng ký doanh nghiệp](registration_process) là gì?
+    - [Đăng ký doanh nghiệp](registration_process) cần bao lâu?
+
+- intent: ask_fees
+  examples: |
+    - Chi phí cho [đăng ký doanh nghiệp](registration_process) là bao nhiêu?
+    - [Phí và lệ phí](fees) để [đăng ký doanh nghiệp](registration_process)
+    - Tổng [chi phí](fees) để [đăng ký doanh nghiệp](registration_process)
+    - [Phí](fees) để [đăng ký doanh nghiệp](registration_process) là bao nhiêu?
+    - Hỏi về [phí](fees) để [đăng ký doanh nghiệp](registration_process)
+    - Các [lệ phí](fees) để [đăng ký doanh nghiệp](registration_process)
+    - [Chi phí](fees) đăng ký doanh nghiệp bao nhiêu?
+    - Tổng [phí](fees) để [đăng ký doanh nghiệp](registration_process)
+    - [Lệ phí](fees) đăng ký doanh nghiệp là gì?
+    - Chi phí đăng ký doanh nghiệp có cao không?
+
+- intent: ask_business_fields
+  examples: |
+    - Các [lĩnh vực kinh doanh](business_field) là gì?
+    - Danh sách các [lĩnh vực kinh doanh](business_field)
+    - [Lĩnh vực kinh doanh](business_field) hiện nay
+    - Hỏi về các [lĩnh vực kinh doanh](business_field)
+    - Các [lĩnh vực kinh doanh](business_field) phổ biến
+    - [Lĩnh vực kinh doanh](business_field) gồm những gì?
+    - Các [lĩnh vực kinh doanh](business_field) trong doanh nghiệp
+    - [Lĩnh vực kinh doanh](business_field) hiện tại là gì?
+    - Hướng dẫn về các [lĩnh vực kinh doanh](business_field)
+    - Yêu cầu cho các [lĩnh vực kinh doanh](business_field)
+
+- intent: ask_business_sectors
+  examples: |
+    - Các [ngành nghề kinh doanh](business_sector) là gì?
+    - Danh sách các [ngành nghề kinh doanh](business_sector)
+    - [Ngành nghề kinh doanh](business_sector) hiện nay
+    - Hỏi về các [ngành nghề kinh doanh](business_sector)
+    - Các [ngành nghề kinh doanh](business_sector) phổ biến
+    - [Ngành nghề kinh doanh](business_sector) gồm những gì?
+    - Các [ngành nghề kinh doanh](business_sector) trong doanh nghiệp
+    - [Ngành nghề kinh doanh](business_sector) hiện tại là gì?
+    - Hướng dẫn về các [ngành nghề kinh doanh](business_sector)
+    - Yêu cầu cho các [ngành nghề kinh doanh](business_sector)
+
+- intent: ask_legal_procedures
+  examples: |
+    - [Thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process) là gì?
+    - Hướng dẫn [thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process)
+    - Hỏi về [thủ tục pháp lý](legal_procedure) khi [đăng ký doanh nghiệp](registration_process)
+    - [Thủ tục pháp lý](legal_procedure) [đăng ký doanh nghiệp](registration_process) như thế nào?
+    - [Thủ tục pháp lý](legal_procedure) cần những gì để [đăng ký doanh nghiệp](registration_process)?
+    - Yêu cầu cho [thủ tục pháp lý](legal_procedure) khi [đăng ký doanh nghiệp](registration_process)
+    - Cần làm gì để hoàn thành [thủ tục pháp lý](legal_procedure) cho [đăng ký doanh nghiệp](registration_process)?
+    - Hướng dẫn chi tiết về [thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process)
+    - [Thủ tục pháp lý](legal_procedure) gồm những gì khi [đăng ký doanh nghiệp](registration_process)?
+    - Làm thế nào để thực hiện [thủ tục pháp lý](legal_procedure) khi [đăng ký doanh nghiệp](registration_process)?
+
+- intent: ask_business_registration_process
+  examples: |
+    - [Quy trình](process) để [đăng ký doanh nghiệp](registration_process) là gì?
+    - Hướng dẫn chi tiết về [quy trình](process) để [đăng ký doanh nghiệp](registration_process)
+    - Các bước trong [quy trình](process) [đăng ký doanh nghiệp](registration_process)
+    - [Quy trình](process) gồm những gì khi [đăng ký doanh nghiệp](registration_process)?
+    - Làm thế nào để thực hiện [quy trình](process) [đăng ký doanh nghiệp](registration_process)?
+    - Yêu cầu cho [quy trình](process) để [đăng ký doanh nghiệp](registration_process)
+    - Cần làm gì để hoàn thành [quy trình](process) [đăng ký doanh nghiệp](registration_process)?
+    - Hướng dẫn chi tiết [quy trình](process) [đăng ký doanh nghiệp](registration_process)
+    - [Quy trình](process) khi [đăng ký doanh nghiệp](registration_process) như thế nào?
+    - [Quy trình](process) gồm những gì cho [đăng ký doanh nghiệp](registration_process)?

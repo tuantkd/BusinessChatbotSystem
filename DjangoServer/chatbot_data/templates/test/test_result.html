@@ -34,10 +34,6 @@
                 </div>
                 {% if test_result %}
                     <div id="result"></div>
-                    <div id="entityResult"></div>
-                    <script id="resultData" type="application/json">
-                        {{ test_result|safe }}
-                    </script>
                     <div class="mt-4">
                         <h3>Charts</h3>
                     {% if test_result.chart1_path %}
@@ -47,6 +43,10 @@
                         <img src="{% static test_result.chart2_path %}" alt="Confusion Matrix" class="img-fluid mt-4">
                     {% endif %}
                     </div>
+                    <div id="entityResult"></div>
+                    <script id="resultData" type="application/json">
+                        {{ test_result|safe }}
+                    </script>
                 {% else %}
                     <div id="result" class="mt-4">
                         <p>No test results found. Please re-test to generate results.</p>

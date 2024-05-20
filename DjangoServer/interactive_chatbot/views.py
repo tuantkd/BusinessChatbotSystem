@@ -46,6 +46,7 @@ def save_conversation(sender_id, user_say, response):
     
 class ChatbotView(View):
     template_name = 'chatbot.html'
+
     def get(self, request, *args, **kwargs):
         sender_id = kwargs.get('sender_id')
         chat_user = ChatUser.objects.filter(sender_id=sender_id).first()
@@ -63,10 +64,8 @@ class ChatbotView(View):
         
             if response.status_code != 200:
                 return JsonResponse({'error': 'Rasa server error'}, status=500)
-            save_conversation(sender_id, "Bắt đầu", response.json())
-            history = [
-                
-            ]
+            # Thread(target=save_conversation, args=(sender_id, "Bắt đầu", response.json())).start()
+            history = []
 
         return render(request, self.template_name, {'chat_user': chat_user, 'chat_history': history})
     
@@ -85,7 +84,7 @@ class ChatbotView(View):
             response = requests.post(RASA_WEBHOOKS_ENDPOINT, json=data)
             if response.status_code != 200:
                 return JsonResponse({'error': 'Rasa server error'}, status=500)
-            save_conversation(sender_id, user_message, response.json())
+            # Thread(target=save_conversation, args=(sender_id, user_message, response.json())).start()
             return JsonResponse(response.json(), status=200, safe=False)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
@@ -108,4 +107,3 @@ def get_current_user(request, *args, **kwargs):
 # views.py
 def csrf_failure(request, reason=""):
     return JsonResponse({'status':'ok'}, status=200)
-

@@ -3,40 +3,13 @@ version: "3.1"
 intents:
   - greet
   - goodbye
-  - ask_procedure_register_business
   - select_business_type
   - select_business_state
   - select_business_step
   - ask_business_type
-  - ask_joint_stock_company
-  - ask_new_establishment
   - ask_submit_documents
   - ask_prepare_documents
   - ask_receive_results
-  - ask_change_registration
-  - ask_change_head_office_address
-  - ask_change_legal_representative
-  - ask_change_company_name
-  - ask_change_notification
-  - ask_change_foreign_investor_shareholder
-  - ask_change_business_sector
-  - ask_change_tax_registration
-  - ask_temporary_suspension
-  - ask_suspend_business
-  - ask_resume_business
-  - ask_dissolve_business
-  - ask_register_dissolution
-  - ask_cancel_dissolution
-  - ask_private_enterprise
-  - ask_establish_private_enterprise
-  - ask_change_private_enterprise
-  - ask_notify_change_private_enterprise
-  - ask_suspend_private_enterprise
-  - ask_dissolve_private_enterprise
-  - ask_single_member_llc
-  - ask_partnership
-  - ask_business_location
-  - ask_household_business
   - ask_business_status
   - ask_steps
   - ask_time
@@ -45,6 +18,7 @@ intents:
   - ask_business_sectors
   - ask_legal_procedures
   - ask_business_registration_process
+  - ask_procedure_register_business
   
 responses:
   utter_greet:
@@ -54,7 +28,6 @@ responses:
     - text: "Chào anh/chị! **{sender_name}** cần tôi giúp đỡ về điều gì? 😊"
     - text: "Xin chào **{sender_name}**! Hãy cho tôi biết bạn cần gì. 🌟"
     - text: "Hey **{sender_name}**! Bạn muốn thảo luận về điều gì? 🤔"
-    - text: "Gì chưa? **{sender_name}** cần sự hỗ trợ nào? 💬"
     - text: "Chào **{sender_name}**, có thể giúp gì cho bạn ngày hôm nay? 🤗"
     - text: "Có gì mới không? **{sender_name}** muốn tôi giúp đỡ gì? 🌟"
     - text: "Chào **{sender_name}**, bạn có câu hỏi hoặc yêu cầu gì đến dịch vụ của chúng tôi không? 🤔"
@@ -82,136 +55,6 @@ responses:
     - text: "Các loại hình doanh nghiệp bao gồm: công ty cổ phần, công ty TNHH, doanh nghiệp tư nhân, công ty hợp danh, và hộ kinh doanh. 🏢"
     - text: "Bạn có thể chọn các loại hình doanh nghiệp như: công ty cổ phần, công ty TNHH, doanh nghiệp tư nhân, công ty hợp danh, và hộ kinh doanh. 🏬"
 
-  utter_joint_stock_company:
-    - text: "Công ty cổ phần là loại hình doanh nghiệp mà vốn điều lệ được chia thành nhiều phần bằng nhau gọi là cổ phần. Các cổ đông chỉ chịu trách nhiệm về các khoản nợ và nghĩa vụ tài sản khác của doanh nghiệp trong phạm vi số vốn đã góp vào doanh nghiệp. 📈"
-    - text: "Công ty cổ phần có vốn điều lệ được chia thành nhiều phần bằng nhau gọi là cổ phần. Các cổ đông chỉ chịu trách nhiệm trong phạm vi số vốn đã góp. 💼"
-    - text: "Loại hình doanh nghiệp công ty cổ phần có vốn điều lệ chia thành các cổ phần. Các cổ đông chỉ chịu trách nhiệm trong phạm vi số vốn đã góp vào doanh nghiệp. 📊"
-
-  utter_new_establishment:
-    - text: "Để thành lập mới doanh nghiệp, bạn cần thực hiện các bước sau: nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả. 🚀"
-    - text: "Thành lập mới doanh nghiệp gồm các bước: nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả từ cơ quan đăng ký kinh doanh. 📑"
-    - text: "Bạn cần thực hiện các bước như nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả để thành lập mới doanh nghiệp. 📝"
-
-  utter_change_registration:
-    - text: "Đăng ký thay đổi thông tin doanh nghiệp bao gồm thay đổi địa chỉ trụ sở chính, người đại diện theo pháp luật, tên doanh nghiệp, và các thông tin khác. 📝"
-    - text: "Bạn có thể đăng ký thay đổi thông tin doanh nghiệp như địa chỉ trụ sở chính, người đại diện theo pháp luật, tên doanh nghiệp, và các thông tin khác. 📋"
-    - text: "Đăng ký thay đổi thông tin doanh nghiệp gồm các thay đổi về địa chỉ trụ sở chính, người đại diện theo pháp luật, tên doanh nghiệp, và các thông tin khác. 🏢"
-
-  utter_change_head_office_address:
-    - text: "Để thay đổi địa chỉ trụ sở chính, bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Thay đổi địa chỉ trụ sở chính yêu cầu nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 🏢"
-    - text: "Bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi địa chỉ trụ sở chính. 📑"
-
-  utter_change_legal_representative:
-    - text: "Để thay đổi người đại diện theo pháp luật, bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📝"
-    - text: "Thay đổi người đại diện theo pháp luật yêu cầu nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi người đại diện theo pháp luật. 🏢"
-
-  utter_change_company_name:
-    - text: "Để thay đổi tên doanh nghiệp, bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Thay đổi tên doanh nghiệp yêu cầu nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📝"
-    - text: "Bạn cần nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi tên doanh nghiệp. 📄"
-
-  utter_change_notification:
-    - text: "Thông báo thay đổi thông tin doanh nghiệp bao gồm thay đổi cổ đông, ngành nghề kinh doanh, và các thông tin đăng ký thuế. 📋"
-    - text: "Thay đổi thông tin doanh nghiệp gồm thay đổi cổ đông, ngành nghề kinh doanh, và các thông tin đăng ký thuế cần thông báo. 📝"
-    - text: "Bạn cần thông báo thay đổi thông tin doanh nghiệp như thay đổi cổ đông, ngành nghề kinh doanh, và các thông tin đăng ký thuế. 🏢"
-
-  utter_change_foreign_investor_shareholder:
-    - text: "Để thay đổi cổ đông là nhà đầu tư nước ngoài, bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📑"
-    - text: "Thay đổi cổ đông là nhà đầu tư nước ngoài yêu cầu thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 🏢"
-    - text: "Bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi cổ đông là nhà đầu tư nước ngoài. 📝"
-
-  utter_change_business_sector:
-    - text: "Để thay đổi ngành nghề kinh doanh, bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Thay đổi ngành nghề kinh doanh yêu cầu thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📝"
-    - text: "Bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi ngành nghề kinh doanh. 📑"
-
-  utter_change_tax_registration:
-    - text: "Để thay đổi nội dung đăng ký thuế, bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Thay đổi nội dung đăng ký thuế yêu cầu thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh. 🏢"
-    - text: "Bạn cần thông báo và nộp hồ sơ thay đổi tại cơ quan đăng ký kinh doanh để thay đổi nội dung đăng ký thuế. 📑"
-
-  utter_temporary_suspension:
-    - text: "Thủ tục tạm ngừng kinh doanh bao gồm việc thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh. 📝"
-    - text: "Tạm ngừng kinh doanh cần thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Bạn cần thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh để tạm ngừng kinh doanh. 📑"
-
-  utter_suspend_business:
-    - text: "Để đăng ký tạm ngừng kinh doanh, bạn cần nộp hồ sơ tạm ngừng tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Tạm ngừng kinh doanh yêu cầu nộp hồ sơ tạm ngừng tại cơ quan đăng ký kinh doanh. 📝"
-    - text: "Bạn cần nộp hồ sơ tạm ngừng tại cơ quan đăng ký kinh doanh để đăng ký tạm ngừng kinh doanh. 📄"
-
-  utter_resume_business:
-    - text: "Để tiếp tục kinh doanh trước thời hạn đã thông báo, bạn cần nộp hồ sơ tiếp tục kinh doanh tại cơ quan đăng ký kinh doanh. 📝"
-    - text: "Tiếp tục kinh doanh trước thời hạn yêu cầu nộp hồ sơ tiếp tục kinh doanh tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Bạn cần nộp hồ sơ tiếp tục kinh doanh tại cơ quan đăng ký kinh doanh để tiếp tục kinh doanh trước thời hạn. 📑"
-
-  utter_dissolve_business:
-    - text: "Thủ tục giải thể doanh nghiệp bao gồm việc thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Giải thể doanh nghiệp yêu cầu thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📝"
-    - text: "Bạn cần thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh để giải thể doanh nghiệp. 📑"
-
-  utter_register_dissolution:
-    - text: "Để đăng ký giải thể doanh nghiệp, bạn cần nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Đăng ký giải thể doanh nghiệp yêu cầu nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📝"
-    - text: "Bạn cần nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh để đăng ký giải thể doanh nghiệp. 📄"
-
-  utter_cancel_dissolution:
-    - text: "Để hủy bỏ nghị quyết quyết định giải thể doanh nghiệp, bạn cần nộp hồ sơ hủy bỏ tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Hủy bỏ nghị quyết quyết định giải thể doanh nghiệp yêu cầu nộp hồ sơ hủy bỏ tại cơ quan đăng ký kinh doanh. 📝"
-    - text: "Bạn cần nộp hồ sơ hủy bỏ tại cơ quan đăng ký kinh doanh để hủy bỏ nghị quyết quyết định giải thể doanh nghiệp. 📑"
-
-  utter_private_enterprise:
-    - text: "Doanh nghiệp tư nhân là doanh nghiệp do một cá nhân làm chủ và tự chịu trách nhiệm bằng toàn bộ tài sản của mình về mọi hoạt động của doanh nghiệp. 👤"
-    - text: "Doanh nghiệp tư nhân là loại hình doanh nghiệp mà cá nhân làm chủ và chịu trách nhiệm bằng toàn bộ tài sản của mình. 🏢"
-    - text: "Một cá nhân làm chủ doanh nghiệp tư nhân và chịu trách nhiệm về mọi hoạt động của doanh nghiệp bằng toàn bộ tài sản của mình. 👥"
-
-  utter_establish_private_enterprise:
-    - text: "Để thành lập mới doanh nghiệp tư nhân, bạn cần thực hiện các bước sau: nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả. 🚀"
-    - text: "Thành lập mới doanh nghiệp tư nhân gồm các bước: nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả từ cơ quan đăng ký kinh doanh. 📑"
-    - text: "Bạn cần thực hiện các bước như nộp hồ sơ, chuẩn bị hồ sơ, và nhận kết quả để thành lập mới doanh nghiệp tư nhân. 📝"
-
-  utter_change_private_enterprise:
-    - text: "Đăng ký thay đổi thông tin doanh nghiệp tư nhân bao gồm thay đổi địa chỉ trụ sở chính, chủ doanh nghiệp, tên doanh nghiệp, và các thông tin khác. 📋"
-    - text: "Bạn có thể đăng ký thay đổi thông tin doanh nghiệp tư nhân như địa chỉ trụ sở chính, chủ doanh nghiệp, tên doanh nghiệp, và các thông tin khác. 📝"
-    - text: "Đăng ký thay đổi thông tin doanh nghiệp tư nhân gồm các thay đổi về địa chỉ trụ sở chính, chủ doanh nghiệp, tên doanh nghiệp, và các thông tin khác. 🏢"
-
-  utter_notify_change_private_enterprise:
-    - text: "Thông báo thay đổi thông tin doanh nghiệp tư nhân bao gồm thay đổi ngành nghề kinh doanh và các thông tin đăng ký thuế. 📋"
-    - text: "Thay đổi thông tin doanh nghiệp tư nhân gồm thay đổi ngành nghề kinh doanh và các thông tin đăng ký thuế cần thông báo. 📝"
-    - text: "Bạn cần thông báo thay đổi thông tin doanh nghiệp tư nhân như thay đổi ngành nghề kinh doanh và các thông tin đăng ký thuế. 🏢"
-
-  utter_suspend_private_enterprise:
-    - text: "Thủ tục tạm ngừng kinh doanh đối với doanh nghiệp tư nhân bao gồm việc thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh. 📝"
-    - text: "Tạm ngừng kinh doanh đối với doanh nghiệp tư nhân cần thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Bạn cần thông báo và nộp hồ sơ tại cơ quan đăng ký kinh doanh để tạm ngừng kinh doanh doanh nghiệp tư nhân. 📑"
-
-  utter_dissolve_private_enterprise:
-    - text: "Thủ tục giải thể doanh nghiệp tư nhân bao gồm việc thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📋"
-    - text: "Giải thể doanh nghiệp tư nhân yêu cầu thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh. 📝"
-    - text: "Bạn cần thông báo và nộp hồ sơ giải thể tại cơ quan đăng ký kinh doanh để giải thể doanh nghiệp tư nhân. 📑"
-
-  utter_single_member_llc:
-    - text: "Công ty TNHH một thành viên là doanh nghiệp do một tổ chức hoặc một cá nhân làm chủ sở hữu và chịu trách nhiệm về các khoản nợ và nghĩa vụ tài sản khác của doanh nghiệp trong phạm vi số vốn điều lệ của công ty. 👥"
-    - text: "Công ty TNHH một thành viên là doanh nghiệp mà một tổ chức hoặc cá nhân làm chủ sở hữu và chịu trách nhiệm trong phạm vi số vốn điều lệ. 🏢"
-    - text: "Doanh nghiệp TNHH một thành viên có chủ sở hữu là một tổ chức hoặc cá nhân và chịu trách nhiệm về các khoản nợ và nghĩa vụ trong phạm vi vốn điều lệ. 📈"
-
-  utter_partnership:
-    - text: "Công ty hợp danh là doanh nghiệp trong đó có ít nhất hai thành viên hợp danh là chủ sở hữu chung của công ty, cùng nhau kinh doanh dưới một tên chung và chịu trách nhiệm bằng toàn bộ tài sản của mình về các nghĩa vụ của công ty. 👥"
-    - text: "Công ty hợp danh có ít nhất hai thành viên hợp danh là chủ sở hữu chung và chịu trách nhiệm bằng toàn bộ tài sản của mình về các nghĩa vụ của công ty. 🏢"
-    - text: "Doanh nghiệp hợp danh có các thành viên hợp danh là chủ sở hữu chung và chịu trách nhiệm bằng toàn bộ tài sản của mình về các nghĩa vụ của công ty. 📈"
-
-  utter_business_location:
-    - text: "Địa điểm kinh doanh là nơi mà doanh nghiệp thực hiện các hoạt động kinh doanh cụ thể. 🏢"
-    - text: "Doanh nghiệp thực hiện các hoạt động kinh doanh cụ thể tại địa điểm kinh doanh. 📍"
-    - text: "Địa điểm kinh doanh là nơi doanh nghiệp thực hiện các hoạt động kinh doanh. 🏬"
-
-  utter_household_business:
-    - text: "Hộ kinh doanh là một loại hình doanh nghiệp do một cá nhân hoặc một nhóm người (gia đình) làm chủ và chịu trách nhiệm bằng toàn bộ tài sản của mình về mọi hoạt động kinh doanh của hộ. 👨‍👩‍👧‍👦"
-    - text: "Hộ kinh doanh do một cá nhân hoặc một nhóm người (gia đình) làm chủ và chịu trách nhiệm bằng toàn bộ tài sản của mình. 🏡"
-    - text: "Một cá nhân hoặc nhóm người (gia đình) làm chủ hộ kinh doanh và chịu trách nhiệm về mọi hoạt động kinh doanh bằng toàn bộ tài sản của mình. 👥"
-
   utter_time:
     - text: "Thời gian đăng ký thành lập mới doanh nghiệp thường từ 3 đến 5 ngày làm việc. ⏰"
     - text: "Thời gian để đăng ký thành lập mới doanh nghiệp thường mất từ 3 đến 5 ngày làm việc. 📅"
@@ -227,13 +70,28 @@ responses:
     - text: "Bạn cần chuẩn bị và nộp hồ sơ tại cơ quan đăng ký kinh doanh để hoàn thành thủ tục pháp lý thành lập mới doanh nghiệp. 📝"
     - text: "Thủ tục pháp lý thành lập mới doanh nghiệp gồm việc chuẩn bị và nộp hồ sơ tại cơ quan đăng ký kinh doanh. 📑"
 
-
 entities:
   - business_type
   - business_state
   - business_step
   - business_industry
-
+  - business_procedure
+  - business_query_type
+  - submission_process
+  - action
+  - registration_result
+  - guidance
+  - procedure
+  - process
+  - business_status
+  - steps 
+  - time 
+  - fees
+  - business_field 
+  - business_sector
+  - legal_procedure 
+  - registration_process 
+  
 slots:
   business_type:
     type: text

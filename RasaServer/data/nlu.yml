@@ -48,33 +48,37 @@ nlu:
 
 - intent: ask_procedure_register_business
   examples: |
-    - Làm thế nào để đăng ký doanh nghiệp?
-    - Thủ tục đăng ký doanh nghiệp là gì?
-    - Hướng dẫn đăng ký doanh nghiệp?
-    - Làm sao để tôi đăng ký doanh nghiệp?
-    - Thủ tục đăng ký doanh nghiệp như thế nào?
-    - Tôi cần làm gì để đăng ký doanh nghiệp?
-    - Làm cách nào để đăng ký doanh nghiệp?
-    - Đăng ký doanh nghiệp cần những bước nào?
-    - Tôi cần những giấy tờ gì để đăng ký doanh nghiệp?
-    - Đăng ký doanh nghiệp bao gồm những gì?
-    - Làm thế nào để hoàn thành đăng ký doanh nghiệp?
-    - Hướng dẫn tôi thủ tục đăng ký doanh nghiệp
-    - Tôi muốn biết cách đăng ký doanh nghiệp
-    - Các bước để đăng ký doanh nghiệp là gì?
-    - Đăng ký doanh nghiệp cần làm gì đầu tiên?
-    - Làm sao để biết thủ tục đăng ký doanh nghiệp?
-    - Đăng ký doanh nghiệp có khó không?
-    - Thủ tục đăng ký doanh nghiệp gồm những gì?
-    - Để đăng ký doanh nghiệp cần làm những gì?
-    - Thủ tục đăng ký doanh nghiệp như thế nào?
+    - Thủ tục [đăng ký doanh nghiệp](business_procedure)
+    - [Thủ tục đăng ký doanh nghiệp](business_procedure) là gì?
+    - Hướng dẫn [đăng ký doanh nghiệp](business_procedure)?
+    - [Thủ tục đăng ký doanh nghiệp](business_procedure) như thế nào?
+    - Tôi cần làm gì để [đăng ký doanh nghiệp](business_procedure)?
+    - Làm cách nào để [đăng ký doanh nghiệp](business_procedure)?
+    - [Đăng ký doanh nghiệp](business_procedure) cần những bước nào?
+    - Tôi cần những giấy tờ gì để [đăng ký doanh nghiệp](business_procedure)?
+    - [Đăng ký doanh nghiệp](business_procedure) bao gồm những gì?
+    - Làm thế nào để hoàn thành [thủ tục đăng ký doanh nghiệp](business_procedure)?
+    - Hướng dẫn tôi [thủ tục đăng ký doanh nghiệp](business_procedure)
+    - Tôi muốn biết cách [đăng ký doanh nghiệp](business_procedure)
+    - Các bước để [đăng ký doanh nghiệp](business_procedure) là gì?
+    - [Đăng ký doanh nghiệp](business_procedure) cần làm gì đầu tiên?
+    - Làm sao để biết [thủ tục đăng ký doanh nghiệp](business_procedure)?
+    - [Đăng ký doanh nghiệp](business_procedure) có khó không?
+    - [Thủ tục đăng ký doanh nghiệp](business_procedure) gồm những gì?
+    - Để [đăng ký doanh nghiệp](business_procedure) cần làm những gì?
+    - Làm thế nào để [đăng ký doanh nghiệp](business_procedure)?
+    - [Đăng ký doanh nghiệp](business_procedure) cần làm những thủ tục gì?
+    - Hướng dẫn chi tiết [thủ tục đăng ký doanh nghiệp](business_procedure)
 
   metadata:
     title: "Hỏi về thủ tục đăng ký doanh nghiệp"
+    description: "Intent này bao gồm các câu hỏi liên quan đến thủ tục, quy trình, và hướng dẫn đăng ký doanh nghiệp."
 
-- synonym: thủ tục đăng ký doanh nghiệp
+- synonym: Thủ tục đăng ký doanh nghiệp
   examples: |
     - Thủ tục đăng ký kinh doanh
+    - đăng ký doanh nghiệp
+    - các bước đăng ký doanh nghiệp
 
 - intent: select_business_type
   examples: |
@@ -311,1014 +315,304 @@ nlu:
 
 - lookup: business_type
   examples: |
-    - "Công ty cổ phần"
-    - "Công ty hợp danh"
-    - "Công ty TNHH Một Thành Viên"
-    - "Địa điểm kinh doanh"
-    - "Doanh nghiệp tư nhân"
-    - "Hộ kinh doanh"
-    - "Tổ chức lại doanh nghiệp"
+    - data_aug/business_types.txt
 
 - lookup: business_state
   examples: |
-    - Chấm dứt hoạt động
-    - Chia doanh nghiệp
-    - Chuyển đổi loại hình doanh nghiệp
-    - Đăng ký thay đổi
-    - Giải thể
-    - Hợp nhất doanh nghiệp
-    - Tách doanh nghiệp
-    - Tạm ngừng
-    - Tạm ngừng kinh doanh
-    - Thành lập mới
-    - Thông báo thay đổi
-    - Thay đổi địa điểm kinh doanh
+    - data_aug/business_states.txt
 
 - lookup: business_step
   examples: |
-    - Bước 1: Nộp hồ sơ
-    - Bước 2: Chuẩn bị hồ sơ
-    - Bước 3: Nhận kết quả
-    - Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của công ty cổ phần
-    - Trường hợp 2: Đăng ký thay đổi người đại diện theo pháp luật của công ty cổ phần
-    - Trường hợp 3: Đăng ký đổi tên doanh nghiệp của công ty cổ phần
-    - Trường hợp 1: Thông báo thay đổi cổ đông là nhà đầu tư nước ngoài
-    - Trường hợp 2: Thông báo thay đổi ngành, nghề kinh doanh của công ty cổ phần
-    - Trường hợp 3: Thông báo thay đổi nội dung đăng ký thuế
-    - Trường hợp 1: Đăng ký tạm ngừng kinh doanh đối với doanh nghiệp
-    - Trường hợp 2: Đăng ký tiếp tục kinh doanh trước thời hạn đã thông báo doanh nghiệp
-    - Trường hợp 1: Đăng ký giải thể doanh nghiệp
-    - Trường hợp 2: Hủy bỏ nghị quyết, quyết định giải thể doanh nghiệp
-    - Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của doanh nghiệp tư nhân
-    - Trường hợp 2: Đăng ký thay đổi chủ doanh nghiệp tư nhân
-    - Trường hợp 3: Đăng ký đổi tên doanh nghiệp của doanh nghiệp tư nhân
-    - Trường hợp 1: Thông báo thay đổi ngành, nghề kinh doanh của doanh nghiệp tư nhân
-    - Trường hợp 2: Cho thuê doanh nghiệp tư nhân
-    - Trường hợp 3: Thay đổi nội dung đăng ký thuế
-    - Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của công ty trách nhiệm hữu hạn một thành viên
-    - Trường hợp 2: Đăng ký thay đổi người đại diện theo pháp luật của công ty trách nhiệm hữu hạn một thành viên
-    - Trường hợp 3: Đăng ký đổi tên doanh nghiệp của công ty trách nhiệm hữu hạn một thành viên
-    - Trường hợp 1: Thông báo thay đổi ngành, nghề kinh doanh của công ty trách nhiệm hữu hạn một thành viên
-    - Trường hợp 2: Thông báo thay đổi thông tin người đại diện theo ủy quyền của chủ sở hữu là tổ chức
-    - Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của công ty hợp danh
-    - Trường hợp 2: Đăng ký đổi tên doanh nghiệp của công ty hợp danh
-    - Trường hợp 3: Đăng ký thay đổi thành viên hợp danh
-    - Trường hợp 1: Thông báo thay đổi ngành, nghề kinh doanh của công ty hợp danh
-    - Trường hợp 2: Thông báo thay đổi nội dung đăng ký thuế
-
+    - data_aug/business_steps.txt
 
 - intent: ask_business_type
   examples: |
-    - Loại hình doanh nghiệp là gì?
-    - Có những loại hình doanh nghiệp nào?
-    - Hỏi về loại hình doanh nghiệp
-    - Loại hình doanh nghiệp có gì khác nhau?
-    - Các loại hình doanh nghiệp gồm những gì?
-    - Bạn có thể cho biết loại hình doanh nghiệp không?
-    - Những loại hình doanh nghiệp nào phổ biến?
-    - Các loại hình doanh nghiệp có gì khác biệt?
-    - Các loại hình doanh nghiệp hiện nay là gì?
-    - Bạn có thể kể tên các loại hình doanh nghiệp?
-    - Loại hình doanh nghiệp phổ biến hiện nay?
-    - Các loại hình doanh nghiệp hiện có?
-    - Loại hình doanh nghiệp nào phổ biến nhất?
-    - Các loại hình doanh nghiệp phổ biến là gì?
-    - Bạn có thể liệt kê các loại hình doanh nghiệp?
-    - Những loại hình doanh nghiệp nào hiện nay?
-    - Loại hình doanh nghiệp nào phổ biến hiện nay?
-    - Các loại hình doanh nghiệp phổ biến
-    - Liệt kê các loại hình doanh nghiệp
-    - Các loại hình doanh nghiệp là gì?
-    - Có bao nhiêu loại hình doanh nghiệp?
-    - Có những loại hình doanh nghiệp nào?
-    - Liệt kê cho tôi các loại hình doanh nghiệp
-    - Các loại hình doanh nghiệp hiện nay
-    - Bạn có thể liệt kê các loại hình doanh nghiệp không?
-    - Có những loại hình doanh nghiệp nào hiện nay?
-    - Loại hình doanh nghiệp nào phổ biến?
-    - Các loại hình doanh nghiệp có gì khác nhau?
-    - Doanh nghiệp có những loại hình gì?
-    - Hãy kể tên các loại hình doanh nghiệp
-    - Các loại hình doanh nghiệp hiện có là gì?
-    - Các loại hình doanh nghiệp bao gồm những gì?
-    - Bạn có thể liệt kê các loại hình doanh nghiệp không?
-    - Loại hình doanh nghiệp nào hiện nay?
-    - Liệt kê các loại hình doanh nghiệp phổ biến
-
+    - [Loại hình doanh nghiệp](business_query_type) là gì?
+    - Có những [loại hình doanh nghiệp](business_query_type) nào?
+    - Hỏi về [loại hình doanh nghiệp](business_query_type)
+    - [Loại hình doanh nghiệp](business_query_type) có gì khác nhau?
+    - Các [loại hình doanh nghiệp](business_query_type) gồm những gì?
+    - Bạn có thể cho biết [loại hình doanh nghiệp](business_query_type) không?
+    - Những [loại hình doanh nghiệp](business_query_type) nào phổ biến?
+    - Các [loại hình doanh nghiệp](business_query_type) có gì khác biệt?
+    - Các [loại hình doanh nghiệp](business_query_type) hiện nay là gì?
+    - Bạn có thể kể tên các [loại hình doanh nghiệp](business_query_type)?
+    - [Loại hình doanh nghiệp](business_query_type) phổ biến hiện nay?
+    - Các [loại hình doanh nghiệp](business_query_type) hiện có?
+    - [Loại hình doanh nghiệp](business_query_type) nào phổ biến nhất?
+    - Các [loại hình doanh nghiệp](business_query_type) phổ biến là gì?
+    - Bạn có thể liệt kê các [loại hình doanh nghiệp](business_query_type)?
+    - Những [loại hình doanh nghiệp](business_query_type) nào hiện nay?
+    - [Loại hình doanh nghiệp](business_query_type) nào phổ biến hiện nay?
+    - Các [loại hình doanh nghiệp](business_query_type) phổ biến
+    - Liệt kê các [loại hình doanh nghiệp](business_query_type)
+    - Các [loại hình doanh nghiệp](business_query_type) là gì?
+    - Có bao nhiêu [loại hình doanh nghiệp](business_query_type)?
+    - Có những [loại hình doanh nghiệp](business_query_type) nào?
+    - Liệt kê cho tôi các [loại hình doanh nghiệp](business_query_type)
+    - Các [loại hình doanh nghiệp](business_query_type) hiện nay
+    - Bạn có thể liệt kê các [loại hình doanh nghiệp](business_query_type) không?
+    - Có những [loại hình doanh nghiệp](business_query_type) nào hiện nay?
+    - [Loại hình doanh nghiệp](business_query_type) nào phổ biến?
+    - Các [loại hình doanh nghiệp](business_query_type) có gì khác nhau?
+    - Doanh nghiệp có những [loại hình](business_query_type) gì?
+    - Hãy kể tên các [loại hình doanh nghiệp](business_query_type)
+    - Các [loại hình doanh nghiệp](business_query_type) hiện có là gì?
+    - Các [loại hình doanh nghiệp](business_query_type) bao gồm những gì?
+    - Bạn có thể liệt kê các [loại hình doanh nghiệp](business_query_type) không?
+    - [Loại hình doanh nghiệp](business_query_type) nào hiện nay?
+    - Liệt kê các [loại hình doanh nghiệp](business_query_type) phổ biến
   metadata:
-    title: "Hỏi về loại hình doanh nghiệp"
-
-- intent: ask_joint_stock_company
-  examples: |
-    - Công ty cổ phần là gì?
-    - Hỏi về công ty cổ phần
-    - Giải thích công ty cổ phần
-    - Công ty cổ phần có gì đặc biệt?
-    - Công ty cổ phần là như thế nào?
-    - Công ty cổ phần hoạt động như thế nào?
-    - Những đặc điểm của công ty cổ phần là gì?
-    - Công ty cổ phần khác gì công ty TNHH?
-    - Công ty cổ phần có những đặc điểm gì?
-    - Công ty cổ phần bao gồm những gì?
-    - Công ty cổ phần là loại hình doanh nghiệp như thế nào?
-    - Công ty cổ phần có những ưu điểm gì?
-    - Những nhược điểm của công ty cổ phần là gì?
-    - Công ty cổ phần khác với công ty TNHH như thế nào?
-    - Công ty cổ phần có những đặc điểm gì khác biệt?
-    - Công ty cổ phần hoạt động ra sao?
-    - Công ty cổ phần có những quy định gì?
-    - Công ty cổ phần bao gồm những đặc điểm nào?
-    - Công ty cổ phần có gì đặc biệt?
-    - Những ưu điểm của công ty cổ phần là gì?
-
-  metadata:
-    title: "Hỏi về công ty cổ phần"
-
-- intent: ask_new_establishment
-  examples: |
-    - Thành lập mới doanh nghiệp như thế nào?
-    - Làm sao để thành lập mới doanh nghiệp?
-    - Hướng dẫn thành lập mới doanh nghiệp
-    - Quy trình thành lập mới doanh nghiệp là gì?
-    - Tôi cần làm gì để thành lập mới doanh nghiệp?
-    - Thành lập mới doanh nghiệp cần những bước nào?
-    - Làm thế nào để tôi thành lập mới doanh nghiệp?
-    - Thành lập mới doanh nghiệp có khó không?
-    - Các bước để thành lập mới doanh nghiệp là gì?
-    - Thành lập mới doanh nghiệp có những thủ tục gì?
-    - Thành lập mới doanh nghiệp cần những giấy tờ gì?
-    - Làm sao để biết cách thành lập mới doanh nghiệp?
-    - Thành lập mới doanh nghiệp bao gồm những gì?
-    - Thành lập mới doanh nghiệp có những quy trình nào?
-    - Thành lập mới doanh nghiệp cần làm những gì?
-    - Quy trình thành lập mới doanh nghiệp như thế nào?
-    - Thành lập mới doanh nghiệp cần những thủ tục gì?
-    - Thành lập mới doanh nghiệp cần những bước gì?
-    - Làm thế nào để thành lập mới doanh nghiệp thành công?
-    - Tôi muốn biết quy trình thành lập mới doanh nghiệp
-
-  metadata:
-    title: "Hỏi về thành lập mới"
+    title: Hỏi về loại hình doanh nghiệp
+    description: "Intent này bao gồm các câu hỏi liên quan đến các loại hình doanh nghiệp khác nhau và các khác biệt giữa chúng."
 
 - intent: ask_submit_documents
   examples: |
-    - Nộp hồ sơ đăng ký doanh nghiệp cần những gì?
-    - Thủ tục nộp hồ sơ đăng ký doanh nghiệp
-    - Nộp hồ sơ đăng ký doanh nghiệp ở đâu?
-    - Làm sao để nộp hồ sơ đăng ký doanh nghiệp?
-    - Quy trình nộp hồ sơ đăng ký doanh nghiệp
-    - Tôi cần làm gì để nộp hồ sơ đăng ký doanh nghiệp?
-    - Nộp hồ sơ đăng ký doanh nghiệp có khó không?
-    - Các bước để nộp hồ sơ đăng ký doanh nghiệp
-    - Nộp hồ sơ đăng ký doanh nghiệp bao gồm những gì?
-    - Làm thế nào để hoàn thành nộp hồ sơ đăng ký doanh nghiệp?
-    - Hướng dẫn tôi cách nộp hồ sơ đăng ký doanh nghiệp
-    - Tôi muốn biết cách nộp hồ sơ đăng ký doanh nghiệp
-    - Các bước để nộp hồ sơ đăng ký doanh nghiệp là gì?
-    - Nộp hồ sơ đăng ký doanh nghiệp cần làm gì đầu tiên?
-    - Làm sao để biết quy trình nộp hồ sơ đăng ký doanh nghiệp?
-    - Nộp hồ sơ đăng ký doanh nghiệp có yêu cầu gì không?
-    - Thủ tục nộp hồ sơ đăng ký doanh nghiệp như thế nào?
-    - Để nộp hồ sơ đăng ký doanh nghiệp cần làm những gì?
-    - Quy trình nộp hồ sơ đăng ký doanh nghiệp là gì?
-    - Hồ sơ đăng ký doanh nghiệp bao gồm những gì?
-    - Thủ tục chuẩn bị hồ sơ đăng ký doanh nghiệp
-    - Làm sao để chuẩn bị hồ sơ đăng ký doanh nghiệp thành công?
+    - [Nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) cần những gì?
+    - [Thủ tục nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - [Nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) ở đâu?
+    - Làm sao để [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - Quy trình [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - Tôi cần làm gì để [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - [Nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) có khó không?
+    - Các bước để [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - [Nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) bao gồm những gì?
+    - Làm thế nào để hoàn thành [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - Hướng dẫn tôi cách [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - Tôi muốn biết cách [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - Các bước để [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) là gì?
+    - [Nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) cần làm gì đầu tiên?
+    - Làm sao để biết quy trình [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - [Nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) có yêu cầu gì không?
+    - [Thủ tục nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) như thế nào?
+    - Để [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) cần làm những gì?
+    - Quy trình [nộp](action) [hồ sơ đăng ký doanh nghiệp](submission_process) là gì?
+    - [Hồ sơ đăng ký doanh nghiệp](submission_process) bao gồm những gì?
 
   metadata:
-    title: "Hỏi về nộp hồ sơ"
+    title: Hỏi về nộp hồ sơ đăng ký doanh nghiệp
+    description: "Intent này bao gồm các câu hỏi liên quan đến việc nộp hồ sơ đăng ký doanh nghiệp, bao gồm các thủ tục, quy trình và yêu cầu."
+
 
 - intent: ask_prepare_documents
   examples: |
-    - Chuẩn bị hồ sơ đăng ký doanh nghiệp cần những gì?
-    - Hướng dẫn chuẩn bị hồ sơ đăng ký doanh nghiệp
-    - Cần chuẩn bị những giấy tờ nào để đăng ký doanh nghiệp?
-    - Làm sao để chuẩn bị hồ sơ đăng ký doanh nghiệp?
-    - Quy trình chuẩn bị hồ sơ đăng ký doanh nghiệp
-    - Tôi cần làm gì để chuẩn bị hồ sơ đăng ký doanh nghiệp?
-    - Chuẩn bị hồ sơ đăng ký doanh nghiệp có khó không?
-    - Các bước để chuẩn bị hồ sơ đăng ký doanh nghiệp
-    - Hồ sơ đăng ký doanh nghiệp cần những giấy tờ gì?
-    - Chuẩn bị hồ sơ đăng ký doanh nghiệp bao gồm những gì?
-    - Làm thế nào để hoàn thành chuẩn bị hồ sơ đăng ký doanh nghiệp?
-    - Hướng dẫn tôi cách chuẩn bị hồ sơ đăng ký doanh nghiệp
-    - Tôi muốn biết cách chuẩn bị hồ sơ đăng ký doanh nghiệp
-    - Chuẩn bị hồ sơ đăng ký doanh nghiệp cần làm gì đầu tiên?
-    - Làm sao để biết quy trình chuẩn bị hồ sơ đăng ký doanh nghiệp?
-    - Chuẩn bị hồ sơ đăng ký doanh nghiệp có yêu cầu gì không?
-    - Thủ tục chuẩn bị hồ sơ đăng ký doanh nghiệp như thế nào?
-    - Để chuẩn bị hồ sơ đăng ký doanh nghiệp cần làm những gì?
-    - Quy trình chuẩn bị hồ sơ đăng ký doanh nghiệp là gì?
+    - [Chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process) cần những gì?
+    - Hướng dẫn [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - Cần [chuẩn bị](action) những giấy tờ nào để [đăng ký doanh nghiệp](submission_process)?
+    - Làm sao để [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - Quy trình [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - Tôi cần làm gì để [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - [Chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process) có khó không?
+    - Các bước để [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - [Hồ sơ đăng ký doanh nghiệp](submission_process) cần những giấy tờ gì?
+    - [Chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process) bao gồm những gì?
+    - Làm thế nào để hoàn thành [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - Hướng dẫn tôi cách [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - Tôi muốn biết cách [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)
+    - [Chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process) cần làm gì đầu tiên?
+    - Làm sao để biết quy trình [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process)?
+    - [Chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process) có yêu cầu gì không?
+    - Thủ tục [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process) như thế nào?
+    - Để [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process) cần làm những gì?
+    - Quy trình [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process) là gì?
+    - Làm sao để [chuẩn bị](action) [hồ sơ đăng ký doanh nghiệp](submission_process) thành công?
 
   metadata:
     title: "Hỏi về chuẩn bị hồ sơ"
+    description: "Intent này bao gồm các câu hỏi liên quan đến việc chuẩn bị hồ sơ đăng ký doanh nghiệp, bao gồm các thủ tục, quy trình và yêu cầu."
+
+- synonym: Hồ sơ đăng ký doanh nghiệp
+  examples: |
+    - Hồ sơ
+    - Hồ sơ đăng ký
+    - Hồ sơ đăng ký kinh doanh
 
 - intent: ask_receive_results
   examples: |
-    - Nhận kết quả đăng ký doanh nghiệp như thế nào?
-    - Làm sao để nhận kết quả đăng ký doanh nghiệp?
-    - Thời gian nhận kết quả đăng ký doanh nghiệp
-    - Quy trình nhận kết quả đăng ký doanh nghiệp là gì?
-    - Tôi cần làm gì để nhận kết quả đăng ký doanh nghiệp?
-    - Nhận kết quả đăng ký doanh nghiệp có khó không?
-    - Các bước để nhận kết quả đăng ký doanh nghiệp
-    - Kết quả đăng ký doanh nghiệp cần những giấy tờ gì?
-    - Nhận kết quả đăng ký doanh nghiệp bao gồm những gì?
-    - Làm thế nào để hoàn thành nhận kết quả đăng ký doanh nghiệp?
-    - Hướng dẫn tôi cách nhận kết quả đăng ký doanh nghiệp
-    - Tôi muốn biết cách nhận kết quả đăng ký doanh nghiệp
-    - Các bước để nhận kết quả đăng ký doanh nghiệp là gì?
-    - Nhận kết quả đăng ký doanh nghiệp cần làm gì đầu tiên?
-    - Làm sao để biết quy trình nhận kết quả đăng ký doanh nghiệp?
-    - Nhận kết quả đăng ký doanh nghiệp có yêu cầu gì không?
-    - Thủ tục nhận kết quả đăng ký doanh nghiệp như thế nào?
-    - Để nhận kết quả đăng ký doanh nghiệp cần làm những gì?
-    - Quy trình nhận kết quả đăng ký doanh nghiệp là gì?
-    - Làm sao để biết khi nào có kết quả đăng ký doanh nghiệp?
+    - [Nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) như thế nào?
+    - Làm sao để [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)?
+    - Thời gian [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)
+    - [Quy trình](process) [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) là gì?
+    - Tôi cần làm gì để [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)?
+    - [Nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) có khó không?
+    - Các bước để [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)
+    - [Kết quả đăng ký doanh nghiệp](registration_result) cần những giấy tờ gì?
+    - [Nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) bao gồm những gì?
+    - Làm thế nào để hoàn thành [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)?
+    - [Hướng dẫn](guidance) tôi cách [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)
+    - Tôi muốn biết cách [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)
+    - Các bước để [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) là gì?
+    - [Nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) cần làm gì đầu tiên?
+    - Làm sao để biết [quy trình](process) [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result)?
+    - [Nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) có yêu cầu gì không?
+    - [Thủ tục](procedure) [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) như thế nào?
+    - Để [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) cần làm những gì?
+    - [Quy trình](process) [nhận](action) [kết quả đăng ký doanh nghiệp](registration_result) là gì?
+    - Làm sao để biết khi nào có [kết quả đăng ký doanh nghiệp](registration_result)?
 
   metadata:
     title: "Hỏi về nhận kết quả"
-
-- intent: ask_change_registration
-  examples: |
-    - Đăng ký thay đổi thông tin doanh nghiệp như thế nào?
-    - Làm sao để đăng ký thay đổi thông tin doanh nghiệp?
-    - Thủ tục đăng ký thay đổi thông tin doanh nghiệp
-    - Quy trình đăng ký thay đổi thông tin doanh nghiệp
-    - Tôi cần làm gì để đăng ký thay đổi thông tin doanh nghiệp?
-    - Đăng ký thay đổi thông tin doanh nghiệp có khó không?
-    - Các bước để đăng ký thay đổi thông tin doanh nghiệp
-    - Đăng ký thay đổi thông tin doanh nghiệp cần những giấy tờ gì?
-    - Đăng ký thay đổi thông tin doanh nghiệp bao gồm những gì?
-    - Làm thế nào để hoàn thành đăng ký thay đổi thông tin doanh nghiệp?
-    - Hướng dẫn tôi cách đăng ký thay đổi thông tin doanh nghiệp
-    - Tôi muốn biết cách đăng ký thay đổi thông tin doanh nghiệp
-    - Các bước để đăng ký thay đổi thông tin doanh nghiệp là gì?
-    - Đăng ký thay đổi thông tin doanh nghiệp cần làm gì đầu tiên?
-    - Làm sao để biết quy trình đăng ký thay đổi thông tin doanh nghiệp?
-    - Đăng ký thay đổi thông tin doanh nghiệp có yêu cầu gì không?
-    - Thủ tục đăng ký thay đổi thông tin doanh nghiệp như thế nào?
-    - Để đăng ký thay đổi thông tin doanh nghiệp cần làm những gì?
-    - Quy trình đăng ký thay đổi thông tin doanh nghiệp là gì?
-    - Làm sao để đăng ký thay đổi thông tin doanh nghiệp thành công?
-
-  metadata:
-    title: "Hỏi về đăng ký thay đổi"
-
-- intent: ask_change_head_office_address
-  examples: |
-    - Thay đổi địa chỉ trụ sở chính như thế nào?
-    - Làm sao để thay đổi địa chỉ trụ sở chính?
-    - Hướng dẫn thay đổi địa chỉ trụ sở chính
-    - Quy trình thay đổi địa chỉ trụ sở chính là gì?
-    - Tôi cần làm gì để thay đổi địa chỉ trụ sở chính?
-    - Thay đổi địa chỉ trụ sở chính có khó không?
-    - Các bước để thay đổi địa chỉ trụ sở chính
-    - Thay đổi địa chỉ trụ sở chính cần những giấy tờ gì?
-    - Thay đổi địa chỉ trụ sở chính bao gồm những gì?
-    - Làm thế nào để hoàn thành thay đổi địa chỉ trụ sở chính?
-    - Hướng dẫn tôi cách thay đổi địa chỉ trụ sở chính
-    - Tôi muốn biết cách thay đổi địa chỉ trụ sở chính
-    - Các bước để thay đổi địa chỉ trụ sở chính là gì?
-    - Thay đổi địa chỉ trụ sở chính cần làm gì đầu tiên?
-    - Làm sao để biết quy trình thay đổi địa chỉ trụ sở chính?
-    - Thay đổi địa chỉ trụ sở chính có yêu cầu gì không?
-    - Thủ tục thay đổi địa chỉ trụ sở chính như thế nào?
-    - Để thay đổi địa chỉ trụ sở chính cần làm những gì?
-    - Quy trình thay đổi địa chỉ trụ sở chính là gì?
-    - Làm sao để thay đổi địa chỉ trụ sở chính thành công?
-
-  metadata:
-    title: "Hỏi về thay đổi địa chỉ trụ sở chính"
-
-- intent: ask_change_legal_representative
-  examples: |
-    - Thay đổi người đại diện theo pháp luật như thế nào?
-    - Làm sao để thay đổi người đại diện theo pháp luật?
-    - Thủ tục thay đổi người đại diện theo pháp luật
-    - Quy trình thay đổi người đại diện theo pháp luật
-    - Tôi cần làm gì để thay đổi người đại diện theo pháp luật?
-    - Thay đổi người đại diện theo pháp luật có khó không?
-    - Các bước để thay đổi người đại diện theo pháp luật
-    - Thay đổi người đại diện theo pháp luật cần những giấy tờ gì?
-    - Thay đổi người đại diện theo pháp luật bao gồm những gì?
-    - Làm thế nào để hoàn thành thay đổi người đại diện theo pháp luật?
-    - Hướng dẫn tôi cách thay đổi người đại diện theo pháp luật
-    - Tôi muốn biết cách thay đổi người đại diện theo pháp luật
-    - Các bước để thay đổi người đại diện theo pháp luật là gì?
-    - Thay đổi người đại diện theo pháp luật cần làm gì đầu tiên?
-    - Làm sao để biết quy trình thay đổi người đại diện theo pháp luật?
-    - Thay đổi người đại diện theo pháp luật có yêu cầu gì không?
-    - Thủ tục thay đổi người đại diện theo pháp luật như thế nào?
-    - Để thay đổi người đại diện theo pháp luật cần làm những gì?
-    - Quy trình thay đổi người đại diện theo pháp luật là gì?
-    - Làm sao để thay đổi người đại diện theo pháp luật thành công?
-
-  metadata:
-    title: "Hỏi về thay đổi người đại diện theo pháp luật"
-
-- intent: ask_change_company_name
-  examples: |
-    - Thay đổi tên doanh nghiệp như thế nào?
-    - Làm sao để thay đổi tên doanh nghiệp?
-    - Thủ tục thay đổi tên doanh nghiệp
-    - Quy trình thay đổi tên doanh nghiệp là gì?
-    - Tôi cần làm gì để thay đổi tên doanh nghiệp?
-    - Thay đổi tên doanh nghiệp có khó không?
-    - Các bước để thay đổi tên doanh nghiệp
-    - Thay đổi tên doanh nghiệp cần những giấy tờ gì?
-    - Thay đổi tên doanh nghiệp bao gồm những gì?
-    - Làm thế nào để hoàn thành thay đổi tên doanh nghiệp?
-    - Hướng dẫn tôi cách thay đổi tên doanh nghiệp
-    - Tôi muốn biết cách thay đổi tên doanh nghiệp
-    - Các bước để thay đổi tên doanh nghiệp là gì?
-    - Thay đổi tên doanh nghiệp cần làm gì đầu tiên?
-    - Làm sao để biết quy trình thay đổi tên doanh nghiệp?
-    - Thay đổi tên doanh nghiệp có yêu cầu gì không?
-    - Thủ tục thay đổi tên doanh nghiệp như thế nào?
-    - Để thay đổi tên doanh nghiệp cần làm những gì?
-    - Quy trình thay đổi tên doanh nghiệp là gì?
-    - Làm sao để thay đổi tên doanh nghiệp thành công?
-
-  metadata:
-    title: "Hỏi về thay đổi tên doanh nghiệp"
-
-- intent: ask_change_notification
-  examples: |
-    - Thông báo thay đổi thông tin doanh nghiệp như thế nào?
-    - Làm sao để thông báo thay đổi thông tin doanh nghiệp?
-    - Thủ tục thông báo thay đổi thông tin doanh nghiệp
-    - Quy trình thông báo thay đổi thông tin doanh nghiệp là gì?
-    - Tôi cần làm gì để thông báo thay đổi thông tin doanh nghiệp?
-    - Thông báo thay đổi thông tin doanh nghiệp có khó không?
-    - Các bước để thông báo thay đổi thông tin doanh nghiệp
-    - Thông báo thay đổi thông tin doanh nghiệp cần những giấy tờ gì?
-    - Thông báo thay đổi thông tin doanh nghiệp bao gồm những gì?
-    - Làm thế nào để hoàn thành thông báo thay đổi thông tin doanh nghiệp?
-    - Hướng dẫn tôi cách thông báo thay đổi thông tin doanh nghiệp
-    - Tôi muốn biết cách thông báo thay đổi thông tin doanh nghiệp
-    - Các bước để thông báo thay đổi thông tin doanh nghiệp là gì?
-    - Thông báo thay đổi thông tin doanh nghiệp cần làm gì đầu tiên?
-    - Làm sao để biết quy trình thông báo thay đổi thông tin doanh nghiệp?
-    - Thông báo thay đổi thông tin doanh nghiệp có yêu cầu gì không?
-    - Thủ tục thông báo thay đổi thông tin doanh nghiệp như thế nào?
-    - Để thông báo thay đổi thông tin doanh nghiệp cần làm những gì?
-    - Quy trình thông báo thay đổi thông tin doanh nghiệp là gì?
-    - Làm sao để thông báo thay đổi thông tin doanh nghiệp thành công?
-
-  metadata:
-    title: "Hỏi về thông báo thay đổi"
-
-- intent: ask_change_foreign_investor_shareholder
-  examples: |
-    - Thay đổi cổ đông là nhà đầu tư nước ngoài như thế nào?
-    - Làm sao để thay đổi cổ đông là nhà đầu tư nước ngoài?
-    - Thủ tục thay đổi cổ đông là nhà đầu tư nước ngoài
-    - Quy trình thay đổi cổ đông là nhà đầu tư nước ngoài là gì?
-    - Tôi cần làm gì để thay đổi cổ đông là nhà đầu tư nước ngoài?
-    - Thay đổi cổ đông là nhà đầu tư nước ngoài có khó không?
-    - Các bước để thay đổi cổ đông là nhà đầu tư nước ngoài
-    - Thay đổi cổ đông là nhà đầu tư nước ngoài cần những giấy tờ gì?
-    - Thay đổi cổ đông là nhà đầu tư nước ngoài bao gồm những gì?
-    - Làm thế nào để hoàn thành thay đổi cổ đông là nhà đầu tư nước ngoài?
-    - Hướng dẫn tôi cách thay đổi cổ đông là nhà đầu tư nước ngoài
-    - Tôi muốn biết cách thay đổi cổ đông là nhà đầu tư nước ngoài
-    - Các bước để thay đổi cổ đông là nhà đầu tư nước ngoài là gì?
-    - Thay đổi cổ đông là nhà đầu tư nước ngoài cần làm gì đầu tiên?
-    - Làm sao để biết quy trình thay đổi cổ đông là nhà đầu tư nước ngoài?
-    - Thay đổi cổ đông là nhà đầu tư nước ngoài có yêu cầu gì không?
-    - Thủ tục thay đổi cổ đông là nhà đầu tư nước ngoài như thế nào?
-    - Để thay đổi cổ đông là nhà đầu tư nước ngoài cần làm những gì?
-    - Quy trình thay đổi cổ đông là nhà đầu tư nước ngoài là gì?
-    - Làm sao để thay đổi cổ đông là nhà đầu tư nước ngoài thành công?
-
-  metadata:
-    title: "Hỏi về thay đổi cổ đông là nhà đầu tư nước ngoài"
-
-- intent: ask_change_business_sector
-  examples: |
-    - Thay đổi ngành nghề kinh doanh như thế nào?
-    - Làm sao để thay đổi ngành nghề kinh doanh?
-    - Thủ tục thay đổi ngành nghề kinh doanh
-    - Quy trình thay đổi ngành nghề kinh doanh là gì?
-    - Tôi cần làm gì để thay đổi ngành nghề kinh doanh?
-    - Thay đổi ngành nghề kinh doanh có khó không?
-    - Các bước để thay đổi ngành nghề kinh doanh
-    - Thay đổi ngành nghề kinh doanh cần những giấy tờ gì?
-    - Thay đổi ngành nghề kinh doanh bao gồm những gì?
-    - Làm thế nào để hoàn thành thay đổi ngành nghề kinh doanh?
-    - Hướng dẫn tôi cách thay đổi ngành nghề kinh doanh
-    - Tôi muốn biết cách thay đổi ngành nghề kinh doanh
-    - Các bước để thay đổi ngành nghề kinh doanh là gì?
-    - Thay đổi ngành nghề kinh doanh cần làm gì đầu tiên?
-    - Làm sao để biết quy trình thay đổi ngành nghề kinh doanh?
-    - Thay đổi ngành nghề kinh doanh có yêu cầu gì không?
-    - Thủ tục thay đổi ngành nghề kinh doanh như thế nào?
-    - Để thay đổi ngành nghề kinh doanh cần làm những gì?
-    - Quy trình thay đổi ngành nghề kinh doanh là gì?
-    - Làm sao để thay đổi ngành nghề kinh doanh thành công?
-
-  metadata:
-    title: "Hỏi về thay đổi ngành nghề kinh doanh"
-
-- intent: ask_change_tax_registration
-  examples: |
-    - Thay đổi nội dung đăng ký thuế như thế nào?
-    - Làm sao để thay đổi nội dung đăng ký thuế?
-    - Thủ tục thay đổi nội dung đăng ký thuế
-    - Quy trình thay đổi nội dung đăng ký thuế là gì?
-    - Tôi cần làm gì để thay đổi nội dung đăng ký thuế?
-    - Thay đổi nội dung đăng ký thuế có khó không?
-    - Các bước để thay đổi nội dung đăng ký thuế
-    - Thay đổi nội dung đăng ký thuế cần những giấy tờ gì?
-    - Thay đổi nội dung đăng ký thuế bao gồm những gì?
-    - Làm thế nào để hoàn thành thay đổi nội dung đăng ký thuế?
-    - Hướng dẫn tôi cách thay đổi nội dung đăng ký thuế
-    - Tôi muốn biết cách thay đổi nội dung đăng ký thuế
-    - Các bước để thay đổi nội dung đăng ký thuế là gì?
-    - Thay đổi nội dung đăng ký thuế cần làm gì đầu tiên?
-    - Làm sao để biết quy trình thay đổi nội dung đăng ký thuế?
-    - Thay đổi nội dung đăng ký thuế có yêu cầu gì không?
-    - Thủ tục thay đổi nội dung đăng ký thuế như thế nào?
-    - Để thay đổi nội dung đăng ký thuế cần làm những gì?
-    - Quy trình thay đổi nội dung đăng ký thuế là gì?
-    - Làm sao để thay đổi nội dung đăng ký thuế thành công?
-
-  metadata:
-    title: "Hỏi về thay đổi nội dung đăng ký thuế"
-
-- intent: ask_temporary_suspension
-  examples: |
-    - Tạm ngừng kinh doanh như thế nào?
-    - Làm sao để tạm ngừng kinh doanh?
-    - Thủ tục tạm ngừng kinh doanh
-    - Quy trình tạm ngừng kinh doanh là gì?
-    - Tôi cần làm gì để tạm ngừng kinh doanh?
-    - Tạm ngừng kinh doanh có khó không?
-    - Các bước để tạm ngừng kinh doanh
-    - Tạm ngừng kinh doanh cần những giấy tờ gì?
-    - Tạm ngừng kinh doanh bao gồm những gì?
-    - Làm thế nào để hoàn thành tạm ngừng kinh doanh?
-    - Hướng dẫn tôi cách tạm ngừng kinh doanh
-    - Tôi muốn biết cách tạm ngừng kinh doanh
-    - Các bước để tạm ngừng kinh doanh là gì?
-    - Tạm ngừng kinh doanh cần làm gì đầu tiên?
-    - Làm sao để biết quy trình tạm ngừng kinh doanh?
-    - Tạm ngừng kinh doanh có yêu cầu gì không?
-    - Thủ tục tạm ngừng kinh doanh như thế nào?
-    - Để tạm ngừng kinh doanh cần làm những gì?
-    - Quy trình tạm ngừng kinh doanh là gì?
-    - Làm sao để tạm ngừng kinh doanh thành công?
-
-  metadata:
-    title: "Hỏi về tạm ngừng kinh doanh"
-
-- intent: ask_suspend_business
-  examples: |
-    - [đăng ký tạm ngừng kinh doanh](registration_processes) như thế nào?
-    - Làm sao để [đăng ký tạm ngừng kinh doanh](registration_processes)?
-    - Thủ tục [đăng ký tạm ngừng kinh doanh](registration_processes)
-    - Quy trình [đăng ký tạm ngừng kinh doanh](registration_processes) là gì?
-    - Tôi cần làm gì để [đăng ký tạm ngừng kinh doanh](registration_processes)?
-    - [đăng ký tạm ngừng kinh doanh](registration_processes) có khó không?
-    - Các bước để [đăng ký tạm ngừng kinh doanh](registration_processes)
-    - [đăng ký tạm ngừng kinh doanh](registration_processes) cần những giấy tờ gì?
-    - [đăng ký tạm ngừng kinh doanh](registration_processes) bao gồm những gì?
-    - Làm thế nào để hoàn thành [đăng ký tạm ngừng kinh doanh](registration_processes)?
-    - Hướng dẫn tôi cách [đăng ký tạm ngừng kinh doanh](registration_processes)
-    - Tôi muốn biết cách [đăng ký tạm ngừng kinh doanh](registration_processes)
-    - Các bước để [đăng ký tạm ngừng kinh doanh](registration_processes) là gì?
-    - [đăng ký tạm ngừng kinh doanh](registration_processes) cần làm gì đầu tiên?
-    - Làm sao để biết quy trình [đăng ký tạm ngừng kinh doanh](registration_processes)?
-    - [đăng ký tạm ngừng kinh doanh](registration_processes) có yêu cầu gì không?
-    - Thủ tục [đăng ký tạm ngừng kinh doanh](registration_processes) như thế nào?
-    - Để [đăng ký tạm ngừng kinh doanh](registration_processes) cần làm những gì?
-    - Quy trình [đăng ký tạm ngừng kinh doanh](registration_processes) là gì?
-    - Làm sao để [đăng ký tạm ngừng kinh doanh](registration_processes) thành công?
-    - [đăng ký tạm ngừng kinh doanh](registration_processes)
-
-  metadata:
-    title: "Hỏi về đăng ký tạm ngừng kinh doanh"
-
-- intent: ask_resume_business
-  examples: |
-    - Tiếp tục kinh doanh trước thời hạn như thế nào?
-    - Làm sao để tiếp tục kinh doanh trước thời hạn?
-    - Thủ tục tiếp tục kinh doanh trước thời hạn
-    - Quy trình tiếp tục kinh doanh trước thời hạn là gì?
-    - Tôi cần làm gì để tiếp tục kinh doanh trước thời hạn?
-    - Tiếp tục kinh doanh trước thời hạn có khó không?
-    - Các bước để tiếp tục kinh doanh trước thời hạn
-    - Tiếp tục kinh doanh trước thời hạn cần những giấy tờ gì?
-    - Tiếp tục kinh doanh trước thời hạn bao gồm những gì?
-    - Làm thế nào để hoàn thành tiếp tục kinh doanh trước thời hạn?
-    - Hướng dẫn tôi cách tiếp tục kinh doanh trước thời hạn
-    - Tôi muốn biết cách tiếp tục kinh doanh trước thời hạn
-    - Các bước để tiếp tục kinh doanh trước thời hạn là gì?
-    - Tiếp tục kinh doanh trước thời hạn cần làm gì đầu tiên?
-    - Làm sao để biết quy trình tiếp tục kinh doanh trước thời hạn?
-    - Tiếp tục kinh doanh trước thời hạn có yêu cầu gì không?
-    - Thủ tục tiếp tục kinh doanh trước thời hạn như thế nào?
-    - Để tiếp tục kinh doanh trước thời hạn cần làm những gì?
-    - Quy trình tiếp tục kinh doanh trước thời hạn là gì?
-    - Làm sao để tiếp tục kinh doanh trước thời hạn thành công?
-
-  metadata:
-    title: "Hỏi về tiếp tục kinh doanh trước thời hạn"
-
-- intent: ask_dissolve_business
-  examples: |
-    - Giải thể doanh nghiệp như thế nào?
-    - Làm sao để giải thể doanh nghiệp?
-    - Thủ tục giải thể doanh nghiệp
-    - Quy trình giải thể doanh nghiệp là gì?
-    - Tôi cần làm gì để giải thể doanh nghiệp?
-    - Giải thể doanh nghiệp có khó không?
-    - Các bước để giải thể doanh nghiệp
-    - Giải thể doanh nghiệp cần những giấy tờ gì?
-    - Giải thể doanh nghiệp bao gồm những gì?
-    - Làm thế nào để hoàn thành giải thể doanh nghiệp?
-    - Hướng dẫn tôi cách giải thể doanh nghiệp
-    - Tôi muốn biết cách giải thể doanh nghiệp
-    - Các bước để giải thể doanh nghiệp là gì?
-    - Giải thể doanh nghiệp cần làm gì đầu tiên?
-    - Làm sao để biết quy trình giải thể doanh nghiệp?
-    - Giải thể doanh nghiệp có yêu cầu gì không?
-    - Thủ tục giải thể doanh nghiệp như thế nào?
-    - Để giải thể doanh nghiệp cần làm những gì?
-    - Quy trình giải thể doanh nghiệp là gì?
-    - Làm sao để giải thể doanh nghiệp thành công?
-
-  metadata:
-    title: "Hỏi về giải thể doanh nghiệp"
-
-- intent: ask_register_dissolution
-  examples: |
-    - Đăng ký giải thể doanh nghiệp như thế nào?
-    - Làm sao để đăng ký giải thể doanh nghiệp?
-    - Thủ tục đăng ký giải thể doanh nghiệp
-    - Quy trình đăng ký giải thể doanh nghiệp là gì?
-    - Tôi cần làm gì để đăng ký giải thể doanh nghiệp?
-    - Đăng ký giải thể doanh nghiệp có khó không?
-    - Các bước để đăng ký giải thể doanh nghiệp
-    - Đăng ký giải thể doanh nghiệp cần những giấy tờ gì?
-    - Đăng ký giải thể doanh nghiệp bao gồm những gì?
-    - Làm thế nào để hoàn thành đăng ký giải thể doanh nghiệp?
-    - Hướng dẫn tôi cách đăng ký giải thể doanh nghiệp
-    - Tôi muốn biết cách đăng ký giải thể doanh nghiệp
-    - Các bước để đăng ký giải thể doanh nghiệp là gì?
-    - Đăng ký giải thể doanh nghiệp cần làm gì đầu tiên?
-    - Làm sao để biết quy trình đăng ký giải thể doanh nghiệp?
-    - Đăng ký giải thể doanh nghiệp có yêu cầu gì không?
-    - Thủ tục đăng ký giải thể doanh nghiệp như thế nào?
-    - Để đăng ký giải thể doanh nghiệp cần làm những gì?
-    - Quy trình đăng ký giải thể doanh nghiệp là gì?
-    - Làm sao để đăng ký giải thể doanh nghiệp thành công?
-
-  metadata:
-    title: "Hỏi về đăng ký giải thể doanh nghiệp"
-
-- intent: ask_cancel_dissolution
-  examples: |
-    - Hủy bỏ nghị quyết quyết định giải thể doanh nghiệp như thế nào?
-    - Làm sao để hủy bỏ nghị quyết quyết định giải thể doanh nghiệp?
-    - Thủ tục hủy bỏ nghị quyết quyết định giải thể doanh nghiệp
-    - Quy trình hủy bỏ nghị quyết quyết định giải thể doanh nghiệp là gì?
-    - Tôi cần làm gì để hủy bỏ nghị quyết quyết định giải thể doanh nghiệp?
-    - Hủy bỏ nghị quyết quyết định giải thể doanh nghiệp có khó không?
-    - Các bước để hủy bỏ nghị quyết quyết định giải thể doanh nghiệp
-    - Hủy bỏ nghị quyết quyết định giải thể doanh nghiệp cần những giấy tờ gì?
-    - Hủy bỏ nghị quyết quyết định giải thể doanh nghiệp bao gồm những gì?
-    - Làm thế nào để hoàn thành hủy bỏ nghị quyết quyết định giải thể doanh nghiệp?
-    - Hướng dẫn tôi cách hủy bỏ nghị quyết quyết định giải thể doanh nghiệp
-    - Tôi muốn biết cách hủy bỏ nghị quyết quyết định giải thể doanh nghiệp
-    - Các bước để hủy bỏ nghị quyết quyết định giải thể doanh nghiệp là gì?
-    - Hủy bỏ nghị quyết quyết định giải thể doanh nghiệp cần làm gì đầu tiên?
-    - Làm sao để biết quy trình hủy bỏ nghị quyết quyết định giải thể doanh nghiệp?
-    - Hủy bỏ nghị quyết quyết định giải thể doanh nghiệp có yêu cầu gì không?
-    - Thủ tục hủy bỏ nghị quyết quyết định giải thể doanh nghiệp như thế nào?
-    - Để hủy bỏ nghị quyết quyết định giải thể doanh nghiệp cần làm những gì?
-    - Quy trình hủy bỏ nghị quyết quyết định giải thể doanh nghiệp là gì?
-    - Làm sao để hủy bỏ nghị quyết quyết định giải thể doanh nghiệp thành công?
-
-  metadata:
-    title: "Hỏi về hủy bỏ nghị quyết quyết định giải thể doanh nghiệp"
-
-- intent: ask_private_enterprise
-  examples: |
-    - Doanh nghiệp tư nhân là gì?
-    - Hỏi về doanh nghiệp tư nhân
-    - Giải thích về doanh nghiệp tư nhân
-    - Doanh nghiệp tư nhân có gì đặc biệt?
-    - Doanh nghiệp tư nhân là như thế nào?
-    - Doanh nghiệp tư nhân hoạt động như thế nào?
-    - Những đặc điểm của doanh nghiệp tư nhân là gì?
-    - Doanh nghiệp tư nhân khác gì công ty TNHH?
-    - Doanh nghiệp tư nhân có những đặc điểm gì?
-    - Doanh nghiệp tư nhân bao gồm những gì?
-    - Doanh nghiệp tư nhân là loại hình doanh nghiệp như thế nào?
-    - Doanh nghiệp tư nhân có những ưu điểm gì?
-    - Những nhược điểm của doanh nghiệp tư nhân là gì?
-    - Doanh nghiệp tư nhân khác với công ty TNHH như thế nào?
-    - Doanh nghiệp tư nhân có những đặc điểm gì khác biệt?
-    - Doanh nghiệp tư nhân hoạt động ra sao?
-    - Doanh nghiệp tư nhân có những quy định gì?
-    - Doanh nghiệp tư nhân bao gồm những đặc điểm nào?
-    - Doanh nghiệp tư nhân có gì đặc biệt?
-    - Những ưu điểm của doanh nghiệp tư nhân là gì?
-
-  metadata:
-    title: "Hỏi về doanh nghiệp tư nhân"
-
-- intent: ask_establish_private_enterprise
-  examples: |
-    - Thành lập mới doanh nghiệp tư nhân như thế nào?
-    - Làm sao để thành lập mới doanh nghiệp tư nhân?
-    - Hướng dẫn thành lập mới doanh nghiệp tư nhân
-    - Quy trình thành lập mới doanh nghiệp tư nhân là gì?
-    - Tôi cần làm gì để thành lập mới doanh nghiệp tư nhân?
-    - Thành lập mới doanh nghiệp tư nhân cần những bước nào?
-    - Làm thế nào để tôi thành lập mới doanh nghiệp tư nhân?
-    - Thành lập mới doanh nghiệp tư nhân có khó không?
-    - Các bước để thành lập mới doanh nghiệp tư nhân là gì?
-    - Thành lập mới doanh nghiệp tư nhân có những thủ tục gì?
-    - Thành lập mới doanh nghiệp tư nhân cần những giấy tờ gì?
-    - Làm sao để biết cách thành lập mới doanh nghiệp tư nhân?
-    - Thành lập mới doanh nghiệp tư nhân bao gồm những gì?
-    - Thành lập mới doanh nghiệp tư nhân có những quy trình nào?
-    - Thành lập mới doanh nghiệp tư nhân cần làm những gì?
-    - Quy trình thành lập mới doanh nghiệp tư nhân như thế nào?
-    - Thành lập mới doanh nghiệp tư nhân cần những thủ tục gì?
-    - Thành lập mới doanh nghiệp tư nhân cần những bước gì?
-    - Làm thế nào để thành lập mới doanh nghiệp tư nhân thành công?
-    - Tôi muốn biết quy trình thành lập mới doanh nghiệp tư nhân
-
-  metadata:
-    title: "Hỏi về thành lập mới doanh nghiệp tư nhân"
-
-- intent: ask_change_private_enterprise
-  examples: |
-    - Đăng ký thay đổi thông tin doanh nghiệp tư nhân như thế nào?
-    - Làm sao để đăng ký thay đổi thông tin doanh nghiệp tư nhân?
-    - Thủ tục đăng ký thay đổi thông tin doanh nghiệp tư nhân
-    - Quy trình đăng ký thay đổi thông tin doanh nghiệp tư nhân là gì?
-    - Tôi cần làm gì để đăng ký thay đổi thông tin doanh nghiệp tư nhân?
-    - Đăng ký thay đổi thông tin doanh nghiệp tư nhân có khó không?
-    - Các bước để đăng ký thay đổi thông tin doanh nghiệp tư nhân
-    - Đăng ký thay đổi thông tin doanh nghiệp tư nhân cần những giấy tờ gì?
-    - Đăng ký thay đổi thông tin doanh nghiệp tư nhân bao gồm những gì?
-    - Làm thế nào để hoàn thành đăng ký thay đổi thông tin doanh nghiệp tư nhân?
-    - Hướng dẫn tôi cách đăng ký thay đổi thông tin doanh nghiệp tư nhân
-    - Tôi muốn biết cách đăng ký thay đổi thông tin doanh nghiệp tư nhân
-    - Các bước để đăng ký thay đổi thông tin doanh nghiệp tư nhân là gì?
-    - Đăng ký thay đổi thông tin doanh nghiệp tư nhân cần làm gì đầu tiên?
-    - Làm sao để biết quy trình đăng ký thay đổi thông tin doanh nghiệp tư nhân?
-    - Đăng ký thay đổi thông tin doanh nghiệp tư nhân có yêu cầu gì không?
-    - Thủ tục đăng ký thay đổi thông tin doanh nghiệp tư nhân như thế nào?
-    - Để đăng ký thay đổi thông tin doanh nghiệp tư nhân cần làm những gì?
-    - Quy trình đăng ký thay đổi thông tin doanh nghiệp tư nhân là gì?
-    - Làm sao để đăng ký thay đổi thông tin doanh nghiệp tư nhân thành công?
-
-  metadata:
-    title: "Hỏi về đăng ký thay đổi doanh nghiệp tư nhân"
-
-- intent: ask_notify_change_private_enterprise
-  examples: |
-    - Thông báo thay đổi thông tin doanh nghiệp tư nhân như thế nào?
-    - Làm sao để thông báo thay đổi thông tin doanh nghiệp tư nhân?
-    - Thủ tục thông báo thay đổi thông tin doanh nghiệp tư nhân
-    - Quy trình thông báo thay đổi thông tin doanh nghiệp tư nhân là gì?
-    - Tôi cần làm gì để thông báo thay đổi thông tin doanh nghiệp tư nhân?
-    - Thông báo thay đổi thông tin doanh nghiệp tư nhân có khó không?
-    - Các bước để thông báo thay đổi thông tin doanh nghiệp tư nhân
-    - Thông báo thay đổi thông tin doanh nghiệp tư nhân cần những giấy tờ gì?
-    - Thông báo thay đổi thông tin doanh nghiệp tư nhân bao gồm những gì?
-    - Làm thế nào để hoàn thành thông báo thay đổi thông tin doanh nghiệp tư nhân?
-    - Hướng dẫn tôi cách thông báo thay đổi thông tin doanh nghiệp tư nhân
-    - Tôi muốn biết cách thông báo thay đổi thông tin doanh nghiệp tư nhân
-    - Các bước để thông báo thay đổi thông tin doanh nghiệp tư nhân là gì?
-    - Thông báo thay đổi thông tin doanh nghiệp tư nhân cần làm gì đầu tiên?
-    - Làm sao để biết quy trình thông báo thay đổi thông tin doanh nghiệp tư nhân?
-    - Thông báo thay đổi thông tin doanh nghiệp tư nhân có yêu cầu gì không?
-    - Thủ tục thông báo thay đổi thông tin doanh nghiệp tư nhân như thế nào?
-    - Để thông báo thay đổi thông tin doanh nghiệp tư nhân cần làm những gì?
-    - Quy trình thông báo thay đổi thông tin doanh nghiệp tư nhân là gì?
-    - Làm sao để thông báo thay đổi thông tin doanh nghiệp tư nhân thành công?
-
-  metadata:
-    title: "Hỏi về thông báo thay đổi doanh nghiệp tư nhân"
-
-- intent: ask_suspend_private_enterprise
-  examples: |
-    - Tạm ngừng kinh doanh đối với doanh nghiệp tư nhân như thế nào?
-    - Làm sao để tạm ngừng kinh doanh đối với doanh nghiệp tư nhân?
-    - Thủ tục tạm ngừng kinh doanh đối với doanh nghiệp tư nhân
-    - Quy trình tạm ngừng kinh doanh đối với doanh nghiệp tư nhân là gì?
-    - Tôi cần làm gì để tạm ngừng kinh doanh đối với doanh nghiệp tư nhân?
-    - Tạm ngừng kinh doanh đối với doanh nghiệp tư nhân có khó không?
-    - Các bước để tạm ngừng kinh doanh đối với doanh nghiệp tư nhân
-    - Tạm ngừng kinh doanh đối với doanh nghiệp tư nhân cần những giấy tờ gì?
-    - Tạm ngừng kinh doanh đối với doanh nghiệp tư nhân bao gồm những gì?
-    - Làm thế nào để hoàn thành tạm ngừng kinh doanh đối với doanh nghiệp tư nhân?
-    - Hướng dẫn tôi cách tạm ngừng kinh doanh đối với doanh nghiệp tư nhân
-    - Tôi muốn biết cách tạm ngừng kinh doanh đối với doanh nghiệp tư nhân
-    - Các bước để tạm ngừng kinh doanh đối với doanh nghiệp tư nhân là gì?
-    - Tạm ngừng kinh doanh đối với doanh nghiệp tư nhân cần làm gì đầu tiên?
-    - Làm sao để biết quy trình tạm ngừng kinh doanh đối với doanh nghiệp tư nhân?
-    - Tạm ngừng kinh doanh đối với doanh nghiệp tư nhân có yêu cầu gì không?
-    - Thủ tục tạm ngừng kinh doanh đối với doanh nghiệp tư nhân như thế nào?
-    - Để tạm ngừng kinh doanh đối với doanh nghiệp tư nhân cần làm những gì?
-    - Quy trình tạm ngừng kinh doanh đối với doanh nghiệp tư nhân là gì?
-    - Làm sao để tạm ngừng kinh doanh đối với doanh nghiệp tư nhân thành công?
-
-  metadata:
-    title: "Hỏi về tạm ngừng kinh doanh doanh nghiệp tư nhân"
-
-- intent: ask_dissolve_private_enterprise
-  examples: |
-    - Giải thể doanh nghiệp tư nhân như thế nào?
-    - Làm sao để giải thể doanh nghiệp tư nhân?
-    - Thủ tục giải thể doanh nghiệp tư nhân
-    - Quy trình giải thể doanh nghiệp tư nhân là gì?
-    - Tôi cần làm gì để giải thể doanh nghiệp tư nhân?
-    - Giải thể doanh nghiệp tư nhân có khó không?
-    - Các bước để giải thể doanh nghiệp tư nhân
-    - Giải thể doanh nghiệp tư nhân cần những giấy tờ gì?
-    - Giải thể doanh nghiệp tư nhân bao gồm những gì?
-    - Làm thế nào để hoàn thành giải thể doanh nghiệp tư nhân?
-    - Hướng dẫn tôi cách giải thể doanh nghiệp tư nhân
-    - Tôi muốn biết cách giải thể doanh nghiệp tư nhân
-    - Các bước để giải thể doanh nghiệp tư nhân là gì?
-    - Giải thể doanh nghiệp tư nhân cần làm gì đầu tiên?
-    - Làm sao để biết quy trình giải thể doanh nghiệp tư nhân?
-    - Giải thể doanh nghiệp tư nhân có yêu cầu gì không?
-    - Thủ tục giải thể doanh nghiệp tư nhân như thế nào?
-    - Để giải thể doanh nghiệp tư nhân cần làm những gì?
-    - Quy trình giải thể doanh nghiệp tư nhân là gì?
-    - Làm sao để giải thể doanh nghiệp tư nhân thành công?
-
-  metadata:
-    title: "Hỏi về giải thể doanh nghiệp tư nhân"
-
-- intent: ask_single_member_llc
-  examples: |
-    - Công ty TNHH một thành viên là gì?
-    - Hỏi về công ty TNHH một thành viên
-    - Giải thích công ty TNHH một thành viên
-    - Công ty TNHH một thành viên có gì đặc biệt?
-    - Công ty TNHH một thành viên là như thế nào?
-    - Công ty TNHH một thành viên hoạt động như thế nào?
-    - Những đặc điểm của công ty TNHH một thành viên là gì?
-    - Công ty TNHH một thành viên khác gì công ty TNHH hai thành viên trở lên?
-    - Công ty TNHH một thành viên có những đặc điểm gì?
-    - Công ty TNHH một thành viên bao gồm những gì?
-    - Công ty TNHH một thành viên là loại hình doanh nghiệp như thế nào?
-    - Công ty TNHH một thành viên có những ưu điểm gì?
-    - Những nhược điểm của công ty TNHH một thành viên là gì?
-    - Công ty TNHH một thành viên khác với công ty TNHH hai thành viên trở lên như thế nào?
-    - Công ty TNHH một thành viên có những đặc điểm gì khác biệt?
-    - Công ty TNHH một thành viên hoạt động ra sao?
-    - Công ty TNHH một thành viên có những quy định gì?
-    - Công ty TNHH một thành viên bao gồm những đặc điểm nào?
-    - Công ty TNHH một thành viên có gì đặc biệt?
-    - Những ưu điểm của công ty TNHH một thành viên là gì?
-
-  metadata:
-    title: "Hỏi về công ty TNHH một thành viên"
-
-- intent: ask_partnership
-  examples: |
-    - Công ty hợp danh là gì?
-    - Hỏi về công ty hợp danh
-    - Giải thích công ty hợp danh
-    - Công ty hợp danh có gì đặc biệt?
-    - Công ty hợp danh là như thế nào?
-    - Công ty hợp danh hoạt động như thế nào?
-    - Những đặc điểm của công ty hợp danh là gì?
-    - Công ty hợp danh khác gì công ty TNHH?
-    - Công ty hợp danh có những đặc điểm gì?
-    - Công ty hợp danh bao gồm những gì?
-    - Công ty hợp danh là loại hình doanh nghiệp như thế nào?
-    - Công ty hợp danh có những ưu điểm gì?
-    - Những nhược điểm của công ty hợp danh là gì?
-    - Công ty hợp danh khác với công ty TNHH như thế nào?
-    - Công ty hợp danh có những đặc điểm gì khác biệt?
-    - Công ty hợp danh hoạt động ra sao?
-    - Công ty hợp danh có những quy định gì?
-    - Công ty hợp danh bao gồm những đặc điểm nào?
-    - Công ty hợp danh có gì đặc biệt?
-    - Những ưu điểm của công ty hợp danh là gì?
-
-  metadata:
-    title: "Hỏi về công ty hợp danh"
-
-- intent: ask_business_location
-  examples: |
-    - Địa điểm kinh doanh là gì?
-    - Hỏi về địa điểm kinh doanh
-    - Giải thích địa điểm kinh doanh
-    - Địa điểm kinh doanh có gì đặc biệt?
-    - Địa điểm kinh doanh là như thế nào?
-    - Địa điểm kinh doanh hoạt động như thế nào?
-    - Những đặc điểm của địa điểm kinh doanh là gì?
-    - Địa điểm kinh doanh khác gì công ty?
-    - Địa điểm kinh doanh có những đặc điểm gì?
-    - Địa điểm kinh doanh bao gồm những gì?
-    - Địa điểm kinh doanh là loại hình doanh nghiệp như thế nào?
-    - Địa điểm kinh doanh có những ưu điểm gì?
-    - Những nhược điểm của địa điểm kinh doanh là gì?
-    - Địa điểm kinh doanh khác với công ty như thế nào?
-    - Địa điểm kinh doanh có những đặc điểm gì khác biệt?
-    - Địa điểm kinh doanh hoạt động ra sao?
-    - Địa điểm kinh doanh có những quy định gì?
-    - Địa điểm kinh doanh bao gồm những đặc điểm nào?
-    - Địa điểm kinh doanh có gì đặc biệt?
-    - Những ưu điểm của địa điểm kinh doanh là gì?
-
-  metadata:
-    title: "Hỏi về địa điểm kinh doanh"
-
-- intent: ask_household_business
-  examples: |
-    - Hộ kinh doanh là gì?
-    - Hỏi về hộ kinh doanh
-    - Giải thích hộ kinh doanh
-    - Hộ kinh doanh có gì đặc biệt?
-    - Hộ kinh doanh là như thế nào?
-    - Hộ kinh doanh hoạt động như thế nào?
-    - Những đặc điểm của hộ kinh doanh là gì?
-    - Hộ kinh doanh khác gì công ty?
-    - Hộ kinh doanh có những đặc điểm gì?
-    - Hộ kinh doanh bao gồm những gì?
-    - Hộ kinh doanh là loại hình doanh nghiệp như thế nào?
-    - Hộ kinh doanh có những ưu điểm gì?
-    - Những nhược điểm của hộ kinh doanh là gì?
-    - Hộ kinh doanh khác với công ty như thế nào?
-    - Hộ kinh doanh có những đặc điểm gì khác biệt?
-    - Hộ kinh doanh hoạt động ra sao?
-    - Hộ kinh doanh có những quy định gì?
-    - Hộ kinh doanh bao gồm những đặc điểm nào?
-    - Hộ kinh doanh có gì đặc biệt?
-    - Những ưu điểm của hộ kinh doanh là gì?
-
-  metadata:
-    title: "Hỏi về hộ kinh doanh"
+    description: "Intent này bao gồm các câu hỏi liên quan đến việc nhận kết quả đăng ký doanh nghiệp, bao gồm các thủ tục, quy trình và yêu cầu."
 
 - intent: ask_business_status
   examples: |
-    - Doanh nghiệp có các trạng thái nào?
-    - Trạng thái doanh nghiệp bao gồm những loại nào?
-    - Cho tôi danh sách trạng thái doanh nghiệp
-    - danh sách trạng thái danh nghiệp
-    - trạng thái doanh nghiệp
-    - các loại trạng thái trong kinh doanh
-    - các loại trạng thái kinh doanh
+    - Doanh nghiệp có các [trạng thái](business_status) nào?
+    - [Trạng thái](business_status) doanh nghiệp bao gồm những loại nào?
+    - Cho tôi danh sách [trạng thái](business_status) doanh nghiệp
+    - danh sách [trạng thái](business_status) danh nghiệp
+    - [trạng thái](business_status) doanh nghiệp
+    - các loại [trạng thái](business_status) trong kinh doanh
+    - các loại [trạng thái](business_status) kinh doanh
 
   metadata:
     title: "Hỏi về trạng thái doanh nghiệp"
+    description: "Intent này bao gồm các câu hỏi liên quan đến các trạng thái khác nhau của doanh nghiệp."
 
 - intent: ask_steps
   examples: |
-    - Các bước thực hiện đăng ký doanh nghiệp là gì?
-    - Làm sao để thực hiện đăng ký doanh nghiệp?
-    - Hướng dẫn các bước thực hiện đăng ký doanh nghiệp
-    - Quy trình các bước thực hiện đăng ký doanh nghiệp là gì?
-    - Tôi cần làm gì để thực hiện đăng ký doanh nghiệp?
-    - Thực hiện đăng ký doanh nghiệp có khó không?
-    - Các bước để thực hiện đăng ký doanh nghiệp
-    - Thực hiện đăng ký doanh nghiệp cần những giấy tờ gì?
-    - Thực hiện đăng ký doanh nghiệp bao gồm những gì?
-    - Làm thế nào để hoàn thành thực hiện đăng ký doanh nghiệp?
-    - Hướng dẫn tôi cách thực hiện đăng ký doanh nghiệp
-    - Tôi muốn biết cách thực hiện đăng ký doanh nghiệp
-    - Các bước để thực hiện đăng ký doanh nghiệp là gì?
-    - Thực hiện đăng ký doanh nghiệp cần làm gì đầu tiên?
-    - Làm sao để biết quy trình thực hiện đăng ký doanh nghiệp?
-    - Thực hiện đăng ký doanh nghiệp có yêu cầu gì không?
-    - Thủ tục thực hiện đăng ký doanh nghiệp như thế nào?
-    - Để thực hiện đăng ký doanh nghiệp cần làm những gì?
-    - Quy trình thực hiện đăng ký doanh nghiệp là gì?
-    - Làm sao để thực hiện đăng ký doanh nghiệp thành công?
+    - Các [bước](steps) thực hiện [đăng ký doanh nghiệp](registration_process) là gì?
+    - Làm sao để [thực hiện](action) [đăng ký doanh nghiệp](registration_process)?
+    - [Hướng dẫn](guidance) các [bước](steps) [thực hiện](action) [đăng ký doanh nghiệp](registration_process)
+    - [Quy trình](process) các [bước](steps) [thực hiện](action) [đăng ký doanh nghiệp](registration_process) là gì?
+    - Tôi cần làm gì để [thực hiện](action) [đăng ký doanh nghiệp](registration_process)?
+    - [Thực hiện](action) [đăng ký doanh nghiệp](registration_process) có khó không?
+    - Các [bước](steps) để [thực hiện](action) [đăng ký doanh nghiệp](registration_process)
+    - [Thực hiện](action) [đăng ký doanh nghiệp](registration_process) cần những giấy tờ gì?
+    - [Thực hiện](action) [đăng ký doanh nghiệp](registration_process) bao gồm những gì?
+    - Làm thế nào để hoàn thành [thực hiện](action) [đăng ký doanh nghiệp](registration_process)?
+    - [Hướng dẫn](guidance) tôi cách [thực hiện](action) [đăng ký doanh nghiệp](registration_process)
+    - Tôi muốn biết cách [thực hiện](action) [đăng ký doanh nghiệp](registration_process)
+    - Các [bước](steps) để [thực hiện](action) [đăng ký doanh nghiệp](registration_process) là gì?
+    - [Thực hiện](action) [đăng ký doanh nghiệp](registration_process) cần làm gì đầu tiên?
+    - Làm sao để biết [quy trình](process) [thực hiện](action) [đăng ký doanh nghiệp](registration_process)?
+    - [Thực hiện](action) [đăng ký doanh nghiệp](registration_process) có yêu cầu gì không?
+    - [Thủ tục](procedure) [thực hiện](action) [đăng ký doanh nghiệp](registration_process) như thế nào?
+    - Để [thực hiện](action) [đăng ký doanh nghiệp](registration_process) cần làm những gì?
+    - [Quy trình](process) [thực hiện](action) [đăng ký doanh nghiệp](registration_process) là gì?
+    - Làm sao để [thực hiện](action) [đăng ký doanh nghiệp](registration_process) thành công?
 
   metadata:
     title: "Hỏi về các bước thực hiện đăng ký doanh nghiệp"
+    description: "Intent này bao gồm các câu hỏi liên quan đến các bước thực hiện đăng ký doanh nghiệp, bao gồm các thủ tục, quy trình và yêu cầu."
 
 - intent: ask_time
   examples: |
-    - Thời gian đăng ký doanh nghiệp bao lâu?
-    - Đăng ký doanh nghiệp mất bao nhiêu thời gian?
-    - Hỏi về thời gian đăng ký doanh nghiệp
-    - Thời gian đăng ký doanh nghiệp là bao nhiêu?
-    - Đăng ký doanh nghiệp mất bao lâu?
-    - Để đăng ký doanh nghiệp cần thời gian bao lâu?
-    - Thời gian để đăng ký doanh nghiệp
-    - Mất bao nhiêu thời gian để đăng ký doanh nghiệp?
-    - Thời gian cần thiết để đăng ký doanh nghiệp
-    - Đăng ký doanh nghiệp cần bao nhiêu thời gian?
-    - Thời gian đăng ký doanh nghiệp có lâu không?
-    - Đăng ký doanh nghiệp cần thời gian bao lâu?
-    - Thời gian để hoàn thành đăng ký doanh nghiệp
-    - Đăng ký doanh nghiệp mất thời gian bao lâu?
-    - Thời gian đăng ký doanh nghiệp có khó không?
-    - Thời gian để đăng ký doanh nghiệp là bao lâu?
-    - Để đăng ký doanh nghiệp mất bao nhiêu thời gian?
-    - Thời gian cần thiết để đăng ký doanh nghiệp là bao lâu?
-    - Đăng ký doanh nghiệp cần thời gian bao nhiêu?
-    - Thời gian đăng ký doanh nghiệp mất bao nhiêu lâu?
+    - [Thời gian](time) [đăng ký doanh nghiệp](registration_process) bao lâu?
+    - [Đăng ký doanh nghiệp](registration_process) mất bao nhiêu [thời gian](time)?
+    - Hỏi về [thời gian](time) [đăng ký doanh nghiệp](registration_process)
+    - [Thời gian](time) [đăng ký doanh nghiệp](registration_process) là bao nhiêu?
+    - [Đăng ký doanh nghiệp](registration_process) mất bao lâu?
+    - Để [đăng ký doanh nghiệp](registration_process) cần [thời gian](time) bao lâu?
+    - [Thời gian](time) để [đăng ký doanh nghiệp](registration_process)
+    - Mất bao nhiêu [thời gian](time) để [đăng ký doanh nghiệp](registration_process)?
+    - [Thời gian](time) cần thiết để [đăng ký doanh nghiệp](registration_process)
+    - [Đăng ký doanh nghiệp](registration_process) cần bao nhiêu [thời gian](time)?
+    - [Thời gian](time) [đăng ký doanh nghiệp](registration_process) có lâu không?
+    - [Đăng ký doanh nghiệp](registration_process) cần [thời gian](time) bao lâu?
+    - [Thời gian](time) để hoàn thành [đăng ký doanh nghiệp](registration_process)
+    - [Đăng ký doanh nghiệp](registration_process) mất [thời gian](time) bao lâu?
+    - [Thời gian](time) [đăng ký doanh nghiệp](registration_process) có khó không?
+    - [Thời gian](time) để [đăng ký doanh nghiệp](registration_process) là bao lâu?
+    - Để [đăng ký doanh nghiệp](registration_process) mất bao nhiêu [thời gian](time)?
+    - [Thời gian](time) cần thiết để [đăng ký doanh nghiệp](registration_process) là bao lâu?
+    - [Đăng ký doanh nghiệp](registration_process) cần [thời gian](time) bao nhiêu?
+    - [Thời gian](time) [đăng ký doanh nghiệp](registration_process) mất bao nhiêu lâu?
 
   metadata:
     title: "Hỏi về thời gian đăng ký doanh nghiệp"
-
+    description: "Intent này bao gồm các câu hỏi liên quan đến thời gian cần thiết để đăng ký doanh nghiệp."
 - intent: ask_fees
   examples: |
-    - Phí và lệ phí đăng ký doanh nghiệp là bao nhiêu?
-    - Chi phí để đăng ký doanh nghiệp là gì?
-    - Hỏi về phí và lệ phí đăng ký doanh nghiệp
-    - Phí đăng ký doanh nghiệp là bao nhiêu?
-    - Lệ phí đăng ký doanh nghiệp là bao nhiêu?
-    - Chi phí đăng ký doanh nghiệp bao nhiêu?
-    - Phí đăng ký doanh nghiệp bao nhiêu?
-    - Lệ phí đăng ký doanh nghiệp bao nhiêu?
-    - Chi phí đăng ký doanh nghiệp có cao không?
-    - Phí và lệ phí đăng ký doanh nghiệp bao nhiêu?
-    - Chi phí để đăng ký doanh nghiệp có cao không?
-    - Phí đăng ký doanh nghiệp có cao không?
-    - Lệ phí đăng ký doanh nghiệp có cao không?
-    - Chi phí để đăng ký doanh nghiệp cần bao nhiêu?
-    - Phí đăng ký doanh nghiệp cần bao nhiêu?
-    - Lệ phí đăng ký doanh nghiệp cần bao nhiêu?
-    - Chi phí để đăng ký doanh nghiệp bao nhiêu tiền?
-    - Phí đăng ký doanh nghiệp bao nhiêu tiền?
-    - Lệ phí đăng ký doanh nghiệp bao nhiêu tiền?
-    - Chi phí đăng ký doanh nghiệp có bao nhiêu?
+    - [Phí và lệ phí](fees) [đăng ký doanh nghiệp](registration_process) là bao nhiêu?
+    - [Chi phí](fees) để [đăng ký doanh nghiệp](registration_process) là gì?
+    - Hỏi về [phí và lệ phí](fees) [đăng ký doanh nghiệp](registration_process)
+    - [Phí](fees) [đăng ký doanh nghiệp](registration_process) là bao nhiêu?
+    - [Lệ phí](fees) [đăng ký doanh nghiệp](registration_process) là bao nhiêu?
+    - [Chi phí](fees) [đăng ký doanh nghiệp](registration_process) bao nhiêu?
+    - [Phí](fees) [đăng ký doanh nghiệp](registration_process) bao nhiêu?
+    - [Lệ phí](fees) [đăng ký doanh nghiệp](registration_process) bao nhiêu?
+    - [Chi phí](fees) [đăng ký doanh nghiệp](registration_process) có cao không?
+    - [Phí và lệ phí](fees) [đăng ký doanh nghiệp](registration_process) bao nhiêu?
+    - [Chi phí](fees) để [đăng ký doanh nghiệp](registration_process) có cao không?
+    - [Phí](fees) [đăng ký doanh nghiệp](registration_process) có cao không?
+    - [Lệ phí](fees) [đăng ký doanh nghiệp](registration_process) có cao không?
+    - [Chi phí](fees) để [đăng ký doanh nghiệp](registration_process) cần bao nhiêu?
+    - [Phí](fees) [đăng ký doanh nghiệp](registration_process) cần bao nhiêu?
+    - [Lệ phí](fees) [đăng ký doanh nghiệp](registration_process) cần bao nhiêu?
+    - [Chi phí](fees) để [đăng ký doanh nghiệp](registration_process) bao nhiêu tiền?
+    - [Phí](fees) [đăng ký doanh nghiệp](registration_process) bao nhiêu tiền?
+    - [Lệ phí](fees) [đăng ký doanh nghiệp](registration_process) bao nhiêu tiền?
+    - [Chi phí](fees) [đăng ký doanh nghiệp](registration_process) có bao nhiêu?
 
   metadata:
     title: "Hỏi về phí và lệ phí đăng ký doanh nghiệp"
+    description: "Intent này bao gồm các câu hỏi liên quan đến chi phí đăng ký doanh nghiệp, bao gồm phí và lệ phí."
 
 - intent: ask_business_fields
   examples: |
-    - Các lĩnh vực kinh doanh [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp trung ương và địa phương (chuyên trách)](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp trung ương (chuyên trách)](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Tổng Bí thư, Thường trực Ban Bí thư, Ban Bí thư, Ủy viên Bộ Chính trị, Ủy viên Ban Chấp hành Trung ương Đảng](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Bí thư, Phó Bí thư Đảng ủy cơ quan trung ương](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Bí thư, Phó Bí thư Đảng ủy khối trực thuộc trung ương](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp trung ương](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Trợ lý Ủy viên Bộ Chính trị](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Vụ trưởng, Phó Vụ trưởng và tương đương](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp tỉnh (chuyên trách)](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Bí thư Tỉnh ủy, Phó Bí thư Tỉnh ủy, Ủy viên Ban Chấp hành Đảng bộ cấp tỉnh](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Bí thư, Phó Bí thư Đảng ủy sở, ban, ngành cấp tỉnh](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Bí thư, Phó Bí thư Đảng ủy khối cơ quan cấp tỉnh](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp tỉnh](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Lãnh đạo Đảng Cộng sản Việt Nam cấp huyện (chuyên trách)](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Bí thư Huyện ủy, Phó Bí thư Huyện ủy, Ủy viên Ban Chấp hành Đảng bộ cấp huyện](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Bí thư, Phó Bí thư Đảng ủy ban, ngành cấp huyện](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp huyện](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Lãnh đạo Đảng Cộng sản Việt Nam cấp xã (chuyên trách)](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Bí thư, Phó Bí thư Đảng ủy cấp xã](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Lãnh đạo Đảng Cộng sản Việt Nam tại doanh nghiệp và các tổ chức sự nghiệp (chuyên trách)](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Bí thư, Phó Bí thư Đảng ủy](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Lãnh đạo, quản lý của Quốc hội, Văn phòng Quốc hội và Văn phòng Chủ tịch nước (chuyên trách)](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Lãnh đạo, quản lý của Quốc hội, Văn phòng Quốc hội (chuyên trách)](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Chủ tịch Quốc hội, Phó Chủ tịch Quốc hội, Ủy viên thường vụ Quốc hội](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Chủ nhiệm, Phó Chủ nhiệm Ủy ban và tương đương làm việc tại Văn phòng Quốc hội](business_industry) là gì?
-    - Các lĩnh vực kinh doanh [Vụ trưởng, Phó Vụ trưởng và tương đương]() là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp trung ương và địa phương (chuyên trách)](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp trung ương (chuyên trách)](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Tổng Bí thư, Thường trực Ban Bí thư, Ban Bí thư, Ủy viên Bộ Chính trị, Ủy viên Ban Chấp hành Trung ương Đảng](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Bí thư, Phó Bí thư Đảng ủy cơ quan trung ương](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Bí thư, Phó Bí thư Đảng ủy khối trực thuộc trung ương](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp trung ương](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Trợ lý Ủy viên Bộ Chính trị](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Vụ trưởng, Phó Vụ trưởng và tương đương](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp tỉnh (chuyên trách)](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Bí thư Tỉnh ủy, Phó Bí thư Tỉnh ủy, Ủy viên Ban Chấp hành Đảng bộ cấp tỉnh](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Bí thư, Phó Bí thư Đảng ủy sở, ban, ngành cấp tỉnh](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Bí thư, Phó Bí thư Đảng ủy khối cơ quan cấp tỉnh](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp tỉnh](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Lãnh đạo Đảng Cộng sản Việt Nam cấp huyện (chuyên trách)](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Bí thư Huyện ủy, Phó Bí thư Huyện ủy, Ủy viên Ban Chấp hành Đảng bộ cấp huyện](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Bí thư, Phó Bí thư Đảng ủy ban, ngành cấp huyện](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp huyện](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Lãnh đạo Đảng Cộng sản Việt Nam cấp xã (chuyên trách)](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Bí thư, Phó Bí thư Đảng ủy cấp xã](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Lãnh đạo Đảng Cộng sản Việt Nam tại doanh nghiệp và các tổ chức sự nghiệp (chuyên trách)](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Bí thư, Phó Bí thư Đảng ủy](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Lãnh đạo, quản lý của Quốc hội, Văn phòng Quốc hội và Văn phòng Chủ tịch nước (chuyên trách)](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Lãnh đạo, quản lý của Quốc hội, Văn phòng Quốc hội (chuyên trách)](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Chủ tịch Quốc hội, Phó Chủ tịch Quốc hội, Ủy viên thường vụ Quốc hội](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Chủ nhiệm, Phó Chủ nhiệm Ủy ban và tương đương làm việc tại Văn phòng Quốc hội](business_industry) là gì?
+    - Các [lĩnh vực kinh doanh](business_field) [Vụ trưởng, Phó Vụ trưởng và tương đương](business_industry) là gì?
 
   metadata:
     title: "Hỏi về lĩnh vực kinh doanh"
-
+    description: "Intent này bao gồm các câu hỏi liên quan đến các lĩnh vực kinh doanh."
 
 - intent: ask_business_sectors
   examples: |
-    - Các ngành nghề kinh doanh [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp trung ương và địa phương (chuyên trách)](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp trung ương (chuyên trách)](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Tổng Bí thư, Thường trực Ban Bí thư, Ban Bí thư, Ủy viên Bộ Chính trị, Ủy viên Ban Chấp hành Trung ương Đảng](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Bí thư, Phó Bí thư Đảng ủy cơ quan trung ương](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Bí thư, Phó Bí thư Đảng ủy khối trực thuộc trung ương](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp trung ương](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Trợ lý Ủy viên Bộ Chính trị](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Vụ trưởng, Phó Vụ trưởng và tương đương](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp tỉnh (chuyên trách)](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Bí thư Tỉnh ủy, Phó Bí thư Tỉnh ủy, Ủy viên Ban Chấp hành Đảng bộ cấp tỉnh](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Bí thư, Phó Bí thư Đảng ủy sở, ban, ngành cấp tỉnh](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Bí thư, Phó Bí thư Đảng ủy khối cơ quan cấp tỉnh](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp tỉnh](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Lãnh đạo Đảng Cộng sản Việt Nam cấp huyện (chuyên trách)](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Bí thư Huyện ủy, Phó Bí thư Huyện ủy, Ủy viên Ban Chấp hành Đảng bộ cấp huyện](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Bí thư, Phó Bí thư Đảng ủy ban, ngành cấp huyện](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp huyện](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Lãnh đạo Đảng Cộng sản Việt Nam cấp xã (chuyên trách)](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Bí thư, Phó Bí thư Đảng ủy cấp xã](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Lãnh đạo Đảng Cộng sản Việt Nam tại doanh nghiệp và các tổ chức sự nghiệp (chuyên trách)](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Bí thư, Phó Bí thư Đảng ủy](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Lãnh đạo, quản lý của Quốc hội, Văn phòng Quốc hội và Văn phòng Chủ tịch nước (chuyên trách)](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Lãnh đạo, quản lý của Quốc hội, Văn phòng Quốc hội (chuyên trách)](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Chủ tịch Quốc hội, Phó Chủ tịch Quốc hội, Ủy viên thường vụ Quốc hội](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Chủ nhiệm, Phó Chủ nhiệm Ủy ban và tương đương làm việc tại Văn phòng Quốc hội](business_industry) là gì?
-    - Các ngành nghề kinh doanh [Vụ trưởng, Phó Vụ trưởng và tương đương]() là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp trung ương và địa phương (chuyên trách)](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp trung ương (chuyên trách)](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Tổng Bí thư, Thường trực Ban Bí thư, Ban Bí thư, Ủy viên Bộ Chính trị, Ủy viên Ban Chấp hành Trung ương Đảng](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Bí thư, Phó Bí thư Đảng ủy cơ quan trung ương](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Bí thư, Phó Bí thư Đảng ủy khối trực thuộc trung ương](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp trung ương](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Trợ lý Ủy viên Bộ Chính trị](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Vụ trưởng, Phó Vụ trưởng và tương đương](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Lãnh đạo cơ quan Đảng Cộng sản Việt Nam cấp tỉnh (chuyên trách)](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Bí thư Tỉnh ủy, Phó Bí thư Tỉnh ủy, Ủy viên Ban Chấp hành Đảng bộ cấp tỉnh](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Bí thư, Phó Bí thư Đảng ủy sở, ban, ngành cấp tỉnh](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Bí thư, Phó Bí thư Đảng ủy khối cơ quan cấp tỉnh](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp tỉnh](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Lãnh đạo Đảng Cộng sản Việt Nam cấp huyện (chuyên trách)](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Bí thư Huyện ủy, Phó Bí thư Huyện ủy, Ủy viên Ban Chấp hành Đảng bộ cấp huyện](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Bí thư, Phó Bí thư Đảng ủy ban, ngành cấp huyện](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Trưởng ban, Phó Trưởng ban Đảng và tương đương thuộc cấp huyện](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Lãnh đạo Đảng Cộng sản Việt Nam cấp xã (chuyên trách)](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Bí thư, Phó Bí thư Đảng ủy cấp xã](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Lãnh đạo Đảng Cộng sản Việt Nam tại doanh nghiệp và các tổ chức sự nghiệp (chuyên trách)](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Bí thư, Phó Bí thư Đảng ủy](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Lãnh đạo, quản lý của Quốc hội, Văn phòng Quốc hội và Văn phòng Chủ tịch nước (chuyên trách)](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Lãnh đạo, quản lý của Quốc hội, Văn phòng Quốc hội (chuyên trách)](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Chủ tịch Quốc hội, Phó Chủ tịch Quốc hội, Ủy viên thường vụ Quốc hội](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Chủ nhiệm, Phó Chủ nhiệm Ủy ban và tương đương làm việc tại Văn phòng Quốc hội](business_industry) là gì?
+    - Các [ngành nghề kinh doanh](business_sector) [Vụ trưởng, Phó Vụ trưởng và tương đương](business_industry) là gì?
 
   metadata:
     title: "Hỏi về ngành nghề kinh doanh"
+    description: "Intent này bao gồm các câu hỏi liên quan đến các ngành nghề kinh doanh."
 
 - lookup: business_industry
   examples: |
@@ -1326,52 +620,55 @@ nlu:
 
 - intent: ask_legal_procedures
   examples: |
-    - Thủ tục pháp lý để đăng ký doanh nghiệp là gì?
-    - Hướng dẫn thủ tục pháp lý để đăng ký doanh nghiệp
-    - Hỏi về thủ tục pháp lý đăng ký doanh nghiệp
-    - Thủ tục pháp lý đăng ký doanh nghiệp là gì?
-    - Thủ tục pháp lý để đăng ký doanh nghiệp
-    - Thủ tục pháp lý đăng ký doanh nghiệp như thế nào?
-    - Hướng dẫn thủ tục pháp lý đăng ký doanh nghiệp là gì?
-    - Thủ tục pháp lý đăng ký doanh nghiệp gồm những gì?
-    - Thủ tục pháp lý để đăng ký doanh nghiệp như thế nào?
-    - Thủ tục pháp lý đăng ký doanh nghiệp có khó không?
-    - Thủ tục pháp lý để đăng ký doanh nghiệp cần những gì?
-    - Thủ tục pháp lý để đăng ký doanh nghiệp là gì?
-    - Hướng dẫn thủ tục pháp lý đăng ký doanh nghiệp như thế nào?
-    - Thủ tục pháp lý để đăng ký doanh nghiệp cần làm gì?
-    - Thủ tục pháp lý đăng ký doanh nghiệp bao gồm những gì?
-    - Hướng dẫn thủ tục pháp lý để đăng ký doanh nghiệp cần làm gì?
-    - Thủ tục pháp lý để đăng ký doanh nghiệp là gì?
-    - Hướng dẫn thủ tục pháp lý đăng ký doanh nghiệp như thế nào?
-    - Thủ tục pháp lý đăng ký doanh nghiệp gồm những gì?
-    - Thủ tục pháp lý để đăng ký doanh nghiệp có khó không?
+    - [Thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process) là gì?
+    - [Hướng dẫn](guidance) [thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process)
+    - Hỏi về [thủ tục pháp lý](legal_procedure) [đăng ký doanh nghiệp](registration_process)
+    - [Thủ tục pháp lý](legal_procedure) [đăng ký doanh nghiệp](registration_process) là gì?
+    - [Thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process)
+    - [Thủ tục pháp lý](legal_procedure) [đăng ký doanh nghiệp](registration_process) như thế nào?
+    - [Hướng dẫn](guidance) [thủ tục pháp lý](legal_procedure) [đăng ký doanh nghiệp](registration_process) là gì?
+    - [Thủ tục pháp lý](legal_procedure) [đăng ký doanh nghiệp](registration_process) gồm những gì?
+    - [Thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process) như thế nào?
+    - [Thủ tục pháp lý](legal_procedure) [đăng ký doanh nghiệp](registration_process) có khó không?
+    - [Thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process) cần những gì?
+    - [Thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process) là gì?
+    - [Hướng dẫn](guidance) [thủ tục pháp lý](legal_procedure) [đăng ký doanh nghiệp](registration_process) như thế nào?
+    - [Thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process) cần làm gì?
+    - [Thủ tục pháp lý](legal_procedure) [đăng ký doanh nghiệp](registration_process) bao gồm những gì?
+    - [Hướng dẫn](guidance) [thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process) cần làm gì?
+    - [Thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process) là gì?
+    - [Hướng dẫn](guidance) [thủ tục pháp lý](legal_procedure) [đăng ký doanh nghiệp](registration_process) như thế nào?
+    - [Thủ tục pháp lý](legal_procedure) [đăng ký doanh nghiệp](registration_process) gồm những gì?
+    - [Thủ tục pháp lý](legal_procedure) để [đăng ký doanh nghiệp](registration_process) có khó không?
 
   metadata:
     title: "Hỏi về thủ tục pháp lý đăng ký doanh nghiệp"
+    description: "Intent này bao gồm các câu hỏi liên quan đến thủ tục pháp lý đăng ký doanh nghiệp, bao gồm các thủ tục, quy trình và yêu cầu."
 
 - intent: ask_business_registration_process
   examples: |
-    - Quy trình đăng ký doanh nghiệp là gì?
-    - Làm sao để thực hiện quy trình đăng ký doanh nghiệp?
-    - Hướng dẫn quy trình đăng ký doanh nghiệp
-    - Quy trình đăng ký doanh nghiệp gồm những gì?
-    - Quy trình đăng ký doanh nghiệp như thế nào?
-    - Hướng dẫn quy trình đăng ký doanh nghiệp là gì?
-    - Quy trình đăng ký doanh nghiệp bao gồm những gì?
-    - Quy trình đăng ký doanh nghiệp cần làm gì?
-    - Quy trình đăng ký doanh nghiệp có khó không?
-    - Quy trình đăng ký doanh nghiệp gồm những gì?
-    - Hướng dẫn quy trình đăng ký doanh nghiệp như thế nào?
-    - Quy trình đăng ký doanh nghiệp cần làm gì?
-    - Quy trình đăng ký doanh nghiệp cần những gì?
-    - Hướng dẫn quy trình đăng ký doanh nghiệp gồm những gì?
-    - Quy trình đăng ký doanh nghiệp có khó không?
-    - Quy trình đăng ký doanh nghiệp cần làm những gì?
-    - Hướng dẫn quy trình đăng ký doanh nghiệp cần làm gì?
-    - Quy trình đăng ký doanh nghiệp gồm những gì?
-    - Hướng dẫn quy trình đăng ký doanh nghiệp như thế nào?
-    - Quy trình đăng ký doanh nghiệp bao gồm những gì?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) là gì?
+    - Làm sao để [thực hiện](action) [quy trình](process) [đăng ký doanh nghiệp](registration_process)?
+    - [Hướng dẫn](guidance) [quy trình](process) [đăng ký doanh nghiệp](registration_process)
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) gồm những gì?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) như thế nào?
+    - [Hướng dẫn](guidance) [quy trình](process) [đăng ký doanh nghiệp](registration_process) là gì?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) bao gồm những gì?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) cần làm gì?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) có khó không?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) gồm những gì?
+    - [Hướng dẫn](guidance) [quy trình](process) [đăng ký doanh nghiệp](registration_process) như thế nào?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) cần làm gì?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) cần những gì?
+    - [Hướng dẫn](guidance) [quy trình](process) [đăng ký doanh nghiệp](registration_process) gồm những gì?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) có khó không?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) cần làm những gì?
+    - [Hướng dẫn](guidance) [quy trình](process) [đăng ký doanh nghiệp](registration_process) cần làm gì?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) gồm những gì?
+    - [Hướng dẫn](guidance) [quy trình](process) [đăng ký doanh nghiệp](registration_process) như thế nào?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) bao gồm những gì?
 
   metadata:
     title: "Hỏi về quy trình đăng ký doanh nghiệp"
+    description: "Intent này bao gồm các câu hỏi liên quan đến quy trình đăng ký doanh nghiệp, bao gồm các thủ tục, quy trình và yêu cầu."
+

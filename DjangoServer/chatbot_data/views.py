@@ -100,8 +100,6 @@ class EditBotView(View):
         # If the form is not valid, re-render the page with existing form data
         return render(request, self.template_name, {'form': form})
 
-
-
 class AddBotView(View):
     form_class = BotForm
     template_name = 'bots/add_bot.html'

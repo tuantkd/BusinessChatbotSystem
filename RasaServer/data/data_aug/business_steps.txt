@@ -1,0 +1,29 @@
+Bước 1: Nộp hồ sơ
+Bước 2: Chuẩn bị hồ sơ
+Bước 3: Nhận kết quả
+Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của công ty cổ phần
+Trường hợp 2: Đăng ký thay đổi người đại diện theo pháp luật của công ty cổ phần
+Trường hợp 3: Đăng ký đổi tên doanh nghiệp của công ty cổ phần
+Trường hợp 1: Thông báo thay đổi cổ đông là nhà đầu tư nước ngoài
+Trường hợp 2: Thông báo thay đổi ngành, nghề kinh doanh của công ty cổ phần
+Trường hợp 3: Thông báo thay đổi nội dung đăng ký thuế
+Trường hợp 1: Đăng ký tạm ngừng kinh doanh đối với doanh nghiệp
+Trường hợp 2: Đăng ký tiếp tục kinh doanh trước thời hạn đã thông báo doanh nghiệp
+Trường hợp 1: Đăng ký giải thể doanh nghiệp
+Trường hợp 2: Hủy bỏ nghị quyết, quyết định giải thể doanh nghiệp
+Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của doanh nghiệp tư nhân
+Trường hợp 2: Đăng ký thay đổi chủ doanh nghiệp tư nhân
+Trường hợp 3: Đăng ký đổi tên doanh nghiệp của doanh nghiệp tư nhân
+Trường hợp 1: Thông báo thay đổi ngành, nghề kinh doanh của doanh nghiệp tư nhân
+Trường hợp 2: Cho thuê doanh nghiệp tư nhân
+Trường hợp 3: Thay đổi nội dung đăng ký thuế
+Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của công ty trách nhiệm hữu hạn một thành viên
+Trường hợp 2: Đăng ký thay đổi người đại diện theo pháp luật của công ty trách nhiệm hữu hạn một thành viên
+Trường hợp 3: Đăng ký đổi tên doanh nghiệp của công ty trách nhiệm hữu hạn một thành viên
+Trường hợp 1: Thông báo thay đổi ngành, nghề kinh doanh của công ty trách nhiệm hữu hạn một thành viên
+Trường hợp 2: Thông báo thay đổi thông tin người đại diện theo ủy quyền của chủ sở hữu là tổ chức
+Trường hợp 1: Đăng ký thay đổi địa chỉ trụ sở chính của công ty hợp danh
+Trường hợp 2: Đăng ký đổi tên doanh nghiệp của công ty hợp danh
+Trường hợp 3: Đăng ký thay đổi thành viên hợp danh
+Trường hợp 1: Thông báo thay đổi ngành, nghề kinh doanh của công ty hợp danh
+Trường hợp 2: Thông báo thay đổi nội dung đăng ký thuế
