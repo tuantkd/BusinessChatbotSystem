@@ -426,6 +426,7 @@ nlu:
     - Hồ sơ
     - Hồ sơ đăng ký
     - Hồ sơ đăng ký kinh doanh
+    - Hồ sơ đăng ký doanh nghiệp
 
 - intent: ask_receive_results
   examples: |
@@ -667,6 +668,7 @@ nlu:
     - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) gồm những gì?
     - [Hướng dẫn](guidance) [quy trình](process) [đăng ký doanh nghiệp](registration_process) như thế nào?
     - [Quy trình](process) [đăng ký doanh nghiệp](registration_process) bao gồm những gì?
+    - [Quy trình](process) [đăng ký doanh nghiệp](registration_process)"
 
   metadata:
     title: "Hỏi về quy trình đăng ký doanh nghiệp"

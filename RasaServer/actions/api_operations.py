@@ -12,6 +12,7 @@ DECREES_API = f"{DJ_BASE_URL}/api/document_decrees/"
 CIRCULARS_API = f"{DJ_BASE_URL}/api/document_circulars/"
 DECISIONS_API = f"{DJ_BASE_URL}/api/document_decisions/"
 SUBINDUSTRIES_API = f"{DJ_BASE_URL}/api/subindustries/"
+HISTORY_API = f"{DJ_BASE_URL}/api/history/"
 
 def get_senders(sender_id=None, sender_name=None):
     params = []
@@ -137,6 +138,13 @@ def get_decisions(decision_id=None, decision_name=None):
 
 def get_subindustries(parent_name):
     response = requests.get(f"{SUBINDUSTRIES_API}?parent_name={parent_name}")
+    if response.status_code != 200:
+        return None
+    return response.json()
+
+
+def update_history(history_id, data):
+    response = requests.put(f"{HISTORY_API}{history_id}/", json=data)
     if response.status_code != 200:
         return None
     return response.json()

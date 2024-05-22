@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 import json
 import uuid
 from django.shortcuts import render
@@ -41,7 +41,7 @@ def save_conversation(sender_id, user_say, response):
                         user_say=user_say,
                         response=json.dumps(response),
                         intent_ranking=intent_ranking,
-                        timestamp=datetime.datetime.now(),
+                        timestamp=datetime.now(),
                         next_action=next_action)
     
 class ChatbotView(View):
@@ -77,17 +77,32 @@ class ChatbotView(View):
             sender = ChatUser.objects.filter(sender_id=sender_id).first()
             if not sender:
                 return JsonResponse({'error': 'Sender not found'}, status=404)
-            chatlog_id = uuid.uuid4().hex
+            
+            # Create a history record
+            history = History(
+                user_say=user_message,
+                sender_id=sender.sender_id,
+                timestamp=datetime.now()
+            )
+            history.save()
 
             # Send message and sender_id to Rasa
-            data = {"message": user_message, "sender": sender.sender_id, "metadata": {"chatlog_id": chatlog_id, "sender_name": sender.sender_name}}
+            data = {
+                "message": user_message,
+                "sender": sender.sender_id,
+                "metadata": {
+                    "history_id": history.id,  # Include history ID in metadata
+                    "sender_name": sender.sender_name
+                }
+            }
             response = requests.post(RASA_WEBHOOKS_ENDPOINT, json=data)
             if response.status_code != 200:
                 return JsonResponse({'error': 'Rasa server error'}, status=500)
-            # Thread(target=save_conversation, args=(sender_id, user_message, response.json())).start()
+
             return JsonResponse(response.json(), status=200, safe=False)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
+
         
 
 @method_decorator(csrf_exempt, name='dispatch')

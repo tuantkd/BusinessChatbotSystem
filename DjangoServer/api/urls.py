@@ -22,4 +22,5 @@ urlpatterns = [
     path('district/', views.DistrictListView.as_view(), name='district'),
     path('ward/', views.WardListView.as_view(), name='ward'),
     path('address/', views.AddressListView.as_view(), name='address'),
+    path('history/<int:pk>/', views.UpdateHistoryView.as_view(), name='update-history'),
 ]

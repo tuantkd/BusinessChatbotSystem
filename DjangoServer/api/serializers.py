@@ -14,7 +14,7 @@ class ChatUserSerializer(serializers.ModelSerializer):
 class HistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = History
-        fields = ['id', 'intent', 'entities', 'user_say', 'confidence', 'timestamp', 'response', 'sender_id', 'slot_values', 'intent_ranking']
+        fields = '__all__'
 
 class BusinessTypeStatusSerializer(serializers.ModelSerializer):
     status_display_full = serializers.CharField(source='get_status_display_full', read_only=True)

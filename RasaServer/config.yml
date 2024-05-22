@@ -37,14 +37,14 @@ pipeline:
     ambiguity_threshold: 0.1
     
 policies:
-  # - name: "policies.conversation_logging_policy.ConversationLoggingPolicy"
   - name: MemoizationPolicy
   - name: TEDPolicy
     max_history: 5
     epochs: 100
     constrain_similarities: true
     model_confidence: softmax
+  - name: policies.conversation_logging_policy.ConversationLoggingPolicy
   - name: RulePolicy
     core_fallback_threshold: 0.5
-    core_fallback_action_name: "action_default_fallback"
+    core_fallback_action_name: action_default_fallback
     enable_fallback_prediction: true

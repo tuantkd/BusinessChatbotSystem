@@ -7,6 +7,9 @@ from chatbot_data.models import ChatUser, History
 from django.db.models import Q
 from business_registration.models import ActivityField, Address, Business, BusinessProcessStep, BusinessStatus, BusinessType, BusinessTypeStatus, District, Industry, LegalRepresentative, Province, Ward
 from .serializers import ActivityFieldSerializer, AddressSerializer, BusinessProcessStepSerializer, BusinessSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer,DistrictSerializer, HistorySerializer, IndustrySerializer, LawsSerializer, LegalrepresentativeSerializer, ProvinceSerializer, WardSerializer
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 class SenderListView(generics.ListAPIView):
     serializer_class = ChatUserSerializer
@@ -313,3 +316,16 @@ class AddressListView(generics.ListAPIView):
     def get_queryset(self):
         queryset = Address.objects.all()
         return queryset
+
+class UpdateHistoryView(APIView):
+    def put(self, request, pk):
+        try:
+            history_instance = History.objects.get(pk=pk)
+        except History.DoesNotExist:
+            return Response({'error': 'History record not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = HistorySerializer(history_instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
