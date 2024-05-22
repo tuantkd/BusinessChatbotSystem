@@ -1,4 +1,5 @@
 from __future__ import annotations
+import logging
 
 from rasa.core.policies.policy import Policy, PolicyPrediction
 from typing import List, Dict, Text, Any, Type
@@ -9,6 +10,9 @@ from rasa.engine.graph import GraphComponent, ExecutionContext
 from rasa.engine.storage.resource import Resource
 from rasa.engine.storage.storage import ModelStorage
 from actions.api_operations import update_history
+from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 @DefaultV1Recipe.register(
     [DefaultV1Recipe.ComponentType.POLICY_WITHOUT_END_TO_END_SUPPORT], is_trainable=True
@@ -27,12 +31,12 @@ class ConversationLoggingPolicy(Policy):
 
     @classmethod
     def create(
-        cls,
+        cls: Type[ConversationLoggingPolicy],
         config: Dict[Text, Any],
         model_storage: ModelStorage,
         resource: Resource,
         execution_context: ExecutionContext,
-    ) -> GraphComponent:
+    ) -> ConversationLoggingPolicy:
         return cls(config, model_storage, resource, execution_context)
 
     def __init__(
@@ -85,6 +89,22 @@ class ConversationLoggingPolicy(Policy):
         probabilities = self._default_predictions(domain)
         return self._prediction(probabilities)
 
+    def train(
+        self,
+        training_trackers: List[DialogueStateTracker],
+        domain: Domain,
+        **kwargs: Any,
+    ) -> Resource:
+        """Huấn luyện chính sách trên các tracker đã cung cấp."""
+        logger.info(f"Training policy with {len(training_trackers)} trackers.")
+
+        with self.model_storage.write_to(self.resource) as path:
+            # Save any necessary data to the path
+            # Here we are just creating an empty file as a placeholder
+            (Path(path) / "empty_model.txt").write_text("This is a placeholder for model data.")
+
+        return self.resource
+
     def _metadata(self) -> Dict[Text, Any]:
         return {"priority": self.priority}
 
@@ -93,11 +113,11 @@ class ConversationLoggingPolicy(Policy):
 
     @classmethod
     def load(
-        cls,
+        cls: Type[ConversationLoggingPolicy],
         config: Dict[Text, Any],
         model_storage: ModelStorage,
         resource: Resource,
         execution_context: ExecutionContext,
         **kwargs: Any,
-    ) -> GraphComponent:
+    ) -> ConversationLoggingPolicy:
         return cls(config, model_storage, resource, execution_context)
