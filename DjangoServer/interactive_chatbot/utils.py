@@ -1,3 +1,4 @@
+import json
 import re
 
 
@@ -96,3 +97,36 @@ def process_messages(messages):
                     }
                 })
     return processed_messages
+
+
+def convert_python_dict_to_json_string(python_dict_str: str) -> str:
+    # Escape double quotes inside the payload first
+    json_str = re.sub(r'(?<!\\)"', r'\"', python_dict_str)
+
+    # Replace single quotes with double quotes
+    json_str = json_str.replace("'", "\"")
+
+    # Replace None with null
+    json_str = re.sub(r'\bNone\b', 'null', json_str)
+
+    # Replace True with true
+    json_str = re.sub(r'\bTrue\b', 'true', json_str)
+
+    # Replace False with false
+    json_str = re.sub(r'\bFalse\b', 'false', json_str)
+
+    # Parse the string as JSON to ensure it's valid
+    try:
+        json_obj = json.loads(json_str)
+        # Convert back to JSON string to ensure proper formatting
+        json_str = json.dumps(json_obj, ensure_ascii=False)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Invalid Python dictionary string: {e}\nString: {json_str}")
+
+    return json_str
+
+
+
+
+
+

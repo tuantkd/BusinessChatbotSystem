@@ -4,7 +4,7 @@ import uuid
 from django.shortcuts import render
 
 from rasa_api.functions import predict_next_action
-from .utils import markdown_to_html, process_messages
+from .utils import convert_python_dict_to_json_string, markdown_to_html, process_messages
 from chatbot_data.models import ChatUser, History
 import requests
 
@@ -52,11 +52,11 @@ class ChatbotView(View):
         chat_user = ChatUser.objects.filter(sender_id=sender_id).first()
         if not sender_id and not chat_user:
             return render(request, self.template_name, {'error': 'Sender not found'})
-        history = History.objects.filter(sender_id=sender_id).order_by('timestamp')
+        histories = History.objects.filter(sender_id=sender_id).order_by('timestamp')
         history = [{'user_say': h.user_say, 
-                    'response': process_messages(json.loads(h.response)), 
+                    'response': process_messages(json.loads(convert_python_dict_to_json_string(h.response))),
                     'timestamp': h.timestamp,
-                    } for h in history]
+                    } for h in histories]
         if len(history) == 0:
             chatlog_id = uuid.uuid4().hex
             data = {"message": "/session_start", "sender": sender_id, "metadata": {"chatlog_id": chatlog_id, "sender_name": chat_user.sender_name}}
