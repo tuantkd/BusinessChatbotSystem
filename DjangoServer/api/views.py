@@ -327,9 +327,14 @@ class UpdateHistoryView(APIView):
         if not isinstance(request.data, dict):
             return Response({'error': f'Invalid data. Expected a dictionary, but got {type(request.data).__name__}.'}, status=status.HTTP_400_BAD_REQUEST)
         
+        # Check if intent already exists in the history instance
+        if history_instance.intent:
+            return Response({'error': 'Intent already exists and cannot be updated.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         serializer = HistorySerializer(history_instance, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
