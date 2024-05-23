@@ -99,8 +99,9 @@ class ChatbotView(View):
             if response.status_code != 200:
                 return JsonResponse({'error': 'Rasa server error'}, status=500)
 
-            history.response = response.json()
-            history.save()
+            new_history = History.objects.get(id=history.id)
+            new_history.response = response.json()
+            new_history.save()
             return JsonResponse(response.json(), status=200, safe=False)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
