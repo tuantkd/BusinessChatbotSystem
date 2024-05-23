@@ -38,13 +38,17 @@ pipeline:
     
 policies:
   - name: MemoizationPolicy
+    priority: 3
   - name: TEDPolicy
     max_history: 5
     epochs: 100
     constrain_similarities: true
     model_confidence: softmax
+    priority: 2
   - name: policies.conversation_logging_policy.ConversationLoggingPolicy
+    priority: 1
   - name: RulePolicy
     core_fallback_threshold: 0.5
     core_fallback_action_name: action_default_fallback
     enable_fallback_prediction: true
+    priority: 0

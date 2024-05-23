@@ -1,4 +1,6 @@
 from __future__ import annotations
+from datetime import datetime, timezone
+import json
 import logging
 
 from rasa.core.policies.policy import Policy, PolicyPrediction
@@ -26,7 +28,7 @@ class ConversationLoggingPolicy(Policy):
     @staticmethod
     def get_default_config() -> Dict[Text, Any]:
         return {
-            "priority": 2
+            "priority": 1
         }
 
     @classmethod
@@ -46,6 +48,7 @@ class ConversationLoggingPolicy(Policy):
         self.model_storage = model_storage
         self.resource = resource
         self.execution_context = execution_context
+        self.priority = config.get("priority", 1) 
 
     def predict_action_probabilities(
         self,
@@ -55,7 +58,6 @@ class ConversationLoggingPolicy(Policy):
         # Extract metadata from the tracker
         metadata = tracker.latest_message.metadata
         history_id = metadata.get("history_id", None)
-        
         if history_id:
             # Get intent, entities, user_say, etc.
             intent = tracker.latest_message.intent.get("name")
@@ -64,30 +66,65 @@ class ConversationLoggingPolicy(Policy):
             confidence = tracker.latest_message.intent.get("confidence")
             sender_id = tracker.sender_id
             slot_values = tracker.current_slot_values()
-            intent_ranking = tracker.latest_message.intent_ranking
+            intent_ranking = tracker.latest_message.parse_data['intent_ranking'] if hasattr(tracker.latest_message.parse_data, 'intent_ranking') else []
             response = tracker.latest_action_name
             timestamp = tracker.events[-1].timestamp
-            next_action = None
 
+            # Determine next action
+            next_action = self.predict_next_action(tracker, domain)
+            if not next_action:
+                next_action = "default_action"  # Provide a default action if none is predicted
+
+            # Convert timestamp to ISO 8601 format
+            if isinstance(timestamp, (int, float)):
+                timestamp = datetime.fromtimestamp(timestamp, tz=timezone.utc).isoformat()
+            else:
+                timestamp = str(timestamp)
+
+             # Proceed with the default action prediction
+            probabilities = self._default_predictions(domain)
+            prediction = self._prediction(probabilities)
+
+            # Log the predicted action and its confidence
+            predicted_action_index = prediction.probabilities.index(max(prediction.probabilities))
+            predicted_action = domain.action_names_or_texts[predicted_action_index]
+            confidence = max(prediction.probabilities)
+
+            logger.info(f"Predicted action: {predicted_action} with confidence: {confidence}")
             # Prepare data for update
             data = {
                 "intent": intent,
-                "entities": str(entities),
+                "entities": json.dumps(entities),  # Convert to JSON string
                 "user_say": user_say,
                 "confidence": confidence,
                 "sender_id": sender_id,
-                "slot_values": str(slot_values),
-                "intent_ranking": str(intent_ranking),
+                "slot_values": json.dumps(slot_values),  # Convert to JSON string
+                "intent_ranking": json.dumps(intent_ranking),  # Convert to JSON string
                 "response": response,
                 "timestamp": timestamp,
-                "next_action": next_action
+                "next_action": next_action,
+                "current_action": predicted_action
             }
             # Update History record
             update_history(history_id, data)
 
+        # Log predictions and confidence of all policies
+        all_predictions = []
+        for policy_name, policy_prediction in tracker.latest_message.metadata.get('policy_predictions', {}).items():
+            all_predictions.append((policy_name, policy_prediction["confidence"]))
+            logger.info(f"Policy {policy_name} predicted action {policy_prediction['action']} with confidence {policy_prediction['confidence']}")
+            
         # Proceed with the default action prediction
         probabilities = self._default_predictions(domain)
         return self._prediction(probabilities)
+
+    def predict_next_action(self, tracker: DialogueStateTracker, domain: Domain) -> Text:
+        # Use the tracker and domain to predict the next action
+        # You can customize this logic based on your needs
+        probabilities = self._default_predictions(domain)
+        max_probability_index = probabilities.index(max(probabilities))
+        next_action = domain.action_names_or_texts[max_probability_index]
+        return next_action
 
     def train(
         self,

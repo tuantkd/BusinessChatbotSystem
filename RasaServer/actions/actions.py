@@ -24,16 +24,22 @@ class ActionWelcome(Action):
         sender = get_senders(sender_id=sender_id)
         history = get_history(sender_id=sender_id)
         events = []
+
+        # Đảm bảo sender_name luôn được khởi tạo
+        sender_name = "Bạn"
         
         if len(history) == 0:
-            sender_name = "Bạn"
             if len(sender) > 0:
                 sender_name = sender[0]['sender_name']
             events.append(SlotSet("sender_name", sender_name))
         else:
             history = sorted(history, key=lambda x: x['timestamp'])
             history_latest = history[-1]
-            slot_values_str = history_latest['slot_values'].replace("'", "\"").replace("None", "null").replace("True", "true").replace("False", "false")
+            slot_values_str = history_latest['slot_values']
+            if slot_values_str is not None:
+                slot_values_str = slot_values_str.replace("'", "\"").replace("None", "null").replace("True", "true").replace("False", "false")
+            else:
+                slot_values_str = "{}" 
 
             try:
                 slot_values = json.loads(slot_values_str)
@@ -51,7 +57,6 @@ class ActionWelcome(Action):
         dispatcher.utter_message(response="utter_welcome", sender_name=sender_name)
         return events
     
-
 class ActionDefaultFallback(Action):
 
     def name(self) -> Text:

@@ -130,16 +130,20 @@ class Settings(models.Model):
 
 
 class History(models.Model):
-    intent = models.TextField(null=True, blank=True)
-    entities = models.TextField(null=True, blank=True)
-    user_say = models.TextField()
-    confidence = models.FloatField(null=True, blank=True)
-    sender_id = models.TextField()
-    slot_values = models.TextField(null=True, blank=True)
-    intent_ranking = models.TextField(null=True, blank=True)
-    response = models.TextField(null=True, blank=True)
-    timestamp = models.DateTimeField()
-    next_action = models.TextField(null=True, blank=True)  
+    intent = models.CharField(max_length=255, default='', blank=True)
+    entities = models.TextField(default='[]', blank=True)  # Assuming entities are stored as JSON strings
+    user_say = models.TextField(default='', blank=True)
+    confidence = models.FloatField(default=0.0, blank=True)
+    timestamp = models.DateTimeField(default=datetime.now, blank=True)
+    response = models.TextField(default='', blank=True)
+    sender_id = models.CharField(max_length=255, default='', blank=True)
+    slot_values = models.TextField(default='{}', blank=True)  # Assuming slot values are stored as JSON strings
+    intent_ranking = models.TextField(default='[]', blank=True)  # Assuming intent ranking is stored as JSON strings
+    next_action = models.CharField(max_length=255, default='', blank=True)
+    
+    def __str__(self):
+        return self.user_say
+
 
 class ChatUser(models.Model):
     sender_id = models.TextField()

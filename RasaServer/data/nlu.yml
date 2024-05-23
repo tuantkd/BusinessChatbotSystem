@@ -20,8 +20,8 @@ nlu:
     - Hi mọi người
     - Hello bạn
     - Hi there
-    - Xin chào tất cả mọi người
     - Chào bạn, bạn khỏe không?
+    - Xin chào bot
 
 - intent: goodbye
   examples: |
@@ -36,7 +36,6 @@ nlu:
     - Tạm biệt chị
     - Bye bye
     - Hẹn gặp lại bạn
-    - Hẹn gặp lại mọi người
     - Chào mọi người, tạm biệt
     - Rất vui được gặp bạn, tạm biệt
     - Tạm biệt, chúc bạn một ngày tốt lành

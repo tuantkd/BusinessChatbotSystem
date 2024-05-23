@@ -324,8 +324,12 @@ class UpdateHistoryView(APIView):
         except History.DoesNotExist:
             return Response({'error': 'History record not found'}, status=status.HTTP_404_NOT_FOUND)
         
+        if not isinstance(request.data, dict):
+            return Response({'error': f'Invalid data. Expected a dictionary, but got {type(request.data).__name__}.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         serializer = HistorySerializer(history_instance, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
