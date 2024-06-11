@@ -22,27 +22,27 @@ stories:
   steps:
   - intent: ask_submit_documents
   - action: action_list_business_types
-  - intent: select_business_type
-    entities:
-      - business_step: "Bước 1: Nộp hồ sơ"
-  - action: action_list_step_details
+  # - intent: select_business_type
+  #   entities:
+  #     - business_step: "Bước 1: Nộp hồ sơ"
+  # - action: action_list_step_details
 
 - story: Hỏi về chuẩn bị hồ sơ
   steps:
   - intent: ask_prepare_documents
   - action: action_list_business_types
-  - intent: select_business_type
-    entities:
-      - business_step: "Bước 2: Chuẩn bị hồ sơ"
-  - action: action_list_step_details
+  # - intent: select_business_type
+  #   entities:
+  #     - business_step: "Bước 2: Chuẩn bị hồ sơ"
+  # - action: action_list_step_details
 
 - story: Thời gian nhận kết quả
   steps:
   - intent: ask_receive_results
-  - intent: select_business_type
-    entities:
-      - business_step: "Bước 3: Nhận kết quả"
-  - action: action_list_step_details
+  # - intent: select_business_type
+  #   entities:
+  #     - business_step: "Bước 3: Nhận kết quả"
+  # - action: action_list_step_details
 
 - story: hỏi về trạng thái doanh nghiệp
   steps:

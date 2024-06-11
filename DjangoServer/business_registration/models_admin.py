@@ -114,7 +114,7 @@ class AdministrativeRegionAdmin(admin.ModelAdmin):
 class ProvinceAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'administrative_unit', 'administrative_region')
     list_display_links = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'administrative_unit', 'administrative_region')
-    list_filter = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'administrative_unit', 'administrative_region')
+    #list_filter = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'administrative_unit', 'administrative_region')
     search_fields = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'administrative_unit', 'administrative_region')
     list_per_page = 25
     readonly_fields = ('administrative_unit', 'administrative_region',)
@@ -122,7 +122,7 @@ class ProvinceAdmin(admin.ModelAdmin):
 class DistrictAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'province', 'administrative_unit')
     list_display_links = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'province', 'administrative_unit')
-    list_filter = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'province', 'administrative_unit')
+    #list_filter = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'province', 'administrative_unit')
     search_fields = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'province', 'administrative_unit')
     list_per_page = 25
     readonly_fields = ('administrative_unit','province')
@@ -130,7 +130,7 @@ class DistrictAdmin(admin.ModelAdmin):
 class WardAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'district', 'administrative_unit')
     list_display_links = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'district', 'administrative_unit')
-    list_filter = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'district', 'administrative_unit')
+    #list_filter = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'district', 'administrative_unit')
     search_fields = ('code', 'name', 'name_en', 'full_name', 'full_name_en', 'code_name', 'district', 'administrative_unit')
     list_per_page = 25
     readonly_fields = ('administrative_unit','district')
@@ -139,7 +139,7 @@ class WardAdmin(admin.ModelAdmin):
 class BusinessTypeStatusAdmin(admin.ModelAdmin):
     list_display = ('status', 'business_type')
     list_display_links = ('status', 'business_type')
-    #list_filter = ('status', 'business_type')
+    list_filter = ('status', 'business_type')
     search_fields = ('status', 'business_type')
     list_per_page = 25
     
