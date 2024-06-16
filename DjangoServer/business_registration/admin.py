@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Business, BusinessProcessStep, BusinessTypeStatus, LegalRepresentative, Owner, BusinessOwner, BusinessType, Industry, BusinessIndustry, ActivityField, BusinessActivityField, Contacts, AdministrativeUnit, Province, District, Ward, AdministrativeRegion
-from .models_admin import BusinessAdmin, BusinessProcessStepAdmin, BusinessTypeStatusAdmin, LegalRepresentativeAdmin, OwnerAdmin, BusinessOwnerAdmin, BusinessTypeAdmin, IndustryAdmin, BusinessIndustryAdmin, ActivityFieldAdmin, BusinessActivityFieldAdmin, ContactsAdmin, AddressesAdmin, AdministrativeUnitAdmin, ProvinceAdmin, DistrictAdmin, WardAdmin, AdministrativeRegionAdmin
+from .models import Address, Business, BusinessProcessStep, BusinessTypeStatus, LegalRepresentative, Owner, BusinessOwner, BusinessType, Industry, BusinessIndustry, ActivityField, BusinessActivityField, Contacts, AdministrativeUnit, Province, District, Ward, AdministrativeRegion
+from .models_admin import AddressAdmin, BusinessAdmin, BusinessProcessStepAdmin, BusinessTypeStatusAdmin, LegalRepresentativeAdmin, OwnerAdmin, BusinessOwnerAdmin, BusinessTypeAdmin, IndustryAdmin, BusinessIndustryAdmin, ActivityFieldAdmin, BusinessActivityFieldAdmin, ContactsAdmin, AddressesAdmin, AdministrativeUnitAdmin, ProvinceAdmin, DistrictAdmin, WardAdmin, AdministrativeRegionAdmin
 from django.contrib.auth.models import User, Group, Permission
 
 if admin.site.is_registered(User):
@@ -10,6 +10,7 @@ if admin.site.is_registered(Group):
 if admin.site.is_registered(Permission):
     admin.site.unregister(Permission)
 
+admin.site.register(Address, AddressAdmin)
 admin.site.register(Business, BusinessAdmin)
 admin.site.register(LegalRepresentative, LegalRepresentativeAdmin)
 admin.site.register(Owner, OwnerAdmin)
