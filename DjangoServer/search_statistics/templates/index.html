@@ -186,6 +186,12 @@
       console.log(items);
       const businessAll = items.business;
       const businessTypes = items.business_types;
+      const businessTypeStatus = items.business_type_status;
+      const contacts = items.contacts;
+      const activityFields = items.activity_fields;
+      const businessActivityFields = items.business_activity_fields;
+      const businessOwner = items.business_owner;
+      const owner = items.owner;
       const industries = items.industries;
       const legalRepresentative = items.legalrepresentative;
       const district = items.district;
@@ -211,90 +217,173 @@
         button.addEventListener("click", function() {
           const inputValue = inputField.value;
           const businessObj = businessAll.find(item => item.company_name === inputValue);
+          debugger
+          const businessOwnerObj = businessOwner.find(item => item.business === businessObj.id);
+          var ownerObj = null;
+          if(businessOwnerObj){
+            ownerObj = owner.find(item => item.id === businessOwnerObj.owner);
+          }
+
+          const businessActivityFieldObj = businessActivityFields.find(item => item.business === businessObj.id);
+          var activityFieldObj = null;
+          if(businessActivityFieldObj){
+            activityFieldObj = activityFields.find(item => item.id === businessActivityFieldObj.activity_field);
+          }
+
+          const contactsObj = contacts.find(item => item.business === businessObj.id);
           const businessTypeObj = businessTypes.find(item => item.id === businessObj.business_type_id);
+          const businessTypeStatusObj = businessTypeStatus.find(item => item.business_type === businessObj.business_type_id);
           const legalRepresentativeObj = legalRepresentative.find(item => item.id === businessObj.legal_representative_id);
           const industryObj = industries.find(item => item.id === businessObj.main_industry_id);
           outputDiv.innerHTML = '';
 
           const h2NameBusiness = document.createElement("h2");
-          h2NameBusiness.textContent = inputValue;
+          h2NameBusiness.textContent = `${businessObj.business_code}-${inputValue}`;
+          outputDiv.appendChild(h2NameBusiness);
 
           const pAddress = document.createElement("p");
-          pAddress.textContent = "Địa chỉ: " + businessObj.address;
+          if (businessObj && businessObj.address !== "") {
+            pAddress.textContent = "Địa chỉ: " + businessObj.address;
+            outputDiv.appendChild(pAddress);
+          }
 
           const pCapital = document.createElement("p");
-          pCapital.textContent = "Vốn đầu tư: " + formatVND(businessObj.capital);
+          if (businessObj && businessObj.capital !== "") {
+            pCapital.textContent = "Vốn đầu tư: " + formatVND(businessObj.capital);
+            outputDiv.appendChild(pCapital);
+          }
 
           const pIssuedDate = document.createElement("p");
-          pIssuedDate.textContent = "Ngày thành lập: " + businessObj.issued_date;
+          if (businessObj && businessObj.issued_date !== ""){
+            pIssuedDate.textContent = "Ngày thành lập: " + businessObj.issued_date;
+            outputDiv.appendChild(pIssuedDate);
+          }
 
           const pTypeDescription = document.createElement("p");
-          pTypeDescription.textContent = "Loại doanh nghiệp: " + businessTypeObj.type_description;
+          if (businessTypeObj && businessTypeObj.type_description !== ""){
+            pTypeDescription.textContent = "Loại doanh nghiệp: " + businessTypeObj.type_description;
+            outputDiv.appendChild(pTypeDescription);
+          }
 
+          const pTypeStatus = document.createElement("p");
+          if (businessTypeStatusObj){
+            pTypeStatus.textContent = "Trạng thái: " + businessTypeStatusObj.status_display_full;
+            outputDiv.appendChild(pTypeStatus);
+          }
+
+          const pActivityName = document.createElement("p");
+          if(industryObj){
+            pActivityName.textContent = "Ngành nghề chính: " + industryObj.id + "-" + industryObj.activity_name;
+            outputDiv.appendChild(pActivityName);
+          }
+
+          const pActivityField = document.createElement("p");
+          if(activityFieldObj){
+            pActivityField.textContent = "Lĩnh vực kinh doanh: " + activityFieldObj.field_code + "-" + activityFieldObj.field_name;
+            outputDiv.appendChild(pActivityField);
+          }
+
+          const pContacts = document.createElement("p");
+          const olElementContact = document.createElement("ol");
+          if (contactsObj) {
+            pContacts.textContent = "Liên hệ:";
+            outputDiv.appendChild(pContacts);
+            const liEmail = document.createElement("li");
+            liEmail.textContent = "Email: " + contactsObj.email;
+            const liPhone = document.createElement("li");
+            liPhone.textContent = "Điện thoại: " + contactsObj.phone;
+            const liFax = document.createElement("li");
+            liFax.textContent = "Fax: " + contactsObj.fax;
+            olElementContact.appendChild(liEmail);
+            olElementContact.appendChild(liPhone);
+            olElementContact.appendChild(liFax);
+            outputDiv.appendChild(olElementContact);
+          }
+          
+          const pOwner = document.createElement("p");
+          const ulElementOwner = document.createElement("ul");
+          if (ownerObj) {
+            pOwner.textContent = "Chủ sở hữu:";
+            outputDiv.appendChild(pOwner);
+            const liName = document.createElement("li");
+            liName.textContent = "Họ tên: " + ownerObj.name;
+            const liGender = document.createElement("li");
+            liGender.textContent = "Giới tính: " + ownerObj.gender;
+            const liDob = document.createElement("li");
+            liDob.textContent = "Ngày sinh: " + ownerObj.dob;
+            const liEthnicity = document.createElement("li");
+            liEthnicity.textContent = "Dân tộc: " + ownerObj.ethnicity;
+            const liNationality = document.createElement("li");
+            liNationality.textContent = "Quốc tịch: " + ownerObj.nationality;
+            const liIDType = document.createElement("li");
+            liIDType.textContent = "Giấy tùy thân: " + ownerObj.id_type;
+            const liIDNumber = document.createElement("li");
+            liIDNumber.textContent = "Số: " + ownerObj.id_number;
+            const liIDIssuanceDate = document.createElement("li");
+            liIDIssuanceDate.textContent = "Ngày cấp: " + ownerObj.id_issuance_date;
+            const liIDIssuancePlace = document.createElement("li");
+            liIDIssuancePlace.textContent = "Nơi cấp: " + ownerObj.id_issuance_place;
+            const liResidenceAddress = document.createElement("li");
+            liResidenceAddress.textContent = "Địa chỉ cư trú: " + ownerObj.residence_address;
+            const liContactAddress = document.createElement("li");
+            liContactAddress.textContent = "Địa chỉ liên lạc: " + ownerObj.contact_address;
+            ulElementOwner.appendChild(liName);
+            ulElementOwner.appendChild(liGender);
+            ulElementOwner.appendChild(liDob);
+            ulElementOwner.appendChild(liEthnicity);
+            ulElementOwner.appendChild(liNationality);
+            ulElementOwner.appendChild(liIDType);
+            ulElementOwner.appendChild(liIDNumber);
+            ulElementOwner.appendChild(liIDIssuanceDate);
+            ulElementOwner.appendChild(liIDIssuancePlace);
+            ulElementOwner.appendChild(liResidenceAddress);
+            ulElementOwner.appendChild(liContactAddress);
+            outputDiv.appendChild(ulElementOwner);
+          }
+          
           const pLegalRepresentative = document.createElement("p");
-          pLegalRepresentative.textContent = "Người đại diện pháp lý:";
-
           const ulElement = document.createElement("ul");
-          const liName = document.createElement("li");
-          liName.textContent = "Họ tên: " + legalRepresentativeObj.name;
-
-          const liPosition = document.createElement("li");
-          liPosition.textContent = "Chức vụ: " + legalRepresentativeObj.position;
-
-          const liContactAddress = document.createElement("li");
-          liContactAddress.textContent = "Địa chỉ liên lạc: " + legalRepresentativeObj.contact_address;
-
-          const liDob = document.createElement("li");
-          liDob.textContent = "Ngày sinh: " + legalRepresentativeObj.dob;
-
-          const liEthnicity = document.createElement("li");
-          liEthnicity.textContent = "Dân tộc: " + legalRepresentativeObj.ethnicity;
-
-          const liGender = document.createElement("li");
-          liGender.textContent = "Giới tính: " + legalRepresentativeObj.gender;
-
-          const liIssuanceDate = document.createElement("li");
-          liIssuanceDate.textContent = "Ngày cấp: " + legalRepresentativeObj.id_issuance_date;
-
-          const liIssuanceplace = document.createElement("li");
-          liIssuanceplace.textContent = "Nơi cấp: " + legalRepresentativeObj.id_issuance_place;
-
-          const liNumber = document.createElement("li");
-          liNumber.textContent = "Mã số: " + legalRepresentativeObj.id_number;
-
-          const liType = document.createElement("li");
-          liType.textContent = "Giấy phép: " + legalRepresentativeObj.id_type;
-
-          const liNationality = document.createElement("li");
-          liNationality.textContent = "Quốc tịch: " + legalRepresentativeObj.nationality;
-
-          const liResidenceAddress = document.createElement("li");
-          liResidenceAddress.textContent = "Địa chỉ cư trú: " + legalRepresentativeObj.residence_address;
-
-          const liActivityName = document.createElement("li");
-          liActivityName.textContent = "Ngành nghề chính: " + industryObj.id + "-" + industryObj.activity_name;
-
-          ulElement.appendChild(liName);
-          ulElement.appendChild(liPosition);
-          ulElement.appendChild(liContactAddress);
-          ulElement.appendChild(liDob);
-          ulElement.appendChild(liEthnicity);
-          ulElement.appendChild(liGender);
-          ulElement.appendChild(liIssuanceDate);
-          ulElement.appendChild(liIssuanceplace);
-          ulElement.appendChild(liNumber);
-          ulElement.appendChild(liType);
-          ulElement.appendChild(liNationality);
-          ulElement.appendChild(liResidenceAddress);
-          ulElement.appendChild(liActivityName);
-
-          outputDiv.appendChild(h2NameBusiness);
-          outputDiv.appendChild(pAddress);
-          outputDiv.appendChild(pCapital);
-          outputDiv.appendChild(pIssuedDate);
-          outputDiv.appendChild(pTypeDescription);
-          outputDiv.appendChild(pLegalRepresentative);
-          outputDiv.appendChild(ulElement);
+          if(legalRepresentativeObj){
+            pLegalRepresentative.textContent = "Người đại diện pháp lý:";
+            outputDiv.appendChild(pLegalRepresentative);
+            const liName = document.createElement("li");
+            liName.textContent = "Họ tên: " + legalRepresentativeObj.name;
+            const liPosition = document.createElement("li");
+            liPosition.textContent = "Chức vụ: " + legalRepresentativeObj.position;
+            const liContactAddress = document.createElement("li");
+            liContactAddress.textContent = "Địa chỉ liên lạc: " + legalRepresentativeObj.contact_address;
+            const liDob = document.createElement("li");
+            liDob.textContent = "Ngày sinh: " + legalRepresentativeObj.dob;
+            const liEthnicity = document.createElement("li");
+            liEthnicity.textContent = "Dân tộc: " + legalRepresentativeObj.ethnicity;
+            const liGender = document.createElement("li");
+            liGender.textContent = "Giới tính: " + legalRepresentativeObj.gender;
+            const liIssuanceDate = document.createElement("li");
+            liIssuanceDate.textContent = "Ngày cấp: " + legalRepresentativeObj.id_issuance_date;
+            const liIssuanceplace = document.createElement("li");
+            liIssuanceplace.textContent = "Nơi cấp: " + legalRepresentativeObj.id_issuance_place;
+            const liNumber = document.createElement("li");
+            liNumber.textContent = "Mã số: " + legalRepresentativeObj.id_number;
+            const liType = document.createElement("li");
+            liType.textContent = "Giấy phép: " + legalRepresentativeObj.id_type;
+            const liNationality = document.createElement("li");
+            liNationality.textContent = "Quốc tịch: " + legalRepresentativeObj.nationality;
+            const liResidenceAddress = document.createElement("li");
+            liResidenceAddress.textContent = "Địa chỉ cư trú: " + legalRepresentativeObj.residence_address;
+            ulElement.appendChild(liName);
+            ulElement.appendChild(liPosition);
+            ulElement.appendChild(liContactAddress);
+            ulElement.appendChild(liDob);
+            ulElement.appendChild(liEthnicity);
+            ulElement.appendChild(liGender);
+            ulElement.appendChild(liIssuanceDate);
+            ulElement.appendChild(liIssuanceplace);
+            ulElement.appendChild(liNumber);
+            ulElement.appendChild(liType);
+            ulElement.appendChild(liNationality);
+            ulElement.appendChild(liResidenceAddress);
+            outputDiv.appendChild(ulElement);
+          }
 
           require([
             "esri/config",

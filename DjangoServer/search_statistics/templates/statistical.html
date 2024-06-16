@@ -194,7 +194,7 @@
                     business_type: businessTypeObj.type_description,
                     issued_date: item.issued_date,
                     legal_pepresentative: legalRepresentativeObj.name,
-                    industry: `${industryObj.activity_code}-${industryObj.activity_name}`
+                    industry: `${industryObj.id}-${industryObj.activity_name}`
                   };
                 });
                 businessFilters.push(...businessMap);
@@ -248,7 +248,7 @@
                       business_type: businessTypeObj.type_description,
                       issued_date: item.issued_date,
                       legal_pepresentative: legalRepresentativeObj.name,
-                      industry: `${industryObj.activity_code}-${industryObj.activity_name}`
+                      industry: `${industryObj.id}-${industryObj.activity_name}`
                     };
                   });
                   businessFilters.push(...businessMap);

@@ -5,8 +5,8 @@ from rest_framework import generics
 from legal_documents.models import Circulars, Decisions, Decrees, Laws
 from chatbot_data.models import ChatUser, History
 from django.db.models import Q
-from business_registration.models import ActivityField, Address, Business, BusinessProcessStep, BusinessStatus, BusinessType, BusinessTypeStatus, District, Industry, LegalRepresentative, Province, Ward
-from .serializers import ActivityFieldSerializer, AddressSerializer, BusinessProcessStepSerializer, BusinessSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, DecisionsSerializer, DecreesSerializer,DistrictSerializer, HistorySerializer, IndustrySerializer, LawsSerializer, LegalrepresentativeSerializer, ProvinceSerializer, WardSerializer
+from business_registration.models import ActivityField, Address, Business, BusinessActivityField, BusinessIndustry, BusinessOwner, BusinessProcessStep, BusinessStatus, BusinessType, BusinessTypeStatus, Contacts, District, Industry, LegalRepresentative, Owner, Province, Ward
+from .serializers import ActivityFieldSerializer, AddressSerializer, BusinessActivityFieldSerializer, BusinessIndustrySerializer, BusinessOwnerSerializer, BusinessProcessStepSerializer, BusinessSerializer, BusinessTypeSerializer, BusinessTypeStatusSerializer, ChatUserSerializer, CircularsSerializer, ContactsSerializer, DecisionsSerializer, DecreesSerializer,DistrictSerializer, HistorySerializer, IndustrySerializer, LawsSerializer, LegalrepresentativeSerializer, OwnerSerializer, ProvinceSerializer, WardSerializer
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -95,15 +95,15 @@ class IndustryListView(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Industry.objects.all()
-        id = self.request.query_params.get('id', None)
-        activity_code = self.request.query_params.get('activity_code', None)
+        id_industry = self.request.query_params.get('id', None)
+        #activity_code = self.request.query_params.get('activity_code', None)
         activity_name = self.request.query_params.get('activity_name', None)
 
-        if id is not None:
-            queryset = queryset.filter(id=id)
+        if id_industry is not None:
+            queryset = queryset.filter(id=id_industry)
 
-        if activity_code is not None:
-            queryset = queryset.filter(activity_code=activity_code)
+        # if activity_code is not None:
+        #     queryset = queryset.filter(activity_code=activity_code)
 
         if activity_name is not None:
             queryset = queryset.filter(activity_name__exact=activity_name)
@@ -337,4 +337,34 @@ class UpdateHistoryView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class BusinessActivityFieldListView(generics.ListAPIView):
+    serializer_class = BusinessActivityFieldSerializer
+    def get_queryset(self):
+        queryset = BusinessActivityField.objects.all()
+        return queryset
+
+class BusinessIndustryListView(generics.ListAPIView):
+    serializer_class = BusinessIndustrySerializer
+    def get_queryset(self):
+        queryset = BusinessIndustry.objects.all()
+        return queryset
+
+class OwnerListView(generics.ListAPIView):
+    serializer_class = OwnerSerializer
+    def get_queryset(self):
+        queryset = Owner.objects.all()
+        return queryset
+
+class BusinessOwnerListView(generics.ListAPIView):
+    serializer_class = BusinessOwnerSerializer
+    def get_queryset(self):
+        queryset = BusinessOwner.objects.all()
+        return queryset
+
+class ContactsListView(generics.ListAPIView):
+    serializer_class = ContactsSerializer
+    def get_queryset(self):
+        queryset = Contacts.objects.all()
+        return queryset
 

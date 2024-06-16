@@ -6,7 +6,9 @@ BUSINESS_TYPE_STATUS_API = f"{DJ_BASE_URL}/api/business_type_status/"
 BUSINESS_TYPES_API = f"{DJ_BASE_URL}/api/business_type/"
 BUSINESS_API = f"{DJ_BASE_URL}/api/business/"
 BUSINESS_PROCEDURE_STEP_API = f"{DJ_BASE_URL}/api/business_procedure_step/"
+INDUSTRY_API = f"{DJ_BASE_URL}/api/industry/"
 BUSINESS_INDUSTRY_API = f"{DJ_BASE_URL}/api/business_industry/"
+ACTIVITY_FIELD_API = f"{DJ_BASE_URL}/api/activity_field/"
 BUSINESS_ACTIVITY_FIELD_API = f"{DJ_BASE_URL}/api/business_activity_field/"
 LAWS_API = f"{DJ_BASE_URL}/api/document_laws/"
 DECREES_API = f"{DJ_BASE_URL}/api/document_decrees/"
@@ -17,6 +19,9 @@ PROVINCE_API = f"{DJ_BASE_URL}/api/province/"
 DISTRICT_API = f"{DJ_BASE_URL}/api/district/"
 WARD_API = f"{DJ_BASE_URL}/api/ward/"
 ADDRESS_API = f"{DJ_BASE_URL}/api/address/"
+OWNER_API = f"{DJ_BASE_URL}/api/owner/"
+BUSINESS_OWNER_API = f"{DJ_BASE_URL}/api/business_owner/"
+CONTACTS_API = f"{DJ_BASE_URL}/api/contacts/"
 
 def get_senders(sender_id=None, sender_name=None):
     params = []
@@ -72,6 +77,30 @@ def get_business_types():
         return []
     return response.json()
 
+def get_business_industry():
+    response = requests.get(BUSINESS_INDUSTRY_API)
+    if response.status_code != 200:
+        return []
+    return response.json()
+
+def get_contacts():
+    response = requests.get(CONTACTS_API)
+    if response.status_code != 200:
+        return []
+    return response.json()
+
+def get_owner():
+    response = requests.get(OWNER_API)
+    if response.status_code != 200:
+        return []
+    return response.json()
+
+def get_business_owner():
+    response = requests.get(BUSINESS_OWNER_API)
+    if response.status_code != 200:
+        return []
+    return response.json()
+
 def get_business_type_status(business_type=None, business_type_status=None):
     params = []
     if business_type:
@@ -106,10 +135,22 @@ def get_industries(industry_id=None, industry_name=None):
     if industry_name:
         params += [f"activity_name={industry_name}"]
     query_params = "&".join(params)
-    response = requests.get(f"{BUSINESS_INDUSTRY_API}?{query_params}")
-    if response.status_code != 200:
-        return None
-    return response.json()
+    response = requests.get(f"{INDUSTRY_API}?{query_params}")
+    if response.status_code == 200:
+        data_all = response.json()
+        for item in data_all:
+            if item["level1"] == None:
+                item["level1"] = ""
+            if item["level2"] == None:
+                item["level2"] = ""
+            if item["level3"] == None:
+                item["level3"] = ""
+            if item["level4"] == None:
+                item["level4"] = ""
+            if item["level5"] == None:
+                item["level5"] = ""
+        return data_all
+    return None
 
 def get_activity_fields(field_id=None, field_name=None):
     query_params = []
@@ -117,9 +158,15 @@ def get_activity_fields(field_id=None, field_name=None):
         query_params += [f"id={field_id}"]
     if field_name:
         query_params += [f"field_name={field_name}"]
-    response = requests.get(f"{BUSINESS_ACTIVITY_FIELD_API}?{query_params}")
+    response = requests.get(f"{ACTIVITY_FIELD_API}?{query_params}")
     if response.status_code != 200:
         return None
+    return response.json()
+
+def get_business_activity_fields():
+    response = requests.get(BUSINESS_ACTIVITY_FIELD_API)
+    if response.status_code != 200:
+        return []
     return response.json()
     
 def get_laws(law_id=None, law_name=None):
