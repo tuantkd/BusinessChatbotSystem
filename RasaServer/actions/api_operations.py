@@ -5,8 +5,8 @@ SENDER_API = f"{DJ_BASE_URL}/api/senders/"
 BUSINESS_TYPE_STATUS_API = f"{DJ_BASE_URL}/api/business_type_status/"
 BUSINESS_TYPES_API = f"{DJ_BASE_URL}/api/business_type/"
 BUSINESS_PROCEDURE_STEP_API = f"{DJ_BASE_URL}/api/business_procedure_step/"
-BUSINESS_INDUSTRY_API = f"{DJ_BASE_URL}/api/business_industry/"
-BUSINESS_ACTIVITY_FIELD_API = f"{DJ_BASE_URL}/api/business_activity_field/"
+INDUSTRY_API = f"{DJ_BASE_URL}/api/industry/"
+ACTIVITY_FIELD_API = f"{DJ_BASE_URL}/api/activity_field/"
 LAWS_API = f"{DJ_BASE_URL}/api/document_laws/"
 DECREES_API = f"{DJ_BASE_URL}/api/document_decrees/"
 CIRCULARS_API = f"{DJ_BASE_URL}/api/document_circulars/"
@@ -72,7 +72,7 @@ def get_industries(industry_id=None, industry_name=None):
     if industry_name:
         params += [f"activity_name={industry_name}"]
     query_params = "&".join(params)
-    response = requests.get(f"{BUSINESS_INDUSTRY_API}?{query_params}")
+    response = requests.get(f"{INDUSTRY_API}?{query_params}")
     if response.status_code != 200:
         return None
     return response.json()
@@ -83,7 +83,7 @@ def get_activity_fields(field_id=None, field_name=None):
         query_params += [f"id={field_id}"]
     if field_name:
         query_params += [f"field_name={field_name}"]
-    response = requests.get(f"{BUSINESS_ACTIVITY_FIELD_API}?{query_params}")
+    response = requests.get(f"{ACTIVITY_FIELD_API}?{query_params}")
     if response.status_code != 200:
         return None
     return response.json()
