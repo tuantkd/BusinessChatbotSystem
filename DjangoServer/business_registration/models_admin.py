@@ -1,8 +1,5 @@
-from django.db import models
-import random
-from django.db import models
 from django.contrib import admin
-
+from django.utils.html import format_html
 from .models import Contacts
 
 # class AddressInline(admin.TabularInline):
@@ -16,17 +13,30 @@ class ContactInline(admin.TabularInline):
     model = Contacts
     extra = 1  # how many rows to show
 
-class BusinessAdmin(admin.ModelAdmin):
-    
-    # fields = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
-    list_display = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
-    # list_display_links = ('business_code', 'company_name')
-    list_filter = ('business_type',)
-    # search_fields = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry')
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ('detail', 'ward', 'district', 'province')
+    list_display_links = ('detail',)
+    search_fields = ('detail', 'ward__name', 'district__name', 'province__name')
     list_per_page = 25
-    # readonly_fields = ('business_code',)
-    # inlines = (AddressInline, ContactInline)
-    
+
+class BusinessAdmin(admin.ModelAdmin):
+    list_display = ('business_code', 'company_name', 'detail', 'capital', 'status', 'legal_representative', 'issued_date', 'business_type', 'main_industry', 'headquarters_address_with_buttons')
+
+    def headquarters_address_with_buttons(self, obj):
+        if obj.headquarters_address:
+            edit_url = f"/admin/your_app_name/address/{obj.headquarters_address.id}/change/"
+            view_url = f"/admin/your_app_name/address/{obj.headquarters_address.id}/"
+            add_url = "/admin/your_app_name/address/add/"
+            return format_html(
+                '<a class="button" href="{}">Edit</a>&nbsp;<a class="button" href="{}">View</a>&nbsp;<a class="button" href="{}">Add</a>',
+                edit_url, view_url, add_url
+            )
+        else:
+            add_url = "/admin/your_app_name/address/add/"
+            return format_html('<a class="button" href="{}">Add</a>', add_url)
+
+    headquarters_address_with_buttons.short_description = 'Headquarters Address'
+
 class LegalRepresentativeAdmin(admin.ModelAdmin):
     list_display = ('name', 'position')
     list_display_links = ('name', 'position')

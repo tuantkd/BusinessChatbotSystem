@@ -25,4 +25,5 @@ urlpatterns = [
     path('chatbot/', include('chatbot_data.urls')),
     path('api/', include('api.urls')),
     path('search-statistics/', include('search_statistics.urls')),
+    path('business-registration/', include('business_registration.urls')),
 ]
