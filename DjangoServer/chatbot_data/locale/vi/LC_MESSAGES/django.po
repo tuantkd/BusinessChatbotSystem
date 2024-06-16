@@ -1,0 +1,570 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-06-16 15:09+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: vi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\chatbot_data\models.py:7 .\chatbot_data\templates\bots\edit_bot.html:45
+msgid "Bot Name"
+msgstr "Tên Bot"
+
+#: .\chatbot_data\models.py:8
+msgid "Bot Config"
+msgstr "Cấu Hình Bot"
+
+#: .\chatbot_data\models.py:9 .\chatbot_data\templates\bots\edit_bot.html:56
+msgid "Output Folder"
+msgstr "Thư Mục Đầu Ra"
+
+#: .\chatbot_data\models.py:12 .\chatbot_data\models.py:17
+#: .\chatbot_data\models.py:25 .\chatbot_data\models.py:34
+#: .\chatbot_data\models.py:63 .\chatbot_data\models.py:115
+#: .\chatbot_data\models.py:136 .\chatbot_data\models.py:151
+#: .\chatbot_data\models.py:162 .\chatbot_data\models.py:185
+#: .\chatbot_data\models.py:196 .\chatbot_data\templates\bots\add_bot.html:18
+msgid "Bot"
+msgstr "Bot"
+
+#: .\chatbot_data\models.py:13 .\chatbot_data\templates\bots\add_bot.html:6
+#: .\chatbot_data\templates\bots\bots.html:3
+#: .\chatbot_data\templates\bots\bots.html:10
+#: .\chatbot_data\templates\bots\bots.html:24
+#: .\chatbot_data\templates\bots\edit_bot.html:6
+msgid "Bots"
+msgstr "Các Bot"
+
+#: .\chatbot_data\models.py:16
+msgid "Intent Name"
+msgstr "Tên Ý Định"
+
+#: .\chatbot_data\models.py:20 .\chatbot_data\models.py:42
+#: .\chatbot_data\models.py:54 .\chatbot_data\models.py:212
+msgid "Intent"
+msgstr "Ý Định"
+
+#: .\chatbot_data\models.py:21 .\chatbot_data\templates\bots\edit_bot.html:72
+msgid "Intents"
+msgstr "Các Ý Định"
+
+#: .\chatbot_data\models.py:24
+msgid "Synonym Reference"
+msgstr "Tham Chiếu Từ Đồng Nghĩa"
+
+#: .\chatbot_data\models.py:28 .\chatbot_data\models.py:94
+msgid "Synonym"
+msgstr "Từ Đồng Nghĩa"
+
+#: .\chatbot_data\models.py:29 .\chatbot_data\templates\bots\edit_bot.html:177
+msgid "Synonyms"
+msgstr "Các Từ Đồng Nghĩa"
+
+#: .\chatbot_data\models.py:32
+msgid "Entity Name"
+msgstr "Tên Thực Thể"
+
+#: .\chatbot_data\models.py:33
+msgid "Slot Data Type"
+msgstr "Kiểu Dữ Liệu Slot"
+
+#: .\chatbot_data\models.py:37 .\chatbot_data\models.py:55
+msgid "Entity"
+msgstr "Thực Thể"
+
+#: .\chatbot_data\models.py:38 .\chatbot_data\models.py:213
+#: .\chatbot_data\templates\bots\edit_bot.html:125
+msgid "Entities"
+msgstr "Các Thực Thể"
+
+#: .\chatbot_data\models.py:41
+msgid "Expression Text"
+msgstr "Văn Bản Biểu Thức"
+
+#: .\chatbot_data\models.py:43
+msgid "Is Train"
+msgstr "Được Đào Tạo"
+
+#: .\chatbot_data\models.py:46 .\chatbot_data\models.py:53
+msgid "Expression"
+msgstr "Biểu Thức"
+
+#: .\chatbot_data\models.py:47
+msgid "Expressions"
+msgstr "Các Biểu Thức"
+
+#: .\chatbot_data\models.py:50
+msgid "Parameter Start"
+msgstr "Bắt Đầu Tham Số"
+
+#: .\chatbot_data\models.py:51
+msgid "Parameter End"
+msgstr "Kết Thúc Tham Số"
+
+#: .\chatbot_data\models.py:52
+msgid "Parameter Value"
+msgstr "Giá Trị Tham Số"
+
+#: .\chatbot_data\models.py:58
+msgid "Expression Parameter"
+msgstr "Tham Số Biểu Thức"
+
+#: .\chatbot_data\models.py:59
+msgid "Expression Parameters"
+msgstr "Các Tham Số Biểu Thức"
+
+#: .\chatbot_data\models.py:62
+msgid "Regex Name"
+msgstr "Tên Regex"
+
+#: .\chatbot_data\models.py:69 .\chatbot_data\models.py:73
+#: .\chatbot_data\templates\bots\edit_bot.html:227
+msgid "Regex"
+msgstr "Regex"
+
+#: .\chatbot_data\models.py:70
+msgid "Regexes"
+msgstr "Các Regex"
+
+#: .\chatbot_data\models.py:74
+msgid "Pattern"
+msgstr "Mẫu"
+
+#: .\chatbot_data\models.py:80
+msgid "Regex Variant"
+msgstr "Biến Thể Regex"
+
+#: .\chatbot_data\models.py:81
+msgid "Regex Variants"
+msgstr "Các Biến Thể Regex"
+
+#: .\chatbot_data\models.py:84
+msgid "Response Text"
+msgstr "Văn Bản Phản Hồi"
+
+#: .\chatbot_data\models.py:85
+msgid "Response Type"
+msgstr "Loại Phản Hồi"
+
+#: .\chatbot_data\models.py:86 .\chatbot_data\models.py:144
+msgid "Action"
+msgstr "Hành Động"
+
+#: .\chatbot_data\models.py:89 .\chatbot_data\models.py:217
+msgid "Response"
+msgstr "Phản Hồi"
+
+#: .\chatbot_data\models.py:90
+msgid "Responses"
+msgstr "Các Phản Hồi"
+
+#: .\chatbot_data\models.py:93
+msgid "Synonym Value"
+msgstr "Giá Trị Từ Đồng Nghĩa"
+
+#: .\chatbot_data\models.py:97
+msgid "Synonym Variant"
+msgstr "Biến Thể Từ Đồng Nghĩa"
+
+#: .\chatbot_data\models.py:98
+msgid "Synonym Variants"
+msgstr "Các Biến Thể Từ Đồng Nghĩa"
+
+#: .\chatbot_data\models.py:101 .\chatbot_data\models.py:193
+msgid "IP Address"
+msgstr "Địa Chỉ IP"
+
+#: .\chatbot_data\models.py:102
+msgid "Query"
+msgstr "Truy Vấn"
+
+#: .\chatbot_data\models.py:103
+msgid "Event Type"
+msgstr "Loại Sự Kiện"
+
+#: .\chatbot_data\models.py:104
+msgid "Event Data"
+msgstr "Dữ Liệu Sự Kiện"
+
+#: .\chatbot_data\models.py:105 .\chatbot_data\models.py:113
+#: .\chatbot_data\models.py:150 .\chatbot_data\models.py:186
+#: .\chatbot_data\models.py:197 .\chatbot_data\models.py:216
+msgid "Timestamp"
+msgstr "Dấu Thời Gian"
+
+#: .\chatbot_data\models.py:108
+msgid "NLU Log"
+msgstr "Nhật Ký NLU"
+
+#: .\chatbot_data\models.py:109
+msgid "NLU Logs"
+msgstr "Các Nhật Ký NLU"
+
+#: .\chatbot_data\models.py:112
+msgid "Model Name"
+msgstr "Tên Mô Hình"
+
+#: .\chatbot_data\models.py:114
+msgid "Comment"
+msgstr "Bình Luận"
+
+#: .\chatbot_data\models.py:116
+msgid "Local Path"
+msgstr "Đường Dẫn Cục Bộ"
+
+#: .\chatbot_data\models.py:117
+msgid "Server Path"
+msgstr "Đường Dẫn Máy Chủ"
+
+#: .\chatbot_data\models.py:118
+msgid "Server Response"
+msgstr "Phản Hồi Từ Máy Chủ"
+
+#: .\chatbot_data\models.py:121
+msgid "Model"
+msgstr "Mô Hình"
+
+#: .\chatbot_data\models.py:122
+msgid "Models"
+msgstr "Các Mô Hình"
+
+#: .\chatbot_data\models.py:135
+msgid "Action Name"
+msgstr "Tên Hành Động"
+
+#: .\chatbot_data\models.py:137
+msgid "Action Type"
+msgstr "Loại Hành Động"
+
+#: .\chatbot_data\models.py:138
+msgid "Action Config"
+msgstr "Cấu Hình Hành Động"
+
+#: .\chatbot_data\models.py:145
+msgid "Actions"
+msgstr "Các Hành Động"
+
+#: .\chatbot_data\models.py:148
+msgid "Rule Name"
+msgstr "Tên Quy Tắc"
+
+#: .\chatbot_data\models.py:149
+msgid "Rule Steps"
+msgstr "Các Bước Quy Tắc"
+
+#: .\chatbot_data\models.py:157
+msgid "Rule"
+msgstr "Quy Tắc"
+
+#: .\chatbot_data\models.py:158
+msgid "Rules"
+msgstr "Các Quy Tắc"
+
+#: .\chatbot_data\models.py:161
+msgid "Lookup Name"
+msgstr "Tên Tra Cứu"
+
+#: .\chatbot_data\models.py:168 .\chatbot_data\models.py:172
+msgid "Lookup"
+msgstr "Tra Cứu"
+
+#: .\chatbot_data\models.py:169
+msgid "Lookups"
+msgstr "Các Tra Cứu"
+
+#: .\chatbot_data\models.py:173
+msgid "Value"
+msgstr "Giá Trị"
+
+#: .\chatbot_data\models.py:179
+msgid "Lookup Variant"
+msgstr "Biến Thể Tra Cứu"
+
+#: .\chatbot_data\models.py:180
+msgid "Lookup Variants"
+msgstr "Các Biến Thể Tra Cứu"
+
+#: .\chatbot_data\models.py:183
+msgid "Story Name"
+msgstr "Tên Câu Chuyện"
+
+#: .\chatbot_data\models.py:184 .\chatbot_data\models.py:189
+#: .\chatbot_data\models.py:195
+msgid "Story"
+msgstr "Câu Chuyện"
+
+#: .\chatbot_data\models.py:190
+msgid "Stories"
+msgstr "Các Câu Chuyện"
+
+#: .\chatbot_data\models.py:194 .\chatbot_data\models.py:200
+msgid "Conversation"
+msgstr "Cuộc Trò Chuyện"
+
+#: .\chatbot_data\models.py:201
+msgid "Conversations"
+msgstr "Các Cuộc Trò Chuyện"
+
+#: .\chatbot_data\models.py:204
+msgid "Setting Name"
+msgstr "Tên Cài Đặt"
+
+#: .\chatbot_data\models.py:205
+msgid "Setting Value"
+msgstr "Giá Trị Cài Đặt"
+
+#: .\chatbot_data\models.py:208
+msgid "Setting"
+msgstr "Cài Đặt"
+
+#: .\chatbot_data\models.py:209 .\chatbot_data\templates\bots\edit_bot.html:30
+msgid "Settings"
+msgstr "Các Cài Đặt"
+
+#: .\chatbot_data\models.py:214
+msgid "User Say"
+msgstr "Người Dùng Nói"
+
+#: .\chatbot_data\models.py:215
+msgid "Confidence"
+msgstr "Độ Tin Cậy"
+
+#: .\chatbot_data\models.py:218 .\chatbot_data\models.py:231
+msgid "Sender ID"
+msgstr "ID Người Gửi"
+
+#: .\chatbot_data\models.py:219
+msgid "Slot Values"
+msgstr "Giá Trị Slot"
+
+#: .\chatbot_data\models.py:220
+msgid "Intent Ranking"
+msgstr "Xếp Hạng Ý Định"
+
+#: .\chatbot_data\models.py:221
+msgid "Next Action"
+msgstr "Hành Động Tiếp Theo"
+
+#: .\chatbot_data\models.py:227
+msgid "History"
+msgstr "Lịch Sử"
+
+#: .\chatbot_data\models.py:228
+msgid "Histories"
+msgstr "Các Lịch Sử"
+
+#: .\chatbot_data\models.py:232
+msgid "Sender Name"
+msgstr "Tên Người Gửi"
+
+#: .\chatbot_data\models.py:235
+msgid "Chat User"
+msgstr "Người Dùng Chat"
+
+#: .\chatbot_data\models.py:236
+msgid "Chat Users"
+msgstr "Người Dùng Chat"
+
+#: .\chatbot_data\models.py:240
+msgid "Intent Test"
+msgstr "Kiểm Tra Ý Định"
+
+#: .\chatbot_data\models.py:241
+msgid "Story Test"
+msgstr "Kiểm Tra Câu Chuyện"
+
+#: .\chatbot_data\models.py:244 .\chatbot_data\templates\bots\edit_bot.html:43
+msgid "Name"
+msgstr "Tên"
+
+#: .\chatbot_data\models.py:245
+msgid "Content"
+msgstr "Nội Dung"
+
+#: .\chatbot_data\models.py:246 .\chatbot_data\models.py:266
+msgid "Created At"
+msgstr "Tạo Lúc"
+
+#: .\chatbot_data\models.py:247
+msgid "Test Type"
+msgstr "Loại Kiểm Tra"
+
+#: .\chatbot_data\models.py:258 .\chatbot_data\models.py:262
+msgid "Test"
+msgstr "Kiểm Tra"
+
+#: .\chatbot_data\models.py:259
+msgid "Tests"
+msgstr "Các Kiểm Tra"
+
+#: .\chatbot_data\models.py:263
+msgid "Result"
+msgstr "Kết Quả"
+
+#: .\chatbot_data\models.py:264
+msgid "Chart 1 Path"
+msgstr "Đường Dẫn Biểu Đồ 1"
+
+#: .\chatbot_data\models.py:265
+msgid "Chart 2 Path"
+msgstr "Đường Dẫn Biểu Đồ 2"
+
+#: .\chatbot_data\models.py:272
+msgid "Test Result"
+msgstr "Kết Quả Kiểm Tra"
+
+#: .\chatbot_data\models.py:273
+msgid "Test Results"
+msgstr "Các Kết Quả Kiểm Tra"
+
+#: .\chatbot_data\templates\bots\add_bot.html:7
+#: .\chatbot_data\templates\bots\bots.html:14
+msgid "Add Bot"
+msgstr "Thêm Bot"
+
+#: .\chatbot_data\templates\bots\add_bot.html:25
+#: .\chatbot_data\templates\bots\edit_bot.html:61
+msgid "Save"
+msgstr "Lưu"
+
+#: .\chatbot_data\templates\bots\bots.html:14
+msgid "Click to Add a New Bot"
+msgstr "Nhấp để Thêm Một Bot Mới"
+
+#: .\chatbot_data\templates\bots\bots.html:33
+msgid "intents"
+msgstr "ý định"
+
+#: .\chatbot_data\templates\bots\bots.html:33
+msgid "entities"
+msgstr "thực thể"
+
+#: .\chatbot_data\templates\bots\bots.html:33
+msgid "stories"
+msgstr "câu chuyện"
+
+#: .\chatbot_data\templates\bots\bots.html:34
+msgid "rules"
+msgstr "quy tắc"
+
+#: .\chatbot_data\templates\bots\bots.html:45
+#: .\chatbot_data\templates\bots\edit_bot.html:99
+#: .\chatbot_data\templates\bots\edit_bot.html:149
+#: .\chatbot_data\templates\bots\edit_bot.html:201
+#: .\chatbot_data\templates\bots\edit_bot.html:251
+#: .\chatbot_data\templates\bots\edit_bot.html:306
+msgid "First"
+msgstr "Đầu Tiên"
+
+#: .\chatbot_data\templates\bots\bots.html:48
+#: .\chatbot_data\templates\bots\edit_bot.html:102
+#: .\chatbot_data\templates\bots\edit_bot.html:152
+#: .\chatbot_data\templates\bots\edit_bot.html:204
+#: .\chatbot_data\templates\bots\edit_bot.html:254
+#: .\chatbot_data\templates\bots\edit_bot.html:309
+msgid "Previous"
+msgstr "Trước"
+
+#: .\chatbot_data\templates\bots\bots.html:52
+#: .\chatbot_data\templates\bots\edit_bot.html:106
+#: .\chatbot_data\templates\bots\edit_bot.html:156
+#: .\chatbot_data\templates\bots\edit_bot.html:208
+#: .\chatbot_data\templates\bots\edit_bot.html:258
+#: .\chatbot_data\templates\bots\edit_bot.html:313
+msgid "Page"
+msgstr "Trang"
+
+#: .\chatbot_data\templates\bots\bots.html:52
+#: .\chatbot_data\templates\bots\edit_bot.html:106
+#: .\chatbot_data\templates\bots\edit_bot.html:156
+#: .\chatbot_data\templates\bots\edit_bot.html:208
+#: .\chatbot_data\templates\bots\edit_bot.html:258
+#: .\chatbot_data\templates\bots\edit_bot.html:313
+msgid "of"
+msgstr "của"
+
+#: .\chatbot_data\templates\bots\bots.html:56
+#: .\chatbot_data\templates\bots\edit_bot.html:110
+#: .\chatbot_data\templates\bots\edit_bot.html:160
+#: .\chatbot_data\templates\bots\edit_bot.html:212
+#: .\chatbot_data\templates\bots\edit_bot.html:262
+#: .\chatbot_data\templates\bots\edit_bot.html:317
+msgid "Next"
+msgstr "Tiếp"
+
+#: .\chatbot_data\templates\bots\bots.html:59
+#: .\chatbot_data\templates\bots\edit_bot.html:113
+#: .\chatbot_data\templates\bots\edit_bot.html:163
+#: .\chatbot_data\templates\bots\edit_bot.html:215
+#: .\chatbot_data\templates\bots\edit_bot.html:265
+#: .\chatbot_data\templates\bots\edit_bot.html:320
+msgid "Last"
+msgstr "Cuối"
+
+#: .\chatbot_data\templates\bots\edit_bot.html:11
+msgid "Click to Split the Test Data"
+msgstr "Nhấp để Chia Dữ Liệu Kiểm Tra"
+
+#: .\chatbot_data\templates\bots\edit_bot.html:12
+msgid "Split Test"
+msgstr "Chia Kiểm Tra"
+
+#: .\chatbot_data\templates\bots\edit_bot.html:14
+msgid "Click to Import a Bot"
+msgstr "Nhấp để Nhập Bot"
+
+#: .\chatbot_data\templates\bots\edit_bot.html:15
+msgid "Import Bot"
+msgstr "Nhập Bot"
+
+#: .\chatbot_data\templates\bots\edit_bot.html:17
+#: .\chatbot_data\templates\bots\edit_bot.html:19
+msgid "Delete Bot"
+msgstr "Xóa Bot"
+
+#: .\chatbot_data\templates\bots\edit_bot.html:18
+msgid ""
+"Are you sure? This will delete the bot, all its intents, expressions, and "
+"resolved entities."
+msgstr ""
+"Bạn có chắc không? Điều này sẽ xóa bot, tất cả các ý định, biểu thức và các thực thể đã giải quyết."
+
+#: .\chatbot_data\templates\bots\edit_bot.html:49
+msgid "Rasa Config"
+msgstr "Cấu Hình Rasa"
+
+#: .\chatbot_data\templates\bots\edit_bot.html:54
+msgid "Server Output Folder"
+msgstr "Thư Mục Đầu Ra Máy Chủ"
+
+#: .\chatbot_data\templates\bots\edit_bot.html:74
+msgid "Filter Intents.."
+msgstr "Lọc Ý Định.."
+
+#: .\chatbot_data\templates\bots\edit_bot.html:77
+msgid "Click to Add a New Intent"
+msgstr "Nhấp để Thêm Ý Định Mới"
+
+#: .\chatbot_data\templates\bots\edit_bot.html:180
+msgid "Click to Add a New Synonym"
+msgstr "Nhấp để Thêm Từ Đồng Nghĩa Mới"
+
+#: .\chatbot_data\templates\bots\edit_bot.html:278
+msgid "Lookup Tables"
+msgstr "Bảng Tra Cứu"
+
+#: .\chatbot_data\templates\bots\edit_bot.html:282
+msgid "Click to Add a New Lookup Table"
+msgstr "Nhấp để Thêm Bảng Tra Cứu Mới"

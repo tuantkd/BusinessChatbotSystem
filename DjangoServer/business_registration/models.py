@@ -1,31 +1,29 @@
 import os
 from django.db import models
 import random
-from django.db import models
 from django.forms import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 class BusinessStatus(models.TextChoices):
-
-    NEWLY_ESTABLISHED = 'NE', 'Thành lập mới'
-    OPERATING = 'OP', 'Đang hoạt động'
-    DISSOLVING = 'DI', 'Giải thể'
-    BANKRUPT = 'BA', 'Đang phá sản'
-    NEWLY_REGISTERED = 'NR', 'Đăng ký mới'
-    CHANGE_REGISTERED = 'CR', 'Thay đổi đăng ký'
-    CHANGE_NOTIFICATION = 'CN', 'Thông báo thay đổi'
-    TEMPORARILY_SUSPENDED = 'TS', 'Tạm ngừng'
-    OTHER_CASES = 'OC', 'Trường hợp khác'
-    LEGAL_DOCUMENT = 'LD', 'Văn bản pháp luật'
-    TERMINATION_OF_OPERATION = 'TO', 'Chấm dứt hoạt động'
-    BUSINESS_LOCATION_CHANGE = 'BL', 'Thay đổi địa điểm kinh doanh'
-    PRIVATE_ENTERPRISE = 'PE', 'Doanh nghiệp tư nhân'
-    LIMITED_PARTNERSHIP = 'LP', 'Công ty TNHH 1 TV'
-    JOINT_STOCK_COMPANY = 'JS', 'Công ty Cổ phần'
-    MERGER = 'MG', 'Hợp nhất doanh nghiệp'
-    BUSINESS_SPLIT = 'BS', 'Chia doanh nghiệp'
-    BUSINESS_CONVERSION = 'BC', 'Chuyển đổi loại hình doanh nghiệp'
-    NOTIFICATION_OF_CHANGE = 'NC', 'Thông báo thay đổi'
+    NEWLY_ESTABLISHED = 'NE', _('Thành lập mới')
+    OPERATING = 'OP', _('Đang hoạt động')
+    DISSOLVING = 'DI', _('Giải thể')
+    BANKRUPT = 'BA', _('Đang phá sản')
+    NEWLY_REGISTERED = 'NR', _('Đăng ký mới')
+    CHANGE_REGISTERED = 'CR', _('Thay đổi đăng ký')
+    CHANGE_NOTIFICATION = 'CN', _('Thông báo thay đổi')
+    TEMPORARILY_SUSPENDED = 'TS', _('Tạm ngừng')
+    OTHER_CASES = 'OC', _('Trường hợp khác')
+    LEGAL_DOCUMENT = 'LD', _('Văn bản pháp luật')
+    TERMINATION_OF_OPERATION = 'TO', _('Chấm dứt hoạt động')
+    BUSINESS_LOCATION_CHANGE = 'BL', _('Thay đổi địa điểm kinh doanh')
+    PRIVATE_ENTERPRISE = 'PE', _('Doanh nghiệp tư nhân')
+    LIMITED_PARTNERSHIP = 'LP', _('Công ty TNHH 1 TV')
+    JOINT_STOCK_COMPANY = 'JS', _('Công ty Cổ phần')
+    MERGER = 'MG', _('Hợp nhất doanh nghiệp')
+    BUSINESS_SPLIT = 'BS', _('Chia doanh nghiệp')
+    BUSINESS_CONVERSION = 'BC', _('Chuyển đổi loại hình doanh nghiệp')
+    NOTIFICATION_OF_CHANGE = 'NC', _('Thông báo thay đổi')
 
     def get_business_status_value_by_fullname(fullname):
         for value, full_name in BusinessStatus.choices:
@@ -41,7 +39,7 @@ class Business(models.Model):
     def validate_multiple_of_1000(value):
         if value % 1000 != 0:
             raise ValidationError(
-                ('%(value)s is not a multiple of 1000'),
+                _('%(value)s is not a multiple of 1000'),
                 params={'value': value},
             )
         
@@ -51,7 +49,7 @@ class Business(models.Model):
         with open(file_path, 'r+') as file:
             codes = file.readlines()
             if not codes:
-                raise ValueError("No codes available")
+                raise ValueError(_("No codes available"))
             position = random.randint(0, len(codes) - 1)
             code = codes[position].strip()
             del codes[position]
@@ -90,7 +88,7 @@ class BusinessStatusChange(models.Model):
         verbose_name = _("Business Status Change")
         verbose_name_plural = _("Business Status Changes")
 
-    business = models.ForeignKey(Business, on_delete=models.CASCADE)  # Khóa ngoại đến model Business
+    business = models.ForeignKey(Business, on_delete=models.CASCADE, verbose_name=_("Business"))  # Khóa ngoại đến model Business
     old_status = models.CharField(
         _("Old Status"),
         max_length=5,
@@ -101,18 +99,18 @@ class BusinessStatusChange(models.Model):
         max_length=5,
         choices=BusinessStatus.choices,
     )  # Trạng thái mới của doanh nghiệp
-    change_date = models.DateField(auto_now_add=True)  # Ngày thay đổi trạng thái
-    # changed_by = models.ForeignKey('auth.User', on_delete=models.CASCADE)  # Người thực hiện thay đổi trạng thái
+    change_date = models.DateField(_("Change Date"), auto_now_add=True)  # Ngày thay đổi trạng thái
 
     def __str__(self):
         return f"{self.business}, {self.old_status}, {self.new_status}, {self.change_date}"
+
 class LegalRepresentative(models.Model):
     class Meta:
         verbose_name = _("Legal Representative")
         verbose_name_plural = _("Người đại diện")
 
-    name = models.CharField(_("Name"),max_length=255)  # Họ và tên
-    gender = models.CharField(_("Gender"),max_length=10)  # Giới tính
+    name = models.CharField(_("Name"), max_length=255)  # Họ và tên
+    gender = models.CharField(_("Gender"), max_length=10)  # Giới tính
     position = models.CharField(_("Position"), max_length=255)  # Chức danh
     dob = models.DateField(_("Date of Birth"))  # Sinh ngày (Date of Birth)
     ethnicity = models.CharField(_("Ethnicity"), max_length=50)  # Dân tộc
@@ -121,8 +119,8 @@ class LegalRepresentative(models.Model):
     id_number = models.CharField(_("ID Number"), max_length=20)  # Số giấy tờ pháp lý
     id_issuance_date = models.DateField(_("ID Issuance Date"))  # Ngày cấp
     id_issuance_place = models.CharField(_("ID Issuance Place"), max_length=255)  # Nơi cấp
-    residence_address = models.TextField(_("Residence Address") )  # Địa chỉ thường trú
-    contact_address = models.TextField( _("Contact Address"))  # Địa chỉ liên lạc
+    residence_address = models.TextField(_("Residence Address"))  # Địa chỉ thường trú
+    contact_address = models.TextField(_("Contact Address"))  # Địa chỉ liên lạc
 
     def __str__(self):
         return self.name
@@ -144,7 +142,6 @@ class Owner(models.Model):
     residence_address = models.TextField(_("Residence Address"))  # Địa chỉ thường trú
     contact_address = models.TextField(_("Contact Address"))  # Địa chỉ liên lạc
 
-
     def __str__(self):
         return self.name
 
@@ -158,6 +155,7 @@ class BusinessOwner(models.Model):
 
     def __str__(self):
         return f"{self.business}, {self.owner}"
+
 class BusinessType(models.Model):
     class Meta:
         verbose_name = _("Business Type")
@@ -167,6 +165,7 @@ class BusinessType(models.Model):
 
     def __str__(self):
         return self.type_description
+
 class BusinessTypeStatus(models.Model):
     class Meta:
         verbose_name = _("Business Type Status")
@@ -185,7 +184,6 @@ class BusinessTypeStatus(models.Model):
     def get_status_display_full(self):
         return dict(BusinessStatus.choices)[self.status]
 
-
 class BusinessProcessStep(models.Model):
     class Meta:
         verbose_name = _("Business Process Step")
@@ -198,8 +196,6 @@ class BusinessProcessStep(models.Model):
 
     def __str__(self):
         return self.step_name
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 class Industry(models.Model):
     class Meta:
@@ -243,6 +239,7 @@ class ActivityField(models.Model):
 
     def __str__(self):
         return self.field_name
+
 class BusinessActivityField(models.Model):
     class Meta:
         verbose_name = _("Business Activity Field")
@@ -279,6 +276,7 @@ class Address(models.Model):
 
     def __str__(self):
         return f"{self.detail}, {self.ward}, {self.district}, {self.province}"
+
 class BusinessAddress(models.Model):
     class Meta:
         verbose_name = _("Business Address")
@@ -303,7 +301,8 @@ class AdministrativeUnit(models.Model):
     code_name_en = models.CharField(_("Code Name (English)"), max_length=255, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.full_name
+
 class AdministrativeRegion(models.Model):
     class Meta:
         verbose_name = _("Administrative Region")
@@ -317,6 +316,7 @@ class AdministrativeRegion(models.Model):
 
     def __str__(self):
         return self.name
+
 class Province(models.Model):
     class Meta:
         verbose_name = _("Province")
@@ -333,6 +333,7 @@ class Province(models.Model):
 
     def __str__(self):
         return self.name
+
 class District(models.Model):
     class Meta:
         verbose_name = _("District")
@@ -349,6 +350,7 @@ class District(models.Model):
 
     def __str__(self):
         return self.name
+
 class Ward(models.Model):
     class Meta:
         verbose_name = _("Ward")

@@ -8,189 +8,121 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-28 23:04+0700\n"
+"POT-Creation-Date: 2024-06-16 15:22+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: .\chatbot_data\templates\bots\add_bot.html:6
-#: .\chatbot_data\templates\bots\bots.html:2
-#: .\chatbot_data\templates\bots\bots.html:9
-#: .\chatbot_data\templates\bots\bots.html:23
-#: .\chatbot_data\templates\bots\edit_bot.html:6
-msgid "Bots"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\add_bot.html:7
-#: .\chatbot_data\templates\bots\bots.html:13
-msgid "Add Bot"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\add_bot.html:18
-msgid "Bot"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\add_bot.html:25
-#: .\chatbot_data\templates\bots\edit_bot.html:58
-msgid "Save"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\bots.html:13
-msgid "Click to Add a New Bot"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\bots.html:32
-msgid "intents"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\bots.html:32
-msgid "entities"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\bots.html:32
-msgid "stories"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\bots.html:33
-msgid "rules"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\bots.html:44
-#: .\chatbot_data\templates\bots\edit_bot.html:96
-#: .\chatbot_data\templates\bots\edit_bot.html:146
-#: .\chatbot_data\templates\bots\edit_bot.html:198
-#: .\chatbot_data\templates\bots\edit_bot.html:248
-#: .\chatbot_data\templates\bots\edit_bot.html:303
-msgid "First"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\bots.html:47
-#: .\chatbot_data\templates\bots\edit_bot.html:99
-#: .\chatbot_data\templates\bots\edit_bot.html:149
-#: .\chatbot_data\templates\bots\edit_bot.html:201
-#: .\chatbot_data\templates\bots\edit_bot.html:251
-#: .\chatbot_data\templates\bots\edit_bot.html:306
-msgid "Previous"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\bots.html:51
-#: .\chatbot_data\templates\bots\edit_bot.html:103
-#: .\chatbot_data\templates\bots\edit_bot.html:153
-msgid "Page"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\bots.html:51
-#: .\chatbot_data\templates\bots\edit_bot.html:103
-#: .\chatbot_data\templates\bots\edit_bot.html:153
-msgid "of"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\bots.html:55
-#: .\chatbot_data\templates\bots\edit_bot.html:107
-#: .\chatbot_data\templates\bots\edit_bot.html:157
-#: .\chatbot_data\templates\bots\edit_bot.html:209
-#: .\chatbot_data\templates\bots\edit_bot.html:259
-#: .\chatbot_data\templates\bots\edit_bot.html:314
-msgid "Next"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\bots.html:58
-#: .\chatbot_data\templates\bots\edit_bot.html:110
-#: .\chatbot_data\templates\bots\edit_bot.html:160
-#: .\chatbot_data\templates\bots\edit_bot.html:212
-#: .\chatbot_data\templates\bots\edit_bot.html:262
-#: .\chatbot_data\templates\bots\edit_bot.html:317
-msgid "Last"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:11
-msgid "Click to Import a Bot"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:12
-msgid "Import Bot"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:14
-#: .\chatbot_data\templates\bots\edit_bot.html:16
-msgid "Delete Bot"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:15
-msgid ""
-"Are you sure? This will delete the bot, all its intents, expressions, and "
-"resolved entities."
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:27
-msgid "Settings"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:40
-msgid "Name"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:42
-msgid "Bot Name"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:46
-msgid "Rasa Config"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:51
-msgid "Server Output Folder"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:53
-msgid "Output Folder"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:69
-msgid "Intents"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:71
-msgid "Filter Intents.."
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:74
-msgid "Click to Add a New Intent"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:122
-msgid "Entities"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:174
-msgid "Synonyms"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:177
-msgid "Click to Add a New Synonym"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:224
-msgid "Regex"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:275
-msgid "Lookup Tables"
-msgstr ""
-
-#: .\chatbot_data\templates\bots\edit_bot.html:279
-msgid "Click to Add a New Lookup Table"
-msgstr ""
-
-#: .\enterprise_registration_app\settings.py:35
+#: .\enterprise_registration_app\settings.py:41
 msgid "English"
 msgstr "Tiếng Anh"
 
-#: .\enterprise_registration_app\settings.py:36
+#: .\enterprise_registration_app\settings.py:42
 msgid "Vietnamese"
 msgstr "Tiếng Việt"
+
+#: .\legal_documents\models.py:6
+msgid "Law"
+msgstr "Luật"
+
+#: .\legal_documents\models.py:7
+msgid "Laws"
+msgstr "Các Luật"
+
+#: .\legal_documents\models.py:9
+msgid "Law Number"
+msgstr "Số hiệu Luật"
+
+#: .\legal_documents\models.py:10 .\legal_documents\models.py:20
+#: .\legal_documents\models.py:30 .\legal_documents\models.py:40
+msgid "Issued Date"
+msgstr "Ngày ban hành"
+
+#: .\legal_documents\models.py:11
+msgid "Law Name"
+msgstr "Tên Luật"
+
+#: .\legal_documents\models.py:12
+msgid "Law Link"
+msgstr "Liên kết Luật"
+
+#: .\legal_documents\models.py:16
+msgid "Decree"
+msgstr "Nghị định"
+
+#: .\legal_documents\models.py:17
+msgid "Decrees"
+msgstr "Các Nghị định"
+
+#: .\legal_documents\models.py:19
+msgid "Decree Number"
+msgstr "Số hiệu Nghị định"
+
+#: .\legal_documents\models.py:21
+msgid "Decree Name"
+msgstr "Tên Nghị định"
+
+#: .\legal_documents\models.py:22
+msgid "Decree Link"
+msgstr "Liên kết Nghị định"
+
+#: .\legal_documents\models.py:26
+msgid "Circular"
+msgstr "Thông tư"
+
+#: .\legal_documents\models.py:27
+msgid "Circulars"
+msgstr "Các Thông tư"
+
+#: .\legal_documents\models.py:29
+msgid "Circular Number"
+msgstr "Số hiệu Thông tư"
+
+#: .\legal_documents\models.py:31
+msgid "Circular Name"
+msgstr "Tên Thông tư"
+
+#: .\legal_documents\models.py:32
+msgid "Circular Link"
+msgstr "Liên kết Thông tư"
+
+#: .\legal_documents\models.py:36
+msgid "Decision"
+msgstr "Quyết định"
+
+#: .\legal_documents\models.py:37
+msgid "Decisions"
+msgstr "Các Quyết định"
+
+#: .\legal_documents\models.py:39
+msgid "Decision Number"
+msgstr "Số hiệu Quyết định"
+
+#: .\legal_documents\models.py:41
+msgid "Decision Name"
+msgstr "Tên Quyết định"
+
+#: .\legal_documents\models.py:42
+msgid "Decision Link"
+msgstr "Liên kết Quyết định"
+
+#: .\templates\admin\nav_sidebar.html:2
+msgid "Toggle navigation"
+msgstr "Chuyển đổi điều hướng"
+
+#: .\templates\admin\nav_sidebar.html:3
+msgid "Sidebar"
+msgstr "Thanh bên"
+
+#: .\templates\admin\nav_sidebar.html:7
+msgid "Start typing to filter…"
+msgstr "Bắt đầu gõ để lọc…"
+
+#: .\templates\admin\nav_sidebar.html:8
+msgid "Filter navigation items"
+msgstr "Lọc các mục điều hướng"

@@ -8,437 +8,519 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-<<<<<<< HEAD
-"POT-Creation-Date: 2024-03-10 10:07+0700\n"
-=======
-"POT-Creation-Date: 2024-03-28 22:38+0700\n"
->>>>>>> 68dd5d3474b4fb33666ab11ecf0d6954c9932d45
+"POT-Creation-Date: 2024-06-16 15:07+0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: .\business_registration\models.py:54 .\business_registration\models.py:171
-#: .\business_registration\models.py:223 .\business_registration\models.py:241
-#: .\business_registration\models.py:252 .\business_registration\models.py:274
-#, fuzzy
-#| msgid "Business Code"
+#: .\business_registration\models.py:8
+msgid "Thành lập mới"
+msgstr "Thành lập mới"
+
+#: .\business_registration\models.py:9
+msgid "Đang hoạt động"
+msgstr "Đang hoạt động"
+
+#: .\business_registration\models.py:10
+msgid "Giải thể"
+msgstr "Giải thể"
+
+#: .\business_registration\models.py:11
+msgid "Đang phá sản"
+msgstr "Đang phá sản"
+
+#: .\business_registration\models.py:12
+msgid "Đăng ký mới"
+msgstr "Đăng ký mới"
+
+#: .\business_registration\models.py:13
+msgid "Thay đổi đăng ký"
+msgstr "Thay đổi đăng ký"
+
+#: .\business_registration\models.py:14 .\business_registration\models.py:26
+msgid "Thông báo thay đổi"
+msgstr "Thông báo thay đổi"
+
+#: .\business_registration\models.py:15
+msgid "Tạm ngừng"
+msgstr "Tạm ngừng"
+
+#: .\business_registration\models.py:16
+msgid "Trường hợp khác"
+msgstr "Trường hợp khác"
+
+#: .\business_registration\models.py:17
+msgid "Văn bản pháp luật"
+msgstr "Văn bản pháp luật"
+
+#: .\business_registration\models.py:18
+msgid "Chấm dứt hoạt động"
+msgstr "Chấm dứt hoạt động"
+
+#: .\business_registration\models.py:19
+msgid "Thay đổi địa điểm kinh doanh"
+msgstr "Thay đổi địa điểm kinh doanh"
+
+#: .\business_registration\models.py:20
+msgid "Doanh nghiệp tư nhân"
+msgstr "Doanh nghiệp tư nhân"
+
+#: .\business_registration\models.py:21
+msgid "Công ty TNHH 1 TV"
+msgstr "Công ty TNHH 1 TV"
+
+#: .\business_registration\models.py:22
+msgid "Công ty Cổ phần"
+msgstr "Công ty Cổ phần"
+
+#: .\business_registration\models.py:23
+msgid "Hợp nhất doanh nghiệp"
+msgstr "Hợp nhất doanh nghiệp"
+
+#: .\business_registration\models.py:24
+msgid "Chia doanh nghiệp"
+msgstr "Chia doanh nghiệp"
+
+#: .\business_registration\models.py:25
+msgid "Chuyển đổi loại hình doanh nghiệp"
+msgstr "Chuyển đổi loại hình doanh nghiệp"
+
+#: .\business_registration\models.py:36 .\business_registration\models.py:91
+#: .\business_registration\models.py:153 .\business_registration\models.py:226
+#: .\business_registration\models.py:248 .\business_registration\models.py:262
+#: .\business_registration\models.py:285
 msgid "Business"
-msgstr "Mã Doanh Nghiệp"
+msgstr "Doanh nghiệp"
 
-#: .\business_registration\models.py:55
-msgid "Doanh Nghiệp"
-msgstr "Mã Doanh nghiệp"
+#: .\business_registration\models.py:37
+msgid "Doanh nghiệp"
+msgstr "Doanh nghiệp"
 
-#: .\business_registration\models.py:79
+#: .\business_registration\models.py:42
+#, python-format
+msgid "%(value)s is not a multiple of 1000"
+msgstr "%(value)s không phải là bội số của 1000"
+
+#: .\business_registration\models.py:52
+msgid "No codes available"
+msgstr "Không có mã nào khả dụng"
+
+#: .\business_registration\models.py:61
 msgid "Business Code"
 msgstr "Mã Doanh Nghiệp"
 
-#: .\business_registration\models.py:80 .\business_registration\models.py:84
+#: .\business_registration\models.py:62 .\business_registration\models.py:66
 msgid "Company Name"
 msgstr "Tên Công Ty"
 
-#: .\business_registration\models.py:81
+#: .\business_registration\models.py:63
 msgid "Longitude"
-msgstr ""
+msgstr "Kinh Độ"
 
-#: .\business_registration\models.py:82
+#: .\business_registration\models.py:64
 msgid "Latitude"
-msgstr ""
+msgstr "Vĩ Độ"
 
-#: .\business_registration\models.py:83 .\business_registration\models.py:259
-#: .\business_registration\models.py:275
+#: .\business_registration\models.py:65 .\business_registration\models.py:269
+#: .\business_registration\models.py:286
 msgid "Address"
 msgstr "Địa Chỉ"
 
-#: .\business_registration\models.py:85
+#: .\business_registration\models.py:67
 msgid "Details"
 msgstr "Chi Tiết"
 
-#: .\business_registration\models.py:86
+#: .\business_registration\models.py:68
 msgid "Capital"
 msgstr "Vốn"
 
-#: .\business_registration\models.py:88 .\business_registration\models.py:192
+#: .\business_registration\models.py:70 .\business_registration\models.py:176
 msgid "Status"
 msgstr "Trạng Thái"
 
-#: .\business_registration\models.py:93 .\business_registration\models.py:126
+#: .\business_registration\models.py:76 .\business_registration\models.py:109
 msgid "Legal Representative"
 msgstr "Người Đại Diện Pháp Luật"
 
-#: .\business_registration\models.py:94
+#: .\business_registration\models.py:77
 msgid "Issued Date"
 msgstr "Ngày Cấp"
 
-#: .\business_registration\models.py:95 .\business_registration\models.py:178
-#: .\business_registration\models.py:190
+#: .\business_registration\models.py:78 .\business_registration\models.py:161
+#: .\business_registration\models.py:174
 msgid "Business Type"
 msgstr "Loại Hình Doanh Nghiệp"
 
-#: .\business_registration\models.py:96
+#: .\business_registration\models.py:79
 msgid "Main Industry"
 msgstr "Ngành Nghề Kinh Doanh"
 
-#: .\business_registration\models.py:97
+#: .\business_registration\models.py:80
 msgid "Headquarters Address"
 msgstr "Địa Chỉ Trụ Sở Chính"
 
-#: .\business_registration\models.py:105
-#, fuzzy
-#| msgid "Business Type"
+#: .\business_registration\models.py:88
 msgid "Business Status Change"
-msgstr "Loại Hình Doanh Nghiệp"
+msgstr "Thay Đổi Trạng Thái Doanh Nghiệp"
 
-#: .\business_registration\models.py:106
-#, fuzzy
-#| msgid "Business Type"
+#: .\business_registration\models.py:89
 msgid "Business Status Changes"
-msgstr "Loại Hình Doanh Nghiệp"
+msgstr "Thay Đổi Trạng Thái Doanh Nghiệp"
+
+#: .\business_registration\models.py:93
+msgid "Old Status"
+msgstr "Trạng Thái Cũ"
+
+#: .\business_registration\models.py:98
+msgid "New Status"
+msgstr "Trạng Thái Mới"
+
+#: .\business_registration\models.py:102
+msgid "Change Date"
+msgstr "Ngày Thay Đổi"
 
 #: .\business_registration\models.py:110
-#, fuzzy
-#| msgid "Status"
-msgid "Old Status"
-msgstr "Trạng Thái"
+msgid "Người đại diện"
+msgstr "Người đại diện"
 
-#: .\business_registration\models.py:115
-#, fuzzy
-#| msgid "Status"
-msgid "New Status"
-msgstr "Trạng Thái"
-
-#: .\business_registration\models.py:127
-#, fuzzy
-#| msgid "Legal Representative"
-msgid "Legal Representatives"
-msgstr "Người Đại Diện Pháp Luật"
-
-#: .\business_registration\models.py:129 .\business_registration\models.py:150
-#: .\business_registration\models.py:297 .\business_registration\models.py:310
-#: .\business_registration\models.py:326 .\business_registration\models.py:342
+#: .\business_registration\models.py:112 .\business_registration\models.py:133
+#: .\business_registration\models.py:312 .\business_registration\models.py:326
+#: .\business_registration\models.py:343 .\business_registration\models.py:360
 msgid "Name"
 msgstr "Tên"
 
-#: .\business_registration\models.py:130 .\business_registration\models.py:151
+#: .\business_registration\models.py:113 .\business_registration\models.py:134
 msgid "Gender"
 msgstr "Giới Tính"
 
-#: .\business_registration\models.py:131
+#: .\business_registration\models.py:114
 msgid "Position"
 msgstr "Chức Vụ"
 
-#: .\business_registration\models.py:132 .\business_registration\models.py:152
+#: .\business_registration\models.py:115 .\business_registration\models.py:135
 msgid "Date of Birth"
 msgstr "Ngày Sinh"
 
-#: .\business_registration\models.py:133 .\business_registration\models.py:153
+#: .\business_registration\models.py:116 .\business_registration\models.py:136
 msgid "Ethnicity"
 msgstr "Dân Tộc"
 
-#: .\business_registration\models.py:134 .\business_registration\models.py:154
+#: .\business_registration\models.py:117 .\business_registration\models.py:137
 msgid "Nationality"
 msgstr "Quốc Tịch"
 
-#: .\business_registration\models.py:135 .\business_registration\models.py:155
+#: .\business_registration\models.py:118 .\business_registration\models.py:138
 msgid "ID Type"
 msgstr "Loại Chứng Minh"
 
-#: .\business_registration\models.py:136 .\business_registration\models.py:156
+#: .\business_registration\models.py:119 .\business_registration\models.py:139
 msgid "ID Number"
 msgstr "Số Chứng Minh"
 
-#: .\business_registration\models.py:137 .\business_registration\models.py:157
-#, fuzzy
-#| msgid "Issued Date"
+#: .\business_registration\models.py:120 .\business_registration\models.py:140
 msgid "ID Issuance Date"
 msgstr "Ngày Cấp"
 
-#: .\business_registration\models.py:138 .\business_registration\models.py:158
+#: .\business_registration\models.py:121 .\business_registration\models.py:141
 msgid "ID Issuance Place"
 msgstr "Nơi Cấp"
 
-#: .\business_registration\models.py:139 .\business_registration\models.py:159
+#: .\business_registration\models.py:122 .\business_registration\models.py:142
 msgid "Residence Address"
 msgstr "Địa Chỉ Thường Trú"
 
-#: .\business_registration\models.py:140 .\business_registration\models.py:160
+#: .\business_registration\models.py:123 .\business_registration\models.py:143
 msgid "Contact Address"
 msgstr "Địa Chỉ Liên Hệ"
 
-#: .\business_registration\models.py:147 .\business_registration\models.py:172
+#: .\business_registration\models.py:130 .\business_registration\models.py:154
 msgid "Owner"
 msgstr "Người Sở Hữu"
 
-#: .\business_registration\models.py:148
-#, fuzzy
-#| msgid "Owner"
-msgid "Owners"
-msgstr "Người Sở Hữu"
+#: .\business_registration\models.py:131
+msgid "Thông tin Chủ sở hữu"
+msgstr "Thông tin Chủ sở hữu"
 
-#: .\business_registration\models.py:168
-#, fuzzy
-#| msgid "Business Code"
+#: .\business_registration\models.py:150
 msgid "Business Owner"
-msgstr "Mã Doanh Nghiệp"
+msgstr "Chủ Sở Hữu"
 
-#: .\business_registration\models.py:169
-#, fuzzy
-#| msgid "Business Code"
-msgid "Business Owners"
-msgstr "Mã Doanh Nghiệp"
+#: .\business_registration\models.py:151
+msgid "Chủ sở hữu"
+msgstr "Chủ sở hữu"
 
-#: .\business_registration\models.py:179
-#, fuzzy
-#| msgid "Business Type"
-msgid "Business Types"
-msgstr "Loại Hình Doanh Nghiệp"
+#: .\business_registration\models.py:162
+msgid "Loại hình kinh doanh"
+msgstr "Loại hình kinh doanh"
 
-#: .\business_registration\models.py:181
+#: .\business_registration\models.py:164
 msgid "Type Description"
-msgstr "Loại Doanh Nghiệp"
+msgstr "Mô Tả Loại Hình"
 
-#: .\business_registration\models.py:187 .\business_registration\models.py:201
-#, fuzzy
-#| msgid "Business Type"
+#: .\business_registration\models.py:171 .\business_registration\models.py:192
 msgid "Business Type Status"
-msgstr "Loại Hình Doanh Nghiệp"
+msgstr "Trạng Thái Loại Hình Doanh Nghiệp"
 
-#: .\business_registration\models.py:188
-#, fuzzy
-#| msgid "Business Type"
-msgid "Business Type Statuses"
-msgstr "Loại Hình Doanh Nghiệp"
+#: .\business_registration\models.py:172
+msgid "Trạng thái doanh nghiệp"
+msgstr "Trạng thái doanh nghiệp"
 
-#: .\business_registration\models.py:198
-#, fuzzy
-#| msgid "Business Code"
+#: .\business_registration\models.py:189
 msgid "Business Process Step"
-msgstr "Mã Doanh Nghiệp"
+msgstr "Bước Quy Trình"
 
-#: .\business_registration\models.py:199
-#, fuzzy
-#| msgid "Business Type"
-msgid "Business Process Steps"
-msgstr "Loại Hình Doanh Nghiệp"
+#: .\business_registration\models.py:190
+msgid "Quy trình đăng ký"
+msgstr "Quy trình đăng ký"
 
-#: .\business_registration\models.py:202
+#: .\business_registration\models.py:193
 msgid "Step Name"
 msgstr "Tên Bước"
 
-#: .\business_registration\models.py:203
+#: .\business_registration\models.py:194
 msgid "Step Order"
 msgstr "Thứ Tự Bước"
 
-#: .\business_registration\models.py:204
+#: .\business_registration\models.py:195
 msgid "Step Description"
 msgstr "Mô Tả Bước"
 
-#: .\business_registration\models.py:210 .\business_registration\models.py:224
-#, fuzzy
-#| msgid "Main Industry"
+#: .\business_registration\models.py:202 .\business_registration\models.py:227
 msgid "Industry"
-msgstr "Ngành Nghề Kinh Doanh"
+msgstr "Ngành Nghề"
 
-#: .\business_registration\models.py:211
-#, fuzzy
-#| msgid "Main Industry"
-msgid "Industries"
-msgstr "Ngành Nghề Kinh Doanh"
+#: .\business_registration\models.py:203
+msgid "Ngành nghề"
+msgstr "Ngành nghề"
 
-#: .\business_registration\models.py:213
-msgid "Activity Code"
-msgstr "Mã Hoạt Động"
+#: .\business_registration\models.py:205
+msgid "Level 1"
+msgstr "Cấp Độ 1"
 
-#: .\business_registration\models.py:214
+#: .\business_registration\models.py:206
+msgid "Level 2"
+msgstr "Cấp Độ 2"
+
+#: .\business_registration\models.py:207
+msgid "Level 3"
+msgstr "Cấp Độ 3"
+
+#: .\business_registration\models.py:208
+msgid "Level 4"
+msgstr "Cấp Độ 4"
+
+#: .\business_registration\models.py:209
+msgid "Level 5"
+msgstr "Cấp Độ 5"
+
+#: .\business_registration\models.py:210
 msgid "Activity Name"
 msgstr "Tên Hoạt Động"
 
-#: .\business_registration\models.py:220
-#, fuzzy
-#| msgid "Main Industry"
+#: .\business_registration\models.py:223
 msgid "Business Industry"
 msgstr "Ngành Nghề Kinh Doanh"
 
-#: .\business_registration\models.py:221
-#, fuzzy
-#| msgid "Business Code"
-msgid "Business Industries"
-msgstr "Mã Doanh Nghiệp"
+#: .\business_registration\models.py:224
+msgid "Ngành nghề kinh doanh"
+msgstr "Ngành nghề kinh doanh"
 
-#: .\business_registration\models.py:228 .\business_registration\models.py:242
+#: .\business_registration\models.py:234 .\business_registration\models.py:249
 msgid "Activity Field"
 msgstr "Lĩnh Vực Hoạt Động"
 
-#: .\business_registration\models.py:229
-#, fuzzy
-#| msgid "Activity Field"
-msgid "Activity Fields"
-msgstr "Lĩnh Vực Hoạt Động"
+#: .\business_registration\models.py:235
+msgid "Lĩnh vực hoạt động"
+msgstr "Lĩnh vực hoạt động"
 
-#: .\business_registration\models.py:231
-#, fuzzy
-#| msgid "Business Code"
+#: .\business_registration\models.py:237
 msgid "Field Code"
-msgstr "Mã Doanh Nghiệp"
+msgstr "Mã Lĩnh Vực"
 
-#: .\business_registration\models.py:232
+#: .\business_registration\models.py:238
 msgid "Field Name"
 msgstr "Tên Lĩnh Vực"
 
-#: .\business_registration\models.py:238
-#, fuzzy
-#| msgid "Activity Field"
+#: .\business_registration\models.py:245
 msgid "Business Activity Field"
-msgstr "Lĩnh Vực Hoạt Động"
-
-#: .\business_registration\models.py:239
-#, fuzzy
-#| msgid "Activity Field"
-msgid "Business Activity Fields"
-msgstr "Lĩnh Vực Hoạt Động"
+msgstr "Lĩnh Vực Kinh Doanh"
 
 #: .\business_registration\models.py:246
-#, fuzzy
-#| msgid "Contact Address"
+msgid "Lĩnh vực kinh doanh"
+msgstr "Lĩnh vực kinh doanh"
+
+#: .\business_registration\models.py:256
 msgid "Contact"
-msgstr "Địa Chỉ Liên Hệ"
+msgstr "Liên Hệ"
 
-#: .\business_registration\models.py:247
-#, fuzzy
-#| msgid "Contact Address"
-msgid "Contacts"
-msgstr "Địa Chỉ Liên Hệ"
+#: .\business_registration\models.py:257
+msgid "Liên hệ"
+msgstr "Liên hệ"
 
-#: .\business_registration\models.py:249
+#: .\business_registration\models.py:259
 msgid "Phone"
 msgstr "Số Điện Thoại"
 
-#: .\business_registration\models.py:250
+#: .\business_registration\models.py:260
 msgid "Email"
 msgstr "Email"
 
-#: .\business_registration\models.py:251
+#: .\business_registration\models.py:261
 msgid "Fax"
 msgstr "Fax"
 
-#: .\business_registration\models.py:260
-#, fuzzy
-#| msgid "Address"
-msgid "Addresses"
-msgstr "Địa Chỉ"
+#: .\business_registration\models.py:270
+msgid "Địa chỉ"
+msgstr "Địa chỉ"
 
-#: .\business_registration\models.py:262
-#, fuzzy
-#| msgid "Details"
+#: .\business_registration\models.py:272
 msgid "Detail"
 msgstr "Chi Tiết"
 
-#: .\business_registration\models.py:263 .\business_registration\models.py:306
-#: .\business_registration\models.py:331
+#: .\business_registration\models.py:273 .\business_registration\models.py:322
+#: .\business_registration\models.py:348
 msgid "Province"
 msgstr "Tỉnh"
 
-#: .\business_registration\models.py:264 .\business_registration\models.py:322
-#: .\business_registration\models.py:347
+#: .\business_registration\models.py:274 .\business_registration\models.py:339
+#: .\business_registration\models.py:365
 msgid "District"
 msgstr "Quận/Huyện"
 
-#: .\business_registration\models.py:265 .\business_registration\models.py:338
+#: .\business_registration\models.py:275 .\business_registration\models.py:356
 msgid "Ward"
 msgstr "Phường/Xã"
 
-#: .\business_registration\models.py:271
-#, fuzzy
-#| msgid "Business Code"
+#: .\business_registration\models.py:282
 msgid "Business Address"
 msgstr "Địa chỉ Doanh Nghiệp"
 
-#: .\business_registration\models.py:272
-#, fuzzy
-#| msgid "Business Code"
-msgid "Business Addresses"
-msgstr "Địa chỉ Doanh Nghiệp"
+#: .\business_registration\models.py:283
+msgid "Địa chỉ doanh nghiệp"
+msgstr "Địa chỉ doanh nghiệp"
 
-#: .\business_registration\models.py:279 .\business_registration\models.py:315
-#: .\business_registration\models.py:332 .\business_registration\models.py:348
+#: .\business_registration\models.py:293 .\business_registration\models.py:331
+#: .\business_registration\models.py:349 .\business_registration\models.py:366
 msgid "Administrative Unit"
 msgstr "Đơn Vị Hành Chính"
 
-#: .\business_registration\models.py:280
-#, fuzzy
-#| msgid "Administrative Unit"
+#: .\business_registration\models.py:294
 msgid "Administrative Units"
 msgstr "Đơn Vị Hành Chính"
 
-#: .\business_registration\models.py:282 .\business_registration\models.py:312
-#: .\business_registration\models.py:328 .\business_registration\models.py:344
+#: .\business_registration\models.py:296 .\business_registration\models.py:328
+#: .\business_registration\models.py:345 .\business_registration\models.py:362
 msgid "Full Name"
 msgstr "Tên Đầy Đủ"
 
-#: .\business_registration\models.py:283 .\business_registration\models.py:313
-#: .\business_registration\models.py:329 .\business_registration\models.py:345
+#: .\business_registration\models.py:297 .\business_registration\models.py:329
+#: .\business_registration\models.py:346 .\business_registration\models.py:363
 msgid "Full Name (English)"
 msgstr "Tên Đầy Đủ (Tiếng Anh)"
 
-#: .\business_registration\models.py:284
+#: .\business_registration\models.py:298
 msgid "Short Name"
 msgstr "Tên Ngắn"
 
-#: .\business_registration\models.py:285
+#: .\business_registration\models.py:299
 msgid "Short Name (English)"
 msgstr "Tên Ngắn (Tiếng Anh)"
 
-#: .\business_registration\models.py:286 .\business_registration\models.py:299
-#: .\business_registration\models.py:314 .\business_registration\models.py:330
-#: .\business_registration\models.py:346
-#, fuzzy
-#| msgid "Company Name"
+#: .\business_registration\models.py:300 .\business_registration\models.py:314
+#: .\business_registration\models.py:330 .\business_registration\models.py:347
+#: .\business_registration\models.py:364
 msgid "Code Name"
-msgstr "Tên Công Ty"
+msgstr "Tên Mã"
 
-#: .\business_registration\models.py:287 .\business_registration\models.py:300
+#: .\business_registration\models.py:301 .\business_registration\models.py:315
 msgid "Code Name (English)"
-msgstr "Mã vùng (Tiếng Anh)"
+msgstr "Tên Mã (Tiếng Anh)"
 
-#: .\business_registration\models.py:293 .\business_registration\models.py:316
+#: .\business_registration\models.py:308 .\business_registration\models.py:332
 msgid "Administrative Region"
 msgstr "Khu Vực Hành Chính"
 
-#: .\business_registration\models.py:294
-#, fuzzy
-#| msgid "Administrative Region"
+#: .\business_registration\models.py:309
 msgid "Administrative Regions"
-msgstr "Khu Vực Hành Chính"
+msgstr "Các Khu Vực Hành Chính"
 
-#: .\business_registration\models.py:298 .\business_registration\models.py:311
-#: .\business_registration\models.py:327 .\business_registration\models.py:343
+#: .\business_registration\models.py:313 .\business_registration\models.py:327
+#: .\business_registration\models.py:344 .\business_registration\models.py:361
 msgid "Name (English)"
 msgstr "Tên (Tiếng Anh)"
 
-#: .\business_registration\models.py:307
-#, fuzzy
-#| msgid "Province"
-msgid "Provinces"
-msgstr "Tỉnh"
-
 #: .\business_registration\models.py:323
-#, fuzzy
-#| msgid "District"
+msgid "Provinces"
+msgstr "Các Tỉnh"
+
+#: .\business_registration\models.py:340
 msgid "Districts"
-msgstr "Quận/Huyện"
+msgstr "Các Quận/Huyện"
 
-#: .\business_registration\models.py:339
-#, fuzzy
-#| msgid "Ward"
+#: .\business_registration\models.py:357
 msgid "Wards"
-msgstr "Phường/Xã"
+msgstr "Các Phường/Xã"
 
 #, fuzzy
-#~| msgid "Business Code"
+#~ msgid "Legal Representatives"
+#~ msgstr "Người Đại Diện Pháp Luật"
+
+#, fuzzy
+#~ msgid "Owners"
+#~ msgstr "Người Sở Hữu"
+
+#, fuzzy
+#~ msgid "Business Owners"
+#~ msgstr "Chủ Sở Hữu"
+
+#, fuzzy
+#~ msgid "Business Types"
+#~ msgstr "Các Loại Hình Doanh Nghiệp"
+
+#, fuzzy
+#~ msgid "Business Type Statuses"
+#~ msgstr "Trạng Thái Loại Hình Doanh Nghiệp"
+
+#, fuzzy
+#~ msgid "Business Process Steps"
+#~ msgstr "Các Bước Quy Trình"
+
+#, fuzzy
+#~ msgid "Industries"
+#~ msgstr "Ngành Nghề Kinh Doanh"
+
+#~ msgid "Activity Code"
+#~ msgstr "Mã Hoạt Động"
+
+#, fuzzy
+#~ msgid "Business Industries"
+#~ msgstr "Ngành Nghề Kinh Doanh"
+
+#, fuzzy
+#~ msgid "Activity Fields"
+#~ msgstr "Lĩnh Vực Hoạt Động"
+
+#, fuzzy
+#~ msgid "Business Activity Fields"
+#~ msgstr "Lĩnh Vực Kinh Doanh"
+
+#, fuzzy
+#~ msgid "Contacts"
+#~ msgstr "Liên Hệ"
+
+#, fuzzy
+#~ msgid "Addresses"
+#~ msgstr "Địa Chỉ"
+
+#, fuzzy
+#~ msgid "Business Addresses"
+#~ msgstr "Địa chỉ Doanh Nghiệp"
+
+#, fuzzy
 #~ msgid "Businesses"
 #~ msgstr "Doanh Nghiệp"
