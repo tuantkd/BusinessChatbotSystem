@@ -6,6 +6,7 @@ djangoenv/
 # C extensions
 *.so
 djangoenv/
+business_code.txt
 # Distribution / packaging
 .Python
 build/
