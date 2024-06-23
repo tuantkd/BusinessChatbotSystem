@@ -61,9 +61,13 @@ def get_address():
 
 def get_business():
     response = requests.get(BUSINESS_API)
-    if response.status_code != 200:
-        return []
-    return response.json()
+    if response.status_code == 200:
+        data_all = response.json()
+        for item in data_all:
+            if item["address"] == None:
+                item["address"] = ""
+        return data_all
+    return []
 
 def get_legalrepresentative():
     response = requests.get(LEGAL_REPRESENTATIVE_API)

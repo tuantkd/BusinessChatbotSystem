@@ -2,12 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
     <title>Tìm kiếm - Thống kê</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
-    <link rel="shortcut icon" sizes="48x48" href="{% static 'icon/map.png' %}"/>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css"/>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
+    <link
+      rel="shortcut icon"
+      sizes="48x48"
+      href="{% static 'icon/map.png' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.29/esri/themes/light/main.css"
+    />
+    <link
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
     <script src="https://js.arcgis.com/4.29/"></script>
   </head>
   <body>
@@ -16,27 +33,39 @@
         <div class="nav__logo">
           <h1 class="logo">Tìm kiếm, Thống kê doanh nghiệp</h1>
         </div>
-        <a href="http://127.0.0.1:8000/admin/business_registration/business/" class="btn btn--primary">Trang quản trị</a>
+        <a
+          href="http://127.0.0.1:8000/admin/business_registration/business/"
+          class="btn btn--primary"
+          >Trang quản trị</a
+        >
       </nav>
     </header>
 
     <div class="tabset">
       <!-- Tab 1 -->
-      <input type="radio" name="tabset" id="tab1" aria-controls="search" checked/>
+      <input
+        type="radio"
+        name="tabset"
+        id="tab1"
+        aria-controls="search"
+        checked
+      />
       <label for="tab1">
         <a href="http://127.0.0.1:8000/search-statistics/">Tìm kiếm</a>
       </label>
       <!-- /Tab 1 -->
 
       <!-- Tab 2 -->
-      <input type="radio" name="tabset"/>
+      <input type="radio" name="tabset" />
       <label for="tab2">
-        <a href="http://127.0.0.1:8000/search-statistics/statistical/">Thống kê</a>
+        <a href="http://127.0.0.1:8000/search-statistics/statistical/"
+          >Thống kê</a
+        >
       </label>
       <!-- /Tab 2 -->
 
       <!-- Tab 3 -->
-      <input type="radio" name="tabset"/>
+      <input type="radio" name="tabset" />
       <label for="tab3">
         <a href="http://127.0.0.1:8000/search-statistics/chart/">Biểu đồ</a>
       </label>
@@ -181,6 +210,33 @@
         });
       }
 
+      function contentMapView(filteredBusiness, busTypes, busTypeStatus, busIndustries) {
+        let contents = "";
+        if (filteredBusiness) {
+          const businessTypeObj = busTypes.find(item => item.id === filteredBusiness.business_type_id);
+          const businessTypeStatusObj = busTypeStatus.find(item => item.business_type === filteredBusiness.business_type_id);
+          const industryObj = busIndustries.find(item => item.id === filteredBusiness.main_industry_id);
+          if(businessTypeObj) {
+            contents += `<p><b>Loại doanh nghiệp</b>: ${businessTypeObj.type_description}</p>`;
+          }
+          if(businessTypeStatusObj) {
+            contents += `<p><b>Trạng thái</b>: ${businessTypeStatusObj.status_display_full}</p>`;
+          }
+          if(industryObj) {
+            contents += `<p><b>Ngành nghề chính</b>: ${industryObj.id}-${industryObj.activity_name}</p>`;
+          }
+          if (filteredBusiness.address !== "") {
+            contents += `<p><b>Địa chỉ</b>: ${filteredBusiness.address}</p>`;
+          }
+          if (filteredBusiness.longitude !== "0" && filteredBusiness.latitude !== "0") {
+            contents += `<p><b>Kinh độ</b>: ${filteredBusiness.longitude}, <b>Vĩ độ</b>: ${filteredBusiness.latitude}</p>`;
+          }
+        }
+        return contents;
+      }
+
+      // -----------------------------------------------------------
+      // Init variables
       var items = {{ items|safe }};
       localStorage.setItem("dataBusiness", JSON.stringify(items));
       console.log(items);
@@ -196,260 +252,386 @@
       const legalRepresentative = items.legalrepresentative;
       const district = items.district;
       const address = items.address;
+      // -----------------------------------------------------------
 
-      // Search gis map
+
       // ---------------------------------------------------------------
+      // Search business show information
       const businessFilters = businessAll.map(obj => obj.company_name);
       autocomplete(document.getElementById("myInput"), businessFilters);
       // ---------------------------------------------------------------
 
-      // ------------------------------------------------------------------------------------------------------------------
+      // ---------------------------------------------------------------
+      // Event click show business in maps
       document.addEventListener("DOMContentLoaded", function() {
         const inputField = document.getElementById("myInput");
         const button = document.getElementById("myButton");
         const closeBtn = document.getElementById("close-input");
         const outputDiv = document.getElementById("output");
+        // -------------------------------------------------------------
 
+        // -------------------------------------------------------------
         closeBtn.addEventListener("click", function() {
           inputField.value = "";
         });
+        // -------------------------------------------------------------
 
+        // -------------------------------------------------------------
         button.addEventListener("click", function() {
           const inputValue = inputField.value;
-          const businessObj = businessAll.find(item => item.company_name === inputValue);
-          debugger
-          const businessOwnerObj = businessOwner.find(item => item.business === businessObj.id);
-          var ownerObj = null;
-          if(businessOwnerObj){
-            ownerObj = owner.find(item => item.id === businessOwnerObj.owner);
-          }
 
-          const businessActivityFieldObj = businessActivityFields.find(item => item.business === businessObj.id);
-          var activityFieldObj = null;
-          if(businessActivityFieldObj){
-            activityFieldObj = activityFields.find(item => item.id === businessActivityFieldObj.activity_field);
-          }
+          if (inputValue !== "") {
+            const businessObj = businessAll.find(item => item.company_name === inputValue);
+            const businessOwnerObj = businessOwner.find(item => item.business === businessObj.id);
+            var ownerObj = null;
+            if(businessOwnerObj){
+              ownerObj = owner.find(item => item.id === businessOwnerObj.owner);
+            }
 
-          const contactsObj = contacts.find(item => item.business === businessObj.id);
-          const businessTypeObj = businessTypes.find(item => item.id === businessObj.business_type_id);
-          const businessTypeStatusObj = businessTypeStatus.find(item => item.business_type === businessObj.business_type_id);
-          const legalRepresentativeObj = legalRepresentative.find(item => item.id === businessObj.legal_representative_id);
-          const industryObj = industries.find(item => item.id === businessObj.main_industry_id);
-          outputDiv.innerHTML = '';
+            const businessActivityFieldObj = businessActivityFields.find(item => item.business === businessObj.id);
+            var activityFieldObj = null;
+            if(businessActivityFieldObj){
+              activityFieldObj = activityFields.find(item => item.id === businessActivityFieldObj.activity_field);
+            }
 
-          const h2NameBusiness = document.createElement("h2");
-          h2NameBusiness.textContent = `${businessObj.business_code}-${inputValue}`;
-          outputDiv.appendChild(h2NameBusiness);
+            const contactsObj = contacts.find(item => item.business === businessObj.id);
+            const businessTypeObj = businessTypes.find(item => item.id === businessObj.business_type_id);
+            const businessTypeStatusObj = businessTypeStatus.find(item => item.business_type === businessObj.business_type_id);
+            const legalRepresentativeObj = legalRepresentative.find(item => item.id === businessObj.legal_representative_id);
+            const industryObj = industries.find(item => item.id === businessObj.main_industry_id);
+            outputDiv.innerHTML = "";
 
-          const pAddress = document.createElement("p");
-          if (businessObj && businessObj.address !== "") {
-            pAddress.textContent = "Địa chỉ: " + businessObj.address;
-            outputDiv.appendChild(pAddress);
-          }
+            const h2NameBusiness = document.createElement("h2");
+            h2NameBusiness.textContent = `${businessObj.business_code}-${inputValue}`;
+            outputDiv.appendChild(h2NameBusiness);
 
-          const pCapital = document.createElement("p");
-          if (businessObj && businessObj.capital !== "") {
-            pCapital.textContent = "Vốn đầu tư: " + formatVND(businessObj.capital);
-            outputDiv.appendChild(pCapital);
-          }
+            const pAddress = document.createElement("p");
+            if (businessObj && businessObj.address !== "") {
+              pAddress.textContent = "Địa chỉ: " + businessObj.address;
+              outputDiv.appendChild(pAddress);
+            }
 
-          const pIssuedDate = document.createElement("p");
-          if (businessObj && businessObj.issued_date !== ""){
-            pIssuedDate.textContent = "Ngày thành lập: " + businessObj.issued_date;
-            outputDiv.appendChild(pIssuedDate);
-          }
+            const pCapital = document.createElement("p");
+            if (businessObj && businessObj.capital !== "") {
+              pCapital.textContent = "Vốn đầu tư: " + formatVND(businessObj.capital);
+              outputDiv.appendChild(pCapital);
+            }
 
-          const pTypeDescription = document.createElement("p");
-          if (businessTypeObj && businessTypeObj.type_description !== ""){
-            pTypeDescription.textContent = "Loại doanh nghiệp: " + businessTypeObj.type_description;
-            outputDiv.appendChild(pTypeDescription);
-          }
+            const pIssuedDate = document.createElement("p");
+            if (businessObj && businessObj.issued_date !== ""){
+              pIssuedDate.textContent = "Ngày thành lập: " + businessObj.issued_date;
+              outputDiv.appendChild(pIssuedDate);
+            }
 
-          const pTypeStatus = document.createElement("p");
-          if (businessTypeStatusObj){
-            pTypeStatus.textContent = "Trạng thái: " + businessTypeStatusObj.status_display_full;
-            outputDiv.appendChild(pTypeStatus);
-          }
+            const pTypeDescription = document.createElement("p");
+            if (businessTypeObj && businessTypeObj.type_description !== ""){
+              pTypeDescription.textContent = "Loại doanh nghiệp: " + businessTypeObj.type_description;
+              outputDiv.appendChild(pTypeDescription);
+            }
 
-          const pActivityName = document.createElement("p");
-          if(industryObj){
-            pActivityName.textContent = "Ngành nghề chính: " + industryObj.id + "-" + industryObj.activity_name;
-            outputDiv.appendChild(pActivityName);
-          }
+            const pTypeStatus = document.createElement("p");
+            if (businessTypeStatusObj){
+              pTypeStatus.textContent = "Trạng thái: " + businessTypeStatusObj.status_display_full;
+              outputDiv.appendChild(pTypeStatus);
+            }
 
-          const pActivityField = document.createElement("p");
-          if(activityFieldObj){
-            pActivityField.textContent = "Lĩnh vực kinh doanh: " + activityFieldObj.field_code + "-" + activityFieldObj.field_name;
-            outputDiv.appendChild(pActivityField);
-          }
+            const pActivityName = document.createElement("p");
+            if(industryObj){
+              pActivityName.textContent = "Ngành nghề chính: " + industryObj.id + "-" + industryObj.activity_name;
+              outputDiv.appendChild(pActivityName);
+            }
 
-          const pContacts = document.createElement("p");
-          const olElementContact = document.createElement("ol");
-          if (contactsObj) {
-            pContacts.textContent = "Liên hệ:";
-            outputDiv.appendChild(pContacts);
-            const liEmail = document.createElement("li");
-            liEmail.textContent = "Email: " + contactsObj.email;
-            const liPhone = document.createElement("li");
-            liPhone.textContent = "Điện thoại: " + contactsObj.phone;
-            const liFax = document.createElement("li");
-            liFax.textContent = "Fax: " + contactsObj.fax;
-            olElementContact.appendChild(liEmail);
-            olElementContact.appendChild(liPhone);
-            olElementContact.appendChild(liFax);
-            outputDiv.appendChild(olElementContact);
-          }
-          
-          const pOwner = document.createElement("p");
-          const ulElementOwner = document.createElement("ul");
-          if (ownerObj) {
-            pOwner.textContent = "Chủ sở hữu:";
-            outputDiv.appendChild(pOwner);
-            const liName = document.createElement("li");
-            liName.textContent = "Họ tên: " + ownerObj.name;
-            const liGender = document.createElement("li");
-            liGender.textContent = "Giới tính: " + ownerObj.gender;
-            const liDob = document.createElement("li");
-            liDob.textContent = "Ngày sinh: " + ownerObj.dob;
-            const liEthnicity = document.createElement("li");
-            liEthnicity.textContent = "Dân tộc: " + ownerObj.ethnicity;
-            const liNationality = document.createElement("li");
-            liNationality.textContent = "Quốc tịch: " + ownerObj.nationality;
-            const liIDType = document.createElement("li");
-            liIDType.textContent = "Giấy tùy thân: " + ownerObj.id_type;
-            const liIDNumber = document.createElement("li");
-            liIDNumber.textContent = "Số: " + ownerObj.id_number;
-            const liIDIssuanceDate = document.createElement("li");
-            liIDIssuanceDate.textContent = "Ngày cấp: " + ownerObj.id_issuance_date;
-            const liIDIssuancePlace = document.createElement("li");
-            liIDIssuancePlace.textContent = "Nơi cấp: " + ownerObj.id_issuance_place;
-            const liResidenceAddress = document.createElement("li");
-            liResidenceAddress.textContent = "Địa chỉ cư trú: " + ownerObj.residence_address;
-            const liContactAddress = document.createElement("li");
-            liContactAddress.textContent = "Địa chỉ liên lạc: " + ownerObj.contact_address;
-            ulElementOwner.appendChild(liName);
-            ulElementOwner.appendChild(liGender);
-            ulElementOwner.appendChild(liDob);
-            ulElementOwner.appendChild(liEthnicity);
-            ulElementOwner.appendChild(liNationality);
-            ulElementOwner.appendChild(liIDType);
-            ulElementOwner.appendChild(liIDNumber);
-            ulElementOwner.appendChild(liIDIssuanceDate);
-            ulElementOwner.appendChild(liIDIssuancePlace);
-            ulElementOwner.appendChild(liResidenceAddress);
-            ulElementOwner.appendChild(liContactAddress);
-            outputDiv.appendChild(ulElementOwner);
-          }
-          
-          const pLegalRepresentative = document.createElement("p");
-          const ulElement = document.createElement("ul");
-          if(legalRepresentativeObj){
-            pLegalRepresentative.textContent = "Người đại diện pháp lý:";
-            outputDiv.appendChild(pLegalRepresentative);
-            const liName = document.createElement("li");
-            liName.textContent = "Họ tên: " + legalRepresentativeObj.name;
-            const liPosition = document.createElement("li");
-            liPosition.textContent = "Chức vụ: " + legalRepresentativeObj.position;
-            const liContactAddress = document.createElement("li");
-            liContactAddress.textContent = "Địa chỉ liên lạc: " + legalRepresentativeObj.contact_address;
-            const liDob = document.createElement("li");
-            liDob.textContent = "Ngày sinh: " + legalRepresentativeObj.dob;
-            const liEthnicity = document.createElement("li");
-            liEthnicity.textContent = "Dân tộc: " + legalRepresentativeObj.ethnicity;
-            const liGender = document.createElement("li");
-            liGender.textContent = "Giới tính: " + legalRepresentativeObj.gender;
-            const liIssuanceDate = document.createElement("li");
-            liIssuanceDate.textContent = "Ngày cấp: " + legalRepresentativeObj.id_issuance_date;
-            const liIssuanceplace = document.createElement("li");
-            liIssuanceplace.textContent = "Nơi cấp: " + legalRepresentativeObj.id_issuance_place;
-            const liNumber = document.createElement("li");
-            liNumber.textContent = "Mã số: " + legalRepresentativeObj.id_number;
-            const liType = document.createElement("li");
-            liType.textContent = "Giấy phép: " + legalRepresentativeObj.id_type;
-            const liNationality = document.createElement("li");
-            liNationality.textContent = "Quốc tịch: " + legalRepresentativeObj.nationality;
-            const liResidenceAddress = document.createElement("li");
-            liResidenceAddress.textContent = "Địa chỉ cư trú: " + legalRepresentativeObj.residence_address;
-            ulElement.appendChild(liName);
-            ulElement.appendChild(liPosition);
-            ulElement.appendChild(liContactAddress);
-            ulElement.appendChild(liDob);
-            ulElement.appendChild(liEthnicity);
-            ulElement.appendChild(liGender);
-            ulElement.appendChild(liIssuanceDate);
-            ulElement.appendChild(liIssuanceplace);
-            ulElement.appendChild(liNumber);
-            ulElement.appendChild(liType);
-            ulElement.appendChild(liNationality);
-            ulElement.appendChild(liResidenceAddress);
-            outputDiv.appendChild(ulElement);
-          }
+            const pActivityField = document.createElement("p");
+            if(activityFieldObj){
+              pActivityField.textContent = "Lĩnh vực kinh doanh: " + activityFieldObj.field_code + "-" + activityFieldObj.field_name;
+              outputDiv.appendChild(pActivityField);
+            }
 
-          require([
-            "esri/config",
-            "esri/Map",
-            "esri/views/MapView",
-            "esri/Graphic",
-            "esri/PopupTemplate",
-            "esri/widgets/Popup",
-          ], function (esriConfig, Map, MapView, Graphic, PopupTemplate) {
-            esriConfig.apiKey =
-              "AAPK8e60139ca8174a0daaeb2819e88c33d52MZ7rrmtyYuTBEqFpTABF6YUrXY2Zej4NvjJAtQogZR2f8Hk2z59TBbwaXGnjoNt";
+            const pContacts = document.createElement("p");
+            const olElementContact = document.createElement("ol");
+            if (contactsObj) {
+              pContacts.textContent = "Liên hệ:";
+              outputDiv.appendChild(pContacts);
+              const liEmail = document.createElement("li");
+              liEmail.textContent = "Email: " + contactsObj.email;
+              const liPhone = document.createElement("li");
+              liPhone.textContent = "Điện thoại: " + contactsObj.phone;
+              const liFax = document.createElement("li");
+              liFax.textContent = "Fax: " + contactsObj.fax;
+              olElementContact.appendChild(liEmail);
+              olElementContact.appendChild(liPhone);
+              olElementContact.appendChild(liFax);
+              outputDiv.appendChild(olElementContact);
+            }
 
-            const map = new Map({
-              basemap: "arcgis/navigation",
+            const pOwner = document.createElement("p");
+            const ulElementOwner = document.createElement("ul");
+            if (ownerObj) {
+              pOwner.textContent = "Chủ sở hữu:";
+              outputDiv.appendChild(pOwner);
+              const liName = document.createElement("li");
+              liName.textContent = "Họ tên: " + ownerObj.name;
+              const liGender = document.createElement("li");
+              liGender.textContent = "Giới tính: " + ownerObj.gender;
+              const liDob = document.createElement("li");
+              liDob.textContent = "Ngày sinh: " + ownerObj.dob;
+              const liEthnicity = document.createElement("li");
+              liEthnicity.textContent = "Dân tộc: " + ownerObj.ethnicity;
+              const liNationality = document.createElement("li");
+              liNationality.textContent = "Quốc tịch: " + ownerObj.nationality;
+              const liIDType = document.createElement("li");
+              liIDType.textContent = "Giấy tùy thân: " + ownerObj.id_type;
+              const liIDNumber = document.createElement("li");
+              liIDNumber.textContent = "Số: " + ownerObj.id_number;
+              const liIDIssuanceDate = document.createElement("li");
+              liIDIssuanceDate.textContent = "Ngày cấp: " + ownerObj.id_issuance_date;
+              const liIDIssuancePlace = document.createElement("li");
+              liIDIssuancePlace.textContent = "Nơi cấp: " + ownerObj.id_issuance_place;
+              const liResidenceAddress = document.createElement("li");
+              liResidenceAddress.textContent = "Địa chỉ cư trú: " + ownerObj.residence_address;
+              const liContactAddress = document.createElement("li");
+              liContactAddress.textContent = "Địa chỉ liên lạc: " + ownerObj.contact_address;
+              ulElementOwner.appendChild(liName);
+              ulElementOwner.appendChild(liGender);
+              ulElementOwner.appendChild(liDob);
+              ulElementOwner.appendChild(liEthnicity);
+              ulElementOwner.appendChild(liNationality);
+              ulElementOwner.appendChild(liIDType);
+              ulElementOwner.appendChild(liIDNumber);
+              ulElementOwner.appendChild(liIDIssuanceDate);
+              ulElementOwner.appendChild(liIDIssuancePlace);
+              ulElementOwner.appendChild(liResidenceAddress);
+              ulElementOwner.appendChild(liContactAddress);
+              outputDiv.appendChild(ulElementOwner);
+            }
+
+            const pLegalRepresentative = document.createElement("p");
+            const ulElement = document.createElement("ul");
+            if(legalRepresentativeObj){
+              pLegalRepresentative.textContent = "Người đại diện pháp lý:";
+              outputDiv.appendChild(pLegalRepresentative);
+              const liName = document.createElement("li");
+              liName.textContent = "Họ tên: " + legalRepresentativeObj.name;
+              const liPosition = document.createElement("li");
+              liPosition.textContent = "Chức vụ: " + legalRepresentativeObj.position;
+              const liContactAddress = document.createElement("li");
+              liContactAddress.textContent = "Địa chỉ liên lạc: " + legalRepresentativeObj.contact_address;
+              const liDob = document.createElement("li");
+              liDob.textContent = "Ngày sinh: " + legalRepresentativeObj.dob;
+              const liEthnicity = document.createElement("li");
+              liEthnicity.textContent = "Dân tộc: " + legalRepresentativeObj.ethnicity;
+              const liGender = document.createElement("li");
+              liGender.textContent = "Giới tính: " + legalRepresentativeObj.gender;
+              const liIssuanceDate = document.createElement("li");
+              liIssuanceDate.textContent = "Ngày cấp: " + legalRepresentativeObj.id_issuance_date;
+              const liIssuanceplace = document.createElement("li");
+              liIssuanceplace.textContent = "Nơi cấp: " + legalRepresentativeObj.id_issuance_place;
+              const liNumber = document.createElement("li");
+              liNumber.textContent = "Mã số: " + legalRepresentativeObj.id_number;
+              const liType = document.createElement("li");
+              liType.textContent = "Giấy phép: " + legalRepresentativeObj.id_type;
+              const liNationality = document.createElement("li");
+              liNationality.textContent = "Quốc tịch: " + legalRepresentativeObj.nationality;
+              const liResidenceAddress = document.createElement("li");
+              liResidenceAddress.textContent = "Địa chỉ cư trú: " + legalRepresentativeObj.residence_address;
+              ulElement.appendChild(liName);
+              ulElement.appendChild(liPosition);
+              ulElement.appendChild(liContactAddress);
+              ulElement.appendChild(liDob);
+              ulElement.appendChild(liEthnicity);
+              ulElement.appendChild(liGender);
+              ulElement.appendChild(liIssuanceDate);
+              ulElement.appendChild(liIssuanceplace);
+              ulElement.appendChild(liNumber);
+              ulElement.appendChild(liType);
+              ulElement.appendChild(liNationality);
+              ulElement.appendChild(liResidenceAddress);
+              outputDiv.appendChild(ulElement);
+            }
+            // -------------------------------------------------------------
+
+            // -------------------------------------------------------------
+            const filteredBusiness = businessAll.filter(business => {
+              return (business.headquarters_address_id === businessObj.headquarters_address_id ||
+              (business.status === businessObj.status && business.business_type_id === businessObj.business_type_id) ||
+              business.main_industry_id === businessObj.main_industry_id);
             });
+            // -------------------------------------------------------------
 
-            var view = new MapView({
-              container: "viewDiv",
-              map: map,
-              center: [105.1524, 9.1762],
-              zoom: 12,
-            });
+            // -------------------------------------------------------------
+            require([
+              "esri/config",
+              "esri/Map",
+              "esri/views/MapView",
+              "esri/Graphic",
+              "esri/PopupTemplate",
+              "esri/widgets/Popup",
+            ], function (esriConfig, Map, MapView, Graphic, PopupTemplate) {
+              esriConfig.apiKey =
+                "AAPK8e60139ca8174a0daaeb2819e88c33d52MZ7rrmtyYuTBEqFpTABF6YUrXY2Zej4NvjJAtQogZR2f8Hk2z59TBbwaXGnjoNt";
 
-            var graphic = new Graphic({
-              geometry: {
-                type: "point",
-                longitude: businessObj.longitude,
-                latitude: businessObj.latitude,
-              },
-              symbol: {
-                type: "picture-marker",
-                url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
-                width: "40px",
-                height: "40px",
-                outline: {
-                  color: "#ffffff",
-                  width: "30px",
-                },
-              },
-              popupTemplate: new PopupTemplate({
-                title: businessObj.company_name,
-                content:
-                  "<p>" + businessObj.address + "</p>" +
-                  "<p>Kinh độ: " + businessObj.longitude +
-                  ", Vĩ độ: " + businessObj.latitude + "</p>",
-              }),
-            });
-
-            view.graphics.add(graphic);
-
-            view.when(function(event) {
-              view.center = [businessObj.longitude, businessObj.latitude];
-              view.openPopup({
-                title: graphic.popupTemplate.title,
-                content: graphic.popupTemplate.content,
-                location: graphic.geometry,
+              const map = new Map({
+                basemap: "arcgis/navigation",
               });
+
+              var view = new MapView({
+                container: "viewDiv",
+                map: map,
+                center: [105.1524, 9.1762],
+                zoom: 14,
+              });
+
+              // -------------------------------------------------------------
+              for (let i = 0; i < filteredBusiness.length; i++) {
+                if (filteredBusiness[i].id !== businessObj.id) {
+                  let contents = contentMapView(filteredBusiness[i], businessTypes, businessTypeStatus, industries);
+                  view.graphics.add(
+                    new Graphic({
+                      geometry: {
+                        type: "point",
+                        longitude: filteredBusiness[i].longitude,
+                        latitude: filteredBusiness[i].latitude,
+                      },
+                      symbol: {
+                        type: "picture-marker",
+                        url: "http://127.0.0.1:8000/static/icon/biss.png",
+                        width: "35px",
+                        height: "35px",
+                        outline: {
+                          color: "#ffffff",
+                          width: "30px",
+                        },
+                      },
+                      popupTemplate: new PopupTemplate({
+                        title: filteredBusiness[i].company_name,
+                        content: contents,
+                      }),
+                    })
+                  );
+                }
+              }
+              // -------------------------------------------------------------
+
+              // -------------------------------------------------------------
+              let contents = contentMapView(businessObj, businessTypes, businessTypeStatus, industries);
+              var graphic = new Graphic({
+                geometry: {
+                  type: "point",
+                  longitude: businessObj.longitude,
+                  latitude: businessObj.latitude,
+                },
+                symbol: {
+                  type: "picture-marker",
+                  url: "http://127.0.0.1:8000/static/icon/biss.png",
+                  width: "35px",
+                  height: "35px",
+                  outline: {
+                    color: "#ffffff",
+                    width: "30px",
+                  },
+                },
+                popupTemplate: new PopupTemplate({
+                  title: businessObj.company_name,
+                  content: contents,
+                }),
+              });
+              view.graphics.add(graphic);
+              view.when(function(event) {
+                view.center = [businessObj.longitude, businessObj.latitude];
+                view.openPopup({
+                  title: graphic.popupTemplate.title,
+                  content: graphic.popupTemplate.content,
+                  location: graphic.geometry,
+                });
+              });
+              // -------------------------------------------------------------
             });
+            // -------------------------------------------------------------
 
-          });
+          } else {
 
+            // -------------------------------------------------------------
+            require([
+              "esri/config",
+              "esri/Map",
+              "esri/views/MapView",
+              "esri/Graphic",
+              "esri/PopupTemplate",
+              "esri/widgets/Popup",
+            ], function (esriConfig, Map, MapView, Graphic, PopupTemplate) {
+              esriConfig.apiKey =
+                "AAPK8e60139ca8174a0daaeb2819e88c33d52MZ7rrmtyYuTBEqFpTABF6YUrXY2Zej4NvjJAtQogZR2f8Hk2z59TBbwaXGnjoNt";
+
+              // Create a new map instance
+              const map = new Map({
+                basemap: "arcgis/navigation",
+              });
+
+              // Create a new MapView instance
+              var view = new MapView({
+                container: "viewDiv",
+                map: map,
+                center: [105.1524, 9.1762],
+                zoom: 14,
+              });
+
+              for (let i = 0; i < businessAll.length; i++) {
+                if (businessAll[i].longitude !== "0" && businessAll[i].latitude !== "0") {
+                  const businessTypeObj = businessTypes.find(item => item.id === businessAll[i].business_type_id);
+                  const businessTypeStatusObj = businessTypeStatus.find(item => item.business_type === businessAll[i].business_type_id);
+                  const industryObj = industries.find(item => item.id === businessAll[i].main_industry_id);
+                  let contents = "";
+                  if(businessTypeObj) {
+                    contents += `<p><b>Loại doanh nghiệp</b>: ${businessTypeObj.type_description}</p>`;
+                  }
+                  if(businessTypeStatusObj) {
+                    contents += `<p><b>Trạng thái</b>: ${businessTypeStatusObj.status_display_full}</p>`;
+                  }
+                  if(industryObj) {
+                    contents += `<p><b>Ngành nghề chính</b>: ${industryObj.id}-${industryObj.activity_name}</p>`;
+                  }
+                  if (businessAll[i].address !== "") {
+                    contents += `<p><b>Địa chỉ</b>: ${businessAll[i].address}</p>`;
+                  }
+                  if (businessAll[i].longitude !== "0" && businessAll[i].latitude !== "0") {
+                    contents += `<p><b>Kinh độ</b>: ${businessAll[i].longitude}, <b>Vĩ độ</b>: ${businessAll[i].latitude}</p>`;
+                  }
+                  view.graphics.add(
+                    new Graphic({
+                      geometry: {
+                        type: "point",
+                        longitude: businessAll[i].longitude,
+                        latitude: businessAll[i].latitude,
+                      },
+                      symbol: {
+                        type: "picture-marker",
+                        url: "http://127.0.0.1:8000/static/icon/biss.png",
+                        width: "35px",
+                        height: "35px",
+                        outline: {
+                          color: "#ffffff",
+                          width: "30px",
+                        },
+                      },
+                      popupTemplate: new PopupTemplate({
+                        title: businessAll[i].company_name,
+                        content: contents,
+                      }),
+                    })
+                  );
+                }
+              }
+            });
+            // -------------------------------------------------------------
+          }
+          // -------------------------------------------------------------
         });
+        // -------------------------------------------------------------
       });
-      // ------------------------------------------------------------------------------------------------------------------
+      // -------------------------------------------------------------
 
-      // --------------------------------------------------------------------------------------------------
+      // -------------------------------------------------------------
+      // Init show all maps business
       require([
         "esri/config",
         "esri/Map",
@@ -471,38 +653,57 @@
           container: "viewDiv",
           map: map,
           center: [105.1524, 9.1762],
-          zoom: 5,
+          zoom: 14,
         });
 
         for (let i = 0; i < businessAll.length; i++) {
-          view.graphics.add(
-            new Graphic({
-              geometry: {
-                type: "point",
-                longitude: businessAll[i].longitude,
-                latitude: businessAll[i].latitude,
-              },
-              symbol: {
-                type: "picture-marker",
-                url: "https://ucarecdn.com/675e6d29-8419-4a98-b925-f5d54e52420a/11469623821639569239512.png",
-                width: "40px",
-                height: "40px",
-                outline: {
-                  color: "#ffffff",
-                  width: "30px",
+          if (businessAll[i].longitude !== "0" && businessAll[i].latitude !== "0") {
+            const businessTypeObj = businessTypes.find(item => item.id === businessAll[i].business_type_id);
+            const businessTypeStatusObj = businessTypeStatus.find(item => item.business_type === businessAll[i].business_type_id);
+            const industryObj = industries.find(item => item.id === businessAll[i].main_industry_id);
+            let contents = "";
+            if(businessTypeObj) {
+              contents += `<p><b>Loại doanh nghiệp</b>: ${businessTypeObj.type_description}</p>`;
+            }
+            if(businessTypeStatusObj) {
+              contents += `<p><b>Trạng thái</b>: ${businessTypeStatusObj.status_display_full}</p>`;
+            }
+            if(industryObj) {
+              contents += `<p><b>Ngành nghề chính</b>: ${industryObj.id}-${industryObj.activity_name}</p>`;
+            }
+            if (businessAll[i].address !== "") {
+              contents += `<p><b>Địa chỉ</b>: ${businessAll[i].address}</p>`;
+            }
+            if (businessAll[i].longitude !== "0" && businessAll[i].latitude !== "0") {
+              contents += `<p><b>Kinh độ</b>: ${businessAll[i].longitude}, <b>Vĩ độ</b>: ${businessAll[i].latitude}</p>`;
+            }
+            view.graphics.add(
+              new Graphic({
+                geometry: {
+                  type: "point",
+                  longitude: businessAll[i].longitude,
+                  latitude: businessAll[i].latitude,
                 },
-              },
-              popupTemplate: new PopupTemplate({
-                title: businessAll[i].company_name,
-                content:
-                  "<p>" + businessAll[i].address + "</p>" +
-                  "<p>Kinh độ: " + businessAll[i].longitude + ", Vĩ độ: " + businessAll[i].latitude + "</p>",
-              }),
-            })
-          );
+                symbol: {
+                  type: "picture-marker",
+                  url: "http://127.0.0.1:8000/static/icon/biss.png",
+                  width: "35px",
+                  height: "35px",
+                  outline: {
+                    color: "#ffffff",
+                    width: "30px",
+                  },
+                },
+                popupTemplate: new PopupTemplate({
+                  title: businessAll[i].company_name,
+                  content: contents,
+                }),
+              })
+            );
+          }
         }
       });
-      // --------------------------------------------------------------------------------------------------
+       // -------------------------------------------------------------
     </script>
   </body>
 </html>
